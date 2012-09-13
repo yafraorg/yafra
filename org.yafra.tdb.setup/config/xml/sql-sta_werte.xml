@@ -1,0 +1,18 @@
+<Import>
+	<Row>
+		<STA_ID>-1</STA_ID>
+		<ABK>-</ABK>
+		<STA>-</STA>
+		<BEZ_ID>-1</BEZ_ID>
+		<KOND>-1.0</KOND>
+		<TYP>-1</TYP>
+	</Row>
+	<Row>
+		<STA_ID>-1</STA_ID>
+		<ABK>n/a</ABK>
+		<STA>n/a</STA>
+		<BEZ_ID>-1</BEZ_ID>
+		<KOND>-1.0</KOND>
+		<TYP>1119</TYP>
+	</Row>
+</Import>

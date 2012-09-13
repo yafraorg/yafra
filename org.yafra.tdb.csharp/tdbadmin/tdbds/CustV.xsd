@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="CustV" targetNamespace="http://tempuri.org/CustV.xsd" elementFormDefault="qualified"
+	attributeFormDefault="qualified" xmlns="http://tempuri.org/CustV.xsd" xmlns:mstns="http://tempuri.org/CustV.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="CustV" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="tdbv_cust">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PERS_ID" type="xs:int" />
+							<xs:element name="NAME" type="xs:string" />
+							<xs:element name="S_ID" type="xs:int" />
+							<xs:element name="STA_ID" type="xs:int" minOccurs="0" />
+							<xs:element name="TEXTID" type="xs:int" minOccurs="0" />
+							<xs:element name="CUSTTYPEID" type="xs:int" />
+							<xs:element name="TEL" type="xs:string" minOccurs="0" />
+							<xs:element name="HANDY" type="xs:string" minOccurs="0" />
+							<xs:element name="FAX" type="xs:string" minOccurs="0" />
+							<xs:element name="TLX" type="xs:string" minOccurs="0" />
+							<xs:element name="EMAIL" type="xs:string" minOccurs="0" />
+							<xs:element name="WEB" type="xs:string" minOccurs="0" />
+							<xs:element name="ACCOUNT" type="xs:string" minOccurs="0" />
+							<xs:element name="MANAGER" type="xs:int" minOccurs="0" />
+							<xs:element name="ATTR1" type="xs:string" minOccurs="0" />
+							<xs:element name="ATTR2" type="xs:string" minOccurs="0" />
+							<xs:element name="CURID" type="xs:int" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

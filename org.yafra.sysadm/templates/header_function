@@ -1,0 +1,18 @@
+
+/*************************************************************
+ * short description of yyy
+ *
+ * full description of yyy
+ * you can use more lines
+ *
+ * returns     int as error code
+ * 
+ * library:    lib
+ *
+ * author:     xx
+ **************************************************************/
+int yyy(int a, /* test flag a */
+		int b   /* test flag b */)
+{
+	return(0);
+}

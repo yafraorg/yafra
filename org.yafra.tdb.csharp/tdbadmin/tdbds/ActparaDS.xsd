@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="ActparaDS" targetNamespace="http://tempuri.org/ActparaDS.xsd" elementFormDefault="qualified"
+	attributeFormDefault="qualified" xmlns="http://tempuri.org/ActparaDS.xsd" xmlns:mstns="http://tempuri.org/ActparaDS.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="ActparaDS" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="aktionspara">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="A_TYP_ID" type="xs:int" />
+							<xs:element name="NR" type="xs:int" />
+							<xs:element name="TYP" type="xs:int" minOccurs="0" />
+							<xs:element name="BEZ" type="xs:string" />
+							<xs:element name="MUSS" type="xs:int" minOccurs="0" />
+							<xs:element name="FLAG" type="xs:int" minOccurs="0" />
+							<xs:element name="TEXTID" type="xs:int" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+		<xs:unique name="ActparaDSKey1" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:aktionspara" />
+			<xs:field xpath="mstns:A_TYP_ID" />
+			<xs:field xpath="mstns:NR" />
+		</xs:unique>
+	</xs:element>
+</xs:schema>

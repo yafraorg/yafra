@@ -1,0 +1,6 @@
+/SUBSYSTEM:console
+/NODEFAULTLIB
+d:\work\libs\pssys.lib
+nutc.lib
+kernel32.lib
+advapi32.lib

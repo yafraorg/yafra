@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Eclipse GWT
+GenericName=Eclipse
+X-GNOME-FullName=Eclipse GWT IDE
+Comment=Eclipse GWT
+Type=Application
+Categories=Application;Development;GWT;IDE;Programming
+Exec=/work/eclipse/eclipse-gwt/eclipse
+TryExec=/work/eclipse/eclipse-gwt/eclipse
+Terminal=false
+StartupNotify=true
+Icon=/work/eclipse/eclipse-gwt/icon.xpm

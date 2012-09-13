@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: 1.0 (org.yafra - www.yafra.org)
+Class-Path: 
+

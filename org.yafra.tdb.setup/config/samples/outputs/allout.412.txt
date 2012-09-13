@@ -1,0 +1,6 @@
+./OUTticket -t 5 -D -c 412 > tic.412.new
+./OUTvoucher -t 7 -D -c 412 > vou.412.new
+./OUTprogram -t 8 -D -c 412 > prg.412.new
+./OUTpassagier -t 6 -D -c 412 > pax.412.new
+./OUTfaktura -t 9 -D -c 412 >fak.412.new 2>grp.412.new
+./OUTauftrag -t 9 -D -c 412 >auf.412.new

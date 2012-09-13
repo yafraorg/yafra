@@ -1,0 +1,163 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PISO GUIDE REPOSITORY: SYS</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#C0C0FF" LINK="#0000FF" VLINK="#800080" ALINK="#FF0080">
+
+<H2>
+PISO GUIDE REPOSITORY: SYS</H2>
+
+<H4>
+Kurzbeschreibung</H4>
+Folgende Funktionen sind beinhaltet:
+<UL>
+<LI>
+<A HREF="/cgi-bin/man.cgi?section=3&topic=PSSYSalloc">PSSYSalloc()</A></LI>
+
+<LI>
+<A HREF="/cgi-bin/man.cgi?section=3&topic=PSSYSfree">PSSYSfree()</A></LI>
+
+<LI>
+<A HREF="/cgi-bin/man.cgi?section=3&topic=PSSYSexecute">PSSYSexecute()</A></LI>
+</UL>
+F&uuml;r Windows NT sind folgende libs zu linken:
+<UL>
+<LI>
+/SUBSYSTEM:windows</LI>
+
+<LI>
+pssys.lib</LI>
+
+<LI>
+advapi32.lib</LI>
+
+<LI>
+user32.lib</LI>
+</UL>
+Und unter 95 nur:
+<UL>
+<LI>
+/SUBSYSTEM:windows</LI>
+
+<LI>
+pssys.lib</LI>
+
+<LI>
+user32.lib</LI>
+</UL>
+
+<H4>
+Offene Punkte</H4>
+
+<UL>
+<LI>
+Probleme mit "default" registry eintraege - achtung german NT heisst anders</LI>
+
+<LI>
+config.c und wintools.c fertigstellen</LI>
+
+<LI>
+inettools.c auf wintools.c fuer Windows benutzen</LI>
+</UL>
+
+<H4>
+Versions&uuml;bersicht</H4>
+
+<PRE>19.07.95 mw&nbsp; Version 1.0 erstellt
+11.06.97 mw&nbsp; Version 2.0t erstellt
+01.09.98 mw&nbsp; Version 2.01 erstellt / NT system command ohne start</PRE>
+
+<H4>
+Portabilit&auml;t</H4>
+
+<TABLE BORDER >
+<TR>
+<TH>OSTYP</TH>
+
+<TH>OS Name</TH>
+
+<TH>Unterst&uuml;tzt ?</TH>
+</TR>
+
+<TR>
+<TD>ps_unix</TD>
+
+<TD>ps_hpux</TD>
+
+<TD>JA (mw)</TD>
+</TR>
+
+<TR>
+<TD>ps_unix</TD>
+
+<TD>ps_linux</TD>
+
+<TD>JA (mw)</TD>
+</TR>
+
+<TR>
+<TD>ps_unix</TD>
+
+<TD>ps_solaris</TD>
+
+<TD>NEIN</TD>
+</TR>
+
+<TR>
+<TD>ps_unix</TD>
+
+<TD>ps_aix</TD>
+
+<TD>NEIN</TD>
+</TR>
+
+<TR>
+<TD>ps_unix</TD>
+
+<TD>ps_ultrix</TD>
+
+<TD>NEIN</TD>
+</TR>
+
+<TR>
+<TD>ps_win</TD>
+
+<TD>ps_winnt</TD>
+
+<TD>JA (mw)</TD>
+</TR>
+
+<TR>
+<TD>ps_win</TD>
+
+<TD>ps_win95</TD>
+
+<TD>JA (mw)</TD>
+</TR>
+
+<TR>
+<TD>ps_win</TD>
+
+<TD>ps_win31</TD>
+
+<TD>NEIN</TD>
+</TR>
+
+<TR>
+<TD>ps_win</TD>
+
+<TD>ps_dos</TD>
+
+<TD>NEIN</TD>
+</TR>
+</TABLE>
+
+<HR>
+<ADDRESS>
+author: Administrator &copy; Yafra.org, Switzerland</ADDRESS>
+
+<BR>version: $Header: /yafraorg/cvsroot/foundation/ansic/libs/pssys/index.html,v 1.1.1.1 2002-10-26 20:49:54 mwn Exp $
+</BODY>
+</HTML>

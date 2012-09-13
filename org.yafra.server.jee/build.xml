@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<!-- ant script for:  org.yafra apache wicket client through directclient -->
+<!-- project name:    org.yafra.wicket -->
+<!-- author:          yafra info@yafra.org -->
+<!-- source control:  svn sf.net -->
+<!-- @author Last checkin by $Author: mwn $ on $Date: 2009-12-02 12:36:55 $ -->
+<!-- Current revision $Revision: 1.1 $, tag $Name:  $ -->
+<project basedir="." default="buildwar" name="org.yafra.server.jee">
+
+	<!-- workdir on unix /work  windows G:/work   /> -->
+	<!-- wsdir on unix /home/mwn/workspace  windows G:/work/workspace   /> -->
+	<condition property="drive" value="C:/" else="/">
+		<os family="windows" />
+	</condition>
+	 
+	<property environment="env"/>
+	<property name="projname" value="org.yafra.server.jee" />
+
+	<!-- toplevel settings - please update -->
+	<property name="yafraver" value="${env.YAFRAVER}" />
+	<property name="yafrarel" value="${env.YAFRAREL}" />
+	<property name="workdir" value="${drive}work" />
+	<property name="wsdir" value="${env.JAVANODE}" />
+
+	<!-- toplevel directories -->
+	<property name="prg.dir" value="${wsdir}/${projname}" />
+	<property name="prg.src" value="${prg.dir}/src" />
+	<property name="build.dir" value="${env.WORKNODE}/java/${projname}" />
+	<property name="deploy.dir" value="${workdir}/classes" />
+	<property name="cp.dir" value="${workdir}/classes" />
+
+	<!-- WAR specific directories/files -->
+	<property name="temp.dir" value="${build.dir}" />
+	<property name="temp.rt" value="${temp.dir}/buildwar" />
+	<property name="temp.war" value="${temp.dir}/tmpwar" />
+	<property name="temp.lib" value="${temp.dir}/libs" />
+	<property name="temp.cla" value="${temp.dir}/classes" />
+	<property name="package.file" value="${cp.dir}/${projname}.war" />
+	
+	<property name="debuglevel" value="source,lines,vars"/>
+	<property name="target" value="1.6"/>
+	<property name="source" value="1.6"/>
+	<filelist id="depjars" dir="${cp.dir}">
+		<file name="${cp.dir}/mysql-connector-java-5.1.21-bin.jar"/>
+		<file name="${cp.dir}/derbyclient.jar"/>
+		<!-- <file name="${cp.dir}/mysql-connector-java-5.1.21-bin.jar"/>  -->
+		<!-- <file name="${cp.dir}/derbyclient.jar"/>  -->
+		<!-- <file name="${cp.dir}/sqljdbc4.jar"/>  -->
+		<!-- <file name="${cp.dir}/ojdbc6.jar"/> -->
+		<file name="${cp.dir}/cayenne-server-3.0.2.jar" />
+		<file name="${cp.dir}/ashwood-2.0.jar"/>
+		<file name="${cp.dir}/commons-collections-3.2.1.jar"/>
+		<file name="${cp.dir}/commons-logging-1.1.1.jar"/>
+		<file name="${cp.dir}/vpp-2.2.1.jar"/>
+		<file name="${cp.dir}/log4j-1.2.17.jar"/>
+		<file name="${cp.dir}/jxl.jar" />
+		<file name="${cp.dir}/org.yafra.utils.jar"/>
+		<file name="${cp.dir}/org.yafra.server.core.jar"/>
+		<file name="${cp.dir}/org.yafra.server.directclient.jar"/>
+		<file name="${cp.dir}/org.yafra.server.ejb.jar"/>
+	</filelist>
+    <path id="Apache Tomcat v7.0 [Apache Tomcat v7.0].libraryclasspath">
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/tomcat-dbcp.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/catalina-ha.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openwebbeans-ejb-1.1.4.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/jasper-el.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openejb-javaagent-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openejb-server-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openwebbeans-ee-common-1.1.4.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/tomcat-i18n-fr.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openejb-jstl-1.2.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/catalina-ant.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/commons-logging-1.1.1.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/javaee-api-6.0-3-tomcat.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/gson-2.1.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/geronimo-transaction-3.1.1.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/commons-pool-1.5.7.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/tomcat-i18n-es.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/commons-beanutils-core-1.8.3.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/tomee-catalina-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/tomcat-api.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/scannotation-1.0.2.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/commons-cli-1.2.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/serp-1.13.1.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/xbean-bundleutils-3.10.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/mbean-annotation-api-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/howl-1.0.1-1.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/commons-dbcp-1.4.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/commons-codec-1.4.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openejb-jee-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/swizzle-stream-1.6.1.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/commons-lang-2.6.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/commons-collections-3.2.1.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openejb-javaagent.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/bval-jsr303-0.4.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/tomcat-jdbc.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/kahadb-5.5.1.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openejb-loader-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/ecj-3.7.2.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/tomcat-util.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/bval-core-0.4.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/geronimo-javamail_1.4_mail-1.8.2.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/xbean-naming-3.10.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/quartz-2.1.3.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openejb-hsql-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openwebbeans-impl-1.1.4.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/jaxb-impl-2.2.5.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openejb-jsf-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/tomee-common-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/slf4j-jdk14-1.6.4.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openejb-api-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/wsdl4j-1.6.2.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/xbean-finder-shaded-3.10.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/tomcat-i18n-ja.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/catalina-tribes.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/xbean-reflect-3.10.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openwebbeans-web-1.1.4.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/hsqldb-2.2.4.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/javassist-3.15.0-GA.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openejb-core-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/tomee-myfaces-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/tomcat-coyote.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/jasper.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/jsp-api.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/commons-digester-1.8.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/xbean-asm-shaded-3.10.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/servlet-api.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openwebbeans-spi-1.1.4.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/myfaces-impl-2.1.7.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openejb-ejbd-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/catalina.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/myfaces-api-2.1.7.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openejb-client-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/tomee-loader-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openwebbeans-ee-1.1.4.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/commons-lang3-3.1.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/tomee-webapp-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openejb-openwebbeans-jsf-1.1.4.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/slf4j-api-1.6.4.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openejb-http-4.0.0.jar"/>
+        <pathelement location="../../../../apache-tomee-webprofile-1.0.0/lib/openjpa-asm-shaded-2.2.0.jar"/>
+    </path>
+    <path id="Apache CXF Library [2.6.1].libraryclasspath">
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/isorelax-20030108.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/slf4j-api-1.6.2.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/spring-aop-3.0.7.RELEASE.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/opensaml-2.5.1-1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/spring-context-3.0.7.RELEASE.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/relaxngDatatype-20020414.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/js-1.7R2.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/jaxb-xjc-2.2.5.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/cxf-xjc-boolean-2.6.0.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/jetty-util-7.5.4.v20111024.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/neethi-3.0.2.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/commons-logging-1.1.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/aopalliance-1.0.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/asm-3.3.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/slf4j-jdk14-1.6.2.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/jetty-server-7.5.4.v20111024.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/joda-time-1.6.2.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/jetty-security-7.5.4.v20111024.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/cxf-services-sts-core-2.6.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/cxf-services-wsn-core-2.6.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/jetty-http-7.5.4.v20111024.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/xmlsec-1.5.2.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/saaj-impl-1.3.18.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/spring-jms-3.0.7.RELEASE.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/geronimo-jms_1.1_spec-1.1.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/geronimo-servlet_3.0_spec-1.0.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/spring-web-3.0.7.RELEASE.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/antlr-2.7.7.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/stax2-api-3.1.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/jettison-1.3.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/spring-expression-3.0.7.RELEASE.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/wss4j-1.6.6.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/geronimo-jaxws_2.2_spec-1.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/velocity-1.7.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/commons-lang-2.6.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/ehcache-core-2.5.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/commons-collections-3.2.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/jetty-continuation-7.5.4.v20111024.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/cxf-xjc-runtime-2.6.0.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/spring-tx-3.0.7.RELEASE.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/spring-asm-3.0.7.RELEASE.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/xmltooling-1.3.2-1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/openws-1.4.2-1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/saaj-api-1.3.4.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/cxf-2.6.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/jaxb-impl-2.2.5.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/mimepull-1.7.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/cxf-xjc-ts-2.6.0.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/xalan-2.7.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/serializer-2.7.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/oauth-provider-20100527.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/geronimo-ws-metadata_2.0_spec-1.1.3.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/spring-beans-3.0.7.RELEASE.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/geronimo-servlet_2.5_spec-1.1.2.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/xsdlib-2010.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/wsdl4j-1.6.2.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/jsr311-api-1.1.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/geronimo-annotation_1.0_spec-1.1.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/geronimo-javamail_1.4_spec-1.7.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/jaxb-api-2.2.6.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/cxf-manifest.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/geronimo-stax-api_1.0_spec-1.0.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/geronimo-activation_1.1_spec-1.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/xml-resolver-1.2.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/msv-core-2011.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/woodstox-core-asl-4.1.2.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/cxf-services-wsn-api-2.6.1.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/xmlbeans-2.5.0.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/xmlschema-core-2.0.2.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/cxf-xjc-bug671-2.6.0.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/jetty-io-7.5.4.v20111024.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/oauth-20100527.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/FastInfoset-1.2.9.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/spring-core-3.0.7.RELEASE.jar"/>
+        <pathelement location="../../../../apache-cxf-2.6.1/lib/cxf-xjc-dv-2.6.0.jar"/>
+    </path>
+
+	<path id="pathdepjars">
+		<filelist refid="depjars" />
+	</path>
+    <path id="org.yafra.server.jee.classpath">
+        <pathelement location="build/classes"/>
+	<pathelement path="${build.dir}"/>
+	<filelist refid="depjars" />
+        <path refid="Apache Tomcat v7.0 [Apache Tomcat v7.0].libraryclasspath"/>
+        <path refid="Apache CXF Library [2.6.1].libraryclasspath"/>
+    </path>
+
+	<!-- ALL target sections -->
+	<target name="all" description="make wicket war"
+		depends="clean, init, buildwar">
+    	<echo message="============================================="/>
+    	<echo message="server.jee Version ${yafraver} ${yafrarel}"/>
+    	<echo message="============================================="/>
+	</target>
+
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+	</target>
+
+	<target name="init">
+		<echo message="yafra jee build.xml - wicket war init"/>
+		<echo message="${os.name}"/>
+		<buildnumber />
+		<tstamp />
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${temp.dir}"/>
+		<mkdir dir="${temp.lib}/"/>
+		<mkdir dir="${temp.cla}/"/>
+		<mkdir dir="${temp.rt}/"/>
+		<mkdir dir="${temp.war}/"/>
+	</target>
+
+	<target name="prepwar" depends="clean, init">
+		<echo message="yafra jee build.xml - copy jars to distribution lib"/>
+		<copy todir="${temp.war}">
+			<fileset dir="${prg.dir}/WebContent">
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+		<mkdir dir="${temp.war}/WEB-INF/classes"/>
+		<copy todir="${temp.war}/WEB-INF/classes">
+			<fileset dir="${prg.src}">
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+		<copy todir="${temp.war}/WEB-INF/lib" verbose="true" flatten="true">
+			<filelist refid="depjars"/>
+			<path refid="Apache CXF Library [2.6.1].libraryclasspath"/>
+		</copy>
+		<javac debug="true" debuglevel="${debuglevel}" srcdir="${prg.src}" destdir="${temp.cla}" source="${source}" target="${target}">
+			<classpath refid="org.yafra.server.jee.classpath"/>
+		</javac>
+	</target>
+
+	<target name="buildwar" depends="prepwar">
+		<war destfile="${package.file}" webxml="${temp.war}/WEB-INF/web.xml" basedir="${temp.rt}">
+			<fileset dir="${temp.war}"/>
+			<lib dir="${temp.lib}" />
+			<classes dir="${temp.cla}" />
+		</war>
+	</target>
+</project>

@@ -1,0 +1,54 @@
+temp.MenuOben = HMENU
+temp.MenuOben {
+        special = directory
+        special.value = 1
+	maxItems = 5
+        #excludeUidList = 
+
+	1 = TMENU
+	1 {
+		expAll = 1
+		wrap = <ul id="nav">|</ul>
+		noBlur = 1
+		NO = 1
+		NO {
+		wrapItemAndSub = <li>|</li>
+		ATagParams = class="link1"
+		ATagTitle.field = description // title
+		}
+
+		IFSUB = 1
+		IFSUB {
+		wrapItemAndSub = <li class="menuparent">|</li>
+		ATagParams = class="link1 level1-ifsub"
+		ATagTitle.field = description // title
+		}
+		ACTIFSUB < .IFSUB
+	}
+
+	2 = TMENU
+	2 {
+		expAll = 1
+		wrap = <ul>|</ul>
+		noBlur = 1
+		NO = 1
+		NO {
+		wrapItemAndSub = <li>|</li>
+		ATagParams = class="level2"
+		ATagTitle.field = description // title
+		}
+	
+		IFSUB = 1
+		IFSUB {
+		wrapItemAndSub = <li class="menuparent2">|</li>
+		ATagParams = class="level2-ifsub"
+		ATagTitle.field = description // title
+		}
+		ACTIFSUB < .IFSUB
+	}
+
+
+
+	3 < .2
+	4 < .2
+}

@@ -1,0 +1,127 @@
+/* yafra.org menu style */
+/* v1.3 -26/08/2008 23:15 */
+
+/* style the outer div to give it width */
+.menu {
+	display: inline;
+	float: right;
+	text-align: left;
+	color: #000000;
+	background: #F7FFC9;
+}
+
+/* remove all the bullets, borders and padding from the default list styling */
+.menu ul {
+	list-style-type: none;
+	margin: 0px;
+	padding-left: 5em;
+	padding-top: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	white-space: nowrap;
+	font-weight: bold;
+	color: #000000;
+	background: #F7FFC9;
+}
+.menu li{
+	list-style-type: none;
+	display: inline;
+}
+
+/* float the top list items to make it horizontal and a relative positon so that you can control the dropdown menu positon */
+.menu ul li {
+	float: left;
+	/* padding-right: 3em; */
+	display: inline;
+}
+/* style the links for the top level */
+.menu a {
+	text-decoration: none;
+	border: 0;
+	/* padding: 0 3px 0 0; */
+	padding: 0;
+	display: block;
+	float: left;
+	height: 22px;
+	width: 8em;
+	line-height: 22px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	text-align: left;
+	color: #000000;
+	background:#F7FFC9;
+}
+
+/* style the sub-level lists */
+.menu ul ul {
+	display: inline;
+	list-style-type:none;
+	margin: 0px;
+	padding-left: 0em;
+	padding-top: 0em;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	white-space: nowrap;
+	font-weight: bold;
+	color: #000000;
+	background: #F7FFC9;
+}
+
+/* style the second level background */
+.menu ul ul a, .menu ul ul a:visited {width: 7em; color:#000000; background:#F7F7FA;}
+/* style the third level background */
+.menu ul ul ul a, .menu ul ul ul a:visited {color:#000000; background:#F7F7FA;}
+/* style the fourth level background */
+.menu ul ul ul ul a, .menu ul ul ul ul a:visited {color:#000000; background:#F7F7FA;}
+
+/* style the sub level 1 background */
+.menu ul :hover a.sub1 {color: #0B0BB3; background: #F7F7FA;}
+/* style the sub level 2 background */
+.menu ul ul :hover a.sub2 {color: #0B0BB3; background: #F7F7FA;}
+
+/* style the level hovers */
+/* first */
+* html .menu a:hover {
+	color:#0B0BB3;
+	background:#F7F7FA;
+	position:relative;
+	z-index:100;
+	text-decoration:none;
+}
+.menu li:hover {position:relative;}
+.menu :hover > a {
+	color:#0B0BB3;
+	background:#F7F7FA;
+	text-decoration:none;
+}
+/* second */
+* html .menu ul ul a:hover{color:#0B0BB3;background:#F7F7FA; position:relative; z-index:110;}
+.menu ul ul li:hover {position:relative;}
+.menu ul ul :hover > a {color:#0B0BB3;background:#F7F7FA;}
+/* third */
+* html .menu ul ul ul a:hover {color:#0B0BB3; background:#F7F7FA; position:relative; z-index:120;}
+.menu ul ul ul :hover > a {color:#0B0BB3; background:#F7F7FA;}
+/* fourth */
+.menu ul ul ul ul a:hover {color: #0B0BB3; background: #F7F7FA; position: relative; z-index: 130;}
+
+
+
+
+
+/* HIDE / UNHIDE Sublevels */
+
+/* hide the sub levels and give them a positon absolute so that they take up no room */
+.menu ul ul {visibility: hidden; position: absolute; height: 0; top: 22px; left: 0; width: 7em;}
+/* position the third level flyout menu */
+.menu ul ul ul{left: 0em; top: 0; width: 10em;}
+/* make the second level visible when hover on first level list OR link */
+.menu ul :hover ul{visibility: visible; height: auto; color: #000000; background: #F7F7FA;}
+/* keep the third level hidden when you hover on first level list OR link */
+.menu ul :hover ul ul{visibility: hidden;}
+/* keep the fourth level hidden when you hover on second level list OR link */
+.menu ul :hover ul :hover ul ul{visibility: hidden;}
+/* make the third level visible when you hover over second level list OR link */
+.menu ul :hover ul :hover ul{visibility: visible; left: 8em;}
+/* make the fourth level visible when you hover over third level list OR link */
+.menu ul :hover ul :hover ul :hover ul {visibility: visible;}
+

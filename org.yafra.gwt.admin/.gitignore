@@ -1,0 +1,9 @@
+/.settings
+/bin
+/build
+build.number
+/gwt-unitCache
+/war/org_yafra_gwt_admin
+/war/WEB-INF/classes
+/.gwt
+*~

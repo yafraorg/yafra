@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="/work/classes/org.yafra.utils.jar"/>
+	<classpathentry kind="lib" path="/work/classes/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/work/classes/org.yafra.server.coreclient.jar"/>
+	<classpathentry kind="lib" path="/work/classes/org.yafra.server.ejbstubs.jar"/>
+	<classpathentry kind="lib" path="/work/apache-tomee-webprofile-1.0.0/lib/openejb-client-4.0.0.jar"/>
+	<classpathentry kind="lib" path="/work/apache-tomee-webprofile-1.0.0/lib/openejb-core-4.0.0.jar"/>
+	<classpathentry kind="var" path="YAFRACLASSES/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="/work/apache-tomee-webprofile-1.0.0/lib/javaee-api-6.0-3-tomcat.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,63 @@
+
+#-----------------------------------------------------------------------------
+#  command file server using a named pipe (FIFO)
+#
+#  Please refer to ja, mw, or sh for informations.
+#-----------------------------------------------------------------------------
+
+This is the Command server daemon which replaces the system() command 
+in applications.
+
+The aim is to avoid duplication of code of big programs.
+
+Version whith named pipes: fifo
+
+
+1. Software
+============
+
+Includes: 
+$(PISOINC)/cmdmsg.h 
+
+Sources:
+they are located in: /users/softech/cmdsrv/fifo/...
+
+cmdback.c        /* put server daemon in background unter init process      */
+cmdmain.c        /* main functions of server                                */
+cmdoperation.c   /* read write operations                                   */
+cmdserver.c      /* server tasking part                                     */
+program name: piserver
+
+
+Test can be performed with:
+cmdclient.c      /* client test programm reading stdin and sending to server*/
+program name: piclient
+
+The pipe buffers reside in /tmp   FIFO.1 and FIFO.2 
+The binaries must be copied in /usr/local/bin 
+
+
+
+
+2. Usage
+=========
+
+Marco polo:
+-----------
+
+Earlier output programs called "system(..)" to execute a task. 
+This call is replaced by CMDclientSystem() which is the client part sending
+the command to the command server "piserver".
+
+When starting "./MARCO -daemon"  start also  "./piserver -daemon"
+
+The source file is in /users/softech/mapo/source/lib/cmd_clnt.c
+
+
+
+
+
+
+
+
+

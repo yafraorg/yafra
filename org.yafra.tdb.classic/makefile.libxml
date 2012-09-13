@@ -1,0 +1,101 @@
+#
+#  Copyright 2002 yafra.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+# MAKEFILE for travelDB xml functions
+#
+# copyright: yafra.org
+#
+# P: PATH
+# F: FLAG
+
+CORENAME = tdbxml
+VER_NAME = "travelDB xml library"
+SONAMEVER = $(MAPOVER)
+
+#
+# path/flag declarations for release and develop
+#
+PBASE   = $(TDBS)
+POBJ    = $(TDBO)
+PSLIBINC = $(YAFRAINC)
+PSLIB   = $(YAFRALIBPATH)
+PLIB    = $(YAFRALIBPATH)
+PINC = $(PBASE)/include
+PSRC = $(PBASE)/libxml
+PMAN = $(PBASE)/man
+
+# GNU make
+# set the vpath and suffixes
+#
+include $(YAFRATOOLS)/include/searchpath.mak
+
+#
+# set input/output files
+#
+MAKEFILE   = makefile.lib
+LINTOUT    = $(PSRC)/lint.out
+
+#
+# defines for the sourcecode
+#
+DEFINES   = -D$(PS_OS) -D$(PS_OSTYPE)
+XMLINC     = `xml2-config --cflags`
+
+#
+# search path for includes and librarys
+#
+include $(YAFRATOOLS)/include/libflags.mak
+
+ifeq ($(PS_OS),ps_linux)
+ADDON = $(XMLINC)
+endif
+
+ifeq ($(PS_OS),ps_hpux)
+ADDON = -Ae +w1 $(XMLINC)
+endif
+
+ifeq ($(PS_OS),ps_cygwin)
+ADDON = $(XMLINC)
+endif
+
+ifeq ($(PS_OS),ps_mingw)
+ADDON = -I/apps/opt/libxml/include
+endif
+
+ifeq ($(PS_OS),ps_winnt)
+ADDON = -W3 -Fp"C:/TEMP/vc.pch"
+endif
+
+ifeq ($(PS_COMPTYPE),ps_win)
+FINCSEARCH  = -I"$(PS_SOFTECHDRV)$(PINC)" -I"$(PS_SOFTECHDRV)$(PSLIBINC)"
+CFLAGS      = $(FCC) $(ADDON) $(DEFINES) \
+ $(FINCSEARCH) -Fo"$(PS_LOCALDRV)$(POBJ)/"
+else
+FINCSEARCH  = -I$(PINC) -I$(PSLIBINC)
+CFLAGS      = $(FCC) $(ADDON) $(DEFINES) $(FINCSEARCH)
+endif
+
+
+#
+# dependencies
+#
+include $(YAFRATOOLS)/include/objects.mak
+
+#
+# to do list
+#
+include $(YAFRATOOLS)/include/librules.mak
+
+# DO NOT DELETE THIS LINE -- make depend depends on it.

@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<plugin>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.yafra.rcp.application"
+            name="yafra rich client platform">
+         <property
+               name="appName"
+               value="yafra rich client platform">
+         </property>
+         <property
+               name="aboutImage"
+               value="icons/org-yafra-128x128.png">
+         </property>
+         <property
+               name="aboutText"
+               value="Version 1.0.2.M2&#x0A;$Id: yafra.product,v 1.2 2009-12-19 20:40:33 mwn Exp $">
+         </property>
+      </product>
+   </extension>
+
+   <extension
+         id="application"
+         name="org.yafra rich client"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            icon="icons/org-yafra-64x64.ico">
+         <run
+               class="org.yafra.rcp.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.yafra.rcp.Perspective"
+            icon="icons/org-yafra-32x32.ico"
+            id="org.yafra.rcp.perspective"
+            name="RCP Perspective">
+         <description>
+            perspective description mwn
+         </description>
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.yafra.rcp.commands.ExitHandler"
+            id="org.yafra.rcp.commands.Exit"
+            name="Exit">
+      </command>
+      <command
+            defaultHandler="org.yafra.rcp.commands.ConnectHandler"
+            id="org.yafra.rcp.commands.Connect"
+            name="Connect">
+      </command>
+      <command
+            defaultHandler="org.yafra.rcp.commands.WelcomeHandler"
+            id="org.yafra.rcp.commands.Welcome"
+            name="Welcome">
+      </command>
+      <command
+            defaultHandler="org.yafra.rcp.commands.PersonHandler"
+            description="Persons"
+            id="org.yafra.rcp.commands.Persons"
+            name="Persons">
+      </command>
+      <command
+            defaultHandler="org.yafra.rcp.commands.YafraUserHandler"
+            description="Users"
+            id="org.yafra.rcp.commands.Users"
+            name="Users">
+      </command>
+      <command
+            defaultHandler="org.yafra.rcp.commands.YafraBusRoleHandler"
+            description="BusinessRole"
+            id="org.yafra.rcp.commands.BusinessRole"
+            name="BusinessRole">
+      </command>
+      <command
+            defaultHandler="org.yafra.rcp.commands.YafraTechRoleHandler"
+            description="TechnicalRole"
+            id="org.yafra.rcp.commands.TechnicalRole"
+            name="TechnicalRole">
+      </command>
+      <command
+            defaultHandler="org.yafra.rcp.commands.YafraAuditHandler"
+            description="Audits"
+            id="org.yafra.rcp.commands.Audits"
+            name="Audits">
+      </command>
+      <command
+            defaultHandler="org.yafra.rcp.commands.LoginHandler"
+            description="Login"
+            id="org.yafra.rcp.commands.Login"
+            name="Login">
+      </command>
+      <command
+            defaultHandler="org.yafra.rcp.commands.BrowserHandler"
+            description="Browse"
+            id="org.yafra.rcp.commands.Browse"
+            name="Browse">
+         <commandParameter
+               id="org.yafra.rcp.commands.Browse.url"
+               name="URL"
+               optional="true">
+         </commandParameter>
+      </command>
+      <command
+            defaultHandler="org.yafra.rcp.commands.TemplateViewHandler"
+            id="org.yafra.rcp.commands.showTemplates"
+            name="Show templates">
+      </command>
+      <command
+            defaultHandler="org.eclipse.ui.internal.about.AboutHandler"
+            id="org.yafra.rcp.commands.TemplateCommand"
+            name="TemplateCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               id="fileMenu"
+               label="File"
+               mnemonic="F">
+            <command
+                  commandId="org.yafra.rcp.commands.Connect"
+                  icon="icons/yafra-logo-16x16.ico"
+                  label="Connect"
+                  mnemonic="C"
+                  style="push"
+                  tooltip="Connect to server and login">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.print"
+                  label="Print"
+                  mnemonic="p"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.yafra.rcp.commands.Exit"
+                  label="Exit"
+                  mnemonic="E"
+                  style="push"
+                  tooltip="Exit the application">
+            </command>
+         </menu>
+         <menu
+               id="editMenu"
+               label="Edit"
+               mnemonic="e">
+            <command
+                  commandId="org.eclipse.ui.edit.cut"
+                  label="Cut"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.copy"
+                  label="Copy"
+                  mnemonic="c"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.paste"
+                  label="Paste"
+                  style="push">
+            </command>
+            <separator
+                  name="org.yafra.rcp.separator2"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.ui.window.preferences"
+                  id="p"
+                  label="Preferences"
+                  style="push"
+                  tooltip="Change application settings">
+            </command>
+         </menu>
+         <menu
+               id="b"
+               label="BusinessProcesses"
+               tooltip="Menu placeholder for business processes">
+            <command
+                  commandId="org.yafra.rcp.commands.Persons"
+                  label="Persons"
+                  mnemonic="P"
+                  style="push"
+                  tooltip="View or edit a Person">
+            </command>
+         </menu>
+         <menu
+               id="adminMenu"
+               label="Administration"
+               mnemonic="A">
+            <command
+                  commandId="org.yafra.rcp.commands.Users"
+                  label="Users"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.yafra.rcp.commands.BusinessRole"
+                  label="Business Roles"
+                  style="push"
+                  tooltip="Table view of business roles">
+            </command>
+            <command
+                  commandId="org.yafra.rcp.commands.TechnicalRole"
+                  label="Technical Roles"
+                  style="push"
+                  tooltip="Table view of persons">
+            </command>
+            <command
+                  commandId="org.yafra.rcp.commands.Audits"
+                  label="Audits"
+                  style="push">
+            </command>
+         </menu>
+         <menu
+               id="helpMenu"
+               label="Help"
+               mnemonic="H">
+            <command
+                  commandId="org.yafra.rcp.commands.Welcome"
+                  label="Welcome"
+                  mnemonic="W"
+                  style="push"
+                  tooltip="Welcome introduction about the product">
+            </command>
+            <command
+                  commandId="org.yafra.rcp.commands.Login"
+                  label="Login View"
+                  mnemonic="l"
+                  style="push"
+                  tooltip="Shows the login screen with actual login information">
+            </command>
+            <command
+                  commandId="org.yafra.rcp.commands.showTemplates"
+                  label="Show template views"
+                  style="push">
+            </command>
+            <separator
+                  name="org.yafra.rcp.separator1"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.ui.help.aboutAction"
+                  label="About"
+                  mnemonic="A"
+                  style="push"
+                  tooltip="Show version and product information">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.yafra.rcp.MasterDetailView?after=additions">
+         <command
+               commandId="org.yafra.rcp.commands.TemplateCommand"
+               label="Template command"
+               style="pulldown">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="*">
+         <view
+               closeable="true"
+               id="org.yafra.rcp.LoginView"
+               minimized="false"
+               moveable="true"
+               ratio="0.99f"
+               relationship="stack"
+               relative="org.eclipse.ui.editorss"
+               showTitle="true"
+               standalone="false"
+               visible="true">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            class="org.yafra.rcp.person.PersonView"
+            icon="icons/yafra-logo-16x16.ico"
+            id="org.yafra.rcp.PersonView"
+            name="PersonView"
+            restorable="true">
+      </view>
+      <view
+            allowMultiple="false"
+            class="org.yafra.rcp.LoginView"
+            icon="icons/org-yafra-16x16.ico"
+            id="org.yafra.rcp.LoginView"
+            name="yafra Login"
+            restorable="true">
+      </view>
+      <view
+            allowMultiple="false"
+            class="org.yafra.rcp.admin.YafraUserView"
+            icon="icons/org-yafra-16x16.ico"
+            id="org.yafra.rcp.YafraUserView"
+            name="yafra User"
+            restorable="true">
+      </view>
+      <view
+            allowMultiple="false"
+            class="org.yafra.rcp.admin.YafraBusRoleView"
+            icon="icons/org-yafra-16x16.ico"
+            id="org.yafra.rcp.admin.YafraBusRoleView"
+            name="yafra Business Role"
+            restorable="true">
+      </view>
+      <view
+            allowMultiple="false"
+            class="org.yafra.rcp.admin.YafraTechRoleView"
+            icon="icons/org-yafra-16x16.ico"
+            id="org.yafra.rcp.YafraTechRoleView"
+            name="yafra Technical Role"
+            restorable="true">
+      </view>
+      <view
+            allowMultiple="true"
+            class="org.yafra.rcp.BrowserView"
+            icon="icons/org-yafra-16x16.ico"
+            id="org.yafra.rcp.BrowserView"
+            name="yafra Browser"
+            restorable="true">
+      </view>
+      <view
+            class="org.yafra.rcp.admin.YafraAuditView"
+            icon="icons/org-yafra-16x16.ico"
+            id="org.yafra.rcp.YafraAuditView"
+            name="yafra Audit"
+            restorable="true">
+      </view>
+      <view
+            class="org.yafra.rcp.templates.MasterDetailsView"
+            icon="icons/org-yafra-16x16.ico"
+            id="org.yafra.rcp.MasterDetailsView"
+            name="yafra template MasterDetailsView"
+            restorable="true">
+      </view>
+      <view
+            class="org.yafra.rcp.templates.MasterDetailView"
+            icon="icons/org-yafra-16x16.ico"
+            id="org.yafra.rcp.MasterDetailView"
+            name="yafra template MasterDetailView"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.intro">
+      <intro
+            class="org.eclipse.ui.intro.config.CustomizableIntroPart"
+            icon="icons/yafra-logo-16x16.ico"
+            id="org.yafra.rcp.intro">
+      </intro>
+      <introProductBinding
+            introId="org.yafra.rcp.intro"
+            productId="org.yafra.rcp.product">
+      </introProductBinding>
+   </extension>
+   <extension
+         point="org.eclipse.ui.intro.config">
+      <config
+            content="introContent.xml"
+            id="org.yafra.rcp.configIntro"
+            introId="org.yafra.rcp.intro">
+         <presentation
+               home-page-id="root">
+            <implementation
+                  kind="html"
+                  os="win32,linux,macosx">
+            </implementation>
+         </presentation>
+      </config>
+      <config
+            content="introContent.xml"
+            id="org.yafra.rcp.introConfigId"
+            introId="org.yafra.rcp.intro1">
+         <presentation
+               home-page-id="root">
+            <implementation
+                  kind="html"
+                  os="win32,linux,macosx"
+                  style="content/shared.css">
+            </implementation>
+         </presentation>
+      </config>
+   </extension>
+   <extension
+         point="org.eclipse.ui.intro.configExtension">
+      <configExtension
+            configId="org.yafra.rcp.configIntro"
+            content="ext.xml">
+      </configExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.yafra.rcp.Preferences"
+            id="org.yafra.rcp.Preferences"
+            name="Yafra settings">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.yafra.rcp.PreferencesInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.splashHandlers">
+      <splashHandler
+            class="org.yafra.rcp.splashHandlers.BrowserSplashHandler"
+            id="org.yafra.rcp.splashHandlers.browser">
+      </splashHandler>
+   </extension>
+
+</plugin>

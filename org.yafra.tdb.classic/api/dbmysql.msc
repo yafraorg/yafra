@@ -1,0 +1,686 @@
+/*D***********************************************************
+ * modul:     SQL INTERFACE all DB access functions
+ *
+ * db:        MySQL
+ *
+ * copyright: yafra.org, 2004, Switzerland
+ *************************************************************/
+static char rcsid[]="$Header: /yafra/cvsroot/mapo/source/api/dbmysql.msc,v 1.9 2008-11-23 15:44:38 mwn Exp $";
+
+#include "version.h"
+
+#if !defined(MPDBMYSQL)
+#define MPDBMYSQL
+#undef MPDBODBC
+#undef MPDBINGRES
+#undef MPDBHPSQL
+#undef MPDBORACLE
+#endif
+
+extern void UtilMsgWrite(char *);
+
+/* MARCO POLO includes */
+#include <stdio.h>         /* Standart Includefile */
+#include <string.h>        /* Sring Konst. und Memory Definitionwn */
+#include <memory.h>        /* Definitionen von memset etc. */
+#include <stdlib.h>
+#include <time.h>
+
+#include <pssys.h>
+
+#include <mpdb.h>      /* Includefile fuer die Relationalen Datenbanken */
+
+#include <mpmsg.h>
+#include <mpstrlen.h>
+
+/* Objektdefinitionen (defines and structures) */
+#include <mpobjdef.h>
+#include <mpobjvar.h>
+#include <mpdef.h>
+
+#include <mpproapi.h>  /* Prototypes ANSI-C */
+#include <mpprolib.h>
+
+/* MySQL includes */
+#include <mysql.h>
+
+/* local prototyps */
+static int MPAPIdb_checkstatus( int );
+/* some defines */
+#define		SQL_MESSAGE	132
+#define		SQL_NAME	128
+#define		SQL_MAX_COL	50
+#define		SQL_MAX_ROW_LEN	512
+#define		SQL_MAX_ROW	50
+#define		SQL_MAX_BUF	SQL_MAX_ROW_LEN*SQL_MAX_ROW
+#define   SQLMEMCHUNK 102400
+#define		MP_MAXCOLS 50
+#define		MP_ALLOCROWS 10
+#define		MP_MAXSTRINGLEN 1024
+
+/**************************************************************/
+/* SQL globals                                                */
+/**************************************************************/
+/* include def_table struct */
+#include <mpdbglob.h>
+
+extern unsigned char logging_sql;
+extern unsigned char logging_sqltm;
+
+/* MySQL global SQL handlers */
+MYSQL mp_dbhandle;
+MYSQL_STMT *mp_stmt;
+
+/* logging variables */
+char            logbuffer[RECLAENGE];
+time_t          starttime;
+unsigned int    trxcount;
+
+char     DBE_Name[128];           /* SQL_NAME + 1 */
+
+/* can I still use this ?? */
+int     Save_point;
+
+
+/**************************************************************/
+/* Function:  open db                                         */
+/*                                                            */
+/* Parameter: db path and name                                */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+int MPAPIdb_connect(char *aDBname, char *aUsername, char *aPassword)
+{
+	int status = (int)MPSQL_OK;
+
+	mysql_init(&mp_dbhandle);
+	mysql_options(&mp_dbhandle, MYSQL_OPT_COMPRESS,0);
+	mysql_options(&mp_dbhandle, MYSQL_READ_DEFAULT_GROUP,"odbc");
+	(void)strcpy(DBE_Name, "root"); // this is the schema in mysql
+
+	if (!mysql_real_connect(&mp_dbhandle, aDBname, aUsername, aPassword, DBE_Name, 0, NULL, 0))
+		{
+		status = MPAPIdb_checkstatus(1);
+		status = MPERROR;
+		}
+	else
+		{
+		/* print logging */
+		if (logging_sql)
+			{
+			(void)sprintf(logbuffer, "OPEN DB %s", aDBname);
+			MPlog(_LOGSQL, status, logbuffer, __FILE__);
+			}
+		}
+	mp_dbhandle.reconnect= 1;
+	return(status);
+}
+
+/**************************************************************/
+/* Function:  release db and check sql state                  */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    for MySQL there is no return                    */
+/**************************************************************/
+int MPAPIdb_release(void)
+{
+	int status = (int)MPSQL_OK;
+
+	mysql_close(&mp_dbhandle);
+
+	/* print logging */
+	if (logging_sql)
+		{
+		(void)sprintf(logbuffer, "CLOSE DB %s - NUMBER OF TRX: %d",
+		              DBE_Name, trxcount);
+		MPlog(_LOGSQL, status, logbuffer, __FILE__);
+		}
+
+	return(status);
+}
+
+
+/**************************************************************/
+/* Function:  start a db transaction                          */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+int MPAPIdb_begintrx(int isolationlevel, int priority)
+{
+	extern unsigned int trxcount;
+	extern time_t starttime;
+
+	int status = (int)MPSQL_OK;
+	int count = 0;
+	char command[_QUERYLEN];
+
+	/* in mysql set first the isolation level before starting the trx */
+	switch(isolationlevel)
+		{
+		case SQLISOLATION_RR:
+			(void)strcpy(command, "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;");
+			break;
+		case SQLISOLATION_CS:
+			(void)strcpy(command, "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;");
+			break;
+		case SQLISOLATION_RC:
+			(void)strcpy(command, "SET TRANSACTION ISOLATION LEVEL READ COMMITTED;");
+			break;
+		case SQLISOLATION_RU:
+			(void)strcpy(command, "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;");
+			break;
+		default:
+			break;
+		}
+	status=MPAPIdb_sqlcommand(command, &count);
+	if (status != MPSQL_OK)
+		status = MPAPIdb_checkstatus(1);
+
+	/* start the transaction */
+	(void)strcpy(command, "START TRANSACTION;");
+	status=MPAPIdb_sqlcommand(command, &count);
+	if (status != MPSQL_OK)
+		status = MPAPIdb_checkstatus(1);
+
+	if (logging_sql)
+		{
+		trxcount++;
+		starttime = time(NULL);
+		MPlog(_LOGSQL, status, "BEGIN TRANSACTION", __FILE__);
+		}
+
+	return( status );
+}
+
+
+/**************************************************************/
+/* Function:  set attributes of a db trx in progress          */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+int MPAPIdb_settrx(int isolationlevel, int priority)
+{
+	int status=(int)MPSQL_OK;
+
+	//TODO setting a new isolation level DURING a trx not supported - check future versions
+
+	switch(isolationlevel)
+		{
+		case SQLISOLATION_RR:
+			break;
+		case SQLISOLATION_CS:
+			break;
+		case SQLISOLATION_RC:
+			break;
+		case SQLISOLATION_RU:
+			break;
+		default:
+			break;
+		}
+
+	if (logging_sql)
+		MPlog(_LOGSQL, status, "CHANGED TRANSACTION ISOLATIONLEVEL", __FILE__);
+
+	return(status);
+}
+
+
+/**************************************************************/
+/* Function:  write data to db and set savepoint              */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+void MPAPIdb_committrx(void)
+{
+	int status = (int)MPSQL_OK;
+
+	if (mysql_commit(&mp_dbhandle))
+		status = MPAPIdb_checkstatus(1);
+
+	if (logging_sql)
+		{
+		char textbuf[_RECORDLEN];
+		sprintf (textbuf, "END TRANSACTION - TRANSACTION TIME: %f SECONDS",
+		        (difftime(time(NULL), starttime)));
+		MPlog(_LOGSQL, status, textbuf, __FILE__);
+		}
+
+	return;
+}
+
+/**************************************************************/
+/* Function:  rollback/cancel current transaction             */
+/*            started by begin_transaction()                  */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+void MPAPIdb_rollbacktrx(void)
+{
+	extern time_t starttime;
+	int status=(int)MPSQL_OK;
+
+	if (mysql_rollback(&mp_dbhandle))
+		status = MPAPIdb_checkstatus(1);
+
+	if (logging_sql)
+		{
+		char textbuf[_RECORDLEN];
+		sprintf(textbuf, "CANCEL/ROLLBACK TRANSACTION - TRANSACTION TIME: %f SECONDS",
+		        (difftime(time(NULL), starttime)));
+		MPlog(_LOGSQL, status, textbuf, __FILE__);
+		}
+
+	return;
+}
+
+/**************************************************************/
+/* Function:  write data to db and set savepoint              */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+int MPAPIdb_setsavepoint(int *save_point)
+{
+	/*******************
+	* Local variables
+	*******************/
+	int status = (int) MPSQL_OK;
+
+	// TODO set savepoints and rollback to savepoint to be implemented - savepoint currently is an int, could be an issue for mysql
+	/* EXEC SQL SAVEPOINT Save_point; */
+	/* status = MPAPIdb_checkstatus(); */
+	*save_point = Save_point;
+
+	if (logging_sql)
+		MPlog(_LOGSQL, status, "SAVEPOINT SET", __FILE__);
+
+	return( status );
+}
+
+
+/**************************************************************/
+/* Function:  delete work back to the next savepoint          */
+/*                                                            */
+/* Parameter: savepoint                                       */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+int MPAPIdb_rollbacksavepoint(int *save_point )
+{
+	int status = (int) MPSQL_OK;
+
+	Save_point = *save_point;
+	/* EXEC SQL ROLLBACK WORK TO Save_point; */
+	/* status = MPAPIdb_checkstatus(); */
+
+	if (logging_sql)
+		MPlog(_LOGSQL, status, "ROLLBACK", __FILE__);
+
+	return(status);
+}
+
+
+/*F***********************************************************
+ * Function:  commit a sql command to db and put the data
+ *            to the global memory
+ *
+ * Parameter: void
+ * Return:    ERROR / MPSQL_OK
+ *************************************************************/
+int MPAPIdb_sqlquery(int table_nr, char **mp_sqltargetptr, char *mp_sqlquery,
+       int  *mp_rowcount, unsigned long *datalen, unsigned long *alloclen)
+{
+	/* define return codes */
+	int		status = (int)MPSQL_OK;
+
+	/* define temporary vars */
+	int		i;
+	int		nresultcols;
+	size_t	querySize;
+	size_t	copysize;
+	size_t	structsize;
+	int		structcnt;
+	int		memoff = (int)0;			/* Offset into output buffer */
+	size_t	allocsize  = (size_t)0;	/* memory to allocate */
+	MYSQL_STMT *stmt;
+
+	/* BIND descriptions of all cols */
+	MYSQL_FIELD *fields;
+	MYSQL_BIND bind[MP_MAXCOLS];
+	MYSQL_RES *prepare_meta_result;
+
+	/* temporary buffers for BIND */
+	unsigned char	char_data[MP_MAXSTRINGLEN][MP_MAXCOLS];
+	unsigned long	char_len[MP_MAXCOLS];
+	int	int_data[MP_MAXCOLS];
+	float		float_data[MP_MAXCOLS];
+	double	double_value;
+	MYSQL_TIME ts[MP_MAXCOLS];
+	my_bool is_null[MP_MAXCOLS];
+	my_bool error[MP_MAXCOLS];
+
+
+	int param_count, column_count, row_count;
+
+	/* logging */
+	time_t aclock;
+	char logtext[_RECORDLEN];
+
+	/* init */
+	*mp_rowcount = 0;
+
+	/* alloc memory for a SQL statement */
+	mp_stmt = mysql_stmt_init(&mp_dbhandle);
+	if (!mp_stmt)
+		{
+		status = MPAPIdb_checkstatus(0);
+		return(status);
+		}
+
+	/* start time logging */
+	if (logging_sql)
+		aclock = time(NULL);
+
+	/*****************************************
+	* If mp_sqltargetptr = (char **)0, then this
+	* is not a query, this is a major bug.
+	*****************************************/
+	if (mp_sqltargetptr == (char **)NULL)
+		return(MPERROR);
+
+	/* check termination of query string */
+	querySize = strlen(mp_sqlquery);
+	if (mp_sqlquery[querySize - 1] == ';')
+		{
+		mp_sqlquery[querySize - 1] = '\0';
+		querySize--;
+		}
+
+	/* Prepare a SELECT query to fetch data from test_table */
+	if (mysql_stmt_prepare(mp_stmt, mp_sqlquery, querySize))
+		{
+		status = MPAPIdb_checkstatus(0);
+		return(status);
+		}
+
+	/* Get the parameter count from the statement */
+	param_count= mysql_stmt_param_count(mp_stmt);
+	/* fprintf(stdout, " total parameters in SELECT: %d\n", param_count); */
+	if (param_count != 0) /* validate parameter count */
+		{
+		status = MPAPIdb_checkstatus(0);
+		return(status);
+		}
+
+	/* Fetch result set meta information */
+	prepare_meta_result = mysql_stmt_result_metadata(mp_stmt);
+	if (!prepare_meta_result)
+		{
+		status = MPAPIdb_checkstatus(0);
+		return(status);
+		}
+
+	/* Get total columns in the query */
+	nresultcols = mysql_num_fields(prepare_meta_result);
+	/* fprintf(stdout, " total columns in SELECT statement: %d\n", nresultcols); */
+
+	/* Execute the SELECT query */
+	if (mysql_stmt_execute(mp_stmt))
+		{
+		status = MPAPIdb_checkstatus(0);
+		return(status);
+		}
+
+	/* get number of columns per table and bind them */
+	memset(bind, 0, sizeof(bind));
+	fields = mysql_fetch_fields(prepare_meta_result);
+	for (i=0; i<nresultcols; i++)
+		{
+		/* field->name;
+		field->flags;
+		field->type; */
+		if (IS_NOT_NULL(fields[i].flags))
+			is_null[i] = TRUE;
+		else
+			is_null[i] = FALSE;
+		switch(fields[i].type)
+			{
+			case MYSQL_TYPE_VAR_STRING:
+			case MYSQL_TYPE_STRING:
+				(void)memset((void *)char_data[i], (int)NULL, MP_MAXSTRINGLEN);
+				char_len[i] = 0;
+				bind[i].buffer_type= MYSQL_TYPE_STRING;
+				bind[i].buffer= (char *)char_data[i];
+				bind[i].buffer_length= MP_MAXSTRINGLEN;
+				bind[i].length= &char_len[i];
+				bind[i].error= &error[i];
+				break;
+			case MYSQL_TYPE_SHORT:
+			case MYSQL_TYPE_LONG:
+			case MYSQL_TYPE_LONGLONG:
+				bind[i].buffer_type= MYSQL_TYPE_LONG;
+				bind[i].buffer= (char *)&int_data[i];
+				bind[i].length= &char_len[i];
+				bind[i].error= &error[i];
+				break;
+			case MYSQL_TYPE_FLOAT:
+				bind[i].buffer_type= MYSQL_TYPE_FLOAT;
+				bind[i].buffer= (char *)&float_data[i];
+				bind[i].length= &char_len[i];
+				bind[i].error= &error[i];
+				break;
+			case MYSQL_TYPE_DATETIME:
+				bind[i].buffer_type= MYSQL_TYPE_TIMESTAMP;
+				bind[i].buffer= (char *)&ts[i];
+				bind[i].length= &char_len[i];
+				bind[i].error= &error[i];
+				break;
+			default:
+				status = MPERROR;
+			}
+		}
+	if (status != MPSQL_OK)
+		return(status);
+
+	/* Bind the result buffers */
+	if (mysql_stmt_bind_result(mp_stmt, bind))
+		{
+		status = MPAPIdb_checkstatus(0);
+		return(status);
+		}
+
+	/* Now buffer all results to client */
+	if (mysql_stmt_store_result(mp_stmt))
+		{
+		status = MPAPIdb_checkstatus(0);
+		return(status);
+		}
+
+
+	/* FETCH till END OF TABLE which means SQL_NO_DATA_FOUND (100) */
+	row_count= 0;
+	allocsize = (def_table[table_nr].sqlrowlen * MP_ALLOCROWS);
+	while (!mysql_stmt_fetch(mp_stmt))
+		{
+		/* read row for row */
+		row_count++;
+		*mp_rowcount = ((*mp_rowcount) + 1);
+		allocsize = (allocsize + (def_table[table_nr].sqlrowlen + 100));
+		if (allocsize > *alloclen)
+			*mp_sqltargetptr = (char *)MPalloc((void *)*mp_sqltargetptr, alloclen,
+			   SQLMEMCHUNK, allocsize, sizeof(char));
+		for (i=0, structcnt = 0; i < nresultcols; i++, structcnt++)
+			{
+			structsize = def_table[table_nr].elements[structcnt].leng;
+			switch(fields[i].type)
+				{
+				case MYSQL_TYPE_VAR_STRING:
+				case MYSQL_TYPE_STRING:
+					(void)memset((void *)(*mp_sqltargetptr + memoff), (int)NULL, structsize);
+					if (char_len[i] > (int)structsize)
+						copysize = structsize;
+					else
+						copysize = (size_t)char_len[i];
+					(void)memcpy((void *) (*mp_sqltargetptr + memoff),
+					   (void *)char_data[i], copysize);
+					memoff += structsize;
+					break;
+				case MYSQL_TYPE_SHORT:
+				case MYSQL_TYPE_LONG:
+				case MYSQL_TYPE_LONGLONG:
+					(void)memcpy((void *) (*mp_sqltargetptr + memoff),
+					   (void *)&int_data[i], sizeof(int));
+					memoff += structsize;
+					break;
+				case MYSQL_TYPE_FLOAT:
+					double_value = (double)float_data[i];
+					(void)memcpy((void *) (*mp_sqltargetptr + memoff),
+					   (void *)&double_value, sizeof(double));
+					memoff += structsize;
+					break;
+				case MYSQL_TYPE_DATETIME:
+				default:
+					status = MPERROR;
+				}
+			if (!is_null[i])
+				{
+				structcnt++;
+				memoff += def_table[table_nr].elements[structcnt].leng;
+				}
+			}
+		}
+
+	/* stop time logging */
+	if (logging_sql)
+		{
+		sprintf(logtext, "COMMAND EXECUTION TIME IS %f SECONDS",
+		        (difftime(time(NULL), aclock)));
+		MPlog(_LOGSQL, status, logtext, __FILE__);
+		MPlog(_LOGSQL, status, mp_sqlquery, __FILE__);
+		}
+
+	/*****************************************
+	* Note that memory is never free'd, but
+	* reused next time around, to prevent
+	* breaking it up into unusable chunks.
+	* managed by MPalloc() !
+	*****************************************/
+
+	mysql_free_result(prepare_meta_result);
+	mysql_stmt_free_result(mp_stmt);
+
+	/* free up SQL statement (includes CLOSE CURSOR if any) */
+	if (mysql_stmt_close(mp_stmt))
+		{
+		status = MPAPIdb_checkstatus(0);
+		return(status);
+		}
+
+	/* set correct datalen */
+	*datalen = (unsigned long)memoff;
+
+	return(status);
+}
+
+
+/**************************************************************/
+/* Function:  commit RDBMS command                            */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+int MPAPIdb_sqlcommand(char *command_string, int *anzahl)
+{
+	/*******************
+	* Local variables
+	*******************/
+	time_t aclock;
+	int status=(int)MPSQL_OK;
+	int querySize = 0;
+	char logtext[_RECORDLEN];
+	my_ulonglong rowcount;
+
+	/* init anzahl to zero */
+	*anzahl = 0;
+
+	/* start time logging */
+	if (logging_sql)
+		aclock = time(NULL);
+
+	/* check termination of query string */
+	querySize = strlen(command_string);
+	if ( command_string[querySize - 1] == ';' )
+		{
+		command_string[querySize - 1] = '\0';
+		querySize--;
+		}
+
+	/* process SQL command (DELETE, INSERT, UPDATE) */
+	if(mysql_query(&mp_dbhandle, command_string))
+    {
+			status = MPAPIdb_checkstatus(1);
+			return(status);
+    }
+
+	rowcount = mysql_affected_rows(&mp_dbhandle);
+	if (rowcount > 0)
+		*anzahl = (int)rowcount;
+	else
+		status = MPERROR;
+
+	/* stop time logging */
+	if (logging_sql)
+		{
+		sprintf(logtext, "COMMAND EXECUTION TIME IS %f SECONDS",
+		        (difftime(time(NULL), aclock)));
+		MPlog(_LOGSQL, status, logtext, __FILE__);
+		MPlog(_LOGSQL, status, command_string, __FILE__);
+		}
+
+	return(status);
+}
+
+
+/*SF***********************************************************/
+/* Function:  check sql state                                 */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+static int MPAPIdb_checkstatus(int act)
+{
+	unsigned int cret = MPSQL_OK;
+
+	if (!act)
+		{
+		cret = mysql_stmt_errno(mp_stmt);
+		if(cret)
+			{
+			if (logging_sql)
+				{
+				/* log error messages */
+				MPlog(_LOGSQL, cret, mysql_stmt_error(mp_stmt), __FILE__);
+				}
+			UtilMsgWrite(mysql_stmt_error(mp_stmt));
+			cret = MPDBERROR;
+			}
+		}
+	else
+		{
+		cret = mysql_errno(&mp_dbhandle);
+		if(cret)
+			{
+			if (logging_sql)
+				{
+				/* log error messages */
+				MPlog(_LOGSQL, cret, mysql_error(&mp_dbhandle), __FILE__);
+				}
+			UtilMsgWrite(mysql_error(&mp_dbhandle));
+			cret = MPDBERROR;
+			}
+		}
+
+   return(cret);
+}

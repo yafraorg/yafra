@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="CustVsel" targetNamespace="http://tempuri.org/CustVsel.xsd" elementFormDefault="qualified"
+	attributeFormDefault="qualified" xmlns="http://tempuri.org/CustVsel.xsd" xmlns:mstns="http://tempuri.org/CustVsel.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="CustVsel" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="tdbv_custsel">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PERS_ID" type="xs:int" />
+							<xs:element name="NAME" type="xs:string" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+		<xs:unique name="CustVselKey1" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:tdbv_custsel" />
+			<xs:field xpath="mstns:PERS_ID" />
+		</xs:unique>
+	</xs:element>
+</xs:schema>

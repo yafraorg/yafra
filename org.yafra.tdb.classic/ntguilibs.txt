@@ -1,0 +1,10 @@
+/SUBSYSTEM:console
+/ENTRY:mainCRTStartup
+g:/work/yafra-runtime/obj/tdb/tdb.lib
+g:/work/yafra-runtime/obj/tdb/tdbcomm.lib
+g:/work/yafra-runtime/libs/psipc.lib
+g:/work/yafra-runtime/libs/pssys.lib
+advapi32.lib
+user32.lib
+winmm.lib
+wsock32.lib

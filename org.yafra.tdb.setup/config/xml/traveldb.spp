@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+	<Folder FolderName="XML Files" ExtStr="xml;cml;math;mtx;rdf;smil;svg;wml">
+		<File FilePath=".\tdb-cmd.xml" HomeFolder="Yes"/>
+		<File FilePath=".\tdb-login.xml" HomeFolder="Yes"/>
+		<File FilePath=".\tdb-query.xml" HomeFolder="Yes"/>
+		<File FilePath=".\tdb-typecodes.xml" HomeFolder="Yes"/>
+	</Folder>
+	<Folder FolderName="XSL Files" ExtStr="xsl;xslt"/>
+	<Folder FolderName="HTML Files" ExtStr="html;htm;xhtml;asp"/>
+	<Folder FolderName="DTD/Schemas" ExtStr="dtd;dcd;xdr;biz;xsd">
+		<File FilePath=".\tdb-cmd.dtd" HomeFolder="Yes"/>
+		<File FilePath=".\tdb-cmd.xsd" HomeFolder="Yes"/>
+		<File FilePath=".\tdb-login.dtd" HomeFolder="Yes"/>
+		<File FilePath=".\tdb-login.xsd" HomeFolder="Yes"/>
+		<File FilePath=".\tdb-query.dtd" HomeFolder="Yes"/>
+		<File FilePath=".\tdb-query.xsd" HomeFolder="Yes"/>
+		<File FilePath=".\tdb-typecodes.dtd" HomeFolder="Yes"/>
+		<File FilePath=".\tdb-typecodes.xsd" HomeFolder="Yes"/>
+	</Folder>
+	<Folder FolderName="Entities" ExtStr="ent"/>
+</Project>

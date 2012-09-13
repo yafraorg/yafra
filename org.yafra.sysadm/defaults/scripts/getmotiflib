@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+#
+# shell script to know on which hardware we are
+#
+# Administrator, Jun 1992
+# yafra.org, Switzerland
+#
+# return: lib path of Motif
+#
+
+SYSTEM=`uname -s`
+
+# Test for HP Platform
+#
+if test "$SYSTEM" = "HP-UX"
+	then LIBMOTIF=/usr/lib/Motif2.1
+fi
+
+# Test for cygwin
+#
+if [[ "$SYSTEM" == *CYGWIN* ]]
+	then LIBMOTIF=/usr/lib
+fi
+
+# test for Linux
+#
+if test "$SYSTEM" = "Linux"
+	then LIBMOTIF=/usr/lib
+fi
+
+# put the platform string to the stdout
+echo $LIBMOTIF

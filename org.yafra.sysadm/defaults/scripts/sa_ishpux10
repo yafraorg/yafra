@@ -1,0 +1,327 @@
+#!/usr/bin/sh
+#------------------------------------------------------------------------------
+# (c) yafra.org 
+#
+# function:  install a client (hp 9000 series 700) system (IS)
+#
+# autor:     Administrator (mw)
+#
+# date:      18.10.94
+#
+# !! USE 'ci -u filename' for check in and 'co -l filename' for check out
+#    and lock !!!!
+#
+#------------------------------------------------------------------------------
+#
+# last modified:
+#  27.02.96 mw   convertet to HP-UX 10.01
+#  02.02.98 mw   added symbolic link from /home/remote/hpux10 to /usr/remote
+#
+#------------------------------------------------------------------------------
+
+IS_LOGFILE=/var/adm/psinstallsystem.log
+IS_MASTERDIR=/home/sysadm/hp/master10
+IS_SYSTEMNAME=$(hostname)
+IS_SYSTEM=$(uname -s)
+IS_HW=$(uname -m | cut -c6)
+IS_OSVER=$(uname -r | cut -c3-4)
+
+
+install_must() {
+	echo "\nStartup scripts/files\n" >> $IS_LOGFILE
+	IS_COPYFILE=/etc/rc.config.d/psvariables
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/sbin/init.d/psinit
+	IS_SPECIALCMD="/usr/bin/ln -s /sbin/init.d/pisoinit /sbin/rc3.d/S900pisoinit"
+	copyfile
+	/usr/bin/ln -s /sbin/init.d/psinit /sbin/rc2.d/K110psinit
+
+	IS_COPYFILE=/sbin/sa_psbootsystem
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/sbin/sa_pshostentry
+	IS_SPECIALCMD=
+	copyfile
+
+	echo "\nInstalling root user setup files\n" >> $IS_LOGFILE
+	IS_COPYFILE=/.forward
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/.rhosts
+	IS_SPECIALCMD=
+	copyfile
+
+	echo "\nInstalling hosts related files\n" >> $IS_LOGFILE
+	IS_COPYFILE=/etc/hosts
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/hosts.equiv
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/X0.hosts
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/resolv.conf
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/libsocks5.conf
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/nsswitch.conf
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/syslog.conf
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/networks
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/ftpusers
+	IS_SPECIALCMD=
+	copyfile
+
+#
+# !! ATTENTION only on series 700 it's possible to copy passwd file
+# I will make a check with uname -m later here
+#
+	echo "\nInstalling user related files\n" >> $IS_LOGFILE
+	IS_COPYFILE=/etc/passwd
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/group
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/logingroup
+	IS_SPECIALCMD=
+	copyfile
+
+	echo "\nInstalling system profile related files\n" >> $IS_LOGFILE
+	# set PATH right here with check ! cat $IS_MASTERDIR/etc/PATH >> /etc/PATH
+	IS_COPYFILE=/etc/profile
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/profile.ps
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/profile.psobj
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/profile.psproj
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/profile.addons
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/issue
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/copyright
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/crontab.root
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/shells
+	IS_SPECIALCMD=
+	copyfile
+}
+
+mail() {
+	echo "\nInstalling mailing / mail route related files\n" >> $IS_LOGFILE
+	IS_COPYFILE=/etc/mail/aliases
+	IS_SPECIALCMD=/usr/sbin/newaliases
+	copyfile
+
+	IS_COPYFILE=/etc/mail/sendmail.cf
+	IS_SPECIALCMD=/usr/sbin/freeze
+	copyfile
+}
+
+x11() {
+	echo "\nStart installing X11R5 addons on $IS_SYSTEMNAME\n"
+
+	# includes
+	cp -r $IS_MASTERDIR/usr/include/X11/* /usr/include/X11/.
+
+	# libraries
+	IS_COPYFILE=/usr/lib/lib*
+	IS_COPYDEST=/usr/lib/.
+	IS_SPECIALCMD=
+	copyfiles
+}
+
+cde() {
+	# CDE config
+	IS_COPYFILE=/usr/dt/config/Xconfig
+	IS_SPECIALCMD=
+	copyfile
+
+	# CDE user default profile
+	IS_COPYFILE=/usr/dt/config/sys.dtprofile
+	IS_SPECIALCMD=
+	copyfile
+
+	# CDE mouse definitions
+	IS_COPYFILE=/usr/dt/config/C/sys.dtwmrc
+	IS_SPECIALCMD=
+	copyfile
+
+	# CDE ISO fonts
+	IS_COPYFILE=/usr/dt/config/C/sys.font
+	IS_SPECIALCMD=
+	copyfile
+
+	# CDE actions and icons
+	echo "\nInstalling HP-VUE related files\n" >> $IS_LOGFILE
+	IS_COPYFILE=/usr/dt/appconfig/types/C/*
+	IS_COPYDEST=/usr/dt/appconfig/types/C/.
+	IS_SPECIALCMD=
+	copyfiles
+
+	IS_COPYFILE=/etc/dt/appconfig/icons/C/*
+	IS_COPYDEST=/etc/dt/appconfig/icons/C/.
+	IS_SPECIALCMD=
+	copyfiles
+}
+
+rwhod() {
+	echo "\nStart the RWHO daemon on $IS_SYSTEMNAME\n"
+}
+
+
+
+#
+# logging
+#
+loginit() {
+        echo "\nStart of installsystem script" >> $IS_LOGFILE
+        echo "\nMastersource: $IS_MASTERDIR" >> $IS_LOGFILE
+        echo "\nHost is: `/bin/hostname` at date: `/bin/date`\n" >> $IS_LOGFILE
+}
+
+logexit() {
+        echo "\nEnd of installsystem script at: `/bin/date`" >> $IS_LOGFILE
+}
+
+
+
+#
+# first make a backup of the original
+# then copy master files
+#
+# INPUT: IS_COPYFILE file to copy (absolut)
+#        IS_SPECIALCMD system command to execute AFTER copy
+#
+copyfile()
+{
+	if [ -f $IS_MASTERDIR$IS_COPYFILE ]
+	then
+		echo "$IS_MASTERDIR$IS_COPYFILE -> $IS_COPYFILE"
+		echo "$IS_MASTERDIR$IS_COPYFILE -> $IS_COPYFILE" >> $IS_LOGFILE
+		cp $IS_COPYFILE $IS_COPYFILE.org
+		cp $IS_MASTERDIR$IS_COPYFILE $IS_COPYFILE
+		if [ -n "$IS_SPECIALCMD" ]
+			then
+				echo "exec special cmd $IS_SPECIALCMD"
+				echo "exec special cmd $IS_SPECIALCMD" >> $IS_LOGFILE
+				$IS_SPECIALCMD
+		fi
+	fi
+}
+# copy files with * or ? expressions
+#
+# INPUT: IS_COPYFILE file to copy (absolut)
+#        IS_COPYDEST where to copy to (absolut)
+#        IS_SPECIALCMD system command to execute AFTER copy
+copyfiles()
+{
+	echo "$IS_MASTERDIR$IS_COPYFILE -> $IS_COPYDEST"
+	echo "$IS_MASTERDIR$IS_COPYFILE -> $IS_COPYDEST" >> $IS_LOGFILE
+	cp $IS_MASTERDIR$IS_COPYFILE $IS_COPYDEST
+	if [ -n "$IS_SPECIALCMD" ]
+		then
+		echo "exec special cmd $IS_SPECIALCMD"
+		echo "exec special cmd $IS_SPECIALCMD" >> $IS_LOGFILE
+		$IS_SPECIALCMD
+	fi
+}
+
+
+#
+# main section
+#
+
+if [ `id -u` -ne 0 ]
+then
+	echo "You must be root to run this script";
+	exit -1;
+fi
+
+if [ "$IS_SYSTEM" != "HP-UX" ]
+then
+	echo "This script is only valid for HP-UX";
+	exit -1;
+fi
+
+if [ $IS_HW -ne 7 ]
+then
+	echo "This script is only valid for 700 series";
+	exit -1;
+fi
+
+if [ $IS_OSVER -ne 10 ]
+then
+	echo "This script is only valid for release 10.x";
+	exit -1;
+fi
+
+# make logging
+loginit
+
+# begin installing
+install_must
+mail
+cde
+x11
+rwhod
+
+# make directories and links
+mkdir /database
+mkdir /work/yafra-runtime
+mkdir /work
+mkdir /work/libs
+mkdir /work/bin
+mkdir /work/obj
+mkdir /work/obj/mapo
+mkdir /work/obj/libs
+mkdir /work/obj/addons
+mkdir /work/obj/testsuite
+ln -s /home/remote/hpux10 /usr/remote
+ln -s /usr/remote/man /usr/local/man
+
+# end logging
+logexit
+
+exit 0

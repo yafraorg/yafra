@@ -1,0 +1,91 @@
+#-------------------------------------------------------------------------------
+# (c) yafra.org, 2002, Switzerland
+#
+# Filename:	$HOME/.profile
+#
+# Author:	Administrator
+#
+# Date:		20.10.92
+#
+# Purpose:	System-wide profile
+#-------------------------------------------------------------------------------
+#
+# Last Modified:
+#  mw 23.02.96 changes for HP-UX 10
+#  mw 17.05.96 renamed SYSADMHP to SYSADMS to make it systemindependend
+#  mw 20.01.97 update settings for linux (SYSTEM is realy dangerous)
+#  mw 23.03.02 updated for new DevEnv and cygwin, mingw, vs.net environments
+#
+#-------------------------------------------------------------------------------
+#
+# use bash "mount" command to mount C:D:E: drives to a local path
+# uncomment ONE of the 3 possible environments (cygwin, mingw, visualstudio)
+
+# system settings 
+alias ll='ls -l'
+alias del='rm'
+export PATH=/apps/opt/gnome/bin:/usr/X11R6/bin:$PATH
+set -o vi
+#export ORACLE_HOME=/ntwork/opt/Oracle/Ora81
+export ORACLE_SERVICE=sess_iiop://localhost:2481:oraserver
+#export JDK_CLASSPATH=/ntwork/opt
+export LOADJAVAPATH=travel/travel@localhost:1521:oraserver
+# global umask rw rw r (002)
+	umask 002
+# set standard language to english iso not to C, but date remains on C
+	export LANG=C.iso88591
+	export LC_ALL=C.iso88591
+	export LC_MESSAGES=C.iso88591
+# setup X11 / OSF/Motif paths
+	export INCX11=/usr/X11R6/include
+	export INCMOTIF=/usr/X11R6/include
+	export LIBX11=/usr/X11R6/lib
+
+
+#
+# section:  global system defines
+#
+
+# setup system
+	export PS_HOSTNAME=devhost
+	export PS_HW=IA32
+
+# cygwin environment
+	export PS_TARGET=cygwin-intel
+	export PS_OSTYPE=ps_unix
+	export PS_OS=ps_cygwin
+	export PS_OSVER=1
+	export PS_COMPTYPE=ps_unix
+
+# mingw environemnt (under cygwin)
+#	export PS_TARGET=mingw-intel
+#	export PS_OSTYPE=ps_win
+#	export PS_OS=ps_mingw
+#	export PS_OSVER=1
+#	export PS_COMPTYPE=ps_unix
+
+# microsoft visual studio .net (under cygwin)
+#	export PS_TARGET=win2k-intel
+#	export PS_OS=ps_winnt
+#	export PS_OSVER=2000
+#	export PS_COMPTYPE=ps_win
+#	export PS_OSTYPE=ps_win
+#	export PS_LOCALDRV=G:
+
+# set standard language to english iso not to C, but date remains on C
+	export LANG=C.iso88591
+	export LC_ALL=C.iso88591
+	export LC_MESSAGES=C.iso88591
+
+# system search path
+	export PATH=/apps/opt/gnome/bin:$PATH:$PISOBIN:/work/bin
+
+# setup X11 / OSF/Motif paths
+	export INCX11=/usr/X11R6/include
+	export INCMOTIF=/usr/X11R6/include
+	export LIBX11=/usr/X11R6/lib
+	export LIBMOTIF=/usr/X11R6/lib
+
+#
+# import generic profile here
+#

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="ActGrp" targetNamespace="http://tempuri.org/ActGrp.xsd" elementFormDefault="qualified"
+	attributeFormDefault="qualified" xmlns="http://tempuri.org/ActGrp.xsd" xmlns:mstns="http://tempuri.org/ActGrp.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="ActGrp" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="aktionsgrp">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PARENTAKT" type="xs:int" />
+							<xs:element name="CHILDAKT" type="xs:int" />
+							<xs:element name="ORD" type="xs:int" />
+							<xs:element name="H_AKT_ID" type="xs:int" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+		<xs:unique name="ActGrpKey1" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:aktionsgrp" />
+			<xs:field xpath="mstns:PARENTAKT" />
+			<xs:field xpath="mstns:CHILDAKT" />
+			<xs:field xpath="mstns:ORD" />
+		</xs:unique>
+	</xs:element>
+</xs:schema>

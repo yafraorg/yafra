@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+#
+# shell script to know on which target we are
+#
+# Administrator, Jun 1992
+# yafra.org, Switzerland
+#
+# return: target type
+#         hpux9-700
+#
+
+PSSYSTEM=`uname -s`
+PSMACHINETYPE=`uname -m`
+PSRELEASE=`uname -r`
+PSVER=`uname -v`
+
+# Test for HP Platform
+#
+if test "$PSSYSTEM" = "HP-UX"
+	then TMP=`echo $PSMACHINETYPE | cut -c1-6`
+	case $TMP in
+		"9000/3") HARDWARE=400;;
+		"9000/4") HARDWARE=400;;
+		"9000/7") HARDWARE=700;;
+		"9000/8") HARDWARE=800;;
+	esac
+	TMP=`echo $PSRELEASE | cut -c3-4`
+	case $TMP in
+		"11") OSVER=11;;
+		"10") OSVER=10;;
+		"09") OSVER=9;;
+	esac
+	PSTARGET=hpux$OSVER-$HARDWARE
+fi
+
+# test for Linux
+#
+if test "$PSSYSTEM" = "Linux"
+	then PSTARGET=linux2-intel
+fi
+
+# Test for cygwin
+#
+if [[ "$PSSYSTEM" == *CYGWIN* ]]
+	then PSTARGET=cygwin-intel
+fi
+
+# put the platform string to the stdout
+echo $PSTARGET

@@ -1,0 +1,128 @@
+#
+#  Copyright 2002 yafra.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+# MAKEFILE for your_project
+#
+# shell env: PS_OSTYPE, PS_OS, PS_OSVER, PS_HW
+#            PS_HOSTNAME
+#            PS_LOCALDRV, PS_SOFTECHDRV
+#
+#            BASENODE and path of corename or RELAREA
+#            RELEASE  0.0.0
+#            ODEBUG   debug or optimize
+#			  OSAHRED
+#
+# revision system: GIT
+#
+# P: PATH
+# F: FLAG
+
+
+##
+## ATTENTION !!!
+## REMOVE ALL COMMENTARIES BEHIND A STATEMENT
+## like CORENAME = xy  # thats the main name
+## else there are white spaces in the string which makes difficulties
+##
+
+CORENAME = xy # thats the main name
+VER_NAME = "xy library"
+RELEASE  = 1.0.0   # add 't' for testing, for release let 't' away
+SONAMEVER = 1
+
+#
+# path/flag declarations for release and develop
+#
+PBASE   = $(xy)
+POBJ    = $(xyO)
+PSLIBINC = $(YAFRAINC)       # here are the global includes for the libs
+PSLIB   = $(YAFRALIBPATH)      # or set it to another release path
+PLIB    = $(YAFRALIBPATH)
+PINC    = $(PBASE)/include
+PSRC    = $(PBASE)/source
+PMAN    = $(PBASE)/man
+
+# GNU make
+# set the vpath and suffixes
+#
+include $(YAFRATOOLS)/include/searchpath.mak
+
+#
+# set input/output files
+#
+MAKEFILE   = makefile
+LINTOUT    = $(PSRC)/lint.out
+
+#
+# defines for the sourcecode
+#
+DEFINES   = -D$(PS_OS) -D$(PS_OSTYPE)
+MANSECTION = 3
+
+#
+# search path for includes and librarys
+#
+include $(YAFRATOOLS)/include/libflags.mak
+
+ifeq ($(PS_OS),ps_cygwin)
+endif
+
+ifeq ($(PS_OS),ps_mingw)
+endif
+
+ifeq ($(PS_OS),ps_linux)
+endif
+
+ifeq ($(PS_OS),ps_aix)
+endif
+
+ifeq ($(PS_OS),ps_solaris)
+endif
+
+ifeq ($(PS_OS),ps_hpux)
+ADDON   = -Aa -D_HPUX_SOURCE +w1
+#CC      = purify -best-effort cc
+endif
+
+ifeq ($(PS_OS),ps_winnt)
+ADDON = -W3 -Fp"$(TEMP)/vc.pch"
+DLLADDONOBJS =
+endif
+
+# set major flags
+ifeq ($(PS_COMPTYPE),ps_win)
+FINCSEARCH  = -I"$(PS_LOCALDRV)$(PSLIBINC)" -I"$(PS_LOCALDRV)$(PINC)"
+CFLAGS      = $(FCC) $(ADDON) $(DEFINES) \
+ $(FINCSEARCH) -Fo"$(PS_LOCALDRV)$(POBJ)/"
+else
+FINCSEARCH  = -I$(PSLIBINC) -I$(PINC)
+CFLAGS      = $(FCC) $(ADDON) $(DEFINES) $(FINCSEARCH)
+endif
+
+
+#
+# dependencies
+#
+include $(YAFRATOOLS)/include/objects.mak
+
+#
+# to do list
+#
+include $(YAFRATOOLS)/include/librules.mak
+
+manpage:
+	$(MANGEN) $(CMANFLAGS) $(PSRC)/xy.c
+
+# DO NOT DELETE THIS LINE -- make depend depends on it.

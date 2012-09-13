@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="ActV" targetNamespace="http://tempuri.org/ActV.xsd" elementFormDefault="qualified"
+	attributeFormDefault="qualified" xmlns="http://tempuri.org/ActV.xsd" xmlns:mstns="http://tempuri.org/ActV.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="ActV" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="tdbv_act">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ACT_ID" type="xs:int" />
+							<xs:element name="BEZ_ID" type="xs:int" />
+							<xs:element name="BEZ" type="xs:string" />
+							<xs:element name="S_ID" type="xs:int" />
+							<xs:element name="TEXTID" type="xs:int" minOccurs="0" />
+							<xs:element name="AFLAG" type="xs:string" />
+							<xs:element name="AFLAGID" type="xs:int" minOccurs="0" />
+							<xs:element name="BFLAG" type="xs:string" />
+							<xs:element name="BFLAGID" type="xs:int" minOccurs="0" />
+							<xs:element name="B2FLAG" type="xs:string" />
+							<xs:element name="B2FLAGID" type="xs:int" minOccurs="0" />
+							<xs:element name="MFLAG" type="xs:string" />
+							<xs:element name="MFLAGID" type="xs:int" minOccurs="0" />
+							<xs:element name="ACTTYPE" type="xs:string" />
+							<xs:element name="ACTTYPEID" type="xs:int" />
+							<xs:element name="ACTTPROC" type="xs:string" />
+							<xs:element name="FILE_ID" type="xs:int" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

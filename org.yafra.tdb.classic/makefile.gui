@@ -1,0 +1,151 @@
+#
+#  Copyright 2002 yafra.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+# MAKEFILE for travelDB graphical user interface Motif
+#
+# P: PATH
+# F: FLAG
+
+#
+# program and library names
+#
+CORENAME   = gui
+VER_NAME   = "travelDB TO Classic"
+
+ifeq ($(PS_OSTYPE),ps_win)
+PROGRAM    = mp$(CORENAME).exe
+else
+ifeq ($(PS_OS),ps_cygwin)
+PROGRAM    = mp$(CORENAME).exe
+else
+PROGRAM    = mp$(CORENAME)
+endif
+endif
+
+#
+# path/flag declarations for release or development basis(BASE) 
+# 
+#
+PBASE   = $(TDBS)
+POBJ    = $(TDBO)
+PSLIBINC = $(YAFRAINC)
+PSLIB   = $(YAFRALIBPATH)
+PINC    = $(PBASE)/include
+PLIB    = $(YAFRALIBPATH)
+PEXE    = $(YAFRAEXE)
+PSRC    = $(PBASE)/$(CORENAME)
+PMAN    = $(PBASE)/../man
+
+# GNU make
+# set the vpath and suffixes
+#
+include $(YAFRATOOLS)/include/searchpath.mak
+
+#
+# link libraries
+#
+ifeq ($(PS_OS),ps_linux)
+LIBS = -ltdbcomm -ltdb -lpsmatrix -lpsmume -lpsmodul -lpsipc -lpssys \
+       $(ADDLIBS) -lXm -lXpm -lXt -lX11 -lXext -lm 
+endif
+
+ifeq ($(PS_OS),ps_hpux)
+AUDIOLIBS=-L/opt/audio/lib -lAlib
+LIBS = -ltdbcomm -ltdb -lpsmatrix -lpsmume -lpsmodul -lpsipc -lpssys \
+       $(AUDIOLIBS) $(ADDLIBS) -lXm -lXt -lXext -lX11 -lPW -lm 
+endif
+
+ifeq ($(PS_OS),ps_mingw)
+LIBS = -ltdbcomm -ltdb -lpsmatrix -lpsmume -lpsmodul -lpsipc -lpssys \
+       $(ADDLIBS) -lXm -lXpm -lXt -lX11 -lXext -lICE -lSM -lm -lwinmm 
+endif
+
+ifeq ($(PS_OS),ps_cygwin)
+LIBS = -ltdbcomm -ltdb -lpsmatrix -lpsmume -lpsmodul -lpsipc -lpssys \
+      $(ADDLIBS) -lXm -lXpm -lXt -lX11 -lXext -lICE -lSM -lm -lwinmm 
+endif
+
+ifeq ($(PS_OS),ps_winnt)
+LIBS = @ntguilibs.txt
+endif
+
+#
+# set input/output files
+#
+MAKEFILE   = makefile.gui
+LINTOUT    = $(SOURCEPATH)/lint.out
+
+#
+# defines for the sourcecode
+#
+DEFINES    = -D$(PS_OS) -D$(PS_OSTYPE) #-DPSLICENSE
+MANSECTION = 1
+
+#
+# search path for includes and libraries
+#
+include $(YAFRATOOLS)/include/prgflags.mak
+
+ifeq ($(PS_OS),ps_linux)
+ADDON =
+ADDLIBS  =
+endif
+
+ifeq ($(PS_OS),ps_mingw)
+ADDON = -mno-cygwin
+ADDLIBS  =
+endif
+
+ifeq ($(PS_OS),ps_cygwin)
+ADDON =
+ADDLIBS = 
+endif
+
+ifeq ($(PS_OS),ps_hpux)
+ADDON = -Ae +w1
+ADDLIBS  =
+#CC         = purify -best-effort cc
+#LD         = purify -best-effort cc
+endif
+
+ifeq ($(PS_OS),ps_winnt)
+ADDON = -W3 -Fp"$(TEMP)/vc.pch"
+endif
+
+ifeq ($(PS_COMPTYPE),ps_win)
+FINCSEARCH  = -I"$(PS_LOCALDRV)$(PINC)" -I"$(PS_LOCALDRV)$(PSLIBINC)" \
+ -I"$(PS_LOCALDRV)$(INCX11)"
+CFLAGS      = $(FCC) $(ADDON) $(DEFINES) \
+ $(FINCSEARCH) -Fo"$(PS_LOCALDRV)$(POBJ)/"
+LDFLAGS     = $(FLD)
+else
+LDFLAGS     = $(FLD) -L$(PLIB) -L$(LIBMOTIF) -L$(LIBX11)
+FINCSEARCH  = -I$(PINC) -I$(PSLIBINC) -I$(INCMOTIF) -I$(INCX11)
+CFLAGS      = $(FCC) $(ADDON) $(DEFINES) $(FINCSEARCH)
+endif
+
+#
+# dependencies
+#
+include $(YAFRATOOLS)/include/objects.mak
+
+#
+# to do list
+#
+include $(YAFRATOOLS)/include/prgrules.mak
+
+mpgui: all
+
+# DO NOT DELETE THIS LINE -- make depend depends on it.

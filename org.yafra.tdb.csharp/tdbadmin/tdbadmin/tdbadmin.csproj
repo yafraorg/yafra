@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9DFEC2AC-5AA3-4AE3-8F70-8654A7559D0A}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>tdbadmin</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>tdbadmin</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>tdbadmin.FMain</StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Name>System.Web.Services</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\tdbds\tdbds.csproj">
+      <Project>{DA067554-A2D2-4F3F-BD53-0125DBAB5991}</Project>
+      <Name>tdbds</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tdbgui\tdbgui.csproj">
+      <Name>tdbgui</Name>
+      <Project>{A34AD1BE-4E7E-4F42-A1EC-50A3D14FADA1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\tdb\tdb.csproj">
+      <Name>tdb</Name>
+      <Project>{B11633A2-2A1A-4EF6-8125-069C1F42F026}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\common\foundation.csproj">
+      <Project>{BEB1AFB6-79D6-4DEE-BDA2-99D0A04F7013}</Project>
+      <Name>foundation</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FServiceOffer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FWcreateservP4.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FWcreateservP3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FWcreateservP2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FWcreateservP1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FGraphics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fbez.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FActType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FArr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FCat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FCity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FCountry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FCur.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FCustomType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FGrp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FGrpType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FLang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FOffer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FOfferType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FPersType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FPrg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FPriceType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSeason.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSupType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FTraveler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FWcreateserv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProfileGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelTreeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="version.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Content Include="App.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+    <Service Include="{CF845C55-C321-4742-B673-E6212D061ED9}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FServiceOffer.resx">
+      <DependentUpon>FServiceOffer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FWcreateservP3.resx">
+      <DependentUpon>FWcreateservP3.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FWcreateservP2.resx">
+      <DependentUpon>FWcreateservP2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FWcreateservP1.resx">
+      <DependentUpon>FWcreateservP1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FArr.resx">
+      <DependentUpon>FArr.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fbez.resx">
+      <DependentUpon>Fbez.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FCountry.resx">
+      <DependentUpon>FCountry.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fer.resx">
+      <DependentUpon>Fer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FGraphics.resx">
+      <DependentUpon>FGraphics.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FOffer.resx">
+      <DependentUpon>FOffer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FPersType.resx">
+      <DependentUpon>FPersType.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FService.resx">
+      <DependentUpon>FService.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FWcreateserv.resx">
+      <DependentUpon>FWcreateserv.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options.resx">
+      <DependentUpon>Options.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
