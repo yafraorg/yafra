@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#
+# shell script to know on which os version we are
+#
+# Administrator, Jun 1992
+# yafra.org, Switzerland
+#
+# return: os version
+#
+
+OSVERSION=`uname -r`
+
+# put the platform string to the stdout
+echo $OSVERSION

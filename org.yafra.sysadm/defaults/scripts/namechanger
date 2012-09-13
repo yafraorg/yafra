@@ -1,0 +1,97 @@
+#---------------------------------------------------------------------------
+# namechanger
+#
+# Script for changing file names such as for Unix to DOS 
+# The script must be edited to match user's requests !
+#
+#
+#
+# Copyright: yafra.org, Switzerland     
+#---------------------------------------------------------------------------
+
+
+#-------- list files in directory -------------------
+listdir()
+{
+	for dir in /users/softech/mapo/source/zzdir
+	do
+		if [ "`ls -c1 $dir`" ]
+		then
+			echo "Files in $dir:"
+			ls -c1 $dir
+		fi
+	done
+}
+
+
+#-------- list files in directory -------------------
+listfiles()
+{
+	cd /users/softech/mapo/source/gui 
+
+	dir="`ls -c1 /users/softech/mapo/source/gui | sed 's/\.c/  /'`"
+	for file in $dir
+	do
+		echo "Action for file: $file.c "
+#-- check out all files  ------------
+#		co -l $file.c
+
+#-- include file editing ------------
+#		sed  '1,$ s/xGRinclude/ginclude/' $file.c > $file.ed
+#		rm $file.c
+#		mv $file.ed  $file.c
+
+#-- file name edition + new file creation ---
+#		new=`awk '/'$file'/ { print $2; exit  }' < dictionary.txt`
+#		echo "replaced by: $new"
+#		sed  '1,10 s/'$file'/'$new'/' $file.c >  $new.c    
+
+	done
+}
+
+
+
+rcsfiles()
+{
+	cd /users/softech/mapo/source/gui/RCS 
+
+	dir="`ls -c1 /users/softech/mapo/source/gui/RCS | sed 's/\.c,v/    /'`"
+	for file in $dir
+	do
+		echo "Action for file: $file.c,v "
+
+#-- RCS files ----
+		new=`awk '/'$file'/ { print $2; exit  }' < dictionary.txt`
+		mv $file.c,v  $new.c,v
+
+	done
+}
+
+
+#-- warning: each pattern will be replaced by new
+#            example:  cat -->newcat, catman ->newcatman
+makefile()
+{
+	cd /users/softech/mapo/source/zzdir
+
+	for name in	`awk ' { print $1}' < dictionary.txt`
+	do
+		new=`awk '/'$name'/ { print $2; exit  }' < dictionary.txt`
+		echo "Replace: $name  -----> $new"
+		sed  '1,$ s/'$name'/'$new'/g' makefile.gui >  makefile.sed    
+		rm makefile.gui 
+		mv  makefile.sed  makefile.gui    
+	done
+}
+
+
+
+#======================= WORK to DOS ======================================
+
+#listfiles
+
+#rcsfiles
+
+#makefile
+
+

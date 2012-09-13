@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- edited martin@yafra.org -->
+<!DOCTYPE TRAVELDB SYSTEM "G:\work\cvswork\mapo\xml\tdb-query.dtd">
+<TRAVELDB version="1.0">
+	<STATUS>
+		<CODE>0</CODE>
+		<MSG>OK</MSG>
+	</STATUS>
+	<QUERY version="1.0">
+		<HEADER>
+			<OBJECT>250</OBJECT>
+			<SQL>SELECT * FROM ROOT.SAISON</SQL>
+			<NOROWS>3</NOROWS>
+			<NOFIELDS>4</NOFIELDS>
+			<CRET>0</CRET>
+		</HEADER>
+		<RECORDS>
+			<RECORD id="1">
+				<bez>Exterior Dimensions</bez>
+				<code>exterior.gif</code>
+				<text>fasddf</text>
+			</RECORD>
+			<RECORD id="2">
+				<bez>Interior Design</bez>
+				<code>interior.gif</code>
+				<text>fsafa</text>
+			</RECORD>
+			<RECORD id="3">
+				<bez>bla</bez>
+				<code>blo</code>
+				<text>blu</text>
+			</RECORD>
+		</RECORDS>
+	</QUERY>
+</TRAVELDB>

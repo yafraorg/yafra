@@ -1,0 +1,14 @@
+
+#
+# sendmail log
+#
+FILE=/usr/spool/mqueue/syslog
+rm $FILE
+touch $FILE
+
+#
+# SAM log
+#
+FILE=/usr/sam/log/samlog
+rm $FILE
+touch $FILE

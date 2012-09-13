@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+  project-version="3.0.0.1">
+	<property name="defaultPackage" value="org.yafra.orm"/>
+	<property name="defaultSchema" value="yafra"/>
+	<db-entity name="Person" schema="yafra">
+		<db-attribute name="address" type="VARCHAR" length="10000"/>
+		<db-attribute name="country" type="VARCHAR" length="1000"/>
+		<db-attribute name="firstname" type="VARCHAR" isMandatory="true" length="1000"/>
+		<db-attribute name="googleId" type="VARCHAR" length="4000"/>
+		<db-attribute name="id" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="1000"/>
+		<db-attribute name="pkPerson" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="type" type="VARCHAR" isMandatory="true" length="100"/>
+	</db-entity>
+	<db-entity name="PersonLog" schema="yafra">
+		<db-attribute name="eventAudit" type="VARCHAR" length="10000"/>
+		<db-attribute name="eventAuditReviewer" type="VARCHAR" length="1000"/>
+		<db-attribute name="eventCreator" type="VARCHAR" isMandatory="true" length="1000"/>
+		<db-attribute name="eventDate" type="DATE" isMandatory="true"/>
+		<db-attribute name="eventDescription" type="VARCHAR" isMandatory="true" length="10000"/>
+		<db-attribute name="fkPersonId" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="pkPersonLog" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="YafraAudit" schema="yafra">
+		<db-attribute name="auditobject" type="VARCHAR" length="1000"/>
+		<db-attribute name="audittext" type="VARCHAR" isMandatory="true" length="10000"/>
+		<db-attribute name="fkUser" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="pkAudit" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="timestamp" type="DATE" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="YafraBusinessRole" schema="yafra">
+		<db-attribute name="description" type="VARCHAR" length="4000"/>
+		<db-attribute name="flag" type="BOOLEAN"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="1000"/>
+		<db-attribute name="pkYafraBusinessRole" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="YafraRole" schema="yafra">
+		<db-attribute name="description" type="VARCHAR" length="4000"/>
+		<db-attribute name="fkBusinessRole" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="1000"/>
+		<db-attribute name="pkYafraRole" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="rights" type="VARCHAR" length="1000"/>
+	</db-entity>
+	<db-entity name="YafraUser" schema="yafra">
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="1000"/>
+		<db-attribute name="picturelink" type="VARCHAR" length="4000"/>
+		<db-attribute name="pkYafraUser" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="userid" type="VARCHAR" isMandatory="true" length="500"/>
+	</db-entity>
+	<db-entity name="YafraUserRole" schema="yafra">
+		<db-attribute name="YRole" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="YUser" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="pkYafraUserRole" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<obj-entity name="Person" className="org.yafra.orm.Person" dbEntityName="Person">
+		<obj-attribute name="address" type="java.lang.String" db-attribute-path="address"/>
+		<obj-attribute name="country" type="java.lang.String" db-attribute-path="country"/>
+		<obj-attribute name="firstname" type="java.lang.String" db-attribute-path="firstname"/>
+		<obj-attribute name="googleId" type="java.lang.String" db-attribute-path="googleId"/>
+		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="type" type="java.lang.String" db-attribute-path="type"/>
+	</obj-entity>
+	<obj-entity name="PersonLog" className="org.yafra.orm.PersonLog" dbEntityName="PersonLog">
+		<obj-attribute name="eventAudit" type="java.lang.String" db-attribute-path="eventAudit"/>
+		<obj-attribute name="eventAuditReviewer" type="java.lang.String" db-attribute-path="eventAuditReviewer"/>
+		<obj-attribute name="eventCreator" type="java.lang.String" db-attribute-path="eventCreator"/>
+		<obj-attribute name="eventDate" type="java.util.Date" db-attribute-path="eventDate"/>
+		<obj-attribute name="eventDescription" type="java.lang.String" db-attribute-path="eventDescription"/>
+	</obj-entity>
+	<obj-entity name="YafraAudit" className="org.yafra.orm.YafraAudit" dbEntityName="YafraAudit">
+		<obj-attribute name="auditobject" type="java.lang.String" db-attribute-path="auditobject"/>
+		<obj-attribute name="audittext" type="java.lang.String" db-attribute-path="audittext"/>
+		<obj-attribute name="timestamp" type="java.util.Date" db-attribute-path="timestamp"/>
+	</obj-entity>
+	<obj-entity name="YafraBusinessRole" className="org.yafra.orm.YafraBusinessRole" dbEntityName="YafraBusinessRole">
+		<obj-attribute name="description" type="java.lang.String" db-attribute-path="description"/>
+		<obj-attribute name="flag" type="java.lang.Boolean" db-attribute-path="flag"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+	</obj-entity>
+	<obj-entity name="YafraRole" className="org.yafra.orm.YafraRole" dbEntityName="YafraRole">
+		<obj-attribute name="description" type="java.lang.String" db-attribute-path="description"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="rights" type="java.lang.String" db-attribute-path="rights"/>
+	</obj-entity>
+	<obj-entity name="YafraUser" className="org.yafra.orm.YafraUser" dbEntityName="YafraUser">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="picturelink" type="java.lang.String" db-attribute-path="picturelink"/>
+		<obj-attribute name="userid" type="java.lang.String" db-attribute-path="userid"/>
+	</obj-entity>
+	<db-relationship name="LogArray" source="Person" target="PersonLog" toMany="true">
+		<db-attribute-pair source="pkPerson" target="fkPersonId"/>
+	</db-relationship>
+	<db-relationship name="TO_Person" source="PersonLog" target="Person" toMany="false">
+		<db-attribute-pair source="fkPersonId" target="pkPerson"/>
+	</db-relationship>
+	<db-relationship name="TO_User" source="YafraAudit" target="YafraUser" toMany="false">
+		<db-attribute-pair source="fkUser" target="pkYafraUser"/>
+	</db-relationship>
+	<db-relationship name="TechnicalRolesArray" source="YafraBusinessRole" target="YafraRole" toMany="true">
+		<db-attribute-pair source="pkYafraBusinessRole" target="fkBusinessRole"/>
+	</db-relationship>
+	<db-relationship name="UserArray" source="YafraBusinessRole" target="YafraUserRole" toMany="true">
+		<db-attribute-pair source="pkYafraBusinessRole" target="YRole"/>
+	</db-relationship>
+	<db-relationship name="TO_YafraBusinessRole" source="YafraRole" target="YafraBusinessRole" toMany="false">
+		<db-attribute-pair source="fkBusinessRole" target="pkYafraBusinessRole"/>
+	</db-relationship>
+	<db-relationship name="AuditArray" source="YafraUser" target="YafraAudit" toMany="true">
+		<db-attribute-pair source="pkYafraUser" target="fkUser"/>
+	</db-relationship>
+	<db-relationship name="RoleArray" source="YafraUser" target="YafraUserRole" toMany="true">
+		<db-attribute-pair source="pkYafraUser" target="YUser"/>
+	</db-relationship>
+	<db-relationship name="TO_Role" source="YafraUserRole" target="YafraBusinessRole" toMany="false">
+		<db-attribute-pair source="YRole" target="pkYafraBusinessRole"/>
+	</db-relationship>
+	<db-relationship name="TO_User" source="YafraUserRole" target="YafraUser" toMany="false">
+		<db-attribute-pair source="YUser" target="pkYafraUser"/>
+	</db-relationship>
+	<obj-relationship name="logArray" source="Person" target="PersonLog" deleteRule="Cascade" db-relationship-path="LogArray"/>
+	<obj-relationship name="toPerson" source="PersonLog" target="Person" deleteRule="Nullify" db-relationship-path="TO_Person"/>
+	<obj-relationship name="toUser" source="YafraAudit" target="YafraUser" deleteRule="Nullify" db-relationship-path="TO_User"/>
+	<obj-relationship name="YUsers" source="YafraBusinessRole" target="YafraUser" deleteRule="Deny" db-relationship-path="UserArray.TO_User"/>
+	<obj-relationship name="technicalRolesArray" source="YafraBusinessRole" target="YafraRole" deleteRule="Deny" db-relationship-path="TechnicalRolesArray"/>
+	<obj-relationship name="toYafraBusinessRole" source="YafraRole" target="YafraBusinessRole" deleteRule="Nullify" db-relationship-path="TO_YafraBusinessRole"/>
+	<obj-relationship name="YRoles" source="YafraUser" target="YafraBusinessRole" deleteRule="Deny" db-relationship-path="RoleArray.TO_Role"/>
+	<obj-relationship name="auditArray" source="YafraUser" target="YafraAudit" deleteRule="Cascade" db-relationship-path="AuditArray"/>
+	<query name="DeleteAll" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="org.yafra.yafraMap">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[delete from $table]]></sql>
+	</query>
+</data-map>

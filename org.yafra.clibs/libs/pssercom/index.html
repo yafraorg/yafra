@@ -1,0 +1,70 @@
+<HTML>
+
+<HEAD>
+<TITLE> PISO GUIDE REPOSITORY: SERCOM </TITLE>
+</HEAD>
+
+<BODY TEXT="#000000" BGCOLOR="#C0C0FF" LINK="#0000FF" VLINK="#800080" ALINK="#FF0080">
+
+<H2>PISO GUIDE REPOSITORY: SERCOM</H2>
+
+<H4>Kurzbeschreibung</H4>
+Diese Library dient f�r die Kommunikation mit seriellen Interfaces, wie
+Modems, FAX.
+<P>
+Diese Library wird unter Windows nur durch Nutcracker unterstuetzt. Es
+gibt keine "plain windows" Version.
+<P>
+Folgende Funktionen sind beinhaltet:
+<UL>
+<LI><A HREF="/cgi-bin/manpage?3+PSSYSexecute">PSSYSexecute()</A>
+</UL>
+F�r Windows NT sind folgende libs zu linken:
+<UL>
+<LI>/SUBSYSTEM:windows
+<LI>pssys.lib
+<LI>kernel32.lib
+</UL>
+
+<H4>Offene Punkte</H4>
+<UL>
+<LI>Nutcracker intergrieren
+<LI>Unter UNIX HylaFax intergrieren
+<LI>Unter NT FaxMail integrieren
+</UL>
+
+<H4>Versions�bersicht</H4>
+<PRE>
+19.07.95 mw  Version 1.0 erstellt
+17.09.97 mw  Version 1.1 erstellt fuer NT mit/ohne Nutcracker
+</PRE>
+
+<H4>Portabilit�t</H4>
+<TABLE BORDER>
+<TR> <TH>OSTYP</TH>     <TH>OS Name</TH>    <TH>Unterst�tzt ?</TH> </TR>
+<TR> <TD>ps_unix</TD>   <TD>ps_hpux</TD>    <TD>JA (mw)</TD> </TR>
+<TR> <TD>ps_unix</TD>   <TD>ps_linux</TD>   <TD>JA (mw)</TD> </TR>
+<TR> <TD>ps_win</TD>    <TD>ps_winnt</TD>   <TD>JA (mw)</TD> </TR>
+<TR> <TD>ps_win</TD>    <TD>ps_win95</TD>   <TD>NEIN</TD> </TR>
+<TR> <TD>ps_winplain</TD>  <TD>*</TD>       <TD>NEIN</TD> </TR>
+<TR> <TD>ps_win</TD>    <TD>ps_win31</TD>   <TD>NEIN</TD> </TR>
+<TR> <TD>ps_win</TD>    <TD>ps_dos</TD>     <TD>NEIN</TD> </TR>
+<TR> <TD>ps_unix</TD>   <TD>ps_solaris</TD> <TD>NEIN</TD> </TR>
+<TR> <TD>ps_unix</TD>   <TD>ps_aix</TD>     <TD>NEIN</TD> </TR>
+</TABLE>
+
+<HR>
+<IMG ALIGNE=MIDDLE SRC="/icons/back.xbm">
+<A HREF="index.html">Zur�ck zum Inhaltsverzeichnis</A>
+<P>
+<IMG ALIGNE=MIDDLE SRC="/icons/back.xbm">
+<A HREF="/">Zur�ck zur home page</A>
+
+<HR>
+<ADDRESS>
+author: Administrator &copy Yafra.org, Switzerland <BR>
+version: $Header: /yafraorg/cvsroot/foundation/ansic/libs/pssercom/index.html,v 1.1.1.1 2002-10-26 20:49:54 mwn Exp $
+</ADDRESS>
+
+</BODY>
+</HTML>

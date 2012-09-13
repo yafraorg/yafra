@@ -1,0 +1,14 @@
+###### Menu Unten Anfang ###########
+temp.MenuUnten=HMENU
+temp.MenuUnten.special=directory
+temp.MenuUnten.special.value=27
+temp.MenuUnten.1=TMENU
+temp.MenuUnten.1{
+  noBlur = 1
+  NO{
+    linkWrap=|*| |&nbsp; &#124; &nbsp;|*| |*|
+    ATagParams=class="menu_link"
+    ATagTitle.field = description // title
+  }
+}
+############ Menu Unten Ende ############

@@ -1,0 +1,28 @@
+#!/bin/sh
+#-------------------------------------------------------------------------------
+# yafra.org, 2002
+#
+# function:	install yafra source from tar archives from /tmp
+#
+# author:	Administrator  
+#
+# date:		19.08.97
+#-------------------------------------------------------------------------------
+#
+# last modified:
+#
+#-------------------------------------------------------------------------------
+
+# for date format
+LANG=german
+
+# version strings
+VER_COMPILE="(New yafra.org Install on `date +%d.%m.%y\" \"%X`)"
+echo "$VER_COMPILE" > /tmp/last.inst
+
+#
+# set yafra git root
+INSTALLNODE=/work/repos/git
+#git clone xxxxx YafraLocalGit
+done
+

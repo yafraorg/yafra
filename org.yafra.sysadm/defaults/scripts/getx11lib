@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+#
+# shell script to know on which hardware we are
+#
+# Administrator, Jun 1992
+# yafra.org, Switzerland
+#
+# return: lib path of X11
+#
+
+SYSTEM=`uname -s`
+
+# Test for HP Platform
+#
+if test "$SYSTEM" = "HP-UX"
+	then LIBX11=/usr/lib/X11R6
+fi
+
+# test for Linux
+#
+if test "$SYSTEM" = "Linux"
+	then LIBX11=/usr/lib
+fi
+
+# Test for cygwin
+#
+if [[ "$SYSTEM" == *CYGWIN* ]]
+	then INCX11=/usr/lib
+fi
+
+# test for SCO
+#
+if test "$SYSTEM" = "james"
+	then LIBX11=/usr/lib/X11R4
+fi
+
+# put the platform string to the stdout
+echo $LIBX11

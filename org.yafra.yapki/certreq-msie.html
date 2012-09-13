@@ -1,0 +1,431 @@
+<HTML>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+	<HEAD>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<meta name="Author" content="yafra.org">
+		<meta name="description" content="certificate request via browser for yafra.org certificate authority">
+		<title>Request your certificate for yafra.org</title>
+		<link rel="stylesheet" href="http://www.yafra.org/yafra.css">
+		<object	classid="clsid:127698e4-e730-4e5c-a2b1-21490a70c8a1"
+			CODEBASE="http://www.yafra.org/xenroll.cab" id="cenroll">
+		</object>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+var browserName = navigator.appName;
+var browserVer = navigator.userAgent;
+var browserNum = parseInt(navigator.appVersion);
+
+function IsIE4()
+{
+	if (browserNum > 3 )
+		return true ;
+	else
+		return false ;
+}
+
+function declinefunc()
+{
+	window.navigate("declined.htm") ;
+}
+// -->
+</SCRIPT>
+
+<SCRIPT LANGUAGE="VBScript">
+<!--
+dim majorver
+dim ua
+dim ie3
+dim ie4
+dim aol
+dim minorver4
+dim update
+dim winplat
+dim nav
+dim win32
+dim intButton
+dim upgrade
+upgrade = 0
+set nav = navigator
+ua = nav.useragent
+minorver4 = ""
+
+if len(ua) >=1 then 'nav object is supported
+	winplat = mid(ua,instr(ua,"Windows") + 8, 2)
+	win32 = mid(ua,instr(ua,"Win") + 3, 2) 'In some user agent strings the platform is referred to as Win32
+	majorver = mid(ua,instr(ua,"MSIE") + 5, 1)
+	ie3 = majorver = 3 and (winplat = "NT" or winplat = "95" or win32 ="32")
+	ie4 = majorver = 4 and (winplat = "NT" or winplat = "95" or win32 ="32")
+	update = instr(ua,"Update a")
+	aol = instr(ua,"AOL")
+	if ie4 then minorver4 = mid(ua,instr(ua,"MSIE") + 7, 3)
+	If (ie3 or minorver4 = "0b1") and update = 0 and aol = 0 then
+		upgrade = 1
+	end if
+else
+	upgrade = 1
+end if
+if upgrade = 1 then
+	intButton = msgbox ("To use this enrollment form, you must have Microsoft Internet Explorer version 4.0 or version 3.02 with Authenticode 2.0, Do you want to upgrade now?", 4 + 64, "Update My Browser Now!" )
+	if intButton = 6 then
+		location.href = "http://www.microsoft.com/ie/download"
+	else
+		location.href = "../error/invalidBrowser.html"
+	end if
+end if
+
+' Search MSIE crypto providers
+Sub FindProviders
+    Dim i, j, count
+    Dim providers()
+    i = 0
+    j = 1
+    count=0
+    Dim el
+    Dim temp
+    Dim first
+    On Error Resume Next
+    first =  0
+
+    FixAcceptButton()
+
+    Do While True
+      temp = ""
+      cenroll.providerType = j
+      temp = cenroll.enumProviders(i,0)
+      If Len(Temp) = 0 Then
+        If j < 1 Then          'Look for RSA_FULL only.
+          j = j + 1
+          i = 0
+        Else
+          Exit Do
+        End If
+      Else
+        set el = document.createElement("OPTION")
+        el.text = temp
+        el.value = j
+        document.all.cryptprov.add(el)
+	count = count + 1
+	If el.text = "Microsoft Enhanced Cryptographic Provider v1.0" Then
+	  document.all.cryptprov.selectedIndex = count
+	End If
+        If first = 0  Then
+          first = 1
+          document.all.cryptprov.selectedIndex = 0
+        End If
+        i = i + 1
+      End If
+    Loop
+End Sub
+
+' Create the cert request
+Function CreateP10( keyflags )
+	Dim strDN
+	Dim theForm
+
+	On Error Resume Next
+	CreateP10 = ""
+	set theForm = document.proform
+
+	'create the Distinguished Name here to hand over to CreatePKCS10
+	strDN = "E="
+	strDN = strDN & theForm.emailAddress.value
+	strDN = strDN & ",CN="
+	strDN = strDN & theForm.commonName.value
+	strDN = strDN & ",OU="
+	strDN = strDN & theForm.organizationalUnitName.value
+	strDN = strDN & ",O="
+	strDN = strDN & theForm.organizationName.value
+	strDN = strDN & ",L="
+	strDN = strDN & theForm.localityName.value
+	strDN = strDN & ",S="
+	strDN = strDN & theForm.stateOrProvinceName.value
+	strDN = strDN & ",C="
+	strDN = strDN & theForm.countryName.value
+
+	cenroll.GenKeyFlags = &h04000001 OR keyflags
+	CreateP10 = cenroll.CreatePKCS10(strDN, "1.3.6.1.5.5.7.3.2")
+	if Len(CreateP10) <> 0  Then Exit Function
+	cenroll.GenKeyFlags = &h04000000 OR keyflags
+	CreateP10 = cenroll.CreatePKCS10(strDN, "1.3.6.1.5.5.7.3.2")
+	if Len(CreateP10) <> 0 Then Exit Function
+	if cenroll.providerName = "Microsoft Enhanced Cryptographic Provider v1.0" Then
+	if MsgBox("The 1024 bit key generation failed. This may be due to an installation problem - see Microsoft KB article Q171889 for a possible fix. Would you like to try a 512 bit key generation using the Base Provider instead?", vbOkCancel) = vbOk Then
+	  cenroll.providerName = "Microsoft Base Cryptographic Provider v1.0"
+	else
+	  Exit Function
+	end if
+	end if
+	cenroll.GenKeyFlags = keyflags OR 1
+	CreateP10 = cenroll.CreatePKCS10(strDN, "1.3.6.1.5.5.7.3.2")
+	if Len(CreateP10) <> 0 Then Exit Function
+	cenroll.GenKeyFlags = keyflags
+	CreateP10 = cenroll.CreatePKCS10(strDN, "1.3.6.1.5.5.7.3.2")
+	if Len(CreateP10) <> 0 Then Exit Function
+	cenroll.GenKeyFlags = 0
+	CreateP10 = cenroll.CreatePKCS10(strDN, "1.3.6.1.5.5.7.3.2")
+End Function
+
+' Create the cert Key
+Sub DoKeyGen
+    dim theForm
+    dim options
+    dim cn
+    dim lengthofkey
+    dim keyflags
+    set theForm = document.proform
+    if IsIE4() Then theForm.accept.disabled = true
+    if IsIE4() Then
+      On Error Resume Next
+      set options = document.all.cryptProv.options
+      index = options.selectedIndex
+      cenroll.providerName = options(index).text
+      cenroll.providerType = options(index).value
+    else
+      On Error resume next
+      cenroll.providerType = 1
+      cenroll.providerName = "Microsoft Base Cryptographic Provider v1.0"
+    end if
+    cenroll.HashAlgorithm = "MD5"
+    cenroll.KeySpec = 1
+    if theForm.userprotect.checked = true then
+      keyflags = 2
+    else
+      keyflags = 0
+    end if
+    theForm.public_key.value = CreateP10(keyflags)
+    if Len(theForm.public_key.value) = 0 then
+      MsgBox("The error: " + hex(err.number) + " occured in generating certificate request")
+      window.navigate("../error/MSkeygenerr.htm")
+    else
+      theForm.submit
+    end if
+End Sub
+// -->
+</SCRIPT>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+var browserName = navigator.appName;
+var browserVer = navigator.userAgent;
+var browserNum = parseInt(navigator.appVersion);
+
+//variable "forn"  counts the number of False OR Null fields found in function lastCheck
+var forn = 0;
+
+//function checkmail_email makes sure that there is an "@" in the string and that a "." appears as the 3rd or 4th from last character.
+function checkmail_email()
+{
+	if (document.proform.emailAddress.value == "")
+		{
+		;
+		}
+	else if ((document.proform.emailAddress.value.indexOf("@") != -1) &&
+	(document.proform.emailAddress.value.indexOf("@") < document.proform.emailAddress.value.lastIndexOf(".")))
+		{
+		;
+		}
+	else
+		{
+		alert("Please include a proper email address.");
+		}
+}
+
+
+function lastCheck ()
+{
+	forn = 0;
+	if(forn==0)
+		{
+		var rval ;
+		rval = confirm("Confirm your e-mail address:\n "+ document.proform.emailAddress.value +"  \n\nIf your e-mail address is correct click OK, if not click CANCEL and \ncorrect it in the enrollment form.  \n\nIf the e-mail address is not correct you will not be able to use your Digital ID");
+		if( rval == true )
+			{
+			DoKeyGen();
+			}
+		else
+			document.proform.emailAddress.focus() ;
+		}
+	else if(forn==1)
+		{
+		alert ('There is still 1 field that is wrong or incomplete.');
+		}
+	forn = 0;
+}
+// -->
+</script>
+
+</HEAD>
+
+	<BODY onLoad="FindProviders()">
+		<H3>yafra.org certification request</H3>
+		for Microsoft Internet Explorer
+		<P>
+
+		<!-- BEGIN FORM -->
+		<FORM NAME="proform" ACTION="/cgi-bin/pki-req.pl" ENCTYPE=x-www-form-encoded METHOD=POST >
+		<INPUT TYPE="hidden" NAME="operation" VALUE="C1Submit">
+		<INPUT TYPE="hidden" NAME="class" VALUE="CLASS1">
+		<INPUT TYPE="hidden" NAME="enroll_track" VALUE="MSIE">
+		<INPUT TYPE="hidden" NAME="form_file" VALUE="../fdf/class1MS.fdf">
+		<INPUT TYPE="hidden" NAME="common_name" VALUE="">
+		<INPUT TYPE="hidden" NAME="embed_email" VALUE="yes">
+		<INPUT TYPE="hidden" NAME="dm_enabled" VALUE="Y">
+
+		<!--BEGIN  TABLE ONE-->
+		<TABLE WIDTH=588 BGCOLOR="ffffcc" CELLPADDING=7 CELLSPACING=0 BORDER=0>
+		<TR>
+			<TD WIDTH=588>
+			<FONT SIZE=2 FACE="verdana, arial, helvetica"><B>Contents of Your Digital ID</B></FONT><BR>
+			<FONT FACE="arial, helvetica" SIZE=2>Fill in all fields. Use only the English alphabet with no accented characters. This information is included in  your Digital ID and is available to the public.<BR></FONT>
+			<P>
+			<CENTER>
+
+			<!--BEGIN INPUT FIELD TABLE-->
+			<TABLE WIDTH=574 CELLPADDING=3 CELLSPACING=2 BORDER=0>
+			<TR>
+				<TD WIDTH=50% BGCOLOR="ffcc00"><FONT FACE="verdana, arial, helvetica" SIZE=2><B>Name:</B><BR></FONT><FONT SIZE=2 FACE="arial, helvetica">Nickname or full name<BR>(example -- Jon Doe )<BR></FONT></TD>
+				<TD COLSPAN=2 WIDTH=50% BGCOLOR="ffcc00">
+				<INPUT NAME="commonName" VALUE="" TYPE="text" SIZE="20" MAXLENGTH="30">
+				</TD>
+			</TR>
+
+			<TR>
+				<TD WIDTH=50% BGCOLOR="ffcc00"><FONT FACE="verdana, arial, helvetica" SIZE=2><B>Organization Name:</B><BR></FONT></TD>
+				<TD COLSPAN=2 WIDTH=50% BGCOLOR="ffcc00">
+				<INPUT NAME='organizationName' VALUE="yafra.org" TYPE="text" SIZE="20" MAXLENGTH="30">
+				</TD>
+			</TR>
+
+			<TR>
+				<TD WIDTH=50% BGCOLOR="ffcc00"><FONT FACE="verdana, arial, helvetica" SIZE=2><B>Country:</B><BR></FONT></TD>
+				<TD COLSPAN=2 WIDTH=50% BGCOLOR="ffcc00">
+				<select name="countryName">
+				<option selected value="CH">Switzerland</option>
+				<option value="DE">Germany</option>
+				<option value="ES">Spain</option>
+				<option value="FR">France</option>
+				<option value="GB">United Kingdom</option>
+				<option value="IE">Ireland</option>
+				<option value="US">United States</option>
+				</select>
+				</TD>
+			</TR>
+
+
+			<TR>
+				<TD WIDTH=50% BGCOLOR="ffcc00"><FONT FACE="verdana, arial, helvetica" SIZE=2><B>Location:</B><BR></FONT></TD>
+				<TD COLSPAN=2 WIDTH=50% BGCOLOR="ffcc00">
+				<INPUT NAME='localityName' VALUE="Basel" TYPE="text" SIZE="20" MAXLENGTH="30">
+				</TD>
+			</TR>
+			<TR>
+				<TD WIDTH=50% BGCOLOR="ffcc00"><FONT FACE="verdana, arial, helvetica" SIZE=2><B>State:</B><BR></FONT></TD>
+				<TD COLSPAN=2 WIDTH=50% BGCOLOR="ffcc00">
+				<INPUT NAME='stateOrProvinceName' VALUE="BS" TYPE="text" SIZE="10" MAXLENGTH="30">
+				</TD>
+			</TR>
+			<TR>
+				<TD WIDTH=50% BGCOLOR="ffcc00"><FONT FACE="verdana, arial, helvetica" SIZE=2><B>Organization Unit:</B><BR></FONT></TD>
+				<TD COLSPAN=2 WIDTH=50% BGCOLOR="ffcc00">
+				<INPUT NAME='organizationalUnitName' VALUE="User" TYPE="text" SIZE="20" MAXLENGTH="30">
+				</TD>
+			</TR>
+
+			<TR>
+				<TD WIDTH=50% BGCOLOR="ffcc00"><FONT FACE="verdana, arial, helvetica" SIZE=2><B>Your E-mail Address:</B><BR></FONT><FONT SIZE=2 FACE="arial, helvetica">(example -- jbdoe@verisign.com)<BR></FONT></TD>
+				<TD COLSPAN=2 WIDTH=50% BGCOLOR="ffcc00">
+				<INPUT NAME="emailAddress" VALUE="" TYPE="text" SIZE="20" MAXLENGTH="70" onBlur="checkmail_email()">
+				</TD>
+			</TR>
+			</TABLE>
+			</TD>
+		</TR>
+		</TABLE>
+
+		<P><BR><P>
+
+		<TABLE WIDTH=588 BGCOLOR="ffffcc" CELLPADDING=7 CELLSPACING=0 BORDER=0>
+		<TR>
+			<TD WIDTH=588>
+			<FONT SIZE=2 FACE="verdana, arial, helvetica"><B>(Optional): Select The Cryptographic Service </B></FONT><BR>
+			<FONT FACE="arial, helvetica" SIZE=2>If you have a domestic version of this browser you are offered an Enhanced Cryptographic option which
+			provides 1024-bit key encryption. The MS Base Cryptographic provider offers 512-bit key encryption which is adequate for most
+			applications today, but you may select the Enhanced option if your browser offers this choice and you require the higher encryption
+			strength. If you use a specialized mechanism such as a smartcard, please select the appropriate provider as directed by the manufacturer.
+			<BR></FONT>
+			<P>
+			<CENTER>
+
+			<TABLE WIDTH=574 CELLPADDING=3 CELLSPACING=2 BORDER=0>
+			<TR>
+				<TD WIDTH=50% BGCOLOR="ffcc00"><FONT FACE="verdana, arial, helvetica" SIZE=2><B>Cryptographic Service Provider Name</B><BR></FONT></TD>
+				<TD COLSPAN=2 WIDTH=50% BGCOLOR="ffcc00"><SELECT NAME="cryptProv">
+					 <OPTION SELECTED VALUE="1">Microsoft Base Cryptographic Provider v1.0
+					 </SELECT></TD>
+			</TR>
+			</TABLE>
+			</TD>
+		</TR>
+		</TABLE>
+
+		<P><BR><P>
+
+		<!--BEGIN TABLE SEVEN-->
+		<TABLE WIDTH=588 BGCOLOR='ffffcc' CELLPADDING=7 CELLSPACING=0 BORDER=0>
+		<TR>
+			<TD WIDTH=588>
+			<FONT SIZE=2 FACE='verdana, arial, helvetica'><B>Additional Security for Your Private Key</B> </FONT><Br>
+			<font face='arial, helvetica' size=2>We recommend that you protect the private key associated with your Digital ID. Checking the box below will provide you with security options for your private key.
+			<BR></FONT>
+			<P><CENTER>
+			<TABLE WIDTH=574 CELLPADDING=3 CELLSPACING=2 BORDER=0>
+			<TR>
+				<TD WIDTH=50% BGCOLOR='ffcc00'><font face='verdana, arial, helvetica' size=2><B>Check this Box to Protect Your <BR>Private Key</B></FONT></TD>
+				<TD COLSPAN=2 WIDTH=50% BGCOLOR='ffcc00'><INPUT TYPE='checkbox' NAME='userprotect'></TD>
+			</TR>
+			</TABLE>
+			</TD>
+		</TR>
+		</TABLE>
+
+		<INPUT TYPE="button" NAME="accept" VALUE="Accept" onClick="lastCheck();">
+		<INPUT TYPE="button" NAME="decline" VALUE="Decline" onClick="declinefunc()">
+
+		<input type="hidden" name="lang" id="lang" value="en">
+		<INPUT TYPE="hidden" NAME="public_key" VALUE="">
+		<INPUT TYPE="hidden" NAME="bill_addr_name" VALUE="">
+		<INPUT TYPE="hidden" NAME="mail_homePhone" VALUE="">
+		<INPUT TYPE="hidden" NAME="mail_addr_number" VALUE="">
+		<INPUT TYPE="hidden" NAME="mail_addr_name" VALUE="">
+		<INPUT TYPE="hidden" NAME="mail_addr_unit" VALUE="">
+		<INPUT TYPE="hidden" NAME="unstructured_addr" VALUE="">
+		<INPUT TYPE="hidden" NAME="mail_city" VALUE="">
+		<INPUT TYPE="hidden" NAME="mail_state" VALUE="">
+		<INPUT TYPE="hidden" NAME="mail_postal" VALUE="">
+		<INPUT TYPE="hidden" NAME="mail_country" VALUE="">
+		<INPUT TYPE="hidden" NAME="originator" VALUE="">
+		<INPUT TYPE="hidden" NAME="unverified_field1" VALUE="">
+		<INPUT TYPE="hidden" NAME="unverified_field2" VALUE="">
+		<INPUT TYPE="hidden" NAME="token" VALUE="1704628888">
+		<INPUT TYPE=HIDDEN	NAME="sessionId">
+		</FORM>
+	</BODY>
+</HTML>

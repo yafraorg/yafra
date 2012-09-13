@@ -1,0 +1,5 @@
+/SUBSYSTEM:console
+d:/work/libs/psipc.lib
+d:/work/libs/pssys.lib
+wsock32.lib
+advapi32.lib

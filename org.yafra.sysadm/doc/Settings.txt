@@ -1,0 +1,12 @@
+Light Yellow:
+background logo and text body: rgb 247 255 201 - #F7FFC9
+foreground #464646 or #000000 (dark gry or black)
+
+Highlight Color Grayyellow:
+background #D2D8AB
+
+Dark greengray
+background: rgb 98 119 58 - #62773A
+foreground: #ffffff (white)
+
+Default font ARIAL with size 12

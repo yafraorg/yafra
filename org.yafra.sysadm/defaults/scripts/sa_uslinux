@@ -1,0 +1,269 @@
+#!/usr/bin/sh
+#------------------------------------------------------------------------------
+# (c) yafra.org
+#
+# Filename: $PISOBIN/updatesystem
+#
+# Author:   Administrator (mw)
+#
+# Date:     23.02.96
+#
+# Purpose:  Distribute system files like /etc/hosts or /.rhosts via
+#           rcp to other servers in the network.
+#------------------------------------------------------------------------------
+
+US_LOGFILE=$SYSADM/log/uslinux.log
+US_MASTERDIR=$SYSADM/linux/master_bastion
+US_COPYTO=$PISOBIN/sa_uslinux.copyto
+US_SYSTEM=$(uname -s)
+US_HW=$(uname -m | cut -c6)
+US_OSVER=$(uname -r | cut -c3-4)
+
+bootup()
+{
+	US_COPYFILE=/sbin/init.d/psinit
+	US_SPECIALCMD=
+	copyfile
+
+	US_COPYFILE=/etc/rc.config.d/psvariables
+	US_SPECIALCMD=
+	copyfile
+
+	US_COPYFILE=/sbin/sa_psbootsystem
+	US_SPECIALCMD=
+	copyfile
+
+	US_COPYFILE=/sbin/sa_pshostentry
+	US_SPECIALCMD=
+	copyfile
+}
+
+host() {
+	US_COPYFILE=/etc/resolv.conf
+	US_SPECIALCMD=
+	copyfile
+
+	US_COPYFILE=/etc/hosts
+	US_SPECIALCMD=
+	copyfile
+
+	US_COPYFILE=/etc/hosts.equiv
+	US_SPECIALCMD=
+	copyfile
+
+	US_COPYFILE=/etc/X0.hosts
+	US_SPECIALCMD=
+	copyfile
+
+	US_COPYFILE=/etc/networks
+	US_SPECIALCMD=
+	copyfile
+}
+
+user() {
+	US_COPYFILE=/etc/passwd.add
+	US_SPECIALCMD=
+	copyfile
+
+	US_COPYFILE=/etc/group.add
+	US_SPECIALCMD=
+	copyfile
+
+	US_COPYFILE=/etc/ftpusers
+	US_SPECIALCMD=
+	copyfile
+}
+
+profile()
+{
+	US_COPYFILE=/etc/profile
+	US_SPECIALCMD=
+	copyfile
+
+	US_COPYFILE=/etc/profile.ps
+	US_SPECIALCMD=
+	copyfile
+}
+
+issue()
+{
+	US_COPYFILE=/etc/issue
+	US_SPECIALCMD=
+	copyfile
+
+	US_COPYFILE=/etc/copyright
+	US_SPECIALCMD=
+	copyfile
+}
+
+mail() {
+	US_COPYFILE=/usr/mail/aliases
+	US_SPECIALCMD=/usr/sbin/newaliases
+	copyfile
+}
+
+root() {
+	US_COPYFILE=/.forward
+	US_SPECIALCMD=
+	copyfile
+
+	US_COPYFILE=/.rhosts
+	US_SPECIALCMD=
+	copyfile
+}
+
+cron()
+{
+	US_COPYFILE=/etc/crontab.root
+	US_SPECIALCMD=/usr/bin/crontab /etc/crontab.root
+	copyfile
+}
+
+#
+# make remote copy of a file to a all hosts listet in US_COPYTO
+copyfile()
+{
+	if [ -f $US_COPYTO ] && [ -f $US_MASTERDIR/$US_COPYFILE ]
+	then
+		for i in `cat $US_COPYTO`
+		do	
+			US_CACTIVE=$(echo $i | cut -c 1)
+			if [ $US_CACTIVE = '#' ]
+				then
+					echo "skipping $i:$US_COPYFILE"
+					echo "skipping $i:$US_COPYFILE" >> $US_LOGFILE
+				else
+					echo "$US_MASTERDIR/$US_COPYFILE -> $i:$US_COPYFILE"
+					echo "$US_MASTERDIR/$US_COPYFILE -> $i:$US_COPYFILE" >> $US_LOGFILE
+					rcp $US_MASTERDIR/$US_COPYFILE $i:$US_COPYFILE
+					if [ -n "$US_SPECIALCMD" ]
+						then
+							echo "exec special cmd on $i $US_SPECIALCMD"
+							echo "exec special cmd on $i $US_SPECIALCMD" >> $US_LOGFILE
+							remsh $i $US_SPECIALCMD
+					fi
+			fi
+		done
+	fi
+}
+
+#
+# make remote copy of more files to a all hosts listet in US_COPYTO
+copyfiles()
+{
+	if [ -f $US_COPYTO ] && [ -f $US_MASTERDIR/$US_COPYFILE ]
+	then
+		for i in `cat $US_COPYTO`
+		do	
+			US_CACTIVE=$(echo $i | cut -c 1)
+			if [ $US_CACTIVE = '#' ]
+				then
+					echo "skipping $i:$US_COPYFILE"
+					echo "skipping $i:$US_COPYFILE" >> $US_LOGFILE
+				else
+					echo "$US_MASTERDIR/$US_COPYFILE -> $i:$US_COPYDEST"
+					echo "$US_MASTERDIR/$US_COPYFILE -> $i:$US_COPYDEST" >> $US_LOGFILE
+					rcp $US_MASTERDIR/$US_COPYFILE $i:$US_COPYDEST
+					if [ -n "$US_SPECIALCMD" ]
+						then
+							echo "exec special cmd on $i $US_SPECIALCMD"
+							echo "exec special cmd on $i $US_SPECIALCMD" >> $US_LOGFILE
+							remsh $i $US_SPECIALCMD
+					fi
+			fi
+		done
+	fi
+}
+
+loginit() {
+
+loginit() {
+	echo "\nStart of updating systems"
+	echo "Mastersource: $US_MASTERDIR"
+	echo "Copyto file:  $US_COPYTO"
+	echo " " >> $US_LOGFILE
+	echo "Start logging of upsys10 `/bin/date`" >> $US_LOGFILE
+	echo " " >> $US_LOGFILE
+}
+
+logexit() {
+	echo "\nEnd of updating systems\n" 
+	echo " " >> $US_LOGFILE
+	echo "End of upsys10 `/bin/date`" >> $US_LOGFILE
+	echo " " >> $US_LOGFILE
+}
+
+#
+# main section
+#
+
+if [ `id -u` -ne 0 ]
+then
+	echo "You must be root to run this script";
+	exit -1;
+fi
+
+if [ $US_HW -ne 7 ]
+then
+	echo "This script is only valid for 700 series";
+	exit -1;
+fi
+
+#if [ $US_OSVER -ne 10 ]
+#then
+#	echo "This script is only valid for release 10.x";
+#	exit -1;
+#fi
+
+if [ $# -eq 0 ]
+then
+	echo "usage: $0 user|host|root|mail|issue|profile|cde|cron"
+	echo "usage: $0 all"
+	exit -1
+fi
+
+loginit
+
+until [ $# = 0 ]
+do
+	case $1 in
+	all)
+		host
+		user
+		profile
+		issue
+		root
+		mail
+		cron
+		;;
+	host)
+		host
+		;;
+	user)
+		user
+		;;
+	profile)
+		profile
+		;;
+	issue)
+		issue
+		;;
+	root)
+		root
+		;;
+	mail)
+		mail
+		;;
+	cron)
+		cron
+		;;
+	trimlogs)
+		trimlogs
+		;;
+	esac
+	shift
+done
+
+logexit
+
+exit 0

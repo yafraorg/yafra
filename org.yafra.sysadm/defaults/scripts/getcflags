@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# shell script to know which CFLAGS to set for makefiles
+#
+# Administrator, Jun 1994
+# yafra.org, Switzerland
+#
+# return: string for FOPTIONS/CFLAGS
+#
+
+SYSTEM=`uname -s`
+
+# Test for HP Platform
+#
+if test "$SYSTEM" = "HP-UX"
+	then FOPTIONS="-g -DDEBUG"
+fi
+
+# test for Linux
+#
+if test "$SYSTEM" = "Linux"
+	then FOPTIONS="-g -DDEBUG"
+fi
+
+# Test for cygwin
+#
+if [[ "$SYSTEM" == *CYGWIN* ]]
+	then FOPTIONS="-g -DDEBUG"
+fi
+
+# test for SCO
+#
+if test "$SYSTEM" = "james"
+	then FOPTIONS="-O t -Za"
+fi
+
+# put the platform string to the stdout
+echo $FOPTIONS

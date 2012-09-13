@@ -1,0 +1,6 @@
+#
+# clean up script
+#
+
+# remove cores
+find / -name core -exec rm \{\} \;

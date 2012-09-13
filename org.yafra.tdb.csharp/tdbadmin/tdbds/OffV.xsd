@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="OffV" targetNamespace="http://tempuri.org/OffV.xsd" elementFormDefault="qualified"
+	attributeFormDefault="qualified" xmlns="http://tempuri.org/OffV.xsd" xmlns:mstns="http://tempuri.org/OffV.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="OffV" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="tdbv_o">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="O_ID" type="xs:int" />
+							<xs:element name="BEZ_ID" type="xs:int" />
+							<xs:element name="BEZ" type="xs:string" />
+							<xs:element name="S_ID" type="xs:int" />
+							<xs:element name="CODE" type="xs:string" minOccurs="0" />
+							<xs:element name="TEXTID" type="xs:int" minOccurs="0" />
+							<xs:element name="HOSTO" type="xs:string" minOccurs="0" />
+							<xs:element name="HOSTO_ID" type="xs:int" />
+							<xs:element name="ORD" type="xs:int" />
+							<xs:element name="SUP" type="xs:string" minOccurs="0" />
+							<xs:element name="SUPID" type="xs:int" />
+							<xs:element name="ACT" type="xs:string" />
+							<xs:element name="ACTID" type="xs:int" />
+							<xs:element name="LOCATION" type="xs:string" />
+							<xs:element name="OT" type="xs:string" />
+							<xs:element name="OTID" type="xs:int" />
+							<xs:element name="DURATION" msdata:ReadOnly="true" type="xs:dateTime" minOccurs="0" />
+							<xs:element name="FROMCITY" type="xs:string" minOccurs="0" />
+							<xs:element name="FROMCITYID" type="xs:int" />
+							<xs:element name="TOCITY" type="xs:string" minOccurs="0" />
+							<xs:element name="TOCITYID" type="xs:int" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Eclipse RCP
+GenericName=Eclipse
+X-GNOME-FullName=Eclipse RCP IDE
+Comment=Eclipse RCP
+Type=Application
+Categories=Application;Development;RCP;IDE;Programming
+Exec=/work/eclipse/eclipse-rcp/eclipse
+TryExec=/work/eclipse/eclipse-rcp/eclipse
+Terminal=false
+StartupNotify=true
+Icon=/work/eclipse/eclipse-rcp/icon.xpm

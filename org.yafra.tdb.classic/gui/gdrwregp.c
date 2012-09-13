@@ -1,0 +1,69 @@
+/*D************************************************************
+ * Modul:		GRAPHIC							gdrwregp.c
+ *
+ *					Draw region points with whished radius
+ *
+ *
+ *
+ * Copyright: yafra.org, Basel, Switzerland
+ **************************************************************
+ */
+
+/*R
+ RCS Information:
+ $Header: /yafra/cvsroot/mapo/source/gui/gdrwregp.c,v 1.2 2008-11-02 19:55:44 mwn Exp $
+
+ Log Information:
+ $Log: gdrwregp.c,v $
+ Revision 1.2  2008-11-02 19:55:44  mwn
+ re branded code - tested with oracle instant client 11.1 under ubuntu linux - add deploy to main makefile
+
+ Revision 1.1.1.1  2002-10-26 21:10:43  mwn
+ inital release
+
+ Revision 3.1  1997/04/02 06:50:03  mw
+ NT 4.0 release und WWW Teil
+
+ Revision 2.1  1994/03/28 11:02:39  ja
+ general version
+
+ * Revision 1.3  94/02/18  10:37:59  10:37:59  ja (Jean-Marc Adam)
+ * Name conversion for DOS
+ * 
+ * Revision 1.2  93/08/21  00:16:25  00:16:25  ja (Jean-Marc Adam)
+ * update
+ *  
+ * 
+*/
+
+#include <uinclude.h>
+#include <ginclude.h>
+
+static char rcsid[]="$Header: /yafra/cvsroot/mapo/source/gui/gdrwregp.c,v 1.2 2008-11-02 19:55:44 mwn Exp $";
+
+
+void xGRdraw_regionpoints(
+)
+
+{
+	extern unsigned long anzregionPoints;
+	extern REGIONPOINT *regionPoints;
+	extern Display    *display;
+	extern GRAWINDOWS grawindows;
+	extern GRAGLOB    graglob;
+
+	REGIONPOINT *akt;
+	int d, f;
+	unsigned long z;
+
+	d = (int)graglob.RadiusPoints*2;
+	f = 64*360;
+	for (z=0;  z<anzregionPoints;  z++) {
+		akt = &regionPoints[z];
+		XDrawArc( display, grawindows.graphik, *graglob.gcz,
+						(int)(akt->p.x-graglob.RadiusPoints),
+						(int)(akt->p.y-graglob.RadiusPoints),
+						d, d, 0, f);
+	}
+
+}

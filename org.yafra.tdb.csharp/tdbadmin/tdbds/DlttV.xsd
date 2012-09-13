@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="DlttV" targetNamespace="http://tempuri.org/DlttV.xsd" elementFormDefault="qualified"
+	attributeFormDefault="qualified" xmlns="http://tempuri.org/DlttV.xsd" xmlns:mstns="http://tempuri.org/DlttV.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="DlttV" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="tdbv_dltt">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="TYP_ID" type="xs:int" />
+							<xs:element name="BEZ_ID" type="xs:int" />
+							<xs:element name="BEZ" type="xs:string" />
+							<xs:element name="S_ID" type="xs:int" />
+							<xs:element name="H_TYP_ID" type="xs:int" />
+							<xs:element name="HOST_TYP" type="xs:int" />
+							<xs:element name="TEXTID" type="xs:int" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="SoVsel" targetNamespace="http://tempuri.org/SoVsel.xsd" xmlns:mstns="http://tempuri.org/SoVsel.xsd" xmlns="http://tempuri.org/SoVsel.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="SoVsel" msdata:IsDataSet="true" msdata:Locale="en-US" msprop:Generator_UserDSName="SoVsel" msprop:Generator_DataSetName="SoVsel">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="tdbv_sosel" msprop:Generator_UserTableName="tdbv_sosel" msprop:Generator_RowDeletedName="tdbv_soselRowDeleted" msprop:Generator_RowChangedName="tdbv_soselRowChanged" msprop:Generator_RowClassName="tdbv_soselRow" msprop:Generator_RowChangingName="tdbv_soselRowChanging" msprop:Generator_RowEvArgName="tdbv_soselRowChangeEvent" msprop:Generator_RowEvHandlerName="tdbv_soselRowChangeEventHandler" msprop:Generator_TableClassName="tdbv_soselDataTable" msprop:Generator_TableVarName="tabletdbv_sosel" msprop:Generator_RowDeletingName="tdbv_soselRowDeleting" msprop:Generator_TablePropName="tdbv_sosel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SO_ID" msprop:Generator_UserColumnName="SO_ID" msprop:Generator_ColumnPropNameInRow="SO_ID" msprop:Generator_ColumnVarNameInTable="columnSO_ID" msprop:Generator_ColumnPropNameInTable="SO_IDColumn" type="xs:int" />
+              <xs:element name="BEZ" msprop:Generator_UserColumnName="BEZ" msprop:Generator_ColumnPropNameInRow="BEZ" msprop:Generator_ColumnVarNameInTable="columnBEZ" msprop:Generator_ColumnPropNameInTable="BEZColumn" type="xs:string" />
+              <xs:element name="CODE" msprop:Generator_UserColumnName="CODE" msprop:Generator_ColumnPropNameInRow="CODE" msprop:Generator_ColumnVarNameInTable="columnCODE" msprop:Generator_ColumnPropNameInTable="CODEColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="S_ID" msprop:Generator_UserColumnName="S_ID" msprop:Generator_ColumnPropNameInRow="S_ID" msprop:Generator_ColumnVarNameInTable="columnS_ID" msprop:Generator_ColumnPropNameInTable="S_IDColumn" type="xs:int" />
+              <xs:element name="STARTDAT" msprop:Generator_UserColumnName="STARTDAT" msprop:Generator_ColumnPropNameInRow="STARTDAT" msprop:Generator_ColumnVarNameInTable="columnSTARTDAT" msprop:Generator_ColumnPropNameInTable="STARTDATColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STOPDAT" msprop:Generator_UserColumnName="STOPDAT" msprop:Generator_ColumnVarNameInTable="columnSTOPDAT" msprop:Generator_ColumnPropNameInRow="STOPDAT" msprop:Generator_ColumnPropNameInTable="STOPDATColumn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

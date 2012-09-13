@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ServVsel" targetNamespace="http://tempuri.org/ServVsel.xsd" xmlns:mstns="http://tempuri.org/ServVsel.xsd" xmlns="http://tempuri.org/ServVsel.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ServVsel" msdata:IsDataSet="true" msdata:Locale="en-US" msprop:Generator_UserDSName="ServVsel" msprop:Generator_DataSetName="ServVsel">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="tdbv_servsel" msprop:Generator_UserTableName="tdbv_servsel" msprop:Generator_RowDeletedName="tdbv_servselRowDeleted" msprop:Generator_TableClassName="tdbv_servselDataTable" msprop:Generator_RowChangedName="tdbv_servselRowChanged" msprop:Generator_RowClassName="tdbv_servselRow" msprop:Generator_RowChangingName="tdbv_servselRowChanging" msprop:Generator_RowEvArgName="tdbv_servselRowChangeEvent" msprop:Generator_RowEvHandlerName="tdbv_servselRowChangeEventHandler" msprop:Generator_TablePropName="tdbv_servsel" msprop:Generator_TableVarName="tabletdbv_servsel" msprop:Generator_RowDeletingName="tdbv_servselRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SERV_ID" msprop:Generator_UserColumnName="SERV_ID" msprop:Generator_ColumnPropNameInRow="SERV_ID" msprop:Generator_ColumnVarNameInTable="columnSERV_ID" msprop:Generator_ColumnPropNameInTable="SERV_IDColumn" type="xs:int" />
+              <xs:element name="BEZ" msprop:Generator_UserColumnName="BEZ" msprop:Generator_ColumnPropNameInRow="BEZ" msprop:Generator_ColumnVarNameInTable="columnBEZ" msprop:Generator_ColumnPropNameInTable="BEZColumn" type="xs:string" />
+              <xs:element name="CODE" msprop:Generator_UserColumnName="CODE" msprop:Generator_ColumnPropNameInRow="CODE" msprop:Generator_ColumnVarNameInTable="columnCODE" msprop:Generator_ColumnPropNameInTable="CODEColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="S_ID" msprop:Generator_UserColumnName="S_ID" msprop:Generator_ColumnPropNameInRow="S_ID" msprop:Generator_ColumnVarNameInTable="columnS_ID" msprop:Generator_ColumnPropNameInTable="S_IDColumn" type="xs:int" />
+              <xs:element name="ADAT" msprop:Generator_UserColumnName="ADAT" msprop:Generator_ColumnPropNameInRow="ADAT" msprop:Generator_ColumnVarNameInTable="columnADAT" msprop:Generator_ColumnPropNameInTable="ADATColumn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

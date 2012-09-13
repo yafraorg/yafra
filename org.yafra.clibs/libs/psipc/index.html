@@ -1,0 +1,143 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PISO GUIDE REPOSITORY: IPC</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#C0C0FF" LINK="#0000FF" VLINK="#800080" ALINK="#FF0080">
+
+<H2>
+PISO GUIDE REPOSITORY: IPC</H2>
+
+<H4>
+Kurzbeschreibung</H4>
+Folgende Funktionen sind beinhaltet:
+<UL>
+<LI>
+<A HREF="/cgi-bin/man.cgi?section=3&topic=PSIPCserver">PSIPCserver()</A></LI>
+
+<LI>
+<A HREF="/cgi-bin/man.cgi?section=3&topic=PSIPCclient">PSIPCclient()</A></LI>
+
+<LI>
+<A HREF="/cgi-bin/man.cgi?section=3&topic=PSIPCread">PSIPCread()</A></LI>
+
+<LI>
+<A HREF="/cgi-bin/man.cgi?section=3&topic=PSIPCpipeio">PSIPCpipeInOut()</A></LI>
+</UL>
+Der source code befindet sich in $PSIPCLIB und die library kann mit <TT>make
+all</TT> erstellt werden. Die noetigen manuals koennen mit <TT>gmake man
+install.man</TT> generiert und in $PISOMAN installiert werden.
+
+<P>Diese library enthaelt server und client Funktionen fuer eine interprocess
+communication ueber pipe oder socket.
+<H4>
+Specials</H4>
+Folgende Variablen muessen im main() als globale Variable definiert und
+gesetzt werden:
+<PRE>int DebugFlag;
+void (*PSclient)(int, char**, int);
+
+char *PSIPCservicetitle; /* name of service for displaying */
+
+char *PSIPCservicename;&nbsp; /* /etc/services name */
+
+char *PSIPCprot;</PRE>
+F&uuml;r Windows kann die library als "plain win32" oder mit "nutcracker"
+erstellt werden. Im Makefile ist das define "ps_winplain" zu definieren,
+falls eine reine win32 library noetig ist.
+
+<P>Fuer Windows NT/95 ist die library wsock32.lib und advapi32.lib zu linken
+! Mit Nutcracker Support ebenfalls nutc.lib und socket.lib.
+<H4>
+Offene Punkte</H4>
+
+<UL>
+<LI>
+Im Daemon/Service Modul SYSLOG/EVENT noch einfuegen.</LI>
+</UL>
+
+<H4>
+Versions&uuml;bersicht</H4>
+
+<PRE>19.07.95 mw&nbsp; Version 1.1 erstellt
+11.06.97 mw&nbsp; Version 2.0t erstellt
+21.08.97 mw&nbsp; Version 2.0 erstellt
+01.09.98 mw&nbsp; Version 2.20 erstellt / mit Nutc 4 und richtigem service</PRE>
+
+<H4>
+Portabilit&auml;t</H4>
+
+<TABLE BORDER >
+<TR>
+<TH>OSTYP</TH>
+
+<TH>OS Name</TH>
+
+<TH>Unterst&uuml;tzt ?</TH>
+</TR>
+
+<TR>
+<TD>ps_unix</TD>
+
+<TD>ps_hpux</TD>
+
+<TD>JA (mw)</TD>
+</TR>
+
+<TR>
+<TD>ps_unix</TD>
+
+<TD>ps_linux</TD>
+
+<TD>JA (mw)</TD>
+</TR>
+
+<TR>
+<TD>ps_win</TD>
+
+<TD>ps_winnt</TD>
+
+<TD>JA NutC (mw)</TD>
+</TR>
+
+<TR>
+<TD>ps_win</TD>
+
+<TD>ps_win95</TD>
+
+<TD>JA (mw)</TD>
+</TR>
+
+<TR>
+<TD>ps_win</TD>
+
+<TD>ps_win31</TD>
+
+<TD>NEIN</TD>
+</TR>
+
+<TR>
+<TD>ps_unix</TD>
+
+<TD>ps_solaris</TD>
+
+<TD>NEIN</TD>
+</TR>
+
+<TR>
+<TD>ps_unix</TD>
+
+<TD>ps_aix</TD>
+
+<TD>NEIN</TD>
+</TR>
+</TABLE>
+
+<HR>
+<ADDRESS>
+author: Administrator &copy; Yafra.org, Switzerland</ADDRESS>
+
+<BR>version: $Header: /yafraorg/cvsroot/foundation/ansic/libs/psipc/index.html,v 1.1.1.1 2002-10-26 20:49:54 mwn Exp $
+</BODY>
+</HTML>

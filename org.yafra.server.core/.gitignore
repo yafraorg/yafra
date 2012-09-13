@@ -1,0 +1,6 @@
+/.settings
+/bin
+/build
+build.number
+*~
+/src/org.yafra.dbNode.driver.xml

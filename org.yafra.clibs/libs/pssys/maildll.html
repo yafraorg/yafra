@@ -1,0 +1,489 @@
+<HTML>
+<HEAD>
+  <TITLE>PISO GUIDE REPOSITORY: GENERIC MAIL/MIME</TITLE>
+</HEAD>
+<BODY>
+<P>
+<IMG SRC="/psimg/logo.gif">
+<h1 ALIGN=Center>PS GUIDE REPOSITORY: GENERIC MAIL/MIME</h1>
+<P>
+For the ELITE project I wrote a DLL which strips attachments from mail files.
+These DLLs were to be accessed from HorrorBuilder. Thus, I had the following
+problems:
+<OL>
+  <LI>
+    Steal <html>Steal</html> source code from somewhere, and modify it, which I could compile with
+    Visual C++ and run on a BillBox;
+  <LI>
+    Build a 16-bit DLL;
+  <LI>
+    Build a 32-bit DLL;
+  <LI>
+    Access the DLLs from HorrorBuilder.
+</OL>
+Of course, I did all this in the time-honored "quick and dirty" style. 
+<H2>Portability</H2>
+<TABLE BORDER>
+<TR> <TH>OSTYP</TH>     <TH>OS Name</TH>    <TH>Unterst�tzt ?</TH> </TR>
+<TR> <TD>ps_unix</TD>   <TD>any</TD>        <TD>Unknown, may work</TD> </TR>
+<TR> <TD>ps_win</TD>    <TD>ps_win32</TD>   <TD>Yes (sh)</TD> </TR>
+<TR> <TD>ps_win</TD>    <TD>ps_winnt</TD>   <TD>Yes (sh)</TD> </TR>
+<TR> <TD>ps_win</TD>    <TD>ps_win95</TD>   <TD>Probably (sh)</TD> </TR>
+</TABLE>
+
+<P>
+<h2>1. <A NAME="Steal">Stealing</A> Source Code</h2>
+<P>
+I stole the source code from Elm (mail file handling and parsing) and
+metamail (attachment parsing). After porting, deleting functionality,
+and so on, the following functions are available to be referenced:
+
+<OL>
+  <LI>
+	LoadMailDll(char *dllname)
+  <LI>
+	UnloadMailDll(void)
+  <LI>
+	int LoadIndex(char *)
+  <LI>
+	char *GetSubject(char *, int)
+  <LI>
+	int ReadMsg(char*,char*,int)
+  <LI>       
+	int metamail(char*, char*, char*)
+  <LI>
+	char *GetErrorMsg(void)
+</OL>
+<h3>LoadMailDll</h3>
+<ul>
+  <LI>
+	16-bit prototype:
+  <LI>
+	int FAR PASCAL _export LoadMailDll(char far *dllname);
+  <LI>
+	32-bit prototype:
+  <LI>
+	HINSTANCE DllExport LoadMailDll(char *dllname);
+</ul>
+<P> Loads the specified DLL into memory. This isn't really a useful
+function; I wrote it for debugging purposes.
+<P>
+<h3>UnloadMailDll</h3>
+<ul>
+  <LI>
+	16-bit prototype:
+  <LI>
+	void FAR PASCAL _export UnloadMailDll(void);
+  <LI>
+	32-bit prototype:
+  <LI>
+	BOOL DllExport UnloadMailDll(void);
+</ul>
+Once again, a useless function for debugging. Unloads the mail dll. If
+this were really useful, it would take as a parameter the return value
+from LoadDll. It is best just to forget both of these functions.
+<P>
+<h3>LoadIndex</h3>
+<ul>
+  <LI>
+	16-bit prototype:
+  <LI>
+	int FAR PASCAL _export LoadIndex(char *filename);
+  <LI>
+	32-bit prototype:
+  <LI>
+	int DllExport LoadIndex(char *filename);
+</ul>
+<h4>Parameters:</h4>
+<ol>
+<li>
+	char *filename: name of mail spool file.
+</ol>
+<h4>Return value:</h4>
+Number of messages in file.
+<h4>Description:</h4>
+LoadIndex creates an index of offsets to the start of the mail
+messages for the specified mail file. It returns the number of
+messages in the file. This <b>must</b> be the first function you call
+when processing a mail file. All other functions access the mail file
+by the index.
+<P>
+<h3>GetSubject</h3>
+<ul>
+  <LI>
+	16-bit prototype:
+  <LI>
+	char * __export __far __pascal GetSubject(char far
+*mailfilename, int msgnum);
+  <LI>
+	32-bit prototype:
+  <LI>
+	char * DllExport GetSubject(char *mailfilename, int msgnum);
+</ul>
+<h4>Parameters:</h4>
+<ol>
+<li>
+	char *mailfilename: name of mail spool file containing one or
+more mail messages.
+<li>
+	int msgnum: specified which message for which to retrieve the
+subject.
+</ol>
+<h4>Return value:</h4>
+Returns the subject of the specified message in the specified mail
+file, or (char *)0 on failure.
+<P>
+<h3> ReadMsg </h3>
+<ul>
+  <LI>
+	16-bit prototype:
+  <LI>
+	int __export __far __pascal ReadMsg(char far *outputfilename,
+char far *inputfilename, int msgnum);
+  <LI>
+	32-bit prototype:
+  <LI>
+	int DllExport ReadMsg(char *outputfilename, char
+*inputfilename, int msgnum);
+</ul>
+Reads the <i>msgnum</i> mail message from <i>inputfilename</i> and
+writes it to <i>outputfilename</i>.
+<h4>Parameters:</h4>
+<ol>
+<li>
+	char *outputfilename: name of output file (how about that?)
+This file is needed by <i>metamail</i>.
+<li>
+	char *inputfilename: name of mail file, which must have a
+loaded index (e.g., <i>LoadIndex</i> has already been called).
+<li>
+	int msgnum: which message in the file to read.
+</ol>
+<h4>Return value:</h4> 0 on success, -1 on failure.
+<P>
+<h3> metamail </h3>
+<ul>
+  <LI>
+	16-bit prototype:
+  <LI>
+	int __export __far __pascal metamail(char far *fname, char
+far *maildir, char far *demandedname)
+  <LI>
+	32-bit prototype:
+  <LI>
+	int DllExport metamail(char *fname, char
+*maildir, char *demandedname)
+</ul>
+<h4>Parameters:</h4>
+<ol>
+<li>
+	char *fname: name of split mail file to search for
+attachments. This is normally the name specified as the first paramter
+to <i>ReadMsg</i>.
+<li>
+	char *maildir: directory in which the attachments are to be
+written.
+<li>
+	char *demandedname: Name under which the attachment(s) are to
+be saved.
+</ol>
+<h4>Return value:</h4>
+Number of attachments; -1 on failure.
+<h4>Description:</h4>
+<i>metamail</i> splits attachments from a file containing a
+<b>single</b> mail message. The <i>maildir</i> parameter is optional;
+if present, the name of the file to which the attachment is written is
+appended to the path; otherwise it is written to the current
+directory. The <i>demandedname</i> forces the attachement to have the
+specified name, overriding the name contained in the attachement
+itself. If a file contains multiple attachments, the first is names
+<i>demandedname</i>, the second <i>demandedname-1</i>, the third
+<i>demandedname-2</i> and so on. Existing files will <b>not</b> be
+overwritten. If no demandedname is supplied and a suggested name is
+present in the attachment, the suggested name is used. If no suggested
+name is present in the attachment, and no demanded name is supplied, a
+unique file name is generated with the <i>mktempnam</i> function. 
+
+<b>Warning!</b> The hacked <i>metamail</i> function makes a couple of
+dangerous assumptions about a mail file: 
+<ol>
+<li> Every mail message contains a "real" mail message as the first
+attachement; and 
+<li> The first attachment is thrown out.
+</ol>
+<P>
+<h3>GetErrorMsg</h3>
+<h4>Description:</h4>
+<i>GetErrorMsg</i> is a not-completely-implemented and thus useless
+function which retrieves an error message after a function has
+failed. This is necessary since the DLL is intended to be used from
+"some sort of" calling program, which may not necessarily have a
+controlling tty.
+<P>
+<h3>Sample code</h3>
+<code>
+<pre>
+
+HINSTANCE hDLLInst;
+
+#ifdef WIN32
+
+#ifndef DllImport
+
+#define DllImport __declspec(dllimport)
+
+#endif
+
+#ifndef DllExport
+#define DllExport __declspec(dllexport)
+#endif
+
+
+int DllImport count_messages(char *);
+int DllImport metamail(char *, char *, char *);
+int DllImport LoadIndex(char *);
+int DllImport ReadMsg(char *, char *,int);
+
+char  DllImport *GetSubject(char *,int);
+char  DllImport *GetErrorMsg(void);
+
+HINSTANCE DllImport LoadMailDll(char *);
+BOOL DllImport UnloadMailDll(void);
+
+#else  /* win16 */
+
+typedef int (FAR PASCAL *LPPASCALFUNC) (char far *filename);
+typedef int (FAR PASCAL *LPPASCALFUNC1) (char far *ofn, char far *ifn, int mnum);
+typedef char * (FAR PASCAL *LPPASCALFUNC2) (char far *ifn, int um);
+typedef char * (FAR PASCAL *LPPASCALFUNC3) (void);
+typedef int (FAR PASCAL *LPPASCALFUNC4) (char far *, char far *, char far *);
+
+
+LPPASCALFUNC count_messages = NULL;
+LPPASCALFUNC4 metamail = NULL;
+LPPASCALFUNC LoadIndex = NULL;
+LPPASCALFUNC1 ReadMsg = NULL;
+LPPASCALFUNC2 GetSubject = NULL;
+LPPASCALFUNC3 GetErrorMsg = NULL;
+
+int __export FAR PASCAL _export LoadMailDll(char*);
+void __export FAR PASCAL _export UnloadMailDll(void);
+#endif
+
+
+int
+main(int argc, char *argv[])
+{
+  int nummsgs, i, j, retval;
+  char fname[64], junkbuf[512];
+  char *subj = (char *)0;
+  char *ebuf = (char *)0;
+  FILE *fp = (FILE*)0;
+  
+
+#if defined (WIN32)
+  hDLLInst = 1;
+  {
+#else  /* bloody win16 */
+  hDLLInst = LoadLibrary("d:\\softech\\roche\\elite\\source\\mail\\mail16.dll");
+  if ( hDLLInst >= HINSTANCE_ERROR)
+    {
+      metamail = (LPPASCALFUNC4)GetProcAddress(hDLLInst, "metamail");
+      ReadMsg = (LPPASCALFUNC1)GetProcAddress(hDLLInst, "ReadMsg");
+      GetSubject = (LPPASCALFUNC2)GetProcAddress(hDLLInst, "GetSubject");
+      GetErrorMsg = (LPPASCALFUNC3)GetProcAddress(hDLLInst, "GetErrorMsg");
+      LoadIndex = (LPPASCALFUNC)GetProcAddress(hDLLInst, "LoadIndex");
+#endif
+
+      fp = fopen("test.log", "w");
+
+      for (j = 1; j < argc; j++ )
+        { 
+          strcpy(fname, argv[j]);
+          if ( fp )
+            fprintf(fp, "File %s\n", fname );
+          if ( access(fname, 04) == -1 )
+            {
+              strcpy(junkbuf, strerror(errno));
+              if ( fp )
+                fprintf(fp, "access error: %s\n", junkbuf );
+            }
+          else if ( /*LoadIndex*/1 )
+            {
+              nummsgs = LoadIndex(fname);
+              if ( fp )
+                fprintf(fp, "\t%d messages\n", nummsgs);
+              
+              for (i = 1; i <= nummsgs; i++ )
+                {
+                  subj = GetSubject(fname, i );
+                  if ( fp )
+                    fprintf(fp, "\t\tMessage %d: %s\n", i, subj);
+                  
+                  retval = ReadMsg("d:\\tmp\\readmsg.out", fname, i );
+                  if ( retval < 0 )
+                    {
+                      ebuf = GetErrorMsg();
+                    }
+                  else
+                    {
+                      if ( retval == 0 )
+                        retval = metamail("d:\\tmp\\readmsg.out", "d:\\tmp\\mail", "1.oog");
+                      unlink("d:\\tmp\\readmsg.out");
+                    }
+                }
+            }
+        }
+      if ( fp )
+        {
+          fflush(fp);
+          fclose(fp);
+        }
+    }
+  return(0);    
+}
+
+</pre>
+</code>
+</BODY></HTML>
+
+<h2>2. Build a 16-bit DLL!</h2>
+<p>
+Microsoft, in all its wisdom, has made accessing a DLL as clear as
+mud. You have to do the following things:
+<ol>
+<li> Mark any functions which may be used by external programs for
+<b>export</b> in the declaration;
+<li> (recommended) Make all pointers in the function definition
+<b>far</b> pointers;
+<li> Make an entry for the functions in the <b>.DEF</b> file;
+<li> Run the <tt>implib</tt> program.
+</ol>
+Here's a sample declaration:
+<code>
+<pre>
+char *
+__export __far __pascal
+GetSubject(char far *mailfilename,
+           int msgnum)
+</pre>
+</code>
+Now, it could be that I don't fully understand the awfull MS syntax
+for far, __export, and __pascal, so if one of you BillHeads out there
+would tell me exactly the right way to do it, I'd be quite happy.
+<p>
+Here's the <tt>mail.def</tt> file for the 16-bit dll:
+<code><pre>
+
+LIBRARY   MAIL16
+EXETYPE   WINDOWS
+CODE      PRELOAD MOVEABLE DISCARDABLE
+DATA      PRELOAD MOVEABLE SINGLE
+HEAPSIZE  1024
+EXPORTS
+          WEP PRIVATE
+
+; To implement your own Windows Exit Procedure add the following
+; function to your application (referring to it in the .def file is
+; not required.)  The extern "C" is only required if module is C++.
+; extern "C" int FAR PASCAL _WEP(int)
+; {
+;       /* Your WEP functionality goes here */
+;  return 1;
+; }
+    
+      TESTDLL 
+
+      LOADMAILDLL
+
+      UNLOADMAILDLL
+       
+      METAMAIL
+
+      READMSG
+
+      GETSUBJECT
+
+      LOADINDEX
+
+      GETERRORMSG
+</code></pre>
+Once this is done, run the implib program:
+<p>
+<tt>d:\usr\msvc\bin\implib mail.lib mail.def</tt>
+<p>
+This creates a library <tt>mail.lib</tt> that you can use to link in
+the normal way.
+<p>
+To debug a dll, open <tt>Options->Debug</tt> and type the calling
+program (with arguments). When you debug the dll, this program will be
+called. 
+
+<h2>3. Build a 32-bit DLL!</h2>
+<p>
+Building a 32-bit DLL is easier. Bill changed the syntax, so you'll
+have lots of ugly #ifdefs in your code, but on the other hand, the
+<tt>far</tt> stuff has disappeared. Here's a sample declaration:
+
+<code><pre>
+char 
+DllExport
+* GetSubject(char *mailfilename,
+         int msgnum)
+</code></pre>
+Now, the hook is, according to the MS documentation, you should define
+the <tt>DllExport</tt> (and <tt>DllImport</tt>) yourself. God (Bill?) knows
+why Bill didn't do this for you:
+<code><pre>
+#ifndef DllImport
+#define DllImport __declspec(dllimport)
+#endif
+#ifndef DllExport
+#define DllExport __declspec(dllexport)
+#endif
+</code></pre>
+That's pretty much all you have to do. It's almost as easy as creating
+a shared library on God's Own Operating System (Unix, for those of you
+who didn't know). 
+
+To debug, open <tt>Build->Settings</tt>, select the <tt>Debug</tt>
+tab, and type in the calling program. 
+
+<h2>4. Accessing a DLL from HorrorBuilder!</h2>
+<p>
+Well, I'm having problems with parameter passing in the 32-bit
+version. I'm working on it.
+
+The 16-bit works fine. You should make the global declarations as you
+would for any other external function, and call them in your
+code. Here's an example:
+
+<code><pre>
+
+int nummsgs, i, rval, attachcount
+string s, subj, out, snam, anam
+
+s = sle_1.text
+anam = sle_2.text
+if (len(s) <= 0 ) then
+	return
+end if
+
+nummsgs = LoadIndex(s)
+
+st_1.text = string(nummsgs)
+
+for i = 1 to nummsgs
+	subj = GetSubject(s,i)
+	rval = ReadMsg("d:\tmp\readmsg.out", s, i );
+	attachcount = metamail("d:\tmp\readmsg.out", anam );
+	lb_1.additem(string(i) + ": " + subj + ": " + string(attachcount) + " attachments")
+next
+
+</code></pre>
+
+
+
+<ADDRESS>
+author: Administrator &copy Yafra.org, Switzerland <BR>
+</ADDRESS>

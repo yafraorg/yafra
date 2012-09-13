@@ -1,0 +1,17 @@
+#!/bin/sh
+#-------------------------------------------------------------------------------
+# yafra.org	Dornacherweg 104	4153 Reinach	+41617111817
+#
+# function:	print a PostScript file via GhostScript in a XTerminal
+#
+# arguments:    1) postscript file name
+#
+# author:	Administrator
+#
+# date:		25.01.95
+#-------------------------------------------------------------------------------
+#
+# last modified:
+#
+#-------------------------------------------------------------------------------
+/usr/bin/X11/xterm -e /users/softech/tools/scripts/gsprint $1

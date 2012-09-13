@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="ArrV" targetNamespace="http://tempuri.org/ArrV.xsd" elementFormDefault="qualified"
+	attributeFormDefault="qualified" xmlns="http://tempuri.org/ArrV.xsd" xmlns:mstns="http://tempuri.org/ArrV.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="ArrV" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="tdbv_arr">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ARR_ID" type="xs:int" />
+							<xs:element name="BEZ_ID" type="xs:int" />
+							<xs:element name="BEZ" type="xs:string" />
+							<xs:element name="S_ID" type="xs:int" />
+							<xs:element name="CODE" type="xs:string" minOccurs="0" />
+							<xs:element name="TEXTID" type="xs:int" minOccurs="0" />
+							<xs:element name="ADAT" msdata:ReadOnly="true" type="xs:dateTime" minOccurs="0" />
+							<xs:element name="PRG_ID" type="xs:int" />
+							<xs:element name="PRG" type="xs:string" />
+							<xs:element name="SAI_ID" type="xs:int" />
+							<xs:element name="SAI" type="xs:string" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

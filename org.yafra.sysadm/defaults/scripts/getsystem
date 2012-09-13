@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+#
+# shell script to know on which system we are
+#
+# Administrator, Jun 1992
+# yafra.org, Switzerland
+#
+# return: system type
+#         hpux
+#         linux
+#         sco
+#         ultrix
+#
+
+SYSTEMNAME=`uname -s`
+
+# Test for HP Platform
+#
+if test "$SYSTEMNAME" = "HP-UX"
+	then SYSTEM=hpux
+fi
+
+# test for DEC Ultrix
+#
+if test "$SYSTEMNAME" = "ULTRIX"
+	then SYSTEM=ultrix
+fi
+
+# test for Linux 386/486 Unix
+#
+if test "$SYSTEMNAME" = "Linux"
+	then SYSTEM=linux
+fi
+
+# Test for cygwin
+#
+if [[ "$SYSTEMNAME" == *CYGWIN* ]]
+	then SYSTEM=windows
+fi
+
+# test for SCO 386/486 Unix
+#
+if test "$SYSTEMNAME" = "james"
+	then SYSTEM=sco
+fi
+
+# put the platform string to the stdout
+echo $SYSTEM

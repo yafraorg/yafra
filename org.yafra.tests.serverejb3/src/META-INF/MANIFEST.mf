@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Main-Class: TestEJB
+Bundle-ClassPath: .,
+ commons-logging-1.1.1.jar,
+ log4j-1.2.15.jar,
+ org.yafra.utils.jar,
+ openejb-client-3.1.2.jar,
+ openejb-core-3.1.2.jar,
+ javaee-api-5.0-2.jar,
+ org.yafra.server.ejbclient.jar

@@ -1,0 +1,365 @@
+#
+#  Copyright 2002 yafra.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+# app-defaults   -->  MPgui (a graphical user interface for MarcoPolo)
+#
+# Missing values are set by default (xUIappdefaults.h)  
+#
+
+#
+# TDB special app-defaults
+#
+MPgui*bitmapcommitforeground: /usr/local/etc/tdb/curscomm.bm
+MPgui*bitmapcommitbackground: /usr/local/etc/tdb/cursback.bm
+MPgui*bitmapcommitforegroundcolor: OrangeRed
+MPgui*bitmapcommitbackgroundcolor: white
+MPgui*scroll_maxlines: 40
+MPgui*scroll_maxbreite: 110
+MPgui*updateBookingTime: 60
+MPgui*maxdataout: 10000
+MPgui*maxdatain: 10000
+MPgui*maxtablist: 10000
+MPgui*labelfile: /usr/local/etc/tdb/labels_d
+MPgui*errorfile: /usr/local/etc/tdb/errors
+MPgui*noerrorfilemsg: No error file found! (/usr/local/etc/tdb/errors)
+MPgui*printfilename: /tmp/mapoprint
+MPgui*printcommand: pr -e3 -o14 -h TDB | lp -oc 
+MPgui*iconbitmapmain: /usr/local/etc/tdb/mptogui.icon
+MPgui*iconbitmapgraphik: /usr/local/etc/tdb/mptogra.icon
+MPgui*gridcolor: black
+MPgui*gridwidth: 1
+MPgui*gridlinestyle: 1
+MPgui*cursorlinestyle: 0
+MPgui*cursorlinewidth: 1
+MPgui*breite: 1600
+MPgui*hoehe: 1000
+MPgui*optionPixmapWidth: 60
+MPgui*optionPixmapHeight: 42
+MPgui*optionProz: 15
+MPgui*optionPixmapforeground: white
+MPgui*optionPixmapbackground: black
+MPgui*patternListe: foreground background 25_foreground 50_foreground 75_foreground slant_right slant_left horizontal vertical
+MPgui*fontListe: -*-lucida-medium-r-*-*-12-*-*-*-*-*-*
+MPgui*colorListe: red green blue yellow magenta black
+MPgui*linewidthListe: 0.5mm 1.0mm 1.5mm 2.0mm
+MPgui*snapListe: 0 1 2
+MPgui*linestyleListe: 0 1 2
+MPgui*ColReq: gray
+MPgui*ColKey: RoyalBlue3
+MPgui*ColNextMenu: gray40
+MPgui*ColCommit: red
+MPgui*ColQuit: blue
+MPgui*ColHelp: gray
+MPgui*ColInfo: pink
+MPgui*ColGra: DarkKhaki
+MPgui*ColBoard: LightCoral
+MPgui*audioWelcome: /usr/local/etc/tdb/welcome.wav
+MPgui*audioQuit: /usr/local/etc/tdb/quit.wav
+MPgui*audioToggle: /usr/local/etc/tdb/toggle.wav
+MPgui*audioMessage: /usr/local/etc/tdb/message.wav
+MPgui*audioError: /usr/local/etc/tdb/error.wav
+MPgui*mpurlprefix: http://www.yafra.org/tdb/
+
+
+
+#
+# X11 / Xt / OSF-Motif   application defaults
+#
+MPgui*defaultFontList: -*-lucida-medium-r-*-*-12-*-*-*-*-*-*
+MPgui*fontList:	-*-lucida-medium-r-*-*-12-*-*-*-*-*-*
+MPgui*background: #EFEBE7
+MPgui*foreground: black
+MPgui*borderColor: #CC873F
+MPgui*buttonFontList: -*-lucida-medium-r-*-*-12-*-*-*-*-*-*
+MPgui*textFontList: -*-lucida-medium-r-*-*-12-*-*-*-*-*-*
+
+MPgui*menubar*fontList: -*-lucida-medium-r-*-*-12-*-*-*-*-*-*
+MPgui*menubar*marginHeight: 1
+MPgui*menubar*borderColor: #CC873F
+
+MPgui*XmText*background: white
+MPgui*XmText*highlightColor: #EFEBE7
+
+#
+#---- Map Virtual keysyms to actual keysymbols --------
+#
+MPgui*defaultVirtualBindings:	\
+osfHelp:	<Key>F1		 \n\
+osfMenu:	<Key>F4		 \n\
+osfLeft:	<Key>Left	 \n\
+osfRight:	<Key>Right	 \n\
+osfBackSpace:	<Key>BackSpace
+
+#
+#---- Select window classic ---------------------------
+#
+#MPgui*selectshell*background:	Gray30
+#MPgui*selectshell*foreground:	White
+MPgui*selecttext*translations: #override\n\
+	<Btn3Down>,<Btn3Up>: selquit() \n\
+	<Btn2Down>: selnew()
+
+#---- Select window xUICselect ------------------------
+MPgui*cselectlist*translations: #override\n\
+	<Btn3Down>,<Btn3Up>: APCselectquit() \n\
+	<Btn2Down>: APCselectnew()  \n\
+	<Key>: APCselectkey()
+
+#---- Select window xUICtwin --------------------------
+MPgui*ctwinsourcelist*translations: #override\n\
+	<Btn3Down>,<Btn3Up>: APCtwinCancel()
+MPgui*ctwindestlist*translations: #override\n\
+	<Btn3Down>,<Btn3Up>: APCtwinCancel()
+
+#---- Graphic window ----------------------------------
+MPgui*graphikdrawingarea*translations: #override\n\
+	<Btn1Down>,<Btn1Up>: APCaction_select()  DrawingAreaInput() \n\
+	<Btn1Up>(2+):        APCaction_doubleclick() \n\
+	<Btn3Down>,<Btn3Up>: APCaction_clear()  
+
+#
+#--- Informations und Lizenz Fenster ----------
+#
+MPgui*helptext*background: DarkSeaGreen
+MPgui*faulttext*background: PaleVioletRed
+MPgui*infotext*background: SkyBlue4
+MPgui*warningtext*background: LightSalmon2
+MPgui*lizenztext*foreground: black
+MPgui*lizenztext*background: Pink
+MPgui*lizenztext*fontList: -*-lucida-medium-r-*-*-12-*-*-*-*-*-*
+
+
+#
+# mandatory buttons (except GlobMenu and SuchMaske)
+#
+MPgui*OBLpushbutton.background: SkyBlue2
+MPgui*OBLpushbutton.foreground: black
+
+
+#
+#--- Margin and frames --------------------------
+#
+MPgui*marginWidth:			1
+MPgui*marginHeight:			1
+MPgui*XmFrame.borderWidth:		1
+MPgui*XmFrame.marginWidth:		1
+MPgui*XmFrame.marginHeight:		1
+MPgui*XmFrame.borderColor:		#CC873F
+
+MPgui*XmRowColumn*XmPushButton*marginLeft:	1
+MPgui*XmRowColumn*XmPushButton*marginRight:	1
+
+MPgui*XmScrolledWindow.ScrolledWindowMarginHeight:	1
+MPgui*XmScrolledWindow.ScrolledWindowMarginWidth:	1
+
+
+#
+#---- Graphic widgets ---------------------------
+#
+MPgui*XmList.doubleClickInterval:                  500
+MPgui*graphikscrolledgraphik.width:                500
+MPgui*graphikscrolledgraphik.height:               600
+
+################    OPTION "option"  ####################################
+MPgui*buttonquit*background: OrangeRed
+MPgui*buttonquit*foreground: White
+
+################   Dienstleistungstraeger   ############################
+MPgui*popup0*buttonquit0*background: OrangeRed
+MPgui*popup0*buttonact0*background: DarkSeaGreen
+
+################   Traegertyp   ########################################
+MPgui*popup1*buttonquit1*background: OrangeRed
+MPgui*popup1*buttonact1*background: DarkSeaGreen
+
+################   Dienstleistungsangebot   ############################
+MPgui*popup2*buttonquit2*background: OrangeRed
+MPgui*popup2*buttonact2*background: DarkSeaGreen
+
+################   Angebotstyp   #######################################
+MPgui*popup3*buttonquit3*background: OrangeRed
+MPgui*popup3*buttonact3*background: DarkSeaGreen
+
+################   Default Aktion   ####################################
+MPgui*popup4*buttonquit4*background: OrangeRed
+MPgui*popup4*buttonact4*background: DarkSeaGreen
+
+################   Aktionen   ##########################################
+MPgui*popup5*buttonquit5*background: OrangeRed
+MPgui*popup5*buttonact5*background: DarkSeaGreen
+
+################   Aktionstyp   ########################################
+MPgui*popup6*buttonquit6*background: OrangeRed
+MPgui*popup6*buttonact6*background: DarkSeaGreen
+
+################   Kategorie   #########################################
+MPgui*popup7*buttonquit7*background: OrangeRed
+MPgui*popup7*buttonact7*background: DarkSeaGreen
+
+################   Kunden   ############################################
+MPgui*popup8*buttonquit8*background: OrangeRed
+MPgui*popup8*buttonact8*background: DarkSeaGreen
+
+################   Kundentyp   #########################################
+MPgui*popup9*buttonquit9*background: OrangeRed
+MPgui*popup9*buttonact9*background: DarkSeaGreen
+
+################   Reisendertyp   #####################################
+MPgui*popup10*buttonquit10*background: OrangeRed
+MPgui*popup10*buttonact10*background: DarkSeaGreen
+
+################   KOSTENART   #########################################
+MPgui*popup11*buttonquit11*background: OrangeRed
+MPgui*popup11*buttonact11*background: DarkSeaGreen
+
+################   Kollektivtyp   ######################################
+MPgui*popup12*buttonquit12*background: OrangeRed
+MPgui*popup12*buttonact12*background: DarkSeaGreen
+
+################   Programm   ##########################################
+MPgui*popup13*buttonquit13*background: OrangeRed
+MPgui*popup13*buttonact13*background: DarkSeaGreen
+
+################   Preis   #############################################
+MPgui*popup14*buttonquit14*background: OrangeRed
+MPgui*popup14*buttonact14*background: DarkSeaGreen
+
+################   Reisender   #########################################
+MPgui*popup15*buttonquit15*background: OrangeRed
+MPgui*popup15*buttonact15*background: DarkSeaGreen
+
+################   Kollektiv   #########################################
+MPgui*popup16*buttonquit16*background: OrangeRed
+MPgui*popup16*buttonact16*background: DarkSeaGreen
+
+################   Saison   ############################################
+MPgui*popup17*buttonquit17*background: OrangeRed
+MPgui*popup17*buttonact17*background: DarkSeaGreen
+
+################   Arrangement   #######################################
+MPgui*popup18*buttonquit18*background: OrangeRed
+MPgui*popup18*buttonact18*background: DarkSeaGreen
+
+################   Dienstleistung   ####################################
+MPgui*popup19*buttonquit19*background: OrangeRed
+MPgui*popup19*buttonact19*background: DarkSeaGreen
+
+################   Buchung   ###########################################
+MPgui*popup20*buttonquit20*background: OrangeRed
+MPgui*popup20*buttonact20*background: DarkSeaGreen
+
+################   Reservation   #######################################
+MPgui*popup21*buttonquit21*background: OrangeRed
+MPgui*popup21*buttonact21*background: DarkSeaGreen
+
+################   Kontingent   ########################################
+MPgui*popup22*buttonquit22*background: OrangeRed
+MPgui*popup22*buttonact22*background: DarkSeaGreen
+
+################   Graphik   ###########################################
+MPgui*popup23*buttonquit23*background: OrangeRed
+MPgui*popup23*buttonact23*background: DarkSeaGreen
+
+################   PCX Files   #########################################
+MPgui*popup24*buttonquit24*background: OrangeRed
+MPgui*popup24*buttonact24*background: DarkSeaGreen
+
+################   Bezeichnung   #######################################
+MPgui*popup25*buttonquit25*background: OrangeRed
+MPgui*popup25*buttonact25*background: DarkSeaGreen
+
+################   Texte   #############################################
+MPgui*popup26*buttonquit26*background: OrangeRed
+MPgui*popup26*buttonact26*background: DarkSeaGreen
+
+################   Sprachen   ##########################################
+MPgui*popup27*buttonquit27*background: OrangeRed
+MPgui*popup27*buttonact27*background: DarkSeaGreen
+
+################   Output     ##########################################
+MPgui*popup28*buttonquit28*background: OrangeRed
+MPgui*popup28*buttonact28*background: DarkSeaGreen
+
+################   Backup     ##########################################
+MPgui*popup29*buttonquit29*background: OrangeRed
+MPgui*popup29*buttonact29*background: DarkSeaGreen
+
+################   Dienstleistung     ##################################
+MPgui*popup30*buttonquit30*background: OrangeRed
+MPgui*popup30*buttonact30*background: DarkSeaGreen
+
+################   Kommission     #######################################
+MPgui*popup31*buttonquit31*background: OrangeRed
+MPgui*popup31*buttonact31*background: DarkSeaGreen
+
+################   Kommission     #######################################
+MPgui*popup32*buttonquit32*background: OrangeRed
+MPgui*popup32*buttonact32*background: DarkSeaGreen
+
+################   Kommission     #######################################
+MPgui*popup33*buttonquit33*background: OrangeRed
+MPgui*popup33*buttonact33*background: DarkSeaGreen
+
+################   Kommission     #######################################
+MPgui*popup34*buttonquit34*background: OrangeRed
+MPgui*popup34*buttonact34*background: DarkSeaGreen
+
+################   Kommission     #######################################
+MPgui*popup35*buttonquit35*background: OrangeRed
+MPgui*popup35*buttonact35*background: DarkSeaGreen
+
+################   Kommission     #######################################
+MPgui*popup36*buttonquit36*background: OrangeRed
+MPgui*popup36*buttonact36*background: DarkSeaGreen
+
+MPgui*popup37*buttonquit37*background: OrangeRed
+MPgui*popup37*buttonact37*background: DarkSeaGreen
+
+MPgui*popup38*buttonquit38*background: OrangeRed
+MPgui*popup38*buttonact38*background: DarkSeaGreen
+
+MPgui*popup39*buttonquit39*background: OrangeRed
+MPgui*popup39*buttonact39*background: DarkSeaGreen
+
+MPgui*popup40*buttonquit40*background: OrangeRed
+MPgui*popup40*buttonact40*background: DarkSeaGreen
+
+MPgui*popup41*buttonquit41*background: OrangeRed
+MPgui*popup41*buttonact41*background: DarkSeaGreen
+
+MPgui*popup42*buttonquit42*background: OrangeRed
+MPgui*popup42*buttonact42*background: DarkSeaGreen
+
+MPgui*popup43*buttonquit43*background: OrangeRed
+MPgui*popup43*buttonact43*background: DarkSeaGreen
+
+MPgui*popup44*buttonquit44*background: OrangeRed
+MPgui*popup44*buttonact44*background: DarkSeaGreen
+
+MPgui*popup45*buttonquit45*background: OrangeRed
+MPgui*popup45*buttonact45*background: DarkSeaGreen
+
+MPgui*popup46*buttonquit46*background: OrangeRed
+MPgui*popup46*buttonact46*background: DarkSeaGreen
+
+MPgui*popup47*buttonquit47*background: OrangeRed
+MPgui*popup47*buttonact47*background: DarkSeaGreen
+
+MPgui*buttonquit502*background:	OrangeRed
+MPgui*buttonact502*background:	DarkSeaGreen
+
+################    DL (503)     #######################################
+MPgui*buttonquit503*background:	OrangeRed
+MPgui*buttonact503*background:	DarkSeaGreen

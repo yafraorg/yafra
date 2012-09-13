@@ -1,0 +1,6 @@
+/usr/local/bin/OUTticket -t 5 -D -c 448 > tic.448
+/usr/local/bin/OUTvoucher -t 7 -D -c 448 > vou.448
+/usr/local/bin/OUTprogram -t 8 -D -c 448 > prg.448
+/usr/local/bin/OUTpassagier -t 6 -D -c 448 > pax.448
+/usr/local/bin/OUTfaktura -t 9 -D -c 448 >fak.448 2>grp.448
+/usr/local/bin/OUTauftrag -t 9 -D -c 448 >auf.448

@@ -1,0 +1,243 @@
+#
+#  Copyright 2002 yafra.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+# MAKEFILE for travelDB DB API
+#
+# copyright: yafra.org, Switzerland, 2004
+#
+# revision system: CVS
+#
+# P: PATH
+# F: FLAG
+
+CORENAME = tdbdb
+SONAMEVER = $(MAPOVER)
+
+ifdef TDBMYSQL
+VER_NAME = "travelDB MySQL API"
+TDBDEF = -DTDBMYSQL -DMPDBMYSQL
+endif
+ifdef TDBORACLE
+VER_NAME = "travelDB Oracle OCI API"
+TDBDEF = -DTDBORACLE
+endif
+ifdef TDBORACLECLASSIC
+VER_NAME = "travelDB Oracle embedded API"
+TDBDEF = -DTDBORACLE
+endif
+ifdef TDBODBC
+VER_NAME = "travelDB SQL Server native ODBC API"
+TDBDEF = -DTDBODBC
+endif
+
+ifdef TDBADABAS
+VER_NAME = "travelDB Adabas Linux API"
+TDBDEF = -DTDBADABAS
+endif
+ifdef TDBHPSQL
+VER_NAME = "travelDB HP/Allbase API"
+TDBDEF = -DTDBHPSQL
+endif
+ifdef TDBDUMMY
+VER_NAME = "travelDB DUMMY API"
+TDBDEF = -DTDBDUMMY
+endif
+
+#
+# path/flag declaration for release and develop
+#
+PBASE   = $(TDBS)
+POBJ    = $(TDBO)
+PSLIBINC = $(YAFRAINC)
+PSLIB   = $(YAFRALIBPATH)
+PLIB    = $(YAFRALIBPATH)
+PINC = $(PBASE)/include
+PSRC = $(PBASE)/api
+PMAN = $(PBASE)/man
+
+
+#
+# GNU make
+# set the vpath and suffixes
+#
+include $(YAFRATOOLS)/include/searchpath.mak
+
+#
+# set input/output files
+#
+MAKEFILE   = makefile.api
+LINTOUT    = $(PSRC)/lint.out
+
+#
+# defines for the sourcecode
+#
+DEFINES    = -D$(PS_OS) -D$(PS_OSTYPE) $(TDBDEF)
+XMLINC     = `xml2-config --cflags`
+#
+# search path and flags for cc/ar/ld
+#
+include $(YAFRATOOLS)/include/libflags.mak
+
+#
+# setup databases on different operation systems
+#
+# Linux - supports Oracle (OCI and Pro*C, mysql) (planned: ODBC)
+ifeq ($(PS_OS),ps_linux)
+ifdef TDBMYSQL
+ADDON = -I/usr/include/mysql $(XMLINC)
+endif
+ifdef TDBORACLECLASSIC
+ORAHOME = $(ORACLE_HOME)
+ADDON = -I$(ORAHOME)/precomp/public $(XMLINC)
+endif
+ifdef TDBORACLE
+ORAHOME = $(ORACLE_HOME)
+#ADDON = -I$(ORAHOME)/rdbms/public -I$(ORAHOME)/rdbms/demo $(XMLINC)
+ADDON = -I/opt/oracle/instantclient_11_1/sdk/include $(XMLINC)
+endif
+endif
+
+# HP-UX - supports Oracle (only Pro*C) (HP/Allbase and Ingres was working on HP-UX 10.20)
+ifeq ($(PS_OS),ps_hpux)
+ORAHOME = /opt/oracle/OraHome1
+DBCPP      = psqlc
+ADDON = -Ae +w1 -I$(ORAHOME)/rdbms/public -I$(ORAHOME)/rdbms/demo $(XMLINC)
+endif
+
+# Windows cygwin - supports ODBC, MSSQL, ORACLE OCI only (planned MySQL)
+ifeq ($(PS_OS),ps_cygwin)
+ifdef TDBMYSQL
+ADDON = -I/usr/include/mysql $(XMLINC)
+endif
+ifdef TDBORACLE
+ORAHOME = /cygdrive/e/opt/XEClient
+ADDON = -I$(ORAHOME)/oci/include $(XMLINC)
+endif
+ifdef TDBODBC
+ADDON = -I"$(MSSQL_HOME)/inc" $(XMLINC)
+endif
+endif
+
+# Windows .NET - supports Oracle, Oracleclassic, MSSQL, ODBC
+ifeq ($(PS_OS),ps_winnt)
+ADDON = -W3 -Fp"C:/TEMP/vc.pch"
+ifdef TDBORACLE
+ORAHOME = E:/opt/oracle/ora92
+ADDON = -I$(ORAHOME)/oci/include -I$(ORAHOME)/precomp/public -W3 -Fp"C:/TEMP/vc.pch"
+endif
+ifdef TDBODBC
+ADDON = -I"$(MSSQL_HOME)\include" -W3 -Fp"C:/TEMP/vc.pch"
+endif
+endif
+
+#
+# db defines for ORACLE
+#
+ORACLEPCC = proc
+ORACLEPCCINC = $(ORAHOME)/proc/lib
+ORACLEPCCFLAGS = iname=dboracle.pc \
+	parse=none \
+	ireclen=255 \
+	include=$(ORAHOME)/precomp/public \
+	include=$(TDBS)/include \
+	include=$(YAFRAINC) \
+	mode=ANSI \
+	dbms=V7 \
+	define=ORACLE \
+	define=ORACLEPROC \
+	define=USEORACA \
+	define=$(PS_OS) \
+	define=$(PS_OSTYPE) \
+	define=TDBORACLE \
+	CODE=ANSI_C \
+	ORACA=YES
+#     define=DEBUG \
+
+#
+# database objects
+#
+ifdef TDBMYSQL
+sql:
+	@rm -f $(PSRC)/sqldbobj.*
+	@cp $(PSRC)/dbmysql.msc $(PSRC)/sqldbobj.c
+endif
+
+ifdef TDBORACLE
+sql:
+	@rm -f $(PSRC)/sqldbobj.*
+	@cp $(PSRC)/dboci.ora $(PSRC)/sqldbobj.c
+endif
+
+ifdef TDBORACLECLASSIC
+sql:
+	@rm -f $(PSRC)/sqldbobj.*
+	$(ORACLEPCC) $(ORACLEPCCFLAGS) iname=$(PSRC)/dboracle.pc
+	@mv $(PSRC)/dboracle.c $(PSRC)/sqldbobj.c
+endif
+
+ifdef TDBMSSQL
+sql:
+	@rm -f $(PSRC)/sqldbobj.*
+	@cp $(PSRC)/dbmsql.src $(PSRC)/sqldbobj.c
+endif
+
+ifdef TDBODBC
+sql:
+	@rm -f $(PSRC)/sqldbobj.*
+	@cp $(PSRC)/dbodbc.msc $(PSRC)/sqldbobj.c
+endif
+
+ifdef TDBADABAS
+sql:
+	@rm -f $(PSRC)/sqldbobj.*
+	cpc -u root,root -d mapo -c -E cansi -S adabas $(PSRC)/dbadabas -g -I$(PINC) -I$(YAFRAINC) $(DEFINES)
+	@mv dbadabas.c $(PSRC)/sqldbobj.c
+	@rm -f dbadabas*
+endif
+ifdef TDBHPSQL
+sql:
+	@rm -f $(PSRC)/sqldbobj.*
+	(cd $(PSRC); $(DBCPP) $(MARCOdb) -i $(PSRC)/dbhp.sql -o $(LOGNAME) -m hpsql$(HARDWARE) -p $(PSRC)/sqldbobj.c -d)
+#	@mv $(PSRC)/sqldbobj.s* $(POBJ)/.
+endif
+ifdef TDBDUMMY
+sql:
+	@rm -f $(PSRC)/sqldbobj.*
+	@cp $(PSRC)/dbdummy.sql $(PSRC)/sqldbobj.c
+endif
+
+#
+# compile
+#
+ifeq ($(PS_COMPTYPE),ps_win)
+FINCSEARCH  = -I"$(PS_SOFTECHDRV)$(PINC)" -I"$(PS_SOFTECHDRV)$(PSLIBINC)"
+CFLAGS      = $(FCC) $(ADDON) $(DEFINES) \
+ $(FINCSEARCH) -Fo"$(PS_LOCALDRV)$(POBJ)/"
+else
+FINCSEARCH  = -I$(PINC) -I$(PSLIBINC)
+CFLAGS     = $(FCC) $(ADDON) $(DEFINES) $(FINCSEARCH)
+endif
+
+#
+# dependencies
+#
+include $(YAFRATOOLS)/include/objects.mak
+
+#
+# to do list
+#
+include $(YAFRATOOLS)/include/librules.mak
+
+# DO NOT DELETE THIS LINE -- make depend depends on it.

@@ -1,0 +1,30 @@
+#!/bin/sh
+# create dependencies in a makefile for all .c files
+#
+# usage: objdepend /directory >> makefile
+#
+
+
+if [ $# -eq 0 ]
+then
+	echo ""
+	echo "usage: objdepend sourcedir >> makefile"
+	echo ""
+	echo "there has to be a RCS directory in the sourcedir"
+	echo ""
+	exit -1
+fi
+
+for i in $*
+do
+	(cd $i
+	for j in RCS/*.c,v
+	do
+		j=`basename $j`
+		j=`echo $j|cut -f1 -d.`
+		echo '$(POBJ)/'$j.o': $(PSRC)/'$j.c
+		echo '\t$(CC) $(CFLAGS) -c $< -o $@'
+		echo
+	done
+	)
+done

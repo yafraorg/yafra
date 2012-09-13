@@ -1,0 +1,685 @@
+/*D***********************************************************
+ * modul:     SQL embedded INTERFACE
+ *            all DB access functions are located here
+ *
+ * db:        ADABAS D 6.1.1
+ *
+ * copyright: yafra.org, Switzerland
+ *************************************************************/
+static char rcsid[]="$Header: /yafra/cvsroot/mapo/source/api/dbadabas.cpc,v 1.2 2008-11-02 19:55:48 mwn Exp $";
+
+#include "version.h"
+
+#if !defined(MPDBADABAS)
+#define MPDBADABAS
+#undef MPDBHPSQL
+#undef MPDBORACLE
+#undef MPDBINGRES
+#endif
+
+/* MARCO POLO includes */
+#include <stdio.h>
+#include <string.h>
+#include <memory.h>
+#include <stdlib.h>
+#include <time.h>
+#include <signal.h>
+#include <sys/wait.h>
+
+#include <pssys.h>
+#include <mpdb.h>
+#include <mpmsg.h>
+#include <mpstrlen.h>
+#include <mpobjdef.h>
+#include <mpobjvar.h>
+#include <mpdef.h>
+#include <mpprolib.h>
+#include <mpproapi.h>
+
+/* global prototypes */
+extern void UtilMsgWrite(char *);
+
+/* local prototyps */
+void MPAPIdb_sqlerror(void);
+static int MPAPIdb_checkstatus(void);
+static void truncSemicolon (char *);
+
+/**************************************************************/
+/* SQL declare section                                        */
+/**************************************************************/
+#define SQLMEMCHUNK 102400
+#define SQL_MAX_COL 50
+#define SQL_MAX_ROW_LEN   512
+#define SQL_MAX_ROW 50
+#define SQL_MAX_BUF SQL_MAX_ROW_LEN*SQL_MAX_ROW
+
+EXEC SQL BEGIN DECLARE SECTION;
+#define MP_MAXCOLS 50
+#define MP_ALLOCROWS 10
+#define MP_MAXSTRINGLEN 512
+#define MP_MAXSQLVAR 80
+
+#define SQL_MESSAGE    132
+#define SQL_NAME       128
+
+char mpdb_dbname[SQL_NAME];
+char mpdb_user[SQL_NAME];
+char mpdb_passwd[SQL_NAME];
+char mpdb_sqlmsg[SQL_MESSAGE];
+char *mpdb_sqlquery;
+EXEC SQL END DECLARE SECTION;
+
+EXEC SQL WHENEVER SQLERROR CALL MPAPIdb_sqlerror();
+
+/* Include SQL headers */
+EXEC SQL INCLUDE sqlca;	 	/* Type definition for sqlca.____ */
+EXEC SQL INCLUDE sqlda;	 	/* Type definition for sqlda.____ */
+
+/* Declare pointers to bind and select descriptors */
+sqldatype mpda, mpfa;
+sqldatype *mpdaptr;
+sqlvartype *mpvar;
+
+/* include def_table struct */
+#include <mpdbglob.h>
+
+/**************************************************************/
+/* SQL globals                                                */
+/**************************************************************/
+extern unsigned char logging_sql;
+extern unsigned char logging_sqltm;
+extern int DebugFlag;
+
+char            logbuffer[RECLAENGE];
+time_t          starttime;
+unsigned int    trxcount;
+
+/**************************************************************/
+/* Function:  open db                                         */
+/*                                                            */
+/* Parameter: db path and name                                */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+int MPAPIdb_connect(char *aDBname, char *aUsername, char *aPassword)
+{
+	extern unsigned char logging_sql;
+
+	extern unsigned int trxcount;
+	extern char mpdb_user[];
+	extern char mpdb_passwd[];
+	extern char mpdb_dbname[];
+
+	int status = (int)MPSQL_OK;
+
+	/* init */
+	trxcount = 0;
+
+	/* set connection variables */
+	/* ADABAS needs uppercase userid and password ! */
+	(void)strcpy(mpdb_user, aUsername);
+	(void)strcpy(mpdb_passwd, aPassword);
+	(void)strcpy(mpdb_dbname, aDBname);
+	PSSYSstrUpper(mpdb_user);
+	PSSYSstrUpper(mpdb_passwd);
+
+	/* set DB name to connect to */
+	EXEC SQL SET SERVERDB :mpdb_dbname;
+
+	/* make connection with user infos to above DB */
+	EXEC SQL CONNECT :mpdb_user IDENTIFIED BY :mpdb_passwd;
+
+	/* check return codes */
+	status = MPAPIdb_checkstatus();
+	if (logging_sql)
+		{
+		(void)sprintf(logbuffer, "OPEN DB %s", mpdb_dbname);
+		MPlog(_LOGSQL, status, logbuffer, __FILE__);
+		}
+
+	return(status);
+}
+
+/**************************************************************/
+/* Function:  release db and check sql state                  */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+int MPAPIdb_release(void)
+{
+	extern unsigned char logging_sql;
+
+	extern unsigned int trxcount;
+
+	int status=(int)MPSQL_OK;
+
+	signal(SIGCLD, SIG_IGN);
+
+	EXEC SQL COMMIT WORK RELEASE;
+	status=MPAPIdb_checkstatus();
+	if (logging_sql)
+		{
+		(void)sprintf(logbuffer, "CLOSE DB %s - NUMBER OF TRX: %d", mpdb_dbname, trxcount);
+		MPlog(_LOGSQL, status, logbuffer, __FILE__);
+		}
+
+	return(status);
+}
+
+/**************************************************************/
+/* Function:  start a db transaction                          */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+int MPAPIdb_begintrx(int isolationlevel, int priority)
+{
+	extern unsigned int trxcount;
+	extern time_t starttime;
+
+	int status=(int)MPSQL_OK;
+
+	switch(isolationlevel)
+		{
+		case SQLISOLATION_RR:
+			break;
+		case SQLISOLATION_CS:
+			break;
+		case SQLISOLATION_RC:
+			break;
+		case SQLISOLATION_RU:
+			break;
+		default:
+			break;
+		}
+
+	status = MPAPIdb_checkstatus();
+	if (logging_sql)
+		{
+		trxcount++;
+		starttime = time(NULL);
+		MPlog(_LOGSQL, status, "BEGIN TRANSACTION", __FILE__);
+		}
+
+	return(status);
+}
+
+/**************************************************************/
+/* Function:  set attributes of a db trx in progress          */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+int MPAPIdb_settrx(int isolationlevel, int priority)
+{
+	int status=(int)MPSQL_OK;
+
+	EXEC SQL COMMIT WORK;
+
+	status=MPAPIdb_checkstatus();
+	if (status != MPSQL_OK)
+		return(status);
+
+	switch(isolationlevel)
+		{
+		case SQLISOLATION_RR:
+			break;
+		case SQLISOLATION_CS:
+			break;
+		case SQLISOLATION_RC:
+			break;
+		case SQLISOLATION_RU:
+			break;
+		default:
+			break;
+		}
+
+	status=MPAPIdb_checkstatus();
+	if (logging_sql)
+		MPlog(_LOGSQL, status, "CHANGED TRANSACTION ISOLATIONLEVEL", __FILE__);
+
+	return(status);
+}
+
+
+/**************************************************************/
+/* Function:  write data to db and set savepoint              */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+void MPAPIdb_committrx(void)
+{
+	extern time_t starttime;
+	int status=(int)MPSQL_OK;
+
+	EXEC SQL COMMIT WORK;
+
+	status=MPAPIdb_checkstatus();
+	if (logging_sql)
+		{
+		char textbuf[_RECORDLEN];
+		sprintf(textbuf, "END TRANSACTION - TRANSACTION TIME: %f SECONDS",
+		        (difftime(time(NULL), starttime)));
+		MPlog(_LOGSQL, status, textbuf, __FILE__);
+		}
+
+	return;
+}
+
+/**************************************************************/
+/* Function:  rollback/cancel current transaction             */
+/*            started by begin_transaction()                  */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+void MPAPIdb_rollbacktrx(void)
+{
+	extern time_t starttime;
+	int status=(int)MPSQL_OK;
+
+	EXEC SQL ROLLBACK WORK;
+
+	status = MPAPIdb_checkstatus();
+	if (logging_sql)
+		{
+		char textbuf[_RECORDLEN];
+		sprintf(textbuf, "CANCEL/ROLLBACK TRANSACTION - TRANSACTION TIME: %f SECONDS",
+		        (difftime(time(NULL), starttime)));
+		MPlog(_LOGSQL, status, textbuf, __FILE__);
+		}
+
+	return;
+}
+
+/**************************************************************/
+/* Function:  write data to db and set savepoint              */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+int MPAPIdb_setsavepoint(int *save_point)
+{
+	int status = (int) MPSQL_OK;
+
+	/*********EXEC SQL SAVEPOINT Save_point; *************
+	status = MPAPIdb_checkstatus();
+	*save_point = Save_point;
+        *******/
+
+	if (logging_sql)
+		MPlog(_LOGSQL, status, "SAVEPOINT SET", __FILE__);
+
+	return( status );
+}
+
+/**************************************************************/
+/* Function:  delete work back to the next savepoint          */
+/*                                                            */
+/* Parameter: savepoint                                       */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+int MPAPIdb_rollbacksavepoint(int *save_point )
+{
+	int status = (int) MPSQL_OK;
+
+	/* Save_point = *save_point; */
+	/******EXEC SQL ROLLBACK WORK TO SAVEPOINT Save_point;*********/
+	status = MPAPIdb_checkstatus();
+
+	if (logging_sql)
+		MPlog(_LOGSQL, status, "ROLLBACK", __FILE__);
+
+	return(status);
+}
+
+/*F***********************************************************
+ * Function:  commit a sql command to db and put the data     
+ *            to the global memory
+ *                                                            
+ * Parameter: void                                            
+ * Return:    ERROR / MPSQL_OK                                
+ *************************************************************/
+int MPAPIdb_sqlquery(int table_nr, char **mp_sqltargetptr, char *mp_sqlquery,
+    int *mp_rowcount, unsigned long *datalen, unsigned long *alloclen)
+{
+	time_t aclock;
+	char logtext[_RECORDLEN];
+
+	int sqlret =(int)MPSQL_OK;
+
+	int memoff        = 0;				/* memory offset of output buffer */
+	size_t allocsize  = (size_t)0;	/* memory to allocate */
+	size_t structsize = (size_t)0;	/* size of data retrieved */
+	size_t copysize   = (size_t)0;	/* size of data copied */
+
+	int i;					/* temp counter */
+	int structcnt = 0;	/* Column counter */
+
+	char		chardata[MP_MAXSTRINGLEN][MP_MAXCOLS];
+	size_t	charlen[MP_MAXCOLS];
+	int		intdata[MP_MAXCOLS];
+	double	doubledata[MP_MAXCOLS];
+
+	/* index of SQL statements */
+	/* 1) PREPARE sqlstmt FROM string */
+	/* 2) DECLARE crs CURSOR FOR sqlstmt */
+	/* 3) DESCRIBE BIND VARIABLES FOR sqlstmt INTO bindP */
+	/* 4) OPEN crs USING DESCRIPTOR bindP */
+	/* 5) DESCRIBE sqlstmt INTO selectP */
+	/* 6) FETCH crs USING DESCRIPTOR selectP */
+	/* 7) CLOSE crs */
+
+	/* init */
+	mpda.sqlmax=MP_MAXSQLVAR;
+	mpfa.sqlmax=MP_MAXSQLVAR;
+	mpdb_sqlquery = mp_sqlquery;
+	*mp_rowcount = 0;
+
+	/* Wenn Query mit ';' abgeschlossen wurde dieses abschneiden */
+	truncSemicolon(mpdb_sqlquery);
+
+	/* DEBUG */
+	/*
+	printf("debug: sizeof table: %d, sizeof double: %d, int: %d\n",
+	       def_table[table_nr].sqlrowlen, (int)sizeof(double), (int)sizeof(int));
+	*/
+
+	/* init logging */
+	if (logging_sql)
+		aclock = time(NULL);
+
+	/* check pointer */
+	if (mp_sqltargetptr == (char **)NULL)
+		return(MPS_ALLOC);
+
+	/* Prepare EXEC SQL PREPARE MPSQLQUERY FROM :mpdb_sqlquery; */
+	EXEC SQL PREPARE MPSQLQUERY FROM :mpdb_sqlquery;
+	sqlret = MPAPIdb_checkstatus();
+	if (sqlret != (int) MPSQL_OK )
+		return( sqlret );
+
+	/* Describe EXEC SQL DESCRIBE MPSQLQUERY INTO &mpda; */
+	EXEC SQL DESCRIBE MPSQLQUERY INTO &mpda;
+	sqlret = MPAPIdb_checkstatus();
+	if ( sqlret != (int)MPSQL_OK)
+		return( sqlret );
+
+	/* Exec EXEC SQL EXECUTE MPSQLQUERY USING DESCRIPTOR &mpda; */
+	EXEC SQL EXECUTE MPSQLQUERY USING DESCRIPTOR &mpda;
+	sqlret = MPAPIdb_checkstatus();
+	if ( sqlret != (int) MPSQL_OK )
+		return( sqlret );
+
+	/* Prepare EXEC SQL PREPARE MPSQLFETCH FROM 'fetch ... &mpfa'; */
+	EXEC SQL PREPARE MPSQLFETCH FROM 'fetch using descriptor &mpfa';
+	sqlret = MPAPIdb_checkstatus();
+	if ( sqlret != (int) MPSQL_OK )
+		return( sqlret );
+
+	/* Describe EXEC SQL DESCRIBE MPSQLFETCH INTO &mpfa; */
+	EXEC SQL DESCRIBE MPSQLFETCH INTO &mpfa;
+	sqlret = MPAPIdb_checkstatus();
+	if ( sqlret != (int) MPSQL_OK )
+		return( sqlret );
+
+	/* Bind columns to temporary vars */
+	mpdaptr = &mpfa;
+	for (i=0;i < (*mpdaptr).sqln;i++)
+		{
+		mpvar = &(*mpdaptr).sqlvar[i];
+
+		/* DEBUG */
+		/*
+		printf("debug: coltyp %d, colmode %d, collen %d, colfrac %d\n",
+		        (*mpvar).coltype, (*mpvar).colmode, (*mpvar).collength,
+		        (*mpvar).colfrac);
+		*/
+
+		switch ((*mpvar).coltype)
+			{
+			case 0: /* INT and FLOAT */
+			case 1:
+			case 16:
+				if ((*mpvar).colfrac == 0)
+					{
+					(*mpvar).hostvartype = 1;
+					(*mpvar).hostvaraddr = (char *) &intdata[i];
+					}
+				else
+					{
+					(*mpvar).collength = 18;
+					(*mpvar).colfrac   = 8;
+					(*mpvar).hostvartype = 3;
+					(*mpvar).hostvaraddr = (char *) &doubledata[i];
+					}
+				sqlret = MPSQL_OK;
+				break;
+			case 2: /* CHAR */
+				(void)memset((void *)chardata[i], (int)NULL, MP_MAXSTRINGLEN);
+				(*mpvar).hostvartype = 7;
+				if ((*mpvar).collength > MP_MAXSTRINGLEN)
+					 (*mpvar).collength = MP_MAXSTRINGLEN;
+				charlen[i] = (*mpvar).collength;
+				(*mpvar).hostvaraddr = chardata[i];
+				sqlret = MPSQL_OK;
+				break;
+			case 4: /* DATE - not used in MAPO */
+			default:
+				/* DEBUG */
+				printf("debug: invalid column datatype %d\n", (*mpvar).coltype);
+				sqlret = MPERROR;
+				break;
+			}
+		}
+	if ( sqlret != (int) MPSQL_OK )
+		return( sqlret );
+
+	/******************************************************
+	* Now, fetch the data. This loop breaks
+	* when sqlca.sqlcode = MPSQL_END_OF_TABLE is reached.
+	*******************************************************/
+	allocsize = (def_table[table_nr].sqlrowlen * MP_ALLOCROWS);
+	while(sqlca.sqlcode != MPSQL_END_OF_TABLE)
+		{
+		/* Fetch EXEC SQL EXECUTE MPSQLFETCH USING DESCRIPTOR &mpfa; */
+		EXEC SQL EXECUTE MPSQLFETCH USING DESCRIPTOR &mpfa;
+		sqlret = MPAPIdb_checkstatus();
+		if (sqlret != (int)MPSQL_OK)
+			{
+			if (sqlret == (int)2000) /* NO_DATA_FOUND */
+				{
+				sqlret = (int)0;
+				break;
+				}
+			else
+				return(sqlret);
+			}
+		else if (sqlca.sqlcode == (int)MPSQL_END_OF_TABLE)
+			{
+			sqlret = 0;
+			break;
+			}
+
+		/* Increment the number of records retrieved */
+		(*mp_rowcount)++;
+		allocsize = (size_t)(allocsize + (def_table[table_nr].sqlrowlen + 100));
+		if (allocsize > (size_t)*alloclen)
+			*mp_sqltargetptr = (char *)MPalloc((void *)*mp_sqltargetptr, alloclen,
+			          SQLMEMCHUNK, allocsize, sizeof(char));
+
+		mpdaptr = &mpfa;
+		for (i = 0, structcnt = 0; i < def_table[table_nr].sqln; i++, structcnt++)
+			{
+			structsize = def_table[table_nr].elements[structcnt].leng;
+			mpvar = &(*mpdaptr).sqlvar[i];
+			switch((*mpvar).coltype)
+				{
+				case 0: /* INT or FLOAT */
+				case 16: /* INT or FLOAT */
+					if ((*mpvar).colfrac == 0)
+						{
+						(void)memcpy((void *) (*mp_sqltargetptr + memoff),
+						             (void *)&intdata[i], sizeof(int));
+						memoff += structsize;
+						}
+					else
+						{
+						(void)memcpy((void *) (*mp_sqltargetptr + memoff),
+						             (void *)&doubledata[i], sizeof(double));
+						memoff += structsize;
+						}
+					break;
+				case 1: /* FLOAT */
+					(void)memcpy((void *) (*mp_sqltargetptr + memoff),
+					             (void *)&doubledata[i], sizeof(double));
+					memoff += structsize;
+					break;
+				case 2: /* CHAR */
+					(void)memset((void *)(*mp_sqltargetptr + memoff), (int)NULL, structsize);
+					if (charlen[i] > structsize)
+						copysize = structsize;
+					else
+						copysize = charlen[i];
+					(void)memcpy((void *) (*mp_sqltargetptr + memoff),
+					      (void *)chardata[i], copysize);
+					memoff += structsize;
+					break;
+
+				default:
+					/* DEBUG */
+					printf("debug: not supported columntype %d - expected MP %d\n",
+					        (*mpvar).coltype, def_table[table_nr].elements[structcnt].typ);
+					return(MPDBERROR);
+					break;
+				}
+			if ( ((structcnt + 1) <= def_table[table_nr].sqln) && 
+			     (def_table[table_nr].elements[structcnt + 1].typ == DB_NULLIND) )
+				{
+				structcnt++;
+				memoff += def_table[table_nr].elements[structcnt].leng;
+				}
+			}
+		}
+
+	/* stop time logging */
+	if (logging_sql)
+		{
+		sprintf(logtext, "COMMAND EXECUTION TIME IS %f SECONDS",
+		        (difftime(time(NULL), aclock)));
+		MPlog(_LOGSQL, sqlret, logtext, __FILE__);
+		MPlog(_LOGSQL, sqlret, mp_sqlquery, __FILE__);
+		}
+
+	/*****************************************
+	 * Note that memory is never free'd, but
+	 * reused next time around, to prevent
+	 * breaking it up into unusable chunks.
+	 *****************************************/
+
+	/* set right datalen */
+	*datalen = (unsigned long)memoff;
+
+	/* and return with sqlret */
+	return(sqlret);
+}
+
+/**************************************************************/
+/* Function:  commit RDBMS command                            */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+int MPAPIdb_sqlcommand(char *command_string, int *anzahl)
+{
+	int status=(int)MPSQL_OK;
+
+	time_t aclock;
+	char logtext[_RECORDLEN];
+
+	/* init */
+	*anzahl = 0;
+	mpdb_sqlquery = command_string;
+	if (logging_sql)
+		aclock = time(NULL);
+
+	/* Wenn Query mit ';' abgeschlossen wurde dieses abschneiden */
+	truncSemicolon(mpdb_sqlquery);
+
+	EXEC SQL EXECUTE IMMEDIATE :mpdb_sqlquery;
+
+	status = MPAPIdb_checkstatus();
+	if (status == (int)MPSQL_OK)
+		{
+		/*
+		* This field holds the number of rows processed
+		* by the most recently executed SQL statement.
+		*/
+		*anzahl = (int)sqlca.sqlerrd[2];
+		}
+
+	if (logging_sql)
+		{
+		sprintf(logtext, "COMMAND EXECUTION TIME IS %f SECONDS",
+		        (difftime(time(NULL), aclock)));
+		MPlog(_LOGSQL, status, logtext, __FILE__);
+		MPlog(_LOGSQL, status, command_string, __FILE__);
+		}
+
+	return status;
+}
+
+
+
+
+/* local functions (static) */
+
+/*SF***********************************************************/
+/* Function:  check sql state                                 */
+/*                                                            */
+/* Parameter: void                                            */
+/* Return:    ERROR / MPSQL_OK                                */
+/**************************************************************/
+static int MPAPIdb_checkstatus(void)
+{
+	int status;
+	int ret_status = (int) MPSQL_OK;
+
+	status = sqlca.sqlcode;
+	if (status != MPSQL_OK && status != 1
+	    && status != MPSQL_END_OF_TABLE)
+		{
+		ret_status = ( abs( status ) > abs( ret_status ) ) ? status : ret_status;
+		sprintf(mpdb_sqlmsg, "%s\n", sqlca.sqlerrmc);
+		UtilMsgWrite(mpdb_sqlmsg);
+		}
+
+	return(ret_status);
+}
+
+void MPAPIdb_sqlerror(void)
+{
+	(void)fprintf(stderr,"\nMARCO POLO fatal SQL error: code %d message %s\n",
+	              sqlca.sqlcode, sqlca.sqlerrmc);
+}
+
+/*SF****************************************************************
+ *
+ * Hat ein SQL-Statement zum Abschluss ein ; so muss dieses ab-
+ * geschnitten werden.
+ *
+ ******************************************************************/
+static void truncSemicolon ( char *sqlquery )
+{
+	int i;
+
+	if ( strlen(sqlquery) > 0 ) {
+		for ( i = strlen(sqlquery)-1; i >= 0; i-- ) {
+			if (sqlquery[i] == ';') {
+				sqlquery[i] = '\0';
+				break;
+			}
+		}
+	}
+}

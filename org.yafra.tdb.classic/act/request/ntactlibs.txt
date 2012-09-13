@@ -1,0 +1,11 @@
+/SUBSYSTEM:console
+/NODEFAULTLIB
+d:/work/obj/mapo/mapoact.lib
+d:/work/obj/mapo/mapodb.lib
+d:/work/obj/mapo/mapo.lib
+d:/work/libs/pssercom.lib
+d:/work/libs/pssys.lib
+nutc.lib
+kernel32.lib
+odbc32.lib
+advapi32.lib

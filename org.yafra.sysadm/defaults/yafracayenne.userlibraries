@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eclipse-userlibraries version="2">
+    <library name="YafraCayenne" systemlibrary="false">
+        <archive path="/work/classes/ashwood-2.0.jar"/>
+        <archive path="/work/classes/commons-logging-1.1.1.jar"/>
+        <archive path="/work/classes/vpp-2.2.1.jar"/>
+        <archive path="/work/classes/org.yafra.server.core.jar"/>
+        <archive path="/work/classes/org.yafra.utils.jar"/>
+        <archive path="/work/classes/cayenne-server-3.0.2.jar"/>
+        <archive path="/work/classes/log4j-1.2.17.jar"/>
+        <archive path="/work/classes/mysql-connector-java-5.1.21-bin.jar"/>
+        <archive path="/work/classes/commons-collections-3.2.1.jar"/>
+    </library>
+    <library name="YafraWicket" systemlibrary="false">
+        <archive path="/work/classes/jxl.jar"/>
+        <archive path="/work/classes/wicket-extensions-1.5.7.jar"/>
+        <archive path="/work/classes/slf4j-api-1.6.6.jar"/>
+        <archive path="/work/classes/slf4j-log4j12-1.6.6.jar"/>
+        <archive path="/work/classes/wicket-core-1.5.7.jar"/>
+        <archive path="/work/classes/wicket-auth-roles-1.5.7.jar"/>
+        <archive path="/work/classes/wicket-request-1.5.7.jar"/>
+        <archive path="/work/classes/wicket-util-1.5.7.jar"/>
+    </library>
+</eclipse-userlibraries>

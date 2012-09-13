@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+#
+# shell script to know who is the server in this cluster
+#
+# Administrator, Jun 1993
+# yafra.org, Switzerland
+#
+# return: server hostname
+#
+
+#SYSTEM=`uname -s` system in getsystem already set 4.6.93 rm
+
+SERVER=`hostname`
+
+if [ "$SYSTEM" = "sco" ]
+then
+	SERVER=`uname -s`
+fi
+
+# Test for HP Cluster
+#
+#if [ "$SYSTEM" = "hpux" ]
+#	then cnodes -s
+#	if test $? -eq 0
+#		then SERVER=`cnodes -r`
+#	else
+#		SERVER=`hostname`
+#	fi
+#fi
+#
+if [ "$SYSTEM" = "hpux" ]
+	then SERVER=`hostname`
+fi
+
+# test for intel 386/486 Unix clone
+#
+#if test "$MACHINETYPE" = "i386" || "$MACHINETYPE" = "i486"
+#	then SERVER=`hostname`
+#fi
+
+# put the platform string to the stdout
+echo $SERVER

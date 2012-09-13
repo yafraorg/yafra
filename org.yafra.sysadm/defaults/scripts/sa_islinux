@@ -1,0 +1,194 @@
+#!/bin/sh
+#-------------------------------------------------------------------------------
+# yafra.org
+#
+# Filename:	sa_islinux
+#
+# Author:	Administrator
+#
+# Date:		23.08.97
+#
+# Purpose:	Distribute system files like /etc/profile.local via
+#		rcp to other LINUX servers in the network.
+#
+#-------------------------------------------------------------------------------
+#
+# Last Modified: 13.1.1999 ab
+# 31.08.2002 xy updated to SUSE Linux 8.x
+#
+#-------------------------------------------------------------------------------
+
+IS_LOGFILE=/var/log/psinstallsystem.log
+IS_MASTERDIR=/home/sysadm/linux/master
+IS_SYSTEMNAME=$(hostname)
+IS_SYSTEM=$(uname -s)
+IS_HW=$(uname -m)
+IS_OSVER=$(uname -r | cut -c1)
+
+install_must() {
+	echo "\nStartup scripts/files\n" >> $IS_LOGFILE
+	IS_COPYFILE=/etc/sysconfig/psinit
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/rc.d/psinit
+	IS_SPECIALCMD="/bin/ln -s /etc/rc.d/psinit /etc/rc.d/rc3.d/S90psinit"
+	copyfile
+	/bin/ln -s /etc/rc.d/psinit /etc/rc.d/rc3.d/K02psinit
+
+	IS_COPYFILE=/sbin/sa_psbootsystem
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/sbin/sa_pshostentry
+	IS_SPECIALCMD=
+	copyfile
+
+	echo "\nInstalling hosts related files\n" >> $IS_LOGFILE
+	IS_COPYFILE=/etc/hosts.equiv
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/resolv.conf
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/libsocks5.conf
+	IS_SPECIALCMD=
+	copyfile
+
+#	IS_COPYFILE=/etc/syslog.conf
+#	IS_SPECIALCMD=
+#	copyfile
+
+#
+# !! ATTENTION use pam-ldap under suse yast on bundy.yafra.org:388
+#
+
+	echo "\nInstalling system profile related files\n" >> $IS_LOGFILE
+	IS_COPYFILE=/etc/profile.local
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/profile.ps
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/profile.psobj
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/profile.psproj
+	IS_SPECIALCMD=
+	copyfile
+
+	IS_COPYFILE=/etc/motd
+	IS_SPECIALCMD=
+	copyfile
+}
+
+#
+# logging
+#
+loginit() {
+        echo "\nStart of PISO installsystem script" >> $IS_LOGFILE
+        echo "\nMastersource: $IS_MASTERDIR" >> $IS_LOGFILE
+        echo "\nHost is: `/bin/hostname` at date: `/bin/date`\n" >> $IS_LOGFILE
+}
+
+logexit() {
+        echo "\nEnd of installsystem script at: `/bin/date`" >> $IS_LOGFILE
+}
+
+
+yn()
+{ 
+	echo "y/n" 
+	read any
+	if [ $any != "n" ] ; then 
+		return 1
+	else 
+		return 0
+	fi
+}
+
+#
+# first make a backup of the original
+# then copy master files
+#
+# INPUT: IS_COPYFILE file to copy (absolut)
+#        IS_SPECIALCMD system command to execute AFTER copy
+#
+copyfile()
+{
+	if [ -f $IS_MASTERDIR$IS_COPYFILE ]
+	then
+		echo "$IS_MASTERDIR$IS_COPYFILE -> $IS_COPYFILE"
+		yn && return
+		echo "$IS_MASTERDIR$IS_COPYFILE -> $IS_COPYFILE" >> $IS_LOGFILE
+		cp $IS_COPYFILE $IS_COPYFILE.org
+		cp $IS_MASTERDIR$IS_COPYFILE $IS_COPYFILE
+		if [ -n "$IS_SPECIALCMD" ]
+			then
+				echo "exec special cmd $IS_SPECIALCMD"
+				echo "exec special cmd $IS_SPECIALCMD" >> $IS_LOGFILE
+				$IS_SPECIALCMD
+		fi
+	fi
+}
+# copy files with * or ? expressions
+#
+# INPUT: IS_COPYFILE file to copy (absolut)
+#        IS_COPYDEST where to copy to (absolut)
+#        IS_SPECIALCMD system command to execute AFTER copy
+copyfiles()
+{
+	echo "$IS_MASTERDIR$IS_COPYFILE -> $IS_COPYDEST"
+        yn && return
+	echo "$IS_MASTERDIR$IS_COPYFILE -> $IS_COPYDEST" >> $IS_LOGFILE
+	if [ ! -d "$IS_COPYDEST" ]
+		then
+		mkdir -p $IS_COPYDEST
+	fi
+	cp $IS_MASTERDIR$IS_COPYFILE $IS_COPYDEST
+	if [ -n "$IS_SPECIALCMD" ]
+		then
+		echo "exec special cmd $IS_SPECIALCMD"
+		echo "exec special cmd $IS_SPECIALCMD" >> $IS_LOGFILE
+		$IS_SPECIALCMD
+	fi
+}
+
+
+#
+# main section
+#
+
+if [ `id -u` -ne 0 ]
+then
+	echo "You must be root to run this script";
+	exit -1;
+fi
+
+if [ "$IS_SYSTEM" != "Linux" ]
+then
+	echo "This script is only valid for Linux";
+	exit -1;
+fi
+
+if [ $IS_OSVER -ne 2 ]
+then
+	echo "This script is only valid for release 2.x";
+	exit -1;
+fi
+
+# make logging
+loginit
+
+# begin installing
+install_must
+
+# end logging
+logexit
+
+exit 0

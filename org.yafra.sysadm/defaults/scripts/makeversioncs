@@ -1,0 +1,44 @@
+#!/bin/sh
+#-------------------------------------------------------------------------------
+# (c) yafra.org, switzerland
+#
+# function:	make a general C# static class with version information
+#           $1: name of program
+#           $2: version string
+#           $3: namespace
+#
+#
+# author:	Administrator
+#
+# date:		19.03.2004
+#-------------------------------------------------------------------------------
+#
+# last modified:
+#
+#-------------------------------------------------------------------------------
+
+# for date format
+LANG=german
+
+# version strings
+VER_CORENAME=$1
+VER_VERSION=$2
+VER_NO=$2
+VER_COMPILE="$(hostname):$(whoami) $(date +%d.%m.%y)"
+VER_OS="$(uname -s) $(uname -r)"
+VER_HW="$(uname -m)"
+
+
+# version string for pswhat and -v options
+echo "using System;"
+echo "namespace $3"
+echo "{"
+echo "public abstract class versioninfo"
+echo "{"
+echo "public static string PSPROJECTVERSION = \"$VER_CORENAME $VER_VERSION\";"
+echo "public static string PSVERSION = \"$VER_CORENAME $VER_VERSION\";"
+echo "public static string PSVERINFO = \"$VER_OS $VER_HW $VER_COMPILE\";"
+echo "public static string PSVERNO = \"$VER_NO\";"
+echo "public static string PSIDENT = \"$VER_CORENAME $VER_VERSION $VER_OS $VER_HW $VER_COMPILE\";"
+echo "public static string ident = \"@(#)$VER_CORENAME $VER_VERSION $VER_OS $VER_HW $VER_COMPILE\";"
+echo "}"

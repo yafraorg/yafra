@@ -1,0 +1,34 @@
+Windows scripts for yafra.org, 2002, Switzerland
+=======================================
+
+To work with our classic environment under Windows NT or higher you need
+to install the GNU Cygwin utilities from www.cygwin.com. (deselect perl if
+you have installed ActiveState Perl and check that ActiveState Perl is
+in your PATH)
+
+* PROFILE for cygwin BASH
+
+1) install all Cygwin tools and X11 with development
+
+2) make a copy of $PISOTOOLS/defaults/profile to $HOME/.profile on your
+   NT - check that HOME is correctly defined !! (UNIX style)
+
+3) edit your new .profile file to your settings
+   You have 3 options at the beginning of .profile
+   - cygwin environment - generates/compiles with cygwin support (UNIX emulation)
+   - mingw environment - generates/compiles with GCC but in Win32 NATIVE (no UNIX emu)
+   - VisualStudio - generates/compiles with pure MS Visual C/C++
+   You have to uncomment one of them and with our standard makefiles it will
+   compile like you want
+
+4) start a bash
+
+that's it.
+
+* makeversion
+
+DON'T TOUCH THIS FILE ! It's a shell (bash) script for our version
+handling ! It's called by makefiles !
+
+
+cheers, Martin

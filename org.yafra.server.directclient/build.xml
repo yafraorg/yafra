@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<!-- ant script for:  org.yafra server core based on cayenne orm -->
+<!-- project name:    org.yafra.server.core -->
+<!-- author:          yafra info@yafra.org -->
+<!-- source control:  cvs -->
+<!-- @author Last checkin by $Author: mwn $ on $Date: 2009-12-02 12:34:53 $ -->
+<!-- Current revision $Revision: 1.1 $, tag $Name:  $ -->
+
+<project name="org.yafra.server.directclient" basedir="." default="all">
+
+	<!-- workdir on unix /work  windows C:/work   /> -->
+    <condition property="drive" value="C:/" else="/">
+        <os family="windows" />
+    </condition>
+
+	<property environment="env"/>
+	<property name="projname" value="org.yafra.server.directclient" />
+
+	<!-- toplevel settings - please update -->
+	<property name="drive" value="/" />
+	<property name="yafraver" value="${env.YAFRAVER}" />
+	<property name="yafrarel" value="${env.YAFRAREL}" />
+	<property name="workdir" value="${drive}work" />
+	<property name="wsdir" value="${env.JAVANODE}" />
+
+	<!-- toplevel directories -->
+	<property name="servercore.dir" value="${wsdir}/${projname}" />
+	<property name="dclient.src" value="${servercore.dir}/src" />
+
+	<property name="build.dir" value="${env.WORKNODE}/java/${projname}" />
+	<property name="deploy.dir" value="${workdir}/classes" />
+	<property name="docs.dir" value="${workdir}/javadoc" />
+	<property name="cp.dir" value="${workdir}/classes" />
+
+	<!-- project deliverables -->
+	<property name="dclientjar" value="${deploy.dir}/${projname}.jar" />
+    <property name="test-fatclient" value="${wsdir}/org.yafra.tests.serverdirectclient"/>
+
+	<path id="org.yafra.server.directclient.classpath">
+        <pathelement path="${serverjar}"/>
+        <pathelement path="${cp.dir}/org.yafra.utils.jar"/>
+        <pathelement path="${cp.dir}/org.yafra.server.core.jar"/>
+        <pathelement path="${cp.dir}/cayenne-server-3.0.2.jar"/>
+        <pathelement path="${build.dir}/dclient"/>
+    </path>
+
+	<!-- javac flags -->
+	<property name="compile.debug" value="true" />
+	<property name="compile.deprecation" value="true" />
+	<property name="compile.optimize" value="true" />
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+
+	<!-- ALL target sections -->
+	<target name="all" description="make org.yafra server to be used by batch and web clients (same JVM - no DTO's)"
+		depends="init, dclient">
+	</target>
+
+	<!-- INIT CLEAN target sections -->
+	<target name="init" description="init" depends="clean">
+        <echo message="yafra directclient (no DTO) build.xml - init"/>
+		<buildnumber />
+		<tstamp />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir}/dclient" />
+	</target>
+	<target name="clean" description="delete all temp files">
+        <echo message="yafra directclient (no DTO)  build.xml - clean"/>
+		<delete file="${dclientjar}" />
+		<delete file="${serverjar}" />
+		<delete dir="${build.dir}" includeEmptyDirs="true" />
+	</target>
+
+	<!-- COMPILE target sections -->
+	<target name="dclient" description="create directclient jar">
+        <echo message="yafra directclient (no DTO)  build.xml - do dclient jar"/>
+		<javac srcdir="${dclient.src}" destdir="${build.dir}/dclient" debug="${compile.debug}"
+			deprecation="${compile.deprecation}" optimize="${compile.optimize}"
+			source="${source}" target="${target}">
+			<compilerarg value="-Xlint" />
+			<classpath refid="org.yafra.server.directclient.classpath"/>
+		</javac>
+		<jar jarfile="${dclientjar}" basedir="${build.dir}/dclient">
+			<manifest>
+				<attribute name="Author" value="${user.name}" />
+				<section name="org.yafra.server directclient">
+					<attribute name="Title" value="org.yafra.server.directclient" />
+					<attribute name="Vendor" value="yafra.org" />
+					<attribute name="Build" value="${build.number}" />
+					<attribute name="Date" value="${TODAY}" />
+					<attribute name="Version" value="${yafraver}${yafrarel}" />
+				</section>
+				<section name="Copyright">
+					<attribute name="Copy" value="(C) yafra.org 2006" />
+				</section>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="test-fatclient" description="Build all projects which reference this project. Useful to propagate changes.">
+        <echo message="yafra directclient (no DTO)  build.xml - run fat client test"/>
+        <ant antfile="${test-fatclient}/build.xml" inheritAll="false" target="run"/>
+    </target>
+
+</project>

@@ -1,0 +1,113 @@
+#
+# creation script for programs or libraries
+# shell script for sh
+#
+# autor: Administrator, yafra.org
+#
+
+# title
+echo ' '
+echo 'Projekteroeffnung'
+echo ' '
+
+# ask for name
+echo 'Bitte Namen eingeben:'
+echo 'DOS-Konventionen beachten: 8 Zeichen & Kleinbuchstaben'
+read PRJNAME
+if [ "$PRJNAME" = "" ];
+	then exit
+fi
+echo ' '
+
+# ask for extern or intern
+echo 'Externes Projekt oder Internes (e/i) eingeben:'
+read PRJART
+if [ "$PRJART" = "" ];
+	then exit
+fi
+echo ' '
+
+# ask for type (prg or lib)
+echo 'Bitte Typ spezifizieren (p -> prg | l -> lib):'
+read PRJTYP
+if [ "$PRJTYP" = "" ];
+	then exit
+fi
+echo ' '
+
+# setting up
+echo "Projekt $PRJNAME vom Typ $PRJTYP wird erzeugt"
+echo 'bitte warten ....'
+echo ' '
+if [ "$PRJART" = "i" ];
+	then
+		if [ "$PRJTYP" = "p" ];
+			then
+				PRJPATH=$BASENODE/dl/$PRJNAME
+				DOCPATH=$BASENODE/doc/dl/$PRJNAME
+				echo "generiere Directory $PRJPATH und alle subdirs"
+				echo "generiere Directory $DOCPATH fuer Dokumentationen"
+				mkdir $PRJPATH
+				mkdir $DOCPATH
+				mkdir $PRJPATH/source
+				mkdir $PRJPATH/source/RCS
+				mkdir $PRJPATH/include
+				mkdir $PRJPATH/man
+				echo 'kopiere Template Makefile'
+				cp $PISOTOOLS/defaults/makefile.prg $PRJPATH/makefile
+			else
+				PRJPATH=$BASENODE/dl/$PRJNAME
+				DOCPATH=$BASENODE/doc/dl/$PRJNAME
+				echo "generiere Directory $PRJPATH und alle subdirs"
+				echo "generiere Directory $DOCPATH fuer Dokumentationen"
+				mkdir $PRJPATH
+				mkdir $DOCPATH
+				mkdir $PRJPATH/source
+				mkdir $PRJPATH/source/RCS
+				mkdir $PRJPATH/include
+				mkdir $PRJPATH/man
+				echo 'kopiere Template Makefile'
+				cp $PISOTOOLS/defaults/makefile.lib $PRJPATH/makefile
+		fi
+	else
+		if [ "$PRJTYP" = "p" ];
+			then
+				PRJPATH=$BASENODE/addons/$PRJNAME
+				DOCPATH=$BASENODE/doc/addons/$PRJNAME
+				echo "generiere Directory $PRJPATH"
+				echo "generiere Directory $DOCPATH fuer Dokumentationen"
+				mkdir $DOCPATH
+				mkdir $PRJPATH
+				mkdir $PRJPATH/source
+				mkdir $PRJPATH/source/RCS
+				mkdir $PRJPATH/include
+				mkdir $PRJPATH/man
+				echo 'kopiere Template Makefile'
+				cp $PISOTOOLS/defaults/makefile.prg $PRJPATH/makefile
+			else
+				PRJPATH=$PISOLIBS/$PRJNAME
+				echo "generiere Directory $PRJPATH"
+				mkdir $PRJPATH
+				mkdir $PRJPATH/source
+				mkdir $PRJPATH/source/RCS
+				mkdir $PRJPATH/man
+				echo 'kopiere Template Makefile'
+				cp $PISOTOOLS/defaults/makefile.lib $PRJPATH/makefile
+		fi
+fi
+
+# sende mail an mw fuer Einrichtung von globalen Variablen
+echo 'Projekteroeffnung' > /tmp/creatprjmail
+echo '=================' >> /tmp/creatprjmail
+echo "Name: $PRJNAME" >> /tmp/creatprjmail
+echo "Typ:  $PRJTYP" >> /tmp/creatprjmail
+echo "Art:  $PRJART" >> /tmp/creatprjmail
+echo "User: $USER" >> /tmp/creatprjmail
+mail sysadm < /tmp/creatprjmail
+rm /tmp/creatprjmail
+echo ' '
+echo 'Mail an sysadm gesendet'
+
+# Schluss
+echo ' '
+echo 'Besten Dank.'

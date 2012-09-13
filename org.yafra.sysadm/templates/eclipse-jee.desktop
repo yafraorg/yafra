@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Eclipse JEE
+GenericName=Eclipse
+X-GNOME-FullName=Eclipse JEE IDE
+Comment=Eclipse JEE
+Type=Application
+Categories=Application;Development;JEE;IDE;Programming
+Exec=/work/eclipse/eclipse-jee/eclipse
+TryExec=/work/eclipse/eclipse-jee/eclipse
+Terminal=false
+StartupNotify=true
+Icon=/work/eclipse/eclipse-jee/icon.xpm

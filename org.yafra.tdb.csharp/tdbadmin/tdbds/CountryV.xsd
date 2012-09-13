@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="CountryV" targetNamespace="http://tempuri.org/CountryV.xsd" elementFormDefault="qualified"
+	attributeFormDefault="qualified" xmlns="http://tempuri.org/CountryV.xsd" xmlns:mstns="http://tempuri.org/CountryV.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="CountryV" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="tdbv_countryd">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="LAND_ID" type="xs:int" />
+							<xs:element name="BEZ_ID" type="xs:int" />
+							<xs:element name="BEZ" type="xs:string" />
+							<xs:element name="S_ID" type="xs:int" />
+							<xs:element name="KRZL" type="xs:string" minOccurs="0" />
+							<xs:element name="CAPITALID" type="xs:int" minOccurs="0" />
+							<xs:element name="CAPITAL" type="xs:string" />
+							<xs:element name="LANGID" type="xs:int" minOccurs="0" />
+							<xs:element name="LANG" type="xs:string" />
+							<xs:element name="CURID" type="xs:int" minOccurs="0" />
+							<xs:element name="CURRENCY" type="xs:string" />
+							<xs:element name="TEXTID" type="xs:int" minOccurs="0" />
+							<xs:element name="VAT" type="xs:double" minOccurs="0" />
+							<xs:element name="DATEFORMAT" type="xs:string" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
