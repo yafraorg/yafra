@@ -28,4 +28,4 @@ In the build.xml you can generate the main jar and the ejb client stub. Adjust v
 it fits your development environment.
 
 See for further information:
-https://sourceforge.net/apps/trac/yafra/
+http://www.yafra.org/
