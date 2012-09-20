@@ -39,6 +39,12 @@ if test "$PSSYSTEM" = "Linux"
 	then PSTARGET=linux2-intel
 fi
 
+# test for Mac OS/X
+#
+if test "$PSSYSTEM" = "Darwin"
+	then PSTARGET=osx-intel
+fi
+
 # Test for cygwin
 #
 if [[ "$PSSYSTEM" == *CYGWIN* ]]

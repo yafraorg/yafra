@@ -26,10 +26,16 @@ if test "$SYSTEMNAME" = "ULTRIX"
 	then GET_OS=ps_ultrix
 fi
 
-# test for Linux 386/486 Unix
+# test for Linux
 #
 if test "$SYSTEMNAME" = "Linux"
 	then GET_OS=ps_linux
+fi
+
+# test for Mac OS/X
+#
+if test "$SYSTEMNAME" = "Darwin"
+	then GET_OS=ps_osx
 fi
 
 # Test for cygwin
