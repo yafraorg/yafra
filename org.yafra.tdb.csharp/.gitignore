@@ -3,6 +3,8 @@
 /tdbadmin/bin
 /tdbadmin/tdb/bin
 /tdbadmin/tdbadmin/bin/
+/tdbadmin/tdbadmin/bin/
+/tdbadmin/testsuite/bin/
 /tdbadmin/tdbds/bin/
 /tdbadmin/tdbgui/bin/
 *.pidb

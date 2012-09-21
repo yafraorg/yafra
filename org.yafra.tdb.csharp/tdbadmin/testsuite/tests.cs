@@ -4,7 +4,6 @@ using org.swyn.foundation.db;
 using tdb;
 using tdb.DS;
 
-
 namespace traveldb.testsuite
 {
 	/// <summary>
