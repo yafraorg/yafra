@@ -10,7 +10,6 @@ then
 	echo ""
 	echo "usage: objdepend sourcedir >> makefile"
 	echo ""
-	echo "there has to be a RCS directory in the sourcedir"
 	echo ""
 	exit -1
 fi

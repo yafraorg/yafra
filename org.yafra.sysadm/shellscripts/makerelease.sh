@@ -110,6 +110,22 @@ make clean
 make mpapi
 make all
 
+#MONO/.NET / TDB
+cd $BASENODE/org.yafra.tdb.csharp/common
+make all
+cd $BASENODE/org.yafra.tdb.csharp/tdbadmin
+make all
+
+
+#copy python app to worknode
+test -d $WORKNODE/apps/tdbpyadmin || mkdir $WORKNODE/apps/tdbpyadmin
+cp $BASENODE/org.yafra.tdb.admin-ui/main/* $WORKNODE/apps/tdbpyadmin/
+#copy perl db admin to worknode
+test -d $WORKNODE/apps/tdbdbadmin || mkdir $WORKNODE/apps/tdbdbadmin
+cp $BASENODE/org.yafra.tdb.setup/db/tdb*pl $WORKNODE/apps/tdbdbadmin
+cp $BASENODE/org.yafra.tdb.setup/db/tdbdb.pm $WORKNODE/apps/tdbdbadmin
+
+
 #
 # build java system
 #
@@ -126,11 +142,11 @@ fi
 cd $YAFRACORE
 ant all
 
-#
+#directclient
 cd $JAVANODE/org.yafra.server.directclient
 ant all
 
-#
+#ejb
 cd $JAVANODE/org.yafra.server.ejb-openejb
 ant
 
@@ -143,13 +159,25 @@ mkdir -p $JAVANODE/org.yafra.wicket/WebContent/WEB-INF/lib
 cd $JAVANODE/org.yafra.wicket
 ant
 
+#gwt
+
+#rcp
+
+#test as jar exe
+
+#copy python yafra app to worknode
+test -d $WORKNODE/apps/yafrapadmin || mkdir $WORKNODE/apps/yafrapadmin
+cp $BASENODE/org.yafra.padmin/main/Main.py $WORKNODE/apps/yafrapadmin
+
+
 #
-#print versions of binaries 
+# tar release
 #
-$YAFRAEXE/pswhat $YAFRAEXE/mpdbi
 
 #create tar bundle for download
 cp $YAFRACLASSES/org.yafra* $WORKNODE/classes/
-tar cvfz $WORKNODE/yafra-$TIMESTAMP.tar.gz $WORKNODE/bin/ $WORKNODE/libs/  $WORKNODE/classes/
+tar cvfz $WORKNODE/yafra-$TIMESTAMP.tar.gz $WORKNODE/bin/ $WORKNODE/libs/  $WORKNODE/classes/ $WORKNODE/apps/
+
+
 
 exit

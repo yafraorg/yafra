@@ -27,6 +27,13 @@ then
 	echo "Environment not loaded - install first !"
 	exit
 fi
+
+if [ -d $WORKNODE ]
+then
+	echo "$WORKNODE exists - please delete first"
+	exit
+fi
+
 mkdir -p $WORKNODE
 mkdir -p $YAFRADOC
 mkdir -p $YAFRAMAN
@@ -40,4 +47,5 @@ mkdir $PSEDITO
 mkdir $TESTSUITEO
 mkdir $WORKNODE/classes
 mkdir $WORKNODE/java
+mkdir $WORKNODE/apps
 

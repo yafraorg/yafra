@@ -39,6 +39,7 @@ BINDIR=$TDBINSTDIR/bin
 ETCDIR=$TDBINSTDIR/etc
 LIBSDIR=$TDBINSTDIR/lib
 GUIINSTALL=$ETCDIR/tdb
+APPDIR=$TDBINSTDIR/apps
 
 TDBCONFIG=$TDBSETUP/config
 SYSTEMTYPE=`uname -s`
@@ -60,10 +61,28 @@ if [ -n "$2" ]; then
 	fi
 fi
 
+#create dirs
+test -d $BINDIR || mkdir $BINDIR
+test -d $ETCDIR || mkdir $ETCDIR
+test -d $LIBSDIR || mkdir $LIBSDIR
+test -d $APPDIR || mkdir $APPDIR
+test -d $APPDIR/tdbmono || mkdir $APPDIR/tdbmono
+test -d $APPDIR/tdbdbadmin || mkdir $APPDIR/tdbdbadmin
+test -d $APPDIR/tdbpyadmin || mkdir $APPDIR/tdbpyadmin
+
 # installing programs
 echo "installing tdb with option $1 and destination directory $TDBINSTDIR"
 echo "copy generic configs, binaries and libs"
 cp $YAFRAEXE/* $BINDIR
+
+#copy csharp tdbadmin app
+cp $WORKNODE/apps/tdbmono/* $APPDIR/tdbmono/.
+
+#copy tdb db setup app
+cp $WORKNODE/apps/tdbdbadmin/* $APPDIR/tdbdbadmin/.
+
+#copy python db query app
+cp $WORKNODE/apps/tdbpyadmin/* $APPDIR/tdbpyadmin/.
 
 if [ "$SYSTEMTYPE" = "HP-UX" ]; then
 	GET_OSTYPE=ps_unix
@@ -113,9 +132,8 @@ fi
 
 if [ ["$1"] = ["client"] -o ["$1"] = ["all"] ]; then
 	echo install client $1
+	test -d $GUIINSTALL || mkdir $GUIINSTALL
 	if [ "$SYSTEMTYPE" = "HP-UX" ]; then
-		#echo create $GUIINSTALL
-		mkdir -p $GUIINSTALL
 		echo "copy client files"
 		cp $TDBCONFIG/hpux/MPgui /usr/X11/app-defaults
 		cp $TDBCONFIG/hpux/errors $GUIINSTALL
@@ -123,8 +141,6 @@ if [ ["$1"] = ["client"] -o ["$1"] = ["all"] ]; then
 	fi
 
 	if [ "$SYSTEMTYPE" = "Linux" ]; then
-		#echo create $GUIINSTALL
-		mkdir -p $GUIINSTALL
 		echo "copy client files"
 		cp $TDBCONFIG/linux/MPgui /etc/X11/app-defaults
 		cp $TDBCONFIG/linux/errors $GUIINSTALL
@@ -132,8 +148,6 @@ if [ ["$1"] = ["client"] -o ["$1"] = ["all"] ]; then
 	fi
 
 	if [[ "$SYSTEMTYPE" == *CYGWIN* ]]; then
-		#echo create $GUIINSTALL
-		mkdir -p $GUIINSTALL
 		echo "copy client files"
 		cp $TDBCONFIG/linux/MPgui /etc/X11/app-defaults
 		cp $TDBCONFIG/linux/errors $GUIINSTALL

@@ -8,13 +8,10 @@
 #
 # author:		info@yafra.org
 #
-# tag:			$Name:  $
-# revision:		$Revision: 2.2 $
-# cvs info:    $Id: mapodb.pm,v 2.2 2005-03-11 19:17:26 mwn Exp $
 #----------------------------------------------------------
 
 
-package mapodb;
+package tdbdb;
 
 require 5.006;
 use Exporter;

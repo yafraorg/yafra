@@ -15,15 +15,15 @@ NAMESPACE = tdbadmin
 PBASE = $(BASENODE)/org.yafra.tdb.csharp
 
 PADMIN = $(PBASE)/tdbadmin
-PBINA = $(PADMIN)/bin
+PBINA = $(PADMIN)/tdbadmin/bin
 
 #--------------------- general tasks for all --------------------
 default: info
 
-all: admin
+all: admin install
 
 version:
-	$(PISOBIN)/makeversioncs $(VER_NAME) $(RELEASE) $(NAMESPACE) > $(NAMESPACE)/version.cs
+	$(YAFRABIN)/makeversioncs $(VER_NAME) $(RELEASE) $(NAMESPACE) > $(NAMESPACE)/version.cs
 
 #--------------------------- db ------------------------------------
 admin:
@@ -32,6 +32,11 @@ ifeq ($(PS_OSTYPE),ps_win)
 else
 	mdtool build
 endif
+
+install:
+	test -d $(WORKNODE)/apps/tdbmono || mkdir $(WORKNODE)/apps/tdbmono
+	@cp $(PBINA)/Debug/*.exe $(WORKNODE)/apps/tdbmono
+	@cp $(PBINA)/Debug/*.dll $(WORKNODE)/apps/tdbmono
 
 clean:
 	@rm -f $(POBJA)

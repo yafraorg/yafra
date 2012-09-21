@@ -34,7 +34,7 @@ use Tk::Scale;
 use Cwd;
 use File::Basename;
 
-use mapodb;
+use tdbdb;
 
 # application variables
 my $mp_ver = '$Revision: 2.2 $';
