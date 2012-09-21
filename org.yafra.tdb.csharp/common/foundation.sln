@@ -3,10 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "foundation", "foundation.csproj", "{BEB1AFB6-79D6-4DEE-BDA2-99D0A04F7013}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "testsuite\ConsoleApplication1.csproj", "{E58F5EE8-7364-4DF3-A892-73D103FBDC82}"
-	ProjectSection(ProjectDependencies) = postProject
-		{BEB1AFB6-79D6-4DEE-BDA2-99D0A04F7013} = {BEB1AFB6-79D6-4DEE-BDA2-99D0A04F7013}
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tdb-cs-libtest", "testsuite\tdb-cs-libtest.csproj", "{E58F5EE8-7364-4DF3-A892-73D103FBDC82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -50,7 +50,7 @@ git clone git://yafra.git.sourceforge.net/gitroot/yafra/yafra YafraLocalGit >> $
 
 # build
 echo "start makerelease now see logfile $LOGFILE" >> $LOGFILEADM
-$SYSADM/defaults/scripts/auto-build.sh > $LOGFILE 2>&1
+$SYSADM/shellscripts/auto-build.sh > $LOGFILE 2>&1
 echo "ghost build done" >> $LOGFILEADM
 
 exit

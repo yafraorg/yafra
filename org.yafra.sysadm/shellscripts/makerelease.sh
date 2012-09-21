@@ -65,7 +65,7 @@ then
 	rm $YAFRACLASSES/org.yafra*
 	rm -rf $WORKNODE
 fi
-cd $SYSADM/defaults/scripts
+cd $SYSADM/shellscripts
 ./profile-create-dirs.sh
 
 #
