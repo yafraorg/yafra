@@ -25,9 +25,15 @@ if test "$SYSTEMNAME" = "ULTRIX"
 	then GET_OSTYPE=ps_unix
 fi
 
-# test for Linux 386/486 Unix
+# test for Linux
 #
 if test "$SYSTEMNAME" = "Linux"
+	then GET_OSTYPE=ps_unix
+fi
+
+# test for Mac OS/X
+#
+if test "$SYSTEMNAME" = "Darwin"
 	then GET_OSTYPE=ps_unix
 fi
 

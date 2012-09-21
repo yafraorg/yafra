@@ -22,11 +22,11 @@ under the License.
 DISTRIBUTION
 
 http://www.yafra.org/
-https://sourceforge.net/apps/trac/yafra/
+https://github.com/yafraorg/yafra/
 
-Version 1.0M2
+Version 1.0-B1
 
-Milestone 2
+Beta 1
 
 * Before you start:
 up to date information is always on:

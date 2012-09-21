@@ -41,6 +41,12 @@ if test "$SYSTEM" = "Linux"
 	then HARDWARE=$MACHINETYPE
 fi
 
+# test for Mac OS/X
+#
+if test "$SYSTEM" = "Darwin"
+	then HARDWARE=$HOSTTYPE
+fi
+
 # Test for cygwin
 #
 if [[ "$SYSTEM" == *CYGWIN* ]]
