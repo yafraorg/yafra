@@ -165,6 +165,14 @@ ant
 #rcp
 
 #test as jar exe
+cd $JAVANODE/org.yafra.tests.utils
+ant deploy
+cd $JAVANODE/org.yafra.tests.serverdirectclient
+ant deploy
+#cd $JAVANODE/org.yafra.tests.serverejb3
+#ant deploy
+#cd $JAVANODE/org.yafra.tests.wsclient
+#ant deploy
 
 #copy python yafra app to worknode
 test -d $WORKNODE/apps/yafrapadmin || mkdir $WORKNODE/apps/yafrapadmin
@@ -178,8 +186,6 @@ cp $BASENODE/org.yafra.padmin/main/Main.py $WORKNODE/apps/yafrapadmin
 #create tar bundle for download
 cp $YAFRACLASSES/org.yafra* $WORKNODE/classes/
 tar cvfz $WORKNODE/yafra-$TIMESTAMP.tar.gz $WORKNODE/bin/ $WORKNODE/libs/  $WORKNODE/classes/ $WORKNODE/apps/
-
-rm /work/classes/org.yafra.*
 tar cvfz $WORKNODE/yafra-3rdparty-jars-$TIMESTAMP.tar.gz /work/classes/
 
 exit

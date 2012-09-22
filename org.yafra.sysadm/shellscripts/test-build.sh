@@ -45,15 +45,16 @@ echo "DBSERVER: $DBSERVER" >> $LOGFILE
 echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILE
 echo "LOGFILE: $LOGFILE" >> $LOGFILE
 
+cd $WORKNODE >> $LOGFILE
+
 #
 # test yafra components
 #
 echo "test yafra java system at version $YAFRAVER.$YAFRAREL" >> $LOGFILE
-if [ -n "$1" ]; then
-	cd $JAVANODE/org.yafra.tests.serverdirectclient >> $LOGFILE 2>&1
-	ant >> $LOGFILE 2>&1
-	cd - >> $LOGFILE 2>&1
-fi
+java -classpath /work/classes -jar $WORKNODE/classes/org.yafra.tests.utils.jar
+java -classpath /work/classes -jar $WORKNODE/classes/org.yafra.tests.serverdirectclient.jar
+#java -jar $WORKNODE/classes/org.yafra.tests.serverejb3.jar
+#java -jar $WORKNODE/classes/org.yafra.tests.wsclient.jar
 
 #run test server, utils, wsclient, rest, url getter of tomee installed apps
 python $APPDIR/yafrapadmin/Main.py >>$LOGFILE 2>&1
@@ -68,11 +69,11 @@ ldd $BINDIR/mpgui >>$LOGFILE 2>&1
 ldd $BINDIR/mpnet >>$LOGFILE 2>&1
 $BINDIR/pswhat -i $EXEDIR/mpdbi >>$LOGFILE 2>&1
 #start tests now
+$BINDIR/pschar >> $LOGFILE 2>&1
+$BINDIR/pslog >> $LOGFILE 2>&1
+$BINDIR/psdatetime -d 01.01.2013 -t 12.30 >> $LOGFILE 2>&1
 $BINDIR/psclientcons localhost >> $LOGFILE 2>&1
 $BINDIR/mpstruct >> $LOGFILE 2>&1
 $BINDIR/mptest -n $DBSERVER >> $LOGFILE 2>&1
 $APPDIR/tdbmono/tdbtest.exe tdbadmin $DBSERVER MySQL >> $LOGFILE 2>&1
 perl $APPDIR/tdbdbadmin/tdb-testdbi.pl tdbadmin $DBSERVER mysql >> $LOGFILE 2>&1
-
-
-

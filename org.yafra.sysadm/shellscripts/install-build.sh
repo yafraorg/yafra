@@ -78,8 +78,6 @@ rm -rf $TOMEE/webapps/org.yafra* >> $LOGFILE 2>&1
 echo "install yafra java system" >> $LOGFILE
 #python admin
 cp $WORKNODE/apps/yafrapadmin/* $APPDIR/yafrapadmin/ >> $LOGFILE
-#test utils as exe jar
-#test directclient as exe jar
 #war's
 cp $WORKNODE/classes/org.yafra.wicket.war $TOMEE/webapps >> $LOGFILE 2>&1
 cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps >> $LOGFILE 2>&1

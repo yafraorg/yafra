@@ -23,7 +23,7 @@ under the License.
 <!-- source control:  svn sf.net -->
 <!-- @author Last checkin by $Author: mwn $ on $Date: 2009-12-02 12:36:55 $ -->
 <!-- Current revision $Revision: 1.1 $, tag $Name:  $ -->
-<project basedir="." default="ejbear" name="org.yafra.server.openejb">
+<project basedir="." default="all" name="org.yafra.server.openejb">
 
 	<!-- workdir on unix /work  windows C:/work   /> -->
     <condition property="drive" value="C:/" else="/">
