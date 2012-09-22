@@ -33,10 +33,10 @@ fi
 # settings
 #
 TIMESTAMP="$(date +%y%m%d)"
-LOGFILE=/tmp/YAFRA-install-$TIMESTAMP.log
+LOGFILE=$WORKNODE/YAFRA-install-$TIMESTAMP.log
 TOMEE=/work/apache-tomee-webprofile-1.0.0
 DBSERVER=webdevelop
-echo "-> start auto build with basenode $BASENODE" > $LOGFILE
+echo "-> start auto build with basenode $BASENODE and version $YAFRAVER.$YAFRAREL" > $LOGFILE
 echo "settings:" >> $LOGFILE
 echo "TOMEE: $TOMEE" >> $LOGFILE
 echo "DBSERVER: $DBSERVER" >> $LOGFILE
@@ -47,7 +47,7 @@ echo "LOGFILE: $LOGFILE" >> $LOGFILE
 TDBINSTDIR=/usr/local
 if [ ! -d $TDBINSTDIR ]
 then
-	echo "deployment directory not available - create first !"
+	echo "error: deployment directory not available, exit now - create first !" >> $LOGFILE
 	exit
 fi
 BINDIR=$TDBINSTDIR/bin

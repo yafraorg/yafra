@@ -1184,7 +1184,7 @@ namespace tdbadmin
 
         private void Main_m_jobsched_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(@"G:\work\bin\OUTkapaupdate.exe -D -U mwn -d mapo");
+            System.Diagnostics.Process.Start(@"\usr\local\bin\OUTkapaupdate.exe -D -U tdbadmin -d traveldb");
 
         }
 

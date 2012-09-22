@@ -33,7 +33,7 @@ fi
 # settings
 #
 TIMESTAMP="$(date +%y%m%d)"
-LOGFILE=/tmp/YAFRA-testrun-$TIMESTAMP.log
+LOGFILE=$WORKNODE/YAFRA-testrun-$TIMESTAMP.log
 TOMEE=/work/apache-tomee-webprofile-1.0.0
 DBSERVER=webdevelop
 BINDIR=/usr/local/bin
@@ -48,12 +48,15 @@ echo "LOGFILE: $LOGFILE" >> $LOGFILE
 #
 # test yafra components
 #
-echo "test yafra java system" >> $LOGFILE
+echo "test yafra java system at version $YAFRAVER.$YAFRAREL" >> $LOGFILE
 if [ -n "$1" ]; then
 	cd $JAVANODE/org.yafra.tests.serverdirectclient >> $LOGFILE 2>&1
 	ant >> $LOGFILE 2>&1
 	cd - >> $LOGFILE 2>&1
 fi
+
+#run test server, utils, wsclient, rest, url getter of tomee installed apps
+python $APPDIR/yafrapadmin/Main.py >>$LOGFILE 2>&1
 
 #
 # test tdb components
@@ -68,5 +71,8 @@ $BINDIR/pswhat -i $EXEDIR/mpdbi >>$LOGFILE 2>&1
 $BINDIR/psclientcons localhost >> $LOGFILE 2>&1
 $BINDIR/mpstruct >> $LOGFILE 2>&1
 $BINDIR/mptest -n $DBSERVER >> $LOGFILE 2>&1
+$APPDIR/tdbmono/tdbtest.exe tdbadmin $DBSERVER MySQL >> $LOGFILE 2>&1
+perl $APPDIR/tdbdbadmin/tdb-testdbi.pl tdbadmin $DBSERVER mysql >> $LOGFILE 2>&1
+
 
 

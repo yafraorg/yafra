@@ -84,7 +84,7 @@ LINTOUT    = $(PSRC)/lint.out
 # defines for the sourcecode
 #
 DEFINES    = -D$(PS_OS) -D$(PS_OSTYPE) $(TDBDEF)
-XMLINC     = `xml2-config --cflags`
+#XMLINC     = `xml2-config --cflags`
 #
 # search path and flags for cc/ar/ld
 #
@@ -96,16 +96,16 @@ include $(YAFRATOOLS)/include/libflags.mak
 # Linux - supports Oracle (OCI and Pro*C, mysql) (planned: ODBC)
 ifeq ($(PS_OS),ps_linux)
 ifdef TDBMYSQL
-ADDON = -I/usr/include/mysql $(XMLINC)
+ADDON = -I/usr/include/mysql
 endif
 ifdef TDBORACLECLASSIC
 ORAHOME = $(ORACLE_HOME)
-ADDON = -I$(ORAHOME)/precomp/public $(XMLINC)
+ADDON = -I$(ORAHOME)/precomp/public
 endif
 ifdef TDBORACLE
 ORAHOME = $(ORACLE_HOME)
-#ADDON = -I$(ORAHOME)/rdbms/public -I$(ORAHOME)/rdbms/demo $(XMLINC)
-ADDON = -I/opt/oracle/instantclient_11_1/sdk/include $(XMLINC)
+#ADDON = -I$(ORAHOME)/rdbms/public -I$(ORAHOME)/rdbms/demo
+ADDON = -I/opt/oracle/instantclient_11_1/sdk/include
 endif
 endif
 
@@ -113,20 +113,20 @@ endif
 ifeq ($(PS_OS),ps_hpux)
 ORAHOME = /opt/oracle/OraHome1
 DBCPP      = psqlc
-ADDON = -Ae +w1 -I$(ORAHOME)/rdbms/public -I$(ORAHOME)/rdbms/demo $(XMLINC)
+ADDON = -Ae +w1 -I$(ORAHOME)/rdbms/public -I$(ORAHOME)/rdbms/demo
 endif
 
 # Windows cygwin - supports ODBC, MSSQL, ORACLE OCI only (planned MySQL)
 ifeq ($(PS_OS),ps_cygwin)
 ifdef TDBMYSQL
-ADDON = -I/usr/include/mysql $(XMLINC)
+ADDON = -I/usr/include/mysql
 endif
 ifdef TDBORACLE
 ORAHOME = /cygdrive/e/opt/XEClient
-ADDON = -I$(ORAHOME)/oci/include $(XMLINC)
+ADDON = -I$(ORAHOME)/oci/include
 endif
 ifdef TDBODBC
-ADDON = -I"$(MSSQL_HOME)/inc" $(XMLINC)
+ADDON = -I"$(MSSQL_HOME)/inc"
 endif
 endif
 

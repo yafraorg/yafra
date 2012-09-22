@@ -33,8 +33,8 @@ fi
 # settings
 #
 TIMESTAMP="$(date +%y%m%d)"
-LOGFILE=/tmp/YAFRA-buildghost-$TIMESTAMP.log
-LOGFILEADM=/tmp/YAFRA-buildghostadmin-$TIMESTAMP.log
+LOGFILE=$WORKNODE/YAFRA-buildghost-$TIMESTAMP.log
+LOGFILEADM=$WORKNODE/YAFRA-buildghostadmin-$TIMESTAMP.log
 echo "-> start auto ghost build with basenode $BASENODE" > $LOGFILEADM
 echo "settings:" >> $LOGFILEADM
 echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILEADM
@@ -46,11 +46,23 @@ echo "reset source now" >> $LOGFILEADM
 cd $BASENODE >> $LOGFILEADM 2>&1
 cd .. >> $LOGFILEADM 2>&1
 rm -rf YafraLocalGit/ >> $LOGFILEADM 2>&1
-git clone git://yafra.git.sourceforge.net/gitroot/yafra/yafra YafraLocalGit >> $LOGFILEADM 2>&1
+git clone https://github.com/yafraorg/yafra.git YafraLocalGit >> $LOGFILEADM 2>&1
 
 # build
 echo "start makerelease now see logfile $LOGFILE" >> $LOGFILEADM
 $SYSADM/shellscripts/auto-build.sh > $LOGFILE 2>&1
+echo "build done" >> $LOGFILEADM
+
+# install
+echo "start install now see logfile $LOGFILE" >> $LOGFILEADM
+$SYSADM/shellscripts/install-build.sh > $LOGFILE 2>&1
+echo "install done" >> $LOGFILEADM
+
+# test
+echo "start test now see logfile $LOGFILE" >> $LOGFILEADM
+$SYSADM/shellscripts/test-build.sh > $LOGFILE 2>&1
+echo "test done" >> $LOGFILEADM
+
 echo "ghost build done" >> $LOGFILEADM
 
 exit

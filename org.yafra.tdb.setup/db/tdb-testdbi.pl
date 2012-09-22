@@ -30,11 +30,12 @@ require 5.006;
 use DBI;
 
 # application variables
-my $mp_ver = '$Revision: 1.2 $';
+my $mp_ver = "";
 
 my $dbddriver = "mssql";
 my $dbname = "traveldb";
 my $dbhost = "localhost";
+my $tdbowner ="tdbadmin";
 
 #my $dbddriver = "mysql";
 #my $dbname = "traveldb";
@@ -55,6 +56,17 @@ use vars qw(@results $rootname $rootdate);
 #
 # START
 #
+$num_args = $#ARGV + 1;
+if ($num_args != 3) {
+  print "\nUsage: 1:dbname, 2:servername, 3:dbtype\n";
+  exit;
+}
+$mp_ver =  $ENV{'YAFRAVER'}; 
+# (2) we got two command line args, so assume they are the
+# first name and last name
+$dbname=$ARGV[0];
+$dbhost=$ARGV[1];
+$dbddriver=$ARGV[2];
 dbdebug("travelDB database DBI test version $mp_ver");
 dbdebug("DBD driver:    $dbddriver");
 dbdebug("DB name:       $dbname");
@@ -95,12 +107,12 @@ if ($dbddriver eq "mssql")
 elsif ($dbddriver eq "oracle")
 	{
 	$dbiconn = "$dbimodule:host=$dbhost;sid=$dbname";
-	$dbh = DBI->connect($dbiconn, "root", "root");
+	$dbh = DBI->connect($dbiconn, $tdbowner, "yafra");
 	}
 else # mysql
 	{
 	$dbiconn = "$dbimodule:database=$dbname;host=$dbhost";
-	$dbh = DBI->connect($dbiconn, "root", "root");
+	$dbh = DBI->connect($dbiconn, $tdbowner, "yafra");
 	}
 dbdebug ("  connecting with $dbiconn");
 if ($DBI::err)
@@ -110,14 +122,14 @@ if ($DBI::err)
 	}
 
 # check to see if user root exists
-$sth = $dbh->prepare("select mpid, mpuser from root.mp_profil");
+$sth = $dbh->prepare("select mpid, mpuser from $tdbowner.mp_profil");
 $sth->execute();
 if ($DBI::err)
 	{
-	dbdebug ("error select root.mp_profil: $DBI::errstr");
+	dbdebug ("error select $tdbowner.mp_profil: $DBI::errstr");
 	exit(1);
 	}
-dbdebug ("  content of root.mp_profil:");
+dbdebug ("  content of $tdbowner.mp_profil:");
 while (($mpid, $mpuser) = $sth->fetchrow)
 	{
 	if ($DBI::err)
@@ -146,13 +158,13 @@ while (($mpid, $mpuser) = $sth->fetchrow)
 #		}
 #	}
 
-# no ROOT schema is here
+# closure
 dbdebug ("  close travelDB now and exit");
 $sth->finish;
-if ($dbddriver eq "mysql")
-	{
-	$dbh->commit;
-	}
+#if ($dbddriver eq "mysql")
+#	{
+#	$dbh->commit;
+#	}
 $dbh->disconnect;
 exit(0);
 

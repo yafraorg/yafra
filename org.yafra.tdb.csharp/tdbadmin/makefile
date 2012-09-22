@@ -37,6 +37,7 @@ install:
 	test -d $(WORKNODE)/apps/tdbmono || mkdir $(WORKNODE)/apps/tdbmono
 	@cp $(PBINA)/Debug/*.exe $(WORKNODE)/apps/tdbmono
 	@cp $(PBINA)/Debug/*.dll $(WORKNODE)/apps/tdbmono
+	@cp $(PADMIN)/testsuite/bin/Debug/tdbtest.exe $(WORKNODE)/apps/tdbmono
 
 clean:
 	@rm -f $(POBJA)

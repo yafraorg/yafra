@@ -33,8 +33,8 @@ fi
 # setup some variables
 #
 TIMESTAMP="$(date +%y%m%d)"
-YAFRAREL="1.0.B1"
-echo "-> settings for release $YAFRAREL with basenode $BASENODE on $TIMESTAMP"
+VERREL="$YAFRAVER.$YAFRAREL"
+echo "-> settings for release $VERREL with basenode $BASENODE on $TIMESTAMP"
 #
 echo "yafra java server core"
 YAFRACORE=$JAVANODE/org.yafra.server.core
@@ -65,8 +65,9 @@ then
 	rm $YAFRACLASSES/org.yafra*
 	rm -rf $WORKNODE
 fi
-cd $SYSADM/shellscripts
-./profile-create-dirs.sh
+$SYSADM/shellscripts/profile-create-dirs.sh
+echo "continous build release $VERREL on $TIMESTAMP" > README-$WORKNODE/$VERREL.txt
+echo "https://github.com/yafraorg/yafra/wiki/Release" > README-$WORKNODE/$VERREL.txt
 
 #
 #CLASSIC/ANSIC
@@ -178,6 +179,7 @@ cp $BASENODE/org.yafra.padmin/main/Main.py $WORKNODE/apps/yafrapadmin
 cp $YAFRACLASSES/org.yafra* $WORKNODE/classes/
 tar cvfz $WORKNODE/yafra-$TIMESTAMP.tar.gz $WORKNODE/bin/ $WORKNODE/libs/  $WORKNODE/classes/ $WORKNODE/apps/
 
-
+rm /work/classes/org.yafra.*
+tar cvfz $WORKNODE/yafra-3rdparty-jars-$TIMESTAMP.tar.gz /work/classes/
 
 exit

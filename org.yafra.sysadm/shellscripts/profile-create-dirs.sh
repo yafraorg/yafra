@@ -40,12 +40,12 @@ mkdir -p $YAFRAMAN
 mkdir -p $YAFRAEXE
 mkdir -p $YAFRALIBPATH
 mkdir -p $YAFRALIBSO
-mkdir $TDBO
-mkdir $CMDSRVO
-mkdir $PSWHATO
-mkdir $PSEDITO
-mkdir $TESTSUITEO
-mkdir $WORKNODE/classes
-mkdir $WORKNODE/java
-mkdir $WORKNODE/apps
+test -d $TDBO || mkdir $TDBO
+test -d $CMDSRVO || mkdir $CMDSRVO
+test -d $PSWHATO || mkdir $PSWHATO
+test -d $PSEDITO || mkdir $PSEDITO
+test -d $TESTSUITEO || mkdir $TESTSUITEO
+test -d $WORKNODE/classes || mkdir $WORKNODE/classes
+test -d $WORKNODE/java || mkdir $WORKNODE/java
+test -d $WORKNODE/apps || mkdir $WORKNODE/apps
 
