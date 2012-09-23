@@ -169,8 +169,8 @@ cd $JAVANODE/org.yafra.tests.utils
 ant deploy
 cd $JAVANODE/org.yafra.tests.serverdirectclient
 ant deploy
-#cd $JAVANODE/org.yafra.tests.serverejb3
-#ant deploy
+cd $JAVANODE/org.yafra.tests.serverejb3
+ant deploy
 #cd $JAVANODE/org.yafra.tests.wsclient
 #ant deploy
 

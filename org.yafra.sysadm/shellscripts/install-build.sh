@@ -73,6 +73,16 @@ $SYSADM/shellscripts/stop-servers.sh >> $LOGFILE 2>&1
 rm -rf $TOMEE/webapps/org.yafra* >> $LOGFILE 2>&1
 
 #
+# make worknode executables "rwx"
+#
+chmod 755 $WORKNODE/bin/*
+chmod 755 $WORKNODE/classes/*tests*
+chmod 755 $WORKNODE/apps/tdbmono/*.exe
+chmod 755 $WORKNODE/apps/tdbdbadmin/*.pl
+chmod 755 $WORKNODE/apps/tdbpyadmin/main.py
+chmod 755 $WORKNODE/apps/yafrapadmin/Main.py
+
+#
 # install yafra components
 #
 echo "install yafra java system" >> $LOGFILE

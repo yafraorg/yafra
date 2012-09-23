@@ -92,19 +92,20 @@ under the License.
 		</java>
 	</target>
 
+	<!-- CREATE executable jar -->
 	<target name="deploy" depends="build">
-		<copy todir="${build.dir}" verbose="true">
-			<filelist refid="depjars"/>
-		</copy>
 		<manifestclasspath property="jars" jarfile="${deploy.dir}/org.yafra.tests.utils.jar">
 			<classpath refid="pathdepjars" />
 		</manifestclasspath>
 		<jar destfile="${deploy.dir}/org.yafra.tests.utils.jar" basedir="${build.dir}">
 			<manifest>
-				<attribute name="Main-Class" value="org.yafra.tests.utils.TestUtils"/>
-				<attribute name="Class-Path" value="${jars}" />
-			</manifest>
-			<!---<filelist refid="depjars"/>-->
+				<attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+				<attribute name="Rsrc-Main-Class" value="org.yafra.tests.utils.TestUtils"/>
+				<attribute name="Class-Path" value="."/>
+				<attribute name="Rsrc-Class-Path" value="./ ${jars}"/>
+ 			</manifest>
+			<filelist refid="depjars"/>
+			<zipfileset src="${cp.dir}/jar-in-jar-loader.zip"/>
 		</jar>
 	</target>
 

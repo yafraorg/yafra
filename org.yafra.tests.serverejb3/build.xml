@@ -23,7 +23,7 @@ under the License.
 <!-- source control:  cvs -->
 <!-- @author Last checkin by $Author: mwn $ on $Date: 2009-12-02 12:36:55 $ -->
 <!-- Current revision $Revision: 1.1 $, tag $Name:  $ -->
-<project basedir="." default="deploy" name="org.yafra.tests.serverdirectclient">
+<project basedir="." default="deploy" name="org.yafra.tests.serverejb3">
 
 	<!-- workdir on unix /work  windows C:/work   /> -->
 	<condition property="drive" value="C:/" else="/">
@@ -31,7 +31,7 @@ under the License.
 	</condition>
 
 	<property environment="env"/>
-	<property name="projname" value="org.yafra.tests.serverdirectclient" />
+	<property name="projname" value="org.yafra.tests.serverejb3" />
 
 	<!-- toplevel settings - please update -->
 	<property name="yafraver" value="${env.YAFRAVER}" />
@@ -45,35 +45,29 @@ under the License.
 	<property name="build.dir" value="${env.WORKNODE}/java/${projname}" />
 	<property name="deploy.dir" value="${workdir}/classes" />
 	<property name="cp.dir" value="${workdir}/classes" />
-	<property name="server.src" value="${wsdir}/org.yafra.server.core/src" />
 
 	<property name="debuglevel" value="source,lines,vars"/>
 	<property name="target" value="1.6"/>
 	<property name="source" value="1.6"/>
+	<filelist id="ejbjars" dir="/work/apache-tomee-webprofile-1.0.0/lib">
+		<file name="openejb-client-4.0.0.jar"/>
+		<file name="openejb-core-4.0.0.jar"/>
+		<file name="javaee-api-6.0-3-tomcat.jar"/>
+	</filelist>
 	<filelist id="depjars" dir="${cp.dir}">
-		<file name="${cp.dir}/mysql-connector-java-5.1.21-bin.jar"/>
-		<file name="${cp.dir}/derbyclient.jar"/>
-		<!-- <file name="${cp.dir}/mysql-connector-java-5.1.21-bin.jar"/>  -->
-		<!-- <file name="${cp.dir}/derbyclient.jar"/>  -->
-		<!-- <file name="${cp.dir}/sqljdbc4.jar"/>  -->
-		<!-- <file name="${cp.dir}/ojdbc6.jar"/> -->
-		<file name="${cp.dir}/cayenne-server-3.0.2.jar" />
-		<file name="${cp.dir}/cayenne-tools-3.0.2.jar" />
-		<file name="${cp.dir}/ashwood-2.0.jar"/>
-		<file name="${cp.dir}/commons-collections-3.2.1.jar"/>
-		<file name="${cp.dir}/commons-logging-1.1.1.jar"/>
-		<file name="${cp.dir}/vpp-2.2.1.jar"/>
-		<file name="${cp.dir}/log4j-1.2.17.jar"/>
-		<file name="${cp.dir}/org.yafra.utils.jar"/>
-		<file name="${cp.dir}/org.yafra.server.core.jar"/>
-		<file name="${cp.dir}/org.yafra.server.directclient.jar"/>
+		<file name="org.yafra.utils.jar"/>
+		<file name="commons-logging-1.1.1.jar"/>
+		<file name="org.yafra.server.coreclient.jar"/>
+		<file name="org.yafra.server.ejbstubs.jar"/>
+		<file name="log4j-1.2.17.jar"/>
 	</filelist>
 	<path id="pathdepjars">
 		<filelist refid="depjars" />
 	</path>
-	<path id="org.yafra.tests.serverdirectclient.classpath">
+	<path id="org.yafra.tests.serverejb3.classpath">
 		<pathelement path="${build.dir}"/>
 		<filelist refid="depjars" />
+		<filelist refid="ejbjars" />
 	</path>
 
 	<target name="init">
@@ -94,48 +88,34 @@ under the License.
 		<echo message="${os.name}"/>
 		<javac debug="true" debuglevel="${debuglevel}" destdir="${build.dir}" source="${source}" target="${target}">
 			<src path="${prg.src}"/>
-			<classpath refid="org.yafra.tests.serverdirectclient.classpath"/>
+			<classpath refid="org.yafra.tests.serverejb3.classpath"/>
 		</javac>
 	</target>
 
 	<target name="run" depends="build">
 		<echo message="yafra test client build - run client"/>
-		<java classname="org.yafra.tests.serverdirectclient.TestCoreServer" failonerror="true" fork="yes">
-		<classpath refid="org.yafra.tests.serverdirectclient.classpath"/>
+		<java classname="org.yafra.tests.serverejb3.TestEJB" failonerror="true" fork="yes">
+		<classpath refid="org.yafra.tests.serverejb3.classpath"/>
+	    <arg value="localhost"/>
 		</java>
 	</target>
 
 	<!-- CREATE executable jar -->
 	<target name="deploy" depends="build">
-		<manifestclasspath property="jars" jarfile="${deploy.dir}/org.yafra.tests.serverdirectclient.jar">
+		<manifestclasspath property="jars" jarfile="${deploy.dir}/org.yafra.tests.serverejb3.jar">
 			<classpath refid="pathdepjars" />
 		</manifestclasspath>
-		<jar destfile="${deploy.dir}/org.yafra.tests.serverdirectclient.jar" basedir="${build.dir}">
+		<jar destfile="${deploy.dir}/org.yafra.tests.serverejb3.jar" basedir="${build.dir}">
 			<manifest>
 				<attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
-				<attribute name="Rsrc-Main-Class" value="org.yafra.tests.serverdirectclient.TestCoreServer"/>
+				<attribute name="Rsrc-Main-Class" value="org.yafra.tests.serverejb3.TestEJB"/>
 				<attribute name="Class-Path" value="."/>
-				<attribute name="Rsrc-Class-Path" value="./ ${jars}"/>
+				<attribute name="Rsrc-Class-Path" value="./ ${jars} openejb-client-4.0.0.jar openejb-core-4.0.0.jar javaee-api-6.0-3-tomcat.jar"/>
  			</manifest>
 			<filelist refid="depjars"/>
+			<filelist refid="ejbjars"/>
 			<zipfileset src="${cp.dir}/jar-in-jar-loader.zip"/>
 		</jar>
-	</target>
-
-	<!-- DATABASE create new database -->
-	<taskdef name="cdbgen" classname="org.apache.cayenne.tools.DbGeneratorTask">
-		<classpath refid="pathdepjars"/>
-	</taskdef>
-	<target name="installdb" description="install fresh db">
-		<cdbgen map="${server.src}/org.yafra.yafraMap.map.xml" 
-			classpath="${cp.dir}"
-	    	adapter="org.apache.cayenne.dba.mysql.MySQLAdapter"
-	    	driver="com.mysql.jdbc.Driver"
-			droppk="yes"
-			droptables="yes"
-	    	url="jdbc:mysql://webdevelop/yafra"
-			password="yafra"
-	    	username="yafraadmin"/>
 	</target>
 
 </project>

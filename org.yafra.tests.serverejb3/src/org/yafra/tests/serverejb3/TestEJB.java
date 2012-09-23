@@ -56,6 +56,18 @@ public class TestEJB
 		tstlog = new Logging();
 		tstlog.setDebugFlag(true);
 		tstlog.YafraDebug("\norg.yafra.tests - start off with getting session", dev);
+		
+		// get servername from args
+		if (args.length < 1)
+			{
+			tstlog.YafraDebug("\norg.yafra.tests - missing arguments (1:servername), exit", dev);
+			return;
+			}
+		String servername = args[0];
+		// for the provider URL see as examples http://openejb.apache.org/clients.html
+		// openejb in tomee http://127.0.0.1:8080/tomee/ejb
+		// openejb standalone ejbd ejbd://localhost:4201
+		String ejbname = "http://" + servername + ":8080/tomee/ejb";
 
 		// get login name from system
 		String username = null;
@@ -65,10 +77,7 @@ public class TestEJB
 		try {
 			Properties prop=new Properties();
 			prop.put("java.naming.factory.initial", "org.apache.openejb.client.RemoteInitialContextFactory");
-			// for the provider URL see as examples http://openejb.apache.org/clients.html
-			// openejb in tomee http://127.0.0.1:8080/tomee/ejb
-			// openejb standalone ejbd ejbd://localhost:4201
-			prop.put("java.naming.provider.url", "http://127.0.0.1:8080/tomee/ejb");
+			prop.put("java.naming.provider.url", ejbname);
 			context = new InitialContext(prop);
 			tstlog.YafraDebug(" - got context", dev);
 			yafrases = (YafraSessionRemote)context.lookup("YafraSessionRemote");
