@@ -66,8 +66,8 @@ then
 	rm -rf $WORKNODE
 fi
 $SYSADM/shellscripts/profile-create-dirs.sh
-echo "continous build release $VERREL on $TIMESTAMP" > README-$WORKNODE/$VERREL.txt
-echo "https://github.com/yafraorg/yafra/wiki/Release" > README-$WORKNODE/$VERREL.txt
+echo "continous build release $VERREL on $TIMESTAMP" > $WORKNODE/README-$VERREL.txt
+echo "https://github.com/yafraorg/yafra/wiki/Release" >> $WORKNODE/README-$VERREL.txt
 
 #
 #CLASSIC/ANSIC
