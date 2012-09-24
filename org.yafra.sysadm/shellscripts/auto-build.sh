@@ -33,8 +33,8 @@ fi
 # settings
 #
 TIMESTAMP="$(date +%y%m%d)"
-LOGFILEADM=$WORKNODE/YAFRA-buildadmin-$TIMESTAMP.log
-LOGFILE=$WORKNODE/YAFRA-build-$TIMESTAMP.log
+LOGFILEADM=/tmp/YAFRA-buildadmin-$TIMESTAMP.log
+LOGFILE=/tmp/YAFRA-build-$TIMESTAMP.log
 echo "-> start auto build with basenode $BASENODE with version $YAFRAVER.$YAFRAREL" > $LOGFILEADM
 echo "settings:" >> $LOGFILEADM
 echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILEADM

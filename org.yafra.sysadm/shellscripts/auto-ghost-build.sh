@@ -33,8 +33,8 @@ fi
 # settings
 #
 TIMESTAMP="$(date +%y%m%d)"
-LOGFILE=$WORKNODE/YAFRA-buildghost-$TIMESTAMP.log
-LOGFILEADM=$WORKNODE/YAFRA-buildghostadmin-$TIMESTAMP.log
+LOGFILE=/tmp/YAFRA-buildghost-$TIMESTAMP.log
+LOGFILEADM=/tmp/YAFRA-buildghostadmin-$TIMESTAMP.log
 echo "-> start auto ghost build with basenode $BASENODE" > $LOGFILEADM
 echo "settings:" >> $LOGFILEADM
 echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILEADM
