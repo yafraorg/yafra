@@ -95,7 +95,18 @@ cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps >> $LOGFILE 2>&1
 if [ -n "$1" ]; then
 	#create yafra db and run tests
 	cd $JAVANODE/org.yafra.tests.serverdirectclient >> $LOGFILE 2>&1
-	ant installdb >> $LOGFILE 2>&1
+	if [ "$1" = "mysql" ]; then
+		ant installdb >> $LOGFILE 2>&1
+	fi
+	if [ "$1" = "derby" ]; then
+		ant installdbderby >> $LOGFILE 2>&1
+	fi
+	if [ "$1" = "oracle" ]; then
+		ant installdbora >> $LOGFILE 2>&1
+	fi
+	if [ "$1" = "mssql" ]; then
+		ant installdbmssql >> $LOGFILE 2>&1
+	fi
 	cd - >> $LOGFILE 2>&1
 fi
 #start servers now

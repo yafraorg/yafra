@@ -33,9 +33,7 @@ fi
 # settings
 #
 TIMESTAMP="$(date +%y%m%d)"
-LOGFILE=/tmp/YAFRA-install-$TIMESTAMP.log
-TOMEE=/work/apache-tomee-webprofile-1.0.0
-DBSERVER=webdevelop
+LOGFILE=/tmp/YAFRA-publishrelease-$TIMESTAMP.log
 TDBINSTDIR=/usr/local
 if [ ! -d $TDBINSTDIR ]
 then

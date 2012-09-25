@@ -59,6 +59,16 @@ if [ -n "$2" ]; then
 		cd $TDBDB/mysql
 		$TDBDB/mysql/generate.sh tdbadmin tdbadmin
 	fi
+	if [ "$2" = "oracle" ]; then
+		echo "installing oracle database"
+		cd $TDBDB/oracle
+		$TDBDB/oracle/generate.sh tdbadmin tdbadmin
+	fi
+	if [ "$2" = "mssql" ]; then
+		echo "installing mssql database"
+		cd $TDBDB/mssql
+		$TDBDB/mssql/generate.sh tdbadmin tdbadmin
+	fi
 fi
 
 #create dirs

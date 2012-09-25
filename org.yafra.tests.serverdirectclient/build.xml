@@ -137,5 +137,38 @@ under the License.
 			password="yafra"
 	    	username="yafraadmin"/>
 	</target>
+	<target name="installdbderby" description="install fresh db">
+		<cdbgen map="${server.src}/org.yafra.yafraMap.map.xml" 
+			classpath="${cp.dir}"
+	    	adapter="org.apache.cayenne.dba.derby.MySQLAdapter"
+	    	driver="org.apache.derby.jdbc.ClientDriver"
+			droppk="yes"
+			droptables="yes"
+	    	url="jdbc:derby://localhost:1527/yafra;user=yafra;create=true"
+			password="yafra"
+	    	username="yafraadmin"/>
+	</target>
+	<target name="installdbora" description="install fresh db">
+		<cdbgen map="${server.src}/org.yafra.yafraMap.map.xml" 
+			classpath="${cp.dir}"
+	    	adapter="org.apache.cayenne.dba.oracle.MySQLAdapter"
+	    	driver="com.mysql.jdbc.Driver"
+			droppk="yes"
+			droptables="yes"
+	    	url="jdbc:derby://localhost:1527/yafra;user=yafra;create=true" 
+		password="yafra"
+	    	username="yafraadmin"/>
+	</target>
+	<target name="installdbmssql" description="install fresh db">
+		<cdbgen map="${server.src}/org.yafra.yafraMap.map.xml" 
+			classpath="${cp.dir}"
+	    	adapter="org.apache.cayenne.dba.mssql.MySQLAdapter"
+	    	driver="com.mysql.jdbc.Driver"
+			droppk="yes"
+			droptables="yes"
+	    	url="jdbc:mysql://webdevelop/yafra"
+			password="yafra"
+	    	username="yafraadmin"/>
+	</target>
 
 </project>
