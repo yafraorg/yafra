@@ -37,7 +37,7 @@ LOGFILE=$WORKNODE/YAFRA-testrun-$TIMESTAMP.log
 TOMEE=/work/apache-tomee-webprofile-1.0.0
 DBSERVER=webdevelop
 BINDIR=/usr/local/bin
-APPDIR=/usr/local/app
+APPDIR=/usr/local/apps
 echo "-> start test build with basenode $BASENODE" > $LOGFILE
 echo "settings:" >> $LOGFILE
 echo "TOMEE: $TOMEE" >> $LOGFILE
