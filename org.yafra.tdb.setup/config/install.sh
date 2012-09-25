@@ -57,17 +57,17 @@ if [ -n "$2" ]; then
 	if [ "$2" = "mysql" ]; then
 		echo "installing mysql database"
 		cd $TDBDB/mysql
-		$TDBDB/mysql/generate.sh tdbadmin tdbadmin
+		$TDBDB/mysql/generate.sh tdbadmin yafra
 	fi
 	if [ "$2" = "oracle" ]; then
 		echo "installing oracle database"
 		cd $TDBDB/oracle
-		$TDBDB/oracle/generate.sh tdbadmin tdbadmin
+		$TDBDB/oracle/generate.bat tdbadmin yafra
 	fi
 	if [ "$2" = "mssql" ]; then
 		echo "installing mssql database"
 		cd $TDBDB/mssql
-		$TDBDB/mssql/generate.sh tdbadmin tdbadmin
+		$TDBDB/mssql/generate.bat yafra yafra
 	fi
 fi
 

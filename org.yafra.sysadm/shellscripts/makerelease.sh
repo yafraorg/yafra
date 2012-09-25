@@ -141,19 +141,19 @@ ant all
 if [ -n "$1" ]; then
 	if [ "$1" = "mysql" ]; then
 		echo "using the mysql localhost database"
-		cp $YAFRACORE/org.yafra.release.mysql.Node.driver.xml $YAFRACORE/$CAYCONFIG
+		cp $YAFRACORE/src/org.yafra.release.mysql.Node.driver.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$1" = "derby" ]; then
 		echo "using the derby localhost database"
-		cp $YAFRACORE/org.yafra.release.derby.Node.driver.xml $YAFRACORE/$CAYCONFIG
+		cp $YAFRACORE/src/org.yafra.release.derby.Node.driver.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$1" = "oracle" ]; then
 		echo "using the oracle localhost database"
-		cp $YAFRACORE/org.yafra.release.oracle.Node.driver.xml $YAFRACORE/$CAYCONFIG
+		cp $YAFRACORE/src/org.yafra.release.oracle.Node.driver.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$1" = "mssql" ]; then
 		echo "using the mssql localhost database"
-		cp $YAFRACORE/org.yafra.release.mssql.Node.driver.xml $YAFRACORE/$CAYCONFIG
+		cp $YAFRACORE/src/org.yafra.release.mssql.Node.driver.xml $YAFRACORE/$CAYCONFIG
 	fi
 fi
 if [ ! -f $YAFRACORE/$CAYCONFIG ]
