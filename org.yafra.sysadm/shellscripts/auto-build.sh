@@ -44,7 +44,10 @@ echo "LOGFILE: $LOGFILE" >> $LOGFILEADM
 
 # save stdout and stderr
 echo "start makerelease now see logfile $LOGFILE" >> $LOGFILEADM
-$SYSADM/shellscripts/makerelease.sh > $LOGFILE 2>&1
+if [ -n "$1" ]
+	then $SYSADM/shellscripts/makerelease.sh $1 > $LOGFILE 2>&1
+	else $SYSADM/shellscripts/makerelease.sh >> $LOGFILE 2>&1
+fi
 echo "build done" >> $LOGFILEADM
 
 exit

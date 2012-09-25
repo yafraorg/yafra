@@ -50,12 +50,12 @@ git clone https://github.com/yafraorg/yafra.git YafraLocalGit >> $LOGFILEADM 2>&
 
 # build
 echo "start makerelease now see logfile $LOGFILE" >> $LOGFILEADM
-$SYSADM/shellscripts/auto-build.sh > $LOGFILE 2>&1
+$SYSADM/shellscripts/auto-build.sh mysql > $LOGFILE 2>&1
 echo "build done" >> $LOGFILEADM
 
 # install
 echo "start install now see logfile $LOGFILE" >> $LOGFILEADM
-$SYSADM/shellscripts/install-build.sh > $LOGFILE 2>&1
+$SYSADM/shellscripts/install-build.sh mysql > $LOGFILE 2>&1
 echo "install done" >> $LOGFILEADM
 
 # test
