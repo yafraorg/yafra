@@ -30,6 +30,9 @@ then
 	exit
 fi
 
+VERREL="$YAFRAVER.$YAFRAREL"
+TIMESTAMP="$(date +%y%m%d)"
+
 #
 # delete working dirs and create a new one
 #

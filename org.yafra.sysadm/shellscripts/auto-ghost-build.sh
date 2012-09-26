@@ -54,7 +54,7 @@ cd $BASENODE >> $LOGFILEADM 2>&1
 
 # init build
 echo "init build" >> $LOGFILEADM
-$SYSADM/shellscripts/build-init.sh mysql > $LOGFILE 2>&1
+$SYSADM/shellscripts/build-init.sh > $LOGFILE 2>&1
 echo "init done" >> $LOGFILEADM
 
 # create db
@@ -71,7 +71,7 @@ echo "build done" >> $LOGFILEADM
 
 # install
 echo "install" >> $LOGFILEADM
-$SYSADM/shellscripts/build-install.sh >> $LOGFILE 2>&1
+sudo $SYSADM/shellscripts/build-install.sh >> $LOGFILE 2>&1
 echo "install done" >> $LOGFILEADM
 
 # test
@@ -81,7 +81,7 @@ echo "test done" >> $LOGFILEADM
 
 # publish build
 echo "publish build" >> $LOGFILEADM
-$SYSADM/shellscripts/build-test.sh >> $LOGFILE 2>&1
+$SYSADM/shellscripts/build-publish.sh >> $LOGFILE 2>&1
 echo "publish done" >> $LOGFILEADM
 
 echo "ghost build done" >> $LOGFILEADM

@@ -25,6 +25,10 @@
 #
 if [ ! -d $SYSADM/defaults ]
 then
+	. ../defaults/profile.sh
+fi
+if [ ! -d $SYSADM/defaults ]
+then
 	echo "Environment not loaded - install first !"
 	exit
 fi

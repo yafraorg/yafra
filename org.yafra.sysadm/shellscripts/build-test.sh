@@ -33,47 +33,45 @@ fi
 # settings
 #
 TIMESTAMP="$(date +%y%m%d)"
-LOGFILE=$WORKNODE/YAFRA-testrun-$TIMESTAMP.log
 TOMEE=/work/apache-tomee-webprofile-1.0.0
 DBSERVER=webdevelop
 BINDIR=/usr/local/bin
 APPDIR=/usr/local/apps
-echo "-> start test build with basenode $BASENODE" > $LOGFILE
-echo "settings:" >> $LOGFILE
-echo "TOMEE: $TOMEE" >> $LOGFILE
-echo "DBSERVER: $DBSERVER" >> $LOGFILE
-echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILE
-echo "LOGFILE: $LOGFILE" >> $LOGFILE
+echo "-> start test build with basenode $BASENODE"
+echo "settings:" 
+echo "TOMEE: $TOMEE"
+echo "DBSERVER: $DBSERVER"
+echo "TIMESTAMP: $TIMESTAMP"
 
-cd $WORKNODE >> $LOGFILE
+cd $WORKNODE
 
 #
 # test yafra components
 #
-echo "test yafra java system at version $YAFRAVER.$YAFRAREL" >> $LOGFILE
+echo "test yafra java system at version $YAFRAVER.$YAFRAREL"
 java -classpath /work/classes -jar $WORKNODE/classes/org.yafra.tests.utils.jar
 java -classpath /work/classes -jar $WORKNODE/classes/org.yafra.tests.serverdirectclient.jar
 #java -jar $WORKNODE/classes/org.yafra.tests.serverejb3.jar
 #java -jar $WORKNODE/classes/org.yafra.tests.wsclient.jar
 
 #run test server, utils, wsclient, rest, url getter of tomee installed apps
-python $APPDIR/yafrapadmin/Main.py >>$LOGFILE 2>&1
+python $APPDIR/yafrapadmin/Main.py
 
 #
 # test tdb components
 #
-echo "test travelDB classic system" >> $LOGFILE
+echo "test travelDB classic system"
 #get releases of binaries
-ldd $BINDIR/mpdbi >>$LOGFILE 2>&1
-ldd $BINDIR/mpgui >>$LOGFILE 2>&1
-ldd $BINDIR/mpnet >>$LOGFILE 2>&1
-$BINDIR/pswhat -i $EXEDIR/mpdbi >>$LOGFILE 2>&1
+ldd $BINDIR/mpdbi
+ldd $BINDIR/mpgui
+ldd $BINDIR/mpnet
+$BINDIR/pswhat -i $EXEDIR/mpdbi
 #start tests now
-$BINDIR/pschar >> $LOGFILE 2>&1
-$BINDIR/pslog >> $LOGFILE 2>&1
-$BINDIR/psdatetime -d 01.01.2013 -t 12.30 >> $LOGFILE 2>&1
-$BINDIR/psclientcons localhost >> $LOGFILE 2>&1
-$BINDIR/mpstruct >> $LOGFILE 2>&1
-$BINDIR/mptest -n $DBSERVER >> $LOGFILE 2>&1
-$APPDIR/tdbmono/tdbtest.exe tdbadmin $DBSERVER MySQL >> $LOGFILE 2>&1
-perl $APPDIR/tdbdbadmin/tdb-testdbi.pl tdbadmin $DBSERVER mysql >> $LOGFILE 2>&1
+$BINDIR/pschar
+$BINDIR/pslog
+$BINDIR/psdatetime -d 01.01.2013 -t 12.30
+$BINDIR/psclientcons localhost
+$BINDIR/mpstruct
+$BINDIR/mptest -n $DBSERVER
+$APPDIR/tdbmono/tdbtest.exe tdbadmin $DBSERVER MySQL
+perl $APPDIR/tdbdbadmin/tdb-testdbi.pl tdbadmin $DBSERVER mysql

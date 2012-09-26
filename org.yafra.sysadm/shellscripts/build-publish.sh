@@ -15,7 +15,7 @@
 #  limitations under the License.
 #-------------------------------------------------------------------------------
 #
-# Author:       Administrator
+# Author:        yafra
 #
 # Purpose:      publish release
 #-------------------------------------------------------------------------------
@@ -33,11 +33,10 @@ fi
 # settings
 #
 TIMESTAMP="$(date +%y%m%d)"
-LOGFILE=/tmp/YAFRA-publishrelease-$TIMESTAMP.log
 TDBINSTDIR=/usr/local
 if [ ! -d $TDBINSTDIR ]
 then
-	echo "error: deployment directory not available, exit now - create first !" >> $LOGFILE
+	echo "error: deployment directory not available, exit now - create first !"
 	exit
 fi
 BINDIR=$TDBINSTDIR/bin
@@ -45,12 +44,16 @@ ETCDIR=$TDBINSTDIR/etc
 LIBSDIR=$TDBINSTDIR/lib
 GUIINSTALL=$ETCDIR/tdb
 APPDIR=$TDBINSTDIR/apps
-echo "-> start auto build with basenode $BASENODE" > $LOGFILE
-echo "settings:" >> $LOGFILE
-echo "TOMEE: $TOMEE" >> $LOGFILE
-echo "DBSERVER: $DBSERVER" >> $LOGFILE
-echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILE
-echo "LOGFILE: $LOGFILE" >> $LOGFILE
+echo "-> start publish with basenode $BASENODE"
+echo "TIMESTAMP: $TIMESTAMP"
+
+#
+# tar release
+#
+
+#create tar bundle for download
+tar cvfz $WORKNODE/yafra-$TIMESTAMP.tar.gz $WORKNODE/bin/ $WORKNODE/libs/  $WORKNODE/classes/ $WORKNODE/apps/
+tar cvfz $WORKNODE/yafra-3rdparty-jars-$TIMESTAMP.tar.gz /work/classes/
 
 
 

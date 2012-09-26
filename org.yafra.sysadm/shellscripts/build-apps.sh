@@ -157,18 +157,10 @@ ant deploy
 #cd $JAVANODE/org.yafra.tests.wsclient
 #ant deploy
 
+cp $YAFRACLASSES/org.yafra* $WORKNODE/classes/
+
 #copy python yafra app to worknode
 test -d $WORKNODE/apps/yafrapadmin || mkdir $WORKNODE/apps/yafrapadmin
 cp $BASENODE/org.yafra.padmin/main/Main.py $WORKNODE/apps/yafrapadmin
-
-
-#
-# tar release
-#
-
-#create tar bundle for download
-cp $YAFRACLASSES/org.yafra* $WORKNODE/classes/
-tar cvfz $WORKNODE/yafra-$TIMESTAMP.tar.gz $WORKNODE/bin/ $WORKNODE/libs/  $WORKNODE/classes/ $WORKNODE/apps/
-tar cvfz $WORKNODE/yafra-3rdparty-jars-$TIMESTAMP.tar.gz /work/classes/
 
 exit
