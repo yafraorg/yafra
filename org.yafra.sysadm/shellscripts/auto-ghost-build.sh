@@ -18,6 +18,7 @@
 # Author:       Administrator
 #
 # Purpose:      automatic nightly build
+# Arguments: 1: "reset" (reset local git repo) 2: "db" (OPTIONAL)
 #-------------------------------------------------------------------------------
 
 #
@@ -42,26 +43,46 @@ echo "LOGFILEADM: $LOGFILEADM" >> $LOGFILEADM
 echo "LOGFILE: $LOGFILE" >> $LOGFILEADM
 
 # get newest source via git pull without pwd
-echo "reset source now" >> $LOGFILEADM
+if [ "$1" = "reset" ]; then
+	echo "reset source now" >> $LOGFILEADM
+	cd $BASENODE >> $LOGFILEADM 2>&1
+	cd .. >> $LOGFILEADM 2>&1
+	rm -rf YafraLocalGit/ >> $LOGFILEADM 2>&1
+	git clone https://github.com/yafraorg/yafra.git YafraLocalGit >> $LOGFILEADM 2>&1
+fi
 cd $BASENODE >> $LOGFILEADM 2>&1
-cd .. >> $LOGFILEADM 2>&1
-rm -rf YafraLocalGit/ >> $LOGFILEADM 2>&1
-git clone https://github.com/yafraorg/yafra.git YafraLocalGit >> $LOGFILEADM 2>&1
+
+# init build
+echo "init build" >> $LOGFILEADM
+$SYSADM/shellscripts/build-init.sh mysql > $LOGFILE 2>&1
+echo "init done" >> $LOGFILEADM
+
+# create db
+if [ "$2" = "db" ]; then
+	echo "create rel mysql db now" >> $LOGFILEADM
+	$SYSADM/shellscripts/build-db.sh rel mysql >> $LOGFILE 2>&1
+	echo "build done" >> $LOGFILEADM
+fi
 
 # build
-echo "start makerelease now see logfile $LOGFILE" >> $LOGFILEADM
-$SYSADM/shellscripts/auto-build.sh mysql > $LOGFILE 2>&1
+echo "build" >> $LOGFILEADM
+$SYSADM/shellscripts/build-apps.sh >> $LOGFILE 2>&1
 echo "build done" >> $LOGFILEADM
 
 # install
-echo "start install now see logfile $LOGFILE" >> $LOGFILEADM
-$SYSADM/shellscripts/install-build.sh mysql > $LOGFILE 2>&1
+echo "install" >> $LOGFILEADM
+$SYSADM/shellscripts/build-install.sh >> $LOGFILE 2>&1
 echo "install done" >> $LOGFILEADM
 
 # test
-echo "start test now see logfile $LOGFILE" >> $LOGFILEADM
-$SYSADM/shellscripts/test-build.sh > $LOGFILE 2>&1
+echo "test" >> $LOGFILEADM
+$SYSADM/shellscripts/build-test.sh >> $LOGFILE 2>&1
 echo "test done" >> $LOGFILEADM
+
+# publish build
+echo "publish build" >> $LOGFILEADM
+$SYSADM/shellscripts/build-test.sh >> $LOGFILE 2>&1
+echo "publish done" >> $LOGFILEADM
 
 echo "ghost build done" >> $LOGFILEADM
 

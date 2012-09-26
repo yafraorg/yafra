@@ -51,26 +51,6 @@ if [ -z "$1" ]; then
         exit
 fi
 
-# create database
-if [ -n "$2" ]; then
-	# this works fine on unix with perl
-	if [ "$2" = "mysql" ]; then
-		echo "installing mysql database"
-		cd $TDBDB/mysql
-		$TDBDB/mysql/generate.sh tdbadmin yafra
-	fi
-	if [ "$2" = "oracle" ]; then
-		echo "installing oracle database"
-		cd $TDBDB/oracle
-		$TDBDB/oracle/generate.bat tdbadmin yafra
-	fi
-	if [ "$2" = "mssql" ]; then
-		echo "installing mssql database"
-		cd $TDBDB/mssql
-		$TDBDB/mssql/generate.bat yafra yafra
-	fi
-fi
-
 #create dirs
 test -d $BINDIR || mkdir $BINDIR
 test -d $ETCDIR || mkdir $ETCDIR
