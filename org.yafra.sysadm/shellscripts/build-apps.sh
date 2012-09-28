@@ -98,6 +98,9 @@ make clean
 make mpapi
 make all
 
+cd $WORKNODE/libs
+symlinks -c .
+
 #MONO/.NET / TDB
 cd $BASENODE/org.yafra.tdb.csharp/common
 make all
