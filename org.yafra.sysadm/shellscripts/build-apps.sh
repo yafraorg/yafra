@@ -98,8 +98,13 @@ make clean
 make mpapi
 make all
 
-cd $WORKNODE/libs
-symlinks -c .
+if [ "$PS_COMPTYPE" = "ps_unix" ]; then
+	if [ "$PS_COMPTYPE" != "ps_cygwin" ]; then
+		cd $WORKNODE/libs
+		symlinks -c .
+	fi
+fi
+
 
 #MONO/.NET / TDB
 cd $BASENODE/org.yafra.tdb.csharp/common
