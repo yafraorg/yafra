@@ -37,6 +37,7 @@ export YAFRABIN=$SYSADM/defaults/scripts
 export YAFRADOC=$WORKNODE/doc
 export YAFRAMAN=$WORKNODE/man
 export YAFRAEXE=$WORKNODE/bin
+export YAFRACLASSES=/work/classes
 	    
 export PATH=$PATH:$YAFRABIN:$YAFRAEXE
 
