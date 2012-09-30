@@ -126,7 +126,7 @@ ORAHOME = /cygdrive/e/opt/XEClient
 ADDON = -I$(ORAHOME)/oci/include
 endif
 ifdef TDBODBC
-ADDON = -I"$(MSSQL_HOME)/inc"
+ADDON = -I/usr/include/w32api
 endif
 endif
 

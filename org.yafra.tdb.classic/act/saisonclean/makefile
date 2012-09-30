@@ -60,7 +60,7 @@ include $(TDBS)/makefile.dblib
 ifeq ($(PS_OS),ps_winnt)
 LIBS = @ntactlibs.txt
 else
-LIBS = -ltdbact -ltdbdb -ltdbact -ltdb -lpssercom -lpssys $(DBLIBS)
+LIBS = -ltdbact -ltdbdb -ltdb -ltdbact -ltdbdb -ltdb -lpssercom -lpssys $(DBLIBS)
 endif
 
 #
@@ -89,23 +89,23 @@ endif
 
 ifeq ($(PS_OS),ps_cygwin)
 ADDLIBS	=
-ADDON		=
+ADDON		= $(DBDEFS)
 endif
 
 ifeq ($(PS_OS),ps_mingw)
 ADDLIBS	=
-ADDON		=
+ADDON		= $(DBDEFS)
 endif
 
 ifeq ($(PS_OS),ps_hpux)
-ADDON		= -Ae +w1
+ADDON		= -Ae +w1 $(DBDEFS)
 ADDLIBS	= -L$(YAFRALIBPATH)
 #CC			= purify -best-effort cc
 #LD			= purify -best-effort cc
 endif
 
 ifeq ($(PS_OS),ps_winnt)
-ADDON		= -W3 -Fp"$(PS_LOCALDRV)/temp/vc.pch"
+ADDON		= $(DBDEFS) -W3 -Fp"$(PS_LOCALDRV)/temp/vc.pch"
 #CC		= bcompile
 #LD	= bclink
 endif

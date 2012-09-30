@@ -25,7 +25,7 @@ fi
 # Test for cygwin
 #
 if [[ "$SYSTEM" == *CYGWIN* ]]
-	then INCX11=/usr/lib
+	then LIBX11=/usr/lib
 fi
 
 # test for SCO

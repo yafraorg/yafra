@@ -70,7 +70,11 @@ endif
 # ODBC - for native vs.net set it in libs include txt file
 #
 ifdef TDBODBC
+ifeq ($(PS_OS),ps_cygwin)
+DBLIBS  = -L/cygwin/lib/w32api -lodbc32
+else
 DBLIBS  = -L"$(MSSQL_HOME)\lib" -lodbc32
+endif
 TDBDEF = TDBODBC
 endif
 
