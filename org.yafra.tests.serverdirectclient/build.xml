@@ -151,7 +151,7 @@ under the License.
 	<target name="installderby" description="install fresh db">
 		<cdbgen map="${server.src}/org.yafra.yafraMap.map.xml" 
 			classpath="${cp.dir}"
-	    	adapter="org.apache.cayenne.dba.derby.MySQLAdapter"
+	    	adapter="org.apache.cayenne.dba.derby.DerbyAdapter"
 	    	driver="org.apache.derby.jdbc.ClientDriver"
 			droppk="yes"
 			droptables="yes"
@@ -162,7 +162,7 @@ under the License.
 	<target name="installora" description="install fresh db">
 		<cdbgen map="${server.src}/org.yafra.yafraMap.map.xml" 
 			classpath="${cp.dir}"
-	    	adapter="org.apache.cayenne.dba.oracle.MySQLAdapter"
+	    	adapter="org.apache.cayenne.dba.oracle.OracleAdapter"
 	    	driver="com.mysql.jdbc.Driver"
 			droppk="yes"
 			droptables="yes"
@@ -173,11 +173,11 @@ under the License.
 	<target name="installmssql" description="install fresh db">
 		<cdbgen map="${server.src}/org.yafra.yafraMap.map.xml" 
 			classpath="${cp.dir}"
-	    	adapter="org.apache.cayenne.dba.mssql.MySQLAdapter"
-	    	driver="com.mysql.jdbc.Driver"
+	    	adapter="org.apache.cayenne.dba.sqlserver.SQLServerAdapter"
+	    	driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
 			droppk="yes"
 			droptables="yes"
-	    	url="jdbc:mysql://webdevelop/yafra"
+	    	url="jdbc:sqlserver://localhost:1433"
 			password="yafra"
 	    	username="yafraadmin"/>
 	</target>

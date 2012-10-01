@@ -6,7 +6,7 @@
 	<property name="defaultPackage" value="org.yafra.orm"/>
 	<property name="defaultSchema" value="yafra"/>
 	<db-entity name="Person" schema="yafra">
-		<db-attribute name="address" type="VARCHAR" length="10000"/>
+		<db-attribute name="address" type="VARCHAR" length="4000"/>
 		<db-attribute name="country" type="VARCHAR" length="1000"/>
 		<db-attribute name="firstname" type="VARCHAR" isMandatory="true" length="1000"/>
 		<db-attribute name="googleId" type="VARCHAR" length="4000"/>
@@ -16,7 +16,7 @@
 		<db-attribute name="type" type="VARCHAR" isMandatory="true" length="100"/>
 	</db-entity>
 	<db-entity name="PersonLog" schema="yafra">
-		<db-attribute name="eventAudit" type="VARCHAR" length="10000"/>
+		<db-attribute name="eventAudit" type="VARCHAR" length="4000"/>
 		<db-attribute name="eventAuditReviewer" type="VARCHAR" length="1000"/>
 		<db-attribute name="eventCreator" type="VARCHAR" isMandatory="true" length="1000"/>
 		<db-attribute name="eventDate" type="DATE" isMandatory="true"/>

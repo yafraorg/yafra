@@ -22,15 +22,15 @@ under the License.
 DISTRIBUTION
 
 http://www.yafra.org/
-https://github.com/yafraorg/yafra/
+https://github.com/yafraorg/yafra/   GET YOUR LOGIN AND FORK ME NOW!
 
 Version 1.0-B1
 
 Beta 1
 
 * Before you start:
-up to date information is always on:
-https://sourceforge.net/apps/trac/yafra/wiki/FrameworkRelease
+you find up to date information on:
+https://github.com/yafraorg/yafra/wiki
 
 install the following components on your local PC
 - java runtime edition 6.x

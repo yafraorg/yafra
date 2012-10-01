@@ -40,6 +40,7 @@ echo "CAYCONFIG: $CAYCONFIG"
 #this is the development version - release versions are copied later
 CAYSRCCONFIG=src/org.yafra.mysqlNode.driver.xml
 echo "CAYSRCCONFIG: $CAYSRCCONFIG - TODO make sure you changed this file according to your environment!"
+YAFRACORE=$BASENODE/org.yafra.server.core
 
 # database server
 DBSERVER="localhost"
@@ -55,6 +56,12 @@ fi
 
 # print settings
 echo "create database in mode $1, dbtype $2, server $DBSERVER, dbapwd $SAPWD"
+
+# create default cayenne config - use CAYCONFIG to set to your default config
+if [ ! -f $YAFRACORE/$CAYCONFIG ]
+then
+cp $YAFRACORE/$CAYSRCCONFIG $YAFRACORE/$CAYCONFIG
+fi
 
 # create database YAFRA
 cd $JAVANODE/org.yafra.tests.serverdirectclient
@@ -83,11 +90,6 @@ else
 	fi
 fi
 cd -
-
-if [ ! -f $YAFRACORE/$CAYCONFIG ]
-then
-	cp $YAFRACORE/$CAYSRCCONFIG $YAFRACORE/$CAYCONFIG
-fi
 
 
 # create database TDB

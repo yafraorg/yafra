@@ -62,6 +62,10 @@ if [ "$2" = "db" ]; then
 	echo "create rel mysql db now" >> $LOGFILEADM
 	$SYSADM/shellscripts/build-db.sh rel mysql >> $LOGFILE 2>&1
 	echo "build done" >> $LOGFILEADM
+else
+    echo "create dev db now" >> $LOGFILEADM
+    $SYSADM/shellscripts/build-db.sh dev mysql >> $LOGFILE 2>&1
+    echo "build done" >> $LOGFILEADM
 fi
 
 # build

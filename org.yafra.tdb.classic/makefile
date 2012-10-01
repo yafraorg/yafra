@@ -22,10 +22,9 @@
 
 # ---- set RELEASE and VERSION ----------------------------
 #
-TDBVER = 5
-TDBREL = 6.0
-TDBMS = B1
-RELEASE = $(TDBVER).$(TDBREL)
+TDBVER = "$YAFRAVER"
+TDBREL = "$YAFRAREL"
+RELEASE = "$YAFRAVER.$YAFRAREL"
 MAKE    = make
 #NICE   = nice -15
 
@@ -41,7 +40,7 @@ default: info
 #
 # build a whole program with all libs, etc.
 #
-all: printver mplib mplibxml mplibcomm mpapi mpdbi mpgui mpactlib mpact mpnet
+all: printver mplib mplibxml mplibcomm mpapi mpdbi mpactlib mpact mpnet mpgui
 
 alllibs: pslibs mplib mplibxml mplibcomm mpapi mpactlib
 
@@ -55,7 +54,7 @@ alltools: psfifo psedit
 
 printver:
 	@echo =========================
-	@echo travelDB release $(RELEASE) $(TDBMS)
+	@echo travelDB release $(RELEASE)
 	@echo =========================
 
 #

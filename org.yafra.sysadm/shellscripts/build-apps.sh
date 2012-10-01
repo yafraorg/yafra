@@ -47,12 +47,12 @@ YAFRACLASSES=/work/classes
 echo "YAFRACLASSES: $YAFRACLASSES"
 #
 echo "set c flags for compile"
-if [ "$1" = "dev"]; then
-	export OSHARED=
-	export ODEBUG=1
-else
+if [ "$1" = "rel"]; then
 	export OSHARED=1
 	export ODEBUG=
+else
+	export OSHARED=
+	export ODEBUG=1
 fi
 echo "OSAHRED: $OSHARED and ODEBUG: $ODEBUG"
 
@@ -80,6 +80,11 @@ make all
 cd ../chars
 make clean
 make all
+if [ "$PS_OS" != "ps_cygwin" ]; then
+	cd $PSMATRIXLIB
+	make clean
+	make all
+fi
 
 #CLASSIC/ADDONS
 cd $PSWHAT
@@ -99,7 +104,7 @@ make mpapi
 make all
 
 if [ "$PS_COMPTYPE" = "ps_unix" ]; then
-	if [ "$PS_COMPTYPE" != "ps_cygwin" ]; then
+	if [ "$PS_OS" != "ps_cygwin" ]; then
 		cd $WORKNODE/libs
 		symlinks -c .
 	fi

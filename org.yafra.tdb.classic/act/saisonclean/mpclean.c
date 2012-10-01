@@ -131,7 +131,7 @@ static char rcsid[]="$Header: /yafra/cvsroot/mapo/source/act/saisonclean/mpclean
                                 WHERE SAI_ID = %d ORDER BY BEZ_ID;"
 #endif
 
-#ifdef MPDBODBC
+#ifdef TDBODBC
 #define _SELECT_KAPA "SELECT * FROM TDBADMIN.KAPA;"
 #define _DELETE_KAPA "DELETE TDBADMIN.KAPA;"
 #define _SELECT_MP_ARRKOM "SELECT * FROM TDBADMIN.MP_ARRKOM;"

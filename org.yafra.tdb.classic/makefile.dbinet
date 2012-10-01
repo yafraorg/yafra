@@ -123,7 +123,7 @@ endif
 
 ifeq ($(PS_OS),ps_cygwin)
 ADDON    = $(XMLINC)
-ADDLIBS  = 
+ADDLIBS  = $(XMLLIB)
 endif
 
 ifeq ($(PS_OS),ps_mingw)
