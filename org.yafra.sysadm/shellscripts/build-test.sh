@@ -34,9 +34,9 @@ fi
 #
 TIMESTAMP="$(date +%y%m%d)"
 TOMEE=/work/apache-tomee-webprofile-1.0.0
-DBSERVER=webdevelop
-BINDIR=/usr/local/bin
-APPDIR=/usr/local/apps
+DBSERVER=localhost
+BINDIR=$YAFRAEXE
+APPDIR=$WORKNODE/apps
 echo "-> start test build with basenode $BASENODE"
 echo "settings:" 
 echo "TOMEE: $TOMEE"
@@ -49,8 +49,8 @@ cd $WORKNODE
 # test yafra components
 #
 echo "test yafra java system at version $YAFRAVER.$YAFRAREL"
-java -classpath /work/classes -jar $WORKNODE/classes/org.yafra.tests.utils.jar
-java -classpath /work/classes -jar $WORKNODE/classes/org.yafra.tests.serverdirectclient.jar
+java -classpath $YAFRACLASSES -jar $WORKNODE/classes/org.yafra.tests.utils.jar
+java -classpath $YAFRACLASSES -jar $WORKNODE/classes/org.yafra.tests.serverdirectclient.jar
 #java -jar $WORKNODE/classes/org.yafra.tests.serverejb3.jar
 #java -jar $WORKNODE/classes/org.yafra.tests.wsclient.jar
 
