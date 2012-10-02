@@ -1,6 +1,7 @@
 /.settings
 /bin
 /build
+/war/WEB-INF/deploy
 build.number
 /gwt-unitCache
 /war/org_yafra_gwt_admin
