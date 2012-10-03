@@ -80,7 +80,7 @@ make all
 cd ../chars
 make clean
 make all
-if [ "$PS_OS" != "ps_cygwin" ]; then
+if [ "$PS_OS" = "ps_cygwin" ]; then
 	cd $PSMATRIXLIB
 	make clean
 	make all
