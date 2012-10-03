@@ -17,7 +17,7 @@
 #
 # Author:       yafra
 #
-# Purpose:      make a release of exe's and libraries and tag source with it
+# Purpose:      build step 3: make a release of exe's and libraries and tag source with it
 # Arguments: 1: dev/rel
 #
 #-------------------------------------------------------------------------------

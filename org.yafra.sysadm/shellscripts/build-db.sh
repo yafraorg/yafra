@@ -16,7 +16,7 @@
 #-------------------------------------------------------------------------------------------
 # Author:        yafra
 #
-# Purpose:      init database
+# Purpose:      build step 2: init database
 # Arguments: 1: dev/rel 2: mysql/oracle/derby/mssql 3: servername 4: sapwd
 #-------------------------------------------------------------------------------------------
 

@@ -17,7 +17,10 @@
 #
 # Author:        yafra
 #
-# Purpose:      publish release
+# Purpose:      build step 5: publish release
+#                     uses YAFRACLASSES
+#
+# Arguments: 1) database (mysql, mssql, oracle, derby
 #-------------------------------------------------------------------------------
 
 #
@@ -28,7 +31,7 @@ then
 	echo "Environment not loaded - install first !"
 	exit
 fi
-if [ ! -d $WORKNODE/publish ]
+if [ ! -d $WORKNODE/yafra-dist ]
 then
 	echo "Main staging / publish directory not available: $WORKNODE/publish"
 	exit
@@ -38,7 +41,7 @@ fi
 # settings
 #
 TIMESTAMP="$(date +%y%m%d)"
-TDBINSTDIR=$WORKNODE/publish
+TDBINSTDIR=$WORKNODE/yafra-dist
 if [ ! -d $TDBINSTDIR ]
 then
 	echo "error: main staging / publish directory not available: $WORKNODE/publish - create first !"
@@ -78,13 +81,19 @@ cp $SYSADM/shellscripts/build-install.sh $TDBINSTDIR/install.sh
 cp $SYSADM/defaults/profile.sh $ETCDIR/yafra-profile.sh
 cp $SYSADM/shellscripts/start-tomcat.sh $BINDIR
 cp $SYSADM/shellscripts/stop-servers.sh $BINDIR
+cp $SYSADM/defaults/scripts/yafra-prgkill.sh $BINDIR
 
-# yafra java parts
+
+# database generation files
+# create yafradb and traveldb scripts and files
+
+#
+# YAFRA JAVA parts
 cp $WORKNODE/classes/* $CLASSDIR
 #python admin
 cp $WORKNODE/apps/yafrapadmin/* $APPDIR/yafrapadmin/
 
-#tdb classic
+# TDB parts
 cp $TDBCONFIG/linux/mpgui.pro $ETCDIR
 cp $YAFRAEXE/* $BINDIR
 cp -P $WORKNODE/libs/* $LIBSDIR
@@ -115,6 +124,7 @@ fi
 cp $TDBCONFIG/common/* $GUIINSTALL
 cp $TDBCONFIG/license.txt $GUIINSTALL
 
+
 #
 # set unix executable bit
 #
@@ -124,14 +134,14 @@ chmod 755 $APPDIR/tdbmono/*.exe
 chmod 755 $APPDIR/tdbdbadmin/*.pl
 chmod 755 $APPDIR/tdbpyadmin/main.py
 chmod 755 $APPDIR/yafrapadmin/Main.py
+chmod 755 $TDBINSTDIR/install.sh
 
 #
 # tar release
 #
-
 #create tar bundle for download
 cd $WORKNODE
-tar cvfz $WORKNODE/yafra-$PS_OS-$TIMESTAMP.tar.gz publish/
+tar cvfz $WORKNODE/yafra-$PS_OS-$TIMESTAMP.tar.gz yafra-dist/
 cd $YAFRACLASSES
 tar cvfz $WORKNODE/yafra-3rdparty-jars-$PS_OS-$TIMESTAMP.tar.gz --exclude "*yafra*" *
 

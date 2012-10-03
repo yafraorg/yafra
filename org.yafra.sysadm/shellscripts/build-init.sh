@@ -16,7 +16,7 @@
 #-------------------------------------------------------------------------------------------
 # Author:       yafra
 #
-# Purpose:     init build environment
+# Purpose:     build step 1: init build environment
 #
 # Sequence: build-init, build-db, build-apps, build-install, build-test, build-publish
 #-------------------------------------------------------------------------------------------
@@ -60,8 +60,8 @@ test -d $TESTSUITEO || mkdir $TESTSUITEO
 test -d $WORKNODE/classes || mkdir $WORKNODE/classes
 test -d $WORKNODE/java || mkdir $WORKNODE/java
 test -d $WORKNODE/apps || mkdir $WORKNODE/apps
-test -d $WORKNODE/publish || mkdir $WORKNODE/publish
+test -d $WORKNODE/yafra-dist || mkdir $WORKNODE/yafra-dist
 test -d $YAFRACLASSES || mkdir $YAFRACLASSES
 
-echo "continous build release $VERREL on $TIMESTAMP" > $WORKNODE/README-$VERREL.txt
-echo "https://github.com/yafraorg/yafra/wiki/Release" >> $WORKNODE/README-$VERREL.txt
+echo "continous build release $VERREL on $TIMESTAMP" > $WORKNODE/yafra-dist/README-$VERREL.txt
+echo "https://github.com/yafraorg/yafra/wiki/Release" >> $WORKNODE/yafra-dist/README-$VERREL.txt

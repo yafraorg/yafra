@@ -17,7 +17,7 @@
 #
 # Author:       Administrator
 #
-# Purpose:      test build
+# Purpose:      build step 4: test build
 #-------------------------------------------------------------------------------
 
 #

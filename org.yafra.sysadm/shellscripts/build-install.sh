@@ -17,7 +17,9 @@
 #
 # Author:       Administrator
 #
-# Purpose:      install auto build with db init
+# Purpose:      build step 6: install build with db init
+#                    This script installs the yafra distribution
+#                    and is part of the build system
 #-------------------------------------------------------------------------------
 
 #
@@ -67,40 +69,42 @@ test -d $APPDIR || mkdir $APPDIR  >> $LOGFILE 2>&1
 test -d $APPDIR/yafrapadmin || mkdir $APPDIR/yafrapadmin  >> $LOGFILE 2>&1
 
 #
+# copy setup scripts first
+#
+echo "installing setup scripts"
+cp bin/*.sh $BINDIR
+
+#
 # stop all running servers and clean up runtime environment
 #
-echo "stop server processes:" >> $LOGFILE
-$SYSADM/defaults/scripts/psprgkill mpdbi  >> $LOGFILE 2>&1
-$SYSADM/defaults/scripts/psprgkill mpnet  >> $LOGFILE 2>&1
-$SYSADM/defaults/scripts/psprgkill psserver  >> $LOGFILE 2>&1
-$SYSADM/shellscripts/stop-servers.sh >> $LOGFILE 2>&1
-rm -rf $TOMEE/webapps/org.yafra* >> $LOGFILE 2>&1
+echo "stop server processes"
+$BINDIR/yafra-prgkill.sh mpdbi
+$BINDIR/yafra-prgkill.sh mpnet
+$BINDIR/yafra-prgkill.sh psserver
+$BINDIR/stop-servers.sh
+rm -rf $TOMEE/webapps/org.yafra*
 
 #
-# make worknode executables "rwx"
+# install all binaries and apps
 #
-chmod 755 $WORKNODE/bin/*
-chmod 755 $WORKNODE/classes/*tests*
-chmod 755 $WORKNODE/apps/tdbmono/*.exe
-chmod 755 $WORKNODE/apps/tdbdbadmin/*.pl
-chmod 755 $WORKNODE/apps/tdbpyadmin/main.py
-chmod 755 $WORKNODE/apps/yafrapadmin/Main.py
-
-#
-# install yafra components
-#
-echo "install yafra java system" >> $LOGFILE
+echo "install binaries and apps"
+cp bin/* $BINDIR
+cp -P lib/* $LIBSDIR
 #python admin
-cp $WORKNODE/apps/yafrapadmin/* $APPDIR/yafrapadmin/ >> $LOGFILE
+cp $WORKNODE/apps/yafrapadmin/* $APPDIR/yafrapadmin/
+
+
+
+
 #war's
-cp $WORKNODE/classes/org.yafra.wicket.war $TOMEE/webapps >> $LOGFILE 2>&1
-cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps >> $LOGFILE 2>&1
+cp $WORKNODE/classes/org.yafra.wicket.war $TOMEE/webapps
+cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps
 # create database
 if [ -n "$1" ]; then
 	#create yafra db and run tests
-	cd $JAVANODE/org.yafra.tests.serverdirectclient >> $LOGFILE 2>&1
+	cd $JAVANODE/org.yafra.tests.serverdirectclient
 	if [ "$1" = "mysql" ]; then
-		ant installdb >> $LOGFILE 2>&1
+		ant installdb
 	fi
 	if [ "$1" = "derby" ]; then
 		ant installdbderby >> $LOGFILE 2>&1
@@ -119,7 +123,7 @@ $SYSADM/shellscripts/start-tomcat.sh >> $LOGFILE 2>&1
 #
 # install tdb components
 #
-echo "install travelDB classic system" >> $LOGFILE
+echo "install travelDB classic system"
 #create tdb db run tdb test
 # create database
 if [ -n "$1" ]
