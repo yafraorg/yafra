@@ -95,7 +95,7 @@ int MPAPIdb_connect(char *aDBname, char *aUsername, char *aPassword)
 	mysql_init(&mp_dbhandle);
 	mysql_options(&mp_dbhandle, MYSQL_OPT_COMPRESS,0);
 	mysql_options(&mp_dbhandle, MYSQL_READ_DEFAULT_GROUP,"odbc");
-	(void)strcpy(DBE_Name, "root"); // this is the schema in mysql
+	(void)strcpy(DBE_Name, "tdbadmin"); // this is the schema in mysql
 
 	if (!mysql_real_connect(&mp_dbhandle, aDBname, aUsername, aPassword, DBE_Name, 0, NULL, 0))
 		{

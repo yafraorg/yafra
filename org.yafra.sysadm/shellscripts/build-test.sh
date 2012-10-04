@@ -94,9 +94,9 @@ echo "test travelDB classic system"
 ldd $BINDIR/mpdbi
 ldd $BINDIR/mpgui
 ldd $BINDIR/mpnet
-$BINDIR/pswhat -i $EXEDIR/mpdbi
-$BINDIR/pswhat $EXEDIR/mpdbi
-$BINDIR/pswhat $EXEDIR/mpgui
+$BINDIR/pswhat -i $BINDIR/mpdbi
+$BINDIR/pswhat $BINDIR/mpdbi
+$BINDIR/pswhat $BINDIR/mpgui
 #start tests now
 $BINDIR/pschar
 $BINDIR/pslog
