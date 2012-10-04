@@ -18,7 +18,6 @@
 # Author:       yafra
 #
 # Purpose:      build step 3: make a release of exe's and libraries and tag source with it
-# Arguments: 1: dev/rel
 #
 #-------------------------------------------------------------------------------
 
@@ -46,14 +45,6 @@ echo "java classes for yafra project"
 YAFRACLASSES=/work/classes
 echo "YAFRACLASSES: $YAFRACLASSES"
 #
-echo "set c flags for compile"
-if [ "$1" = "rel"]; then
-	export OSHARED=1
-	export ODEBUG=
-else
-	export OSHARED=
-	export ODEBUG=1
-fi
 echo "OSAHRED: $OSHARED and ODEBUG: $ODEBUG"
 
 #

@@ -5,7 +5,8 @@
 
 	<node name="org.yafra.dbNode"
 		 datasource="org.yafra.dbNode.driver.xml"
-		 factory="org.apache.cayenne.conf.DriverDataSourceFactory">
+		 factory="org.apache.cayenne.conf.DriverDataSourceFactory"
+		 schema-update-strategy="org.apache.cayenne.access.dbsync.CreateIfNoSchemaStrategy">
 			<map-ref name="org.yafra.yafraMap"/>
 	 </node>
 </domain>

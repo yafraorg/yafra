@@ -20,7 +20,7 @@
 # Purpose:      build step 5: publish release
 #                     uses YAFRACLASSES
 #
-# Arguments: 1) database (mysql, mssql, oracle, derby
+# Arguments: 1) database (mysql, mssql, oracle, derby)
 #-------------------------------------------------------------------------------
 
 #
@@ -29,11 +29,6 @@
 if [ ! -d $SYSADM/defaults ]
 then
 	echo "Environment not loaded - install first !"
-	exit
-fi
-if [ ! -d $WORKNODE/yafra-dist ]
-then
-	echo "Main staging / publish directory not available: $WORKNODE/publish"
 	exit
 fi
 
@@ -52,6 +47,7 @@ ETCDIR=$TDBINSTDIR/etc
 LIBSDIR=$TDBINSTDIR/lib
 GUIINSTALL=$ETCDIR/tdb
 APPDIR=$TDBINSTDIR/apps
+DBDIR=$ETCDIR/yafradb
 CLASSDIR=$TDBINSTDIR/classes
 TDBCONFIG=$TDBSETUP/config
 echo "-> start publish with worknode $WORKNODE"
@@ -65,6 +61,7 @@ test -d $ETCDIR || mkdir $ETCDIR
 test -d $LIBSDIR || mkdir $LIBSDIR
 test -d $GUIINSTALL || mkdir $GUIINSTALL
 test -d $CLASSDIR || mkdir $CLASSDIR
+test -d $DBDIR || mkdir $DBDIR
 test -d $APPDIR || mkdir $APPDIR
 test -d $APPDIR/yafrapadmin || mkdir $APPDIR/yafrapadmin
 test -d $APPDIR/tdbmono || mkdir $APPDIR/tdbmono
@@ -86,6 +83,26 @@ cp $SYSADM/defaults/scripts/yafra-prgkill.sh $BINDIR
 
 # database generation files
 # create yafradb and traveldb scripts and files
+# create database TDB
+# this works fine on unix with perl
+if [ "$1" = "mysql" ]; then
+	echo "installing mysql database"
+	cd $TDBDB/mysql
+	$TDBDB/mysql/convert.sh
+	cp $TDBDB/mysql/* $DBDIR/
+fi
+if [ "$1" = "oracle" ]; then
+	echo "installing oracle database"
+	cd $TDBDB/oracle
+	$TDBDB/oracle/convert.sh
+	cp $TDBDB/oracle/* $DBDIR/
+fi
+if [ "$1" = "mssql" ]; then
+	echo "installing mssql database"
+	cd $TDBDB/mssql
+	$TDBDB/mssql/convert.sh
+	cp $TDBDB/mssql/* $DBDIR/
+fi
 
 #
 # YAFRA JAVA parts

@@ -38,7 +38,7 @@ echo "apache cayenne config file"
 CAYCONFIG=src/org.yafra.dbNode.driver.xml
 echo "CAYCONFIG: $CAYCONFIG"
 #this is the development version - release versions are copied later
-CAYSRCCONFIG=src/org.yafra.mysqlNode.driver.xml
+CAYSRCCONFIG=src/org.yafra.release.mysql.Node.driver.xml
 echo "CAYSRCCONFIG: $CAYSRCCONFIG - TODO make sure you changed this file according to your environment!"
 YAFRACORE=$BASENODE/org.yafra.server.core
 
@@ -66,48 +66,70 @@ fi
 # create database YAFRA
 cd $JAVANODE/org.yafra.tests.serverdirectclient
 if [ "$1" = "dev" ]; then
-	ant installdb
-else
 	if [ "$2" = "mysql" ]; then
 		echo "using the mysql localhost database"
 		cp $YAFRACORE/src/org.yafra.release.mysql.Node.driver.xml $YAFRACORE/$CAYCONFIG
-		ant installmysql
 	fi
 	if [ "$2" = "derby" ]; then
 		echo "using the derby localhost database"
 		cp $YAFRACORE/src/org.yafra.release.derby.Node.driver.xml $YAFRACORE/$CAYCONFIG
-		ant installderby
 	fi
 	if [ "$2" = "oracle" ]; then
 		echo "using the oracle localhost database"
 		cp $YAFRACORE/src/org.yafra.release.oracle.Node.driver.xml $YAFRACORE/$CAYCONFIG
-		ant installora
 	fi
 	if [ "$2" = "mssql" ]; then
 		echo "using the mssql localhost database"
 		cp $YAFRACORE/src/org.yafra.release.mssql.Node.driver.xml $YAFRACORE/$CAYCONFIG
-		ant installmssql
+	fi
+else
+	if [ "$2" = "mysql" ]; then
+		echo "using the mysql localhost database"
+		cp $YAFRACORE/src/org.yafra.release.mysql.Node.driver.xml $YAFRACORE/$CAYCONFIG
+	fi
+	if [ "$2" = "derby" ]; then
+		echo "using the derby localhost database"
+		cp $YAFRACORE/src/org.yafra.release.derby.Node.driver.xml $YAFRACORE/$CAYCONFIG
+	fi
+	if [ "$2" = "oracle" ]; then
+		echo "using the oracle localhost database"
+		cp $YAFRACORE/src/org.yafra.release.oracle.Node.driver.xml $YAFRACORE/$CAYCONFIG
+	fi
+	if [ "$2" = "mssql" ]; then
+		echo "using the mssql localhost database"
+		cp $YAFRACORE/src/org.yafra.release.mssql.Node.driver.xml $YAFRACORE/$CAYCONFIG
 	fi
 fi
+
 cd -
 
 
 # create database TDB
 # this works fine on unix with perl
-if [ "$1" = "rel" ]; then
+if [ "$3" = "setupdb" ]; then
 	if [ "$2" = "mysql" ]; then
 		echo "installing mysql database"
 		cd $TDBDB/mysql
 		$TDBDB/mysql/generate.sh tdbadmin $SAPWD
+		cd $JAVANODE/org.yafra.tests.serverdirectclient
+		ant installmysql
 	fi
 	if [ "$2" = "oracle" ]; then
 		echo "installing oracle database"
 		cd $TDBDB/oracle
 		$TDBDB/oracle/generate.bat tdbadmin $SAPWD
+		cd $JAVANODE/org.yafra.tests.serverdirectclient
+		ant installora
 	fi
 	if [ "$2" = "mssql" ]; then
 		echo "installing mssql database"
 		cd $TDBDB/mssql
 		$TDBDB/mssql/generate.bat $SAPWD yafra
+		cd $JAVANODE/org.yafra.tests.serverdirectclient
+		ant installmssql
+	fi
+	if [ "$2" = "derby" ]; then
+		echo "installing derby database"
+		ant installderby
 	fi
 fi

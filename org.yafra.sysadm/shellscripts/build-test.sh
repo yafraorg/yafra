@@ -45,6 +45,18 @@ echo "TIMESTAMP: $TIMESTAMP"
 
 cd $WORKNODE
 
+
+# start servers first
+#
+#$BINDIR/mpdbi -daemon
+#$BINDIR/psserver -daemon
+#$BINDIR/mpnet -daemon
+#cp $WORKNODE/classes/org.yafra.wicket.war $TOMEE/webapps
+#cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps
+#$SYSADM/shellscripts/start-tomcat.sh
+
+
+
 #
 # test yafra components
 #
@@ -66,6 +78,8 @@ ldd $BINDIR/mpdbi
 ldd $BINDIR/mpgui
 ldd $BINDIR/mpnet
 $BINDIR/pswhat -i $EXEDIR/mpdbi
+$BINDIR/pswhat $EXEDIR/mpdbi
+$BINDIR/pswhat $EXEDIR/mpgui
 #start tests now
 $BINDIR/pschar
 $BINDIR/pslog

@@ -17,7 +17,7 @@
 #
 # Author:       Administrator
 #
-# Purpose:      automatic nightly build
+# Purpose:      automatic distribution build
 # Arguments: 1: "database type (mysql, mssql, oracle, derby)" 2: "reset" (reset local git repo)
 #-------------------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ then
 fi
 
 if [ -z "$1" ]; then
-	echo "missing arguments 1 mysql/derby/mssql/oracle (2 reset - optional reset of git)"
+	echo "missing arguments 1 dev/rel 2 mysql/derby/mssql/oracle"
 	exit
 fi
 
@@ -42,11 +42,32 @@ fi
 TIMESTAMP="$(date +%y%m%d)"
 LOGFILE=/tmp/YAFRA-buildghost-$TIMESTAMP.log
 LOGFILEADM=/tmp/YAFRA-buildghostadmin-$TIMESTAMP.log
-echo "-> start auto ghost build with basenode $BASENODE" > $LOGFILEADM
+echo "-> start auto distribution build with basenode $BASENODE" > $LOGFILEADM
 echo "settings:" >> $LOGFILEADM
 echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILEADM
 echo "LOGFILEADM: $LOGFILEADM" >> $LOGFILEADM
 echo "LOGFILE: $LOGFILE" >> $LOGFILEADM
+
+# set environment to build distribution - no debug, correct build settings
+if [ "$PS_OS" = "ps_cygwin" ]; then
+	export OSHARED=
+	export ODEBUG=
+else
+	export OSHARED=1
+	export ODEBUG=
+fi
+
+if [ "$1" = "mysql" ]; then
+	export TDBMYSQL=1
+fi
+if [ "$1" = "mssql" ]; then
+	#export TDBMSSQL=1
+	export TDBODBC=1
+fi
+if [ "$1" = "oracle" ]; then
+	export TDBORACLE=1
+	#export TDBORACLECLASSIC=1
+fi
 
 # get newest source via git pull without pwd
 if [ "$2" = "reset" ]; then
@@ -63,9 +84,18 @@ echo "init build" >> $LOGFILEADM
 $SYSADM/shellscripts/build-init.sh > $LOGFILE 2>&1
 echo "init done" >> $LOGFILEADM
 
-# create development db
-echo "create dev db now" >> $LOGFILEADM
-$SYSADM/shellscripts/build-db.sh dev $1 >> $LOGFILE 2>&1
+# create release note
+echo "yafra release $YAFRAVER.$YAFRAREL" > $WORKNODE/yafra-dist/RELEASE.txt
+echo "\n" >> $WORKNODE/yafra-dist/RELEASE.txt
+echo "distribution release build on $TIMESTAMP" >> $WORKNODE/yafra-dist/RELEASE.txt
+echo "distribution target OS: $PS_OS and DB: $1" >> $WORKNODE/yafra-dist/RELEASE.txt
+echo "\n" >> $WORKNODE/yafra-dist/RELEASE.txt
+echo "https://github.com/yafraorg/yafra/wiki/Release" >> $WORKNODE/yafra-dist/RELEASE.txt
+
+
+# set db
+echo "create rel $1 db now" >> $LOGFILEADM
+$SYSADM/shellscripts/build-db.sh rel $1 >> $LOGFILE 2>&1
 echo "build done" >> $LOGFILEADM
 
 # build
@@ -73,11 +103,11 @@ echo "build" >> $LOGFILEADM
 $SYSADM/shellscripts/build-apps.sh >> $LOGFILE 2>&1
 echo "build done" >> $LOGFILEADM
 
-# test
-echo "test" >> $LOGFILEADM
-$SYSADM/shellscripts/build-test.sh >> $LOGFILE 2>&1
-echo "test done" >> $LOGFILEADM
+# publish build
+echo "publish build" >> $LOGFILEADM
+$SYSADM/shellscripts/build-publish.sh $1 >> $LOGFILE 2>&1
+echo "publish done" >> $LOGFILEADM
 
-echo "ghost build done" >> $LOGFILEADM
+echo "distribution build done" >> $LOGFILEADM
 
 exit

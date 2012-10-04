@@ -62,6 +62,3 @@ test -d $WORKNODE/java || mkdir $WORKNODE/java
 test -d $WORKNODE/apps || mkdir $WORKNODE/apps
 test -d $WORKNODE/yafra-dist || mkdir $WORKNODE/yafra-dist
 test -d $YAFRACLASSES || mkdir $YAFRACLASSES
-
-echo "continous build release $VERREL on $TIMESTAMP" > $WORKNODE/yafra-dist/README-$VERREL.txt
-echo "https://github.com/yafraorg/yafra/wiki/Release" >> $WORKNODE/yafra-dist/README-$VERREL.txt
