@@ -15,8 +15,8 @@
 
 CORENAME = psmatrix
 VER_NAME = "MATRIX library (c) Bellcore Xbae"
-RELEASE  = 1.0.0
-SONAMEVER = 1
+RELEASE  = $(YAFRAVER).$(YAFRAREL).0
+SONAMEVER = $(YAFRAVER)
 
 #
 # Path definitions (P....)

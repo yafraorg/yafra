@@ -20,8 +20,8 @@
 
 CORENAME = psmodul
 VER_NAME = "Yafra.org - portable LICENSE MODULE library"
-RELEASE  = 1.0.0
-SONAMEVER = 1
+RELEASE  = $(YAFRAVER).$(YAFRAREL).0
+SONAMEVER = $(YAFRAVER)
 
 #
 #--- Path definitions 

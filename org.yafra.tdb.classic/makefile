@@ -23,8 +23,7 @@
 # ---- set RELEASE and VERSION ----------------------------
 #
 TDBVER = "$(YAFRAVER)"
-TDBREL = "$(YAFRAREL)"
-RELEASE = "$(YAFRAVER).0"
+RELEASE = "$(YAFRAVER).$(YAFRAREL).0"
 MAKE    = make
 #NICE   = nice -15
 

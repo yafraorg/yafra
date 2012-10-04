@@ -133,7 +133,7 @@ under the License.
 	    	driver="com.mysql.jdbc.Driver"
 			droppk="yes"
 			droptables="yes"
-	    	url="jdbc:mysql://webdevelop/yafra"
+	    	url="jdbc:mysql://localhost/yafra"
 			password="yafra"
 	    	username="yafraadmin"/>
 	</target>

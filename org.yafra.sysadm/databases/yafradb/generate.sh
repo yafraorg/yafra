@@ -17,20 +17,28 @@
 # generate database yafradb
 #
 #
-# arguments are: 1: mysql database/schema 2: dba system pwd
+# arguments are: 1: db type 2: dba system pwd
 if [ -z "$1" ]; then
-        echo Please specify 2 parameters: 1 db/schema and 2 dba system pwd
+        echo Please specify 1: db type 2: dba system pwd
         exit
 fi
 
 # 
 # CREATE CORE DATABASE
 #
-echo Create a new "traveldb" database by your mysql tools
-echo "\n"
-mysql --user=root --password=$2 -v -v <dbe_delete.sql
-mysql --user=root --password=$2 -v -v <dbe_create.sql >tdb_core_$1.log
+echo Create a new "yafradb" database by your tools
 
-echo Creates the core database ...
-echo ... tables and functions stored procs
-mysql $1 --user=root --password=$2 -v -v <mysql_dbe_tables.sql >>tdb_core_$1.log
+if [ "$1" = "mysql" ]; then
+	echo "installing mysql database"
+	mysql --user=root --password=$2 -v -v <dbe_init_mysql.sql
+fi
+if [ "$1" = "oracle" ]; then
+	echo "installing oracle database"
+	sqlplus system/$2@XE <dbe_init_oracle.sql
+fi
+if [ "$1" = "mssql" ]; then
+	echo "installing mssql database"
+	sqlcmd -S .\SQLExpress -U sa -P $2 -d yafradb -Q "CREATE LOGIN [%TDBUSER%] WITH PASSWORD=N'$1', CHECK_POLICY=OFF, DEFAULT_DATABASE=[%DBNAME%]"
+	sqlcmd -S .\SQLExpress -U sa -P $2 -d yafradb -Q "CREATE SCHEMA [%TDBUSER%] AUTHORIZATION [dbo]" >>tdb_core.REM %DBCMD% -U sa -P %1 -d %DBNAME% -Q "CREATE LOGIN [%TDBUSER%] WITH PASSWORD=N'%2', CHECK_POLICY=OFF, DEFAULT_DATABASE=[%DBNAME%]"
+	sqlcmd -S .\SQLExpress -U sa -P $2 -i dbe_init_mssql.sql
+fi

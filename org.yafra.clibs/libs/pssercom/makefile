@@ -19,8 +19,8 @@
 
 CORENAME    = pssercom
 VER_NAME    = "Yafra.org - portable serial communication library"
-RELEASE  = 1.0.0
-SONAMEVER = 1
+RELEASE  = $(YAFRAVER).$(YAFRAREL).0
+SONAMEVER = $(YAFRAVER)
 OSHARED=
 
 #

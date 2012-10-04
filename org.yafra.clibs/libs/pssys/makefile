@@ -32,8 +32,8 @@
 
 CORENAME    = pssys
 VER_NAME    = "Yafra.org - portable SYS library"
-RELEASE  = 1.0.0
-SONAMEVER = 1
+RELEASE  = $(YAFRAVER).$(YAFRAREL).0
+SONAMEVER = $(YAFRAVER)
 
 #
 #--- Path definitions 

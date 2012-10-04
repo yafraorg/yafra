@@ -172,7 +172,7 @@ int main(int argc, char **argv)
 	char	query[_QUERYLEN];
 	char	*coredump = NULL;
 	MEMOBJ	sqlmem;
-	int	sprache;                /* Momentan g�ltige Sprach Id */
+	int	sprache;                /* language id */
 	int	intretval = (int)_INTEGER;
 	char	mp_dbname[128];
 	char MailFile[RECLAENGE];
@@ -265,11 +265,11 @@ int main(int argc, char **argv)
 
 #ifdef TDBDUMMY
 	(void)printf("Dummy DB only - no operations to do with db\n", status);
-	exit(-1);
+	exit(0);
 #endif
 
 	/* DB connect */
-	status = MPAPIdb_connect(mp_dbname, "root", "magnol");
+	status = MPAPIdb_connect(mp_dbname, "tdbadmin", "yafra");
 	if (status != (int)MPOK)
 		{
 		(void)printf("\nError opening the DB wiht code %d\n", status);

@@ -20,8 +20,8 @@
 
 CORENAME = psgui
 VER_NAME = "Yafra.org - portable small X11 GUI library"
-RELEASE  = 1.0.0
-SONAMEVER = 1
+RELEASE  = $(YAFRAVER).$(YAFRAREL).0
+SONAMEVER = $(YAFRAVER)
 
 #
 # path/flag declarations for release and develop

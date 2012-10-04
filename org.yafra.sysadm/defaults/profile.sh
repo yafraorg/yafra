@@ -22,8 +22,9 @@
 #
 # set current version info
 #
-export YAFRAVER="1.0"
-export YAFRAREL="B1"
+export YAFRAVER="1"
+export YAFRAREL="0"
+export YAFRAPATCH="B1"
 
 #
 # setup general paths
