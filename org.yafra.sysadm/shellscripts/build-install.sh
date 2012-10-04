@@ -41,7 +41,7 @@ fi
 TIMESTAMP="$(date +%y%m%d)"
 LOGFILE=$WORKNODE/YAFRA-install-$TIMESTAMP.log
 TOMEE=/work/apache-tomee-webprofile-1.0.0
-DBSERVER=webdevelop
+DBSERVER=localhost
 echo "-> start auto build with basenode $BASENODE and version $YAFRAVER.$YAFRAREL" > $LOGFILE
 echo "settings:" >> $LOGFILE
 echo "TOMEE: $TOMEE" >> $LOGFILE
@@ -77,12 +77,15 @@ cp bin/*.sh $BINDIR
 #
 # stop all running servers and clean up runtime environment
 #
-echo "stop server processes"
-$BINDIR/yafra-prgkill.sh mpdbi
-$BINDIR/yafra-prgkill.sh mpnet
-$BINDIR/yafra-prgkill.sh psserver
-$BINDIR/stop-servers.sh
-rm -rf $TOMEE/webapps/org.yafra*
+
+if [ "$DBSERVER" = "localhost" ]; then
+	echo "stop server processes"
+	$BINDIR/yafra-prgkill.sh mpdbi
+	$BINDIR/yafra-prgkill.sh mpnet
+	$BINDIR/yafra-prgkill.sh psserver
+	$BINDIR/stop-servers.sh
+	rm -rf $TOMEE/webapps/org.yafra*
+fi
 
 #
 # install all binaries and apps

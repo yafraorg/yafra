@@ -31,11 +31,6 @@ echo Create a new "traveldb" database by your Oracle Client tools
 echo "\n"
 sqlplus system/$2@$1 <dbe_users.sql >mapo_core_$1.log
 
-# 
-# convert abstract scripts
-#
-. ./convert.sh
-
 #
 # execute scripts
 #

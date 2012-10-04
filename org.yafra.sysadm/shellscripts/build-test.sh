@@ -29,6 +29,12 @@ then
 	exit
 fi
 
+# database server
+DBSERVER="localhost"
+if [ -n "$1" ]; then
+	DBSERVER="$1"
+fi
+
 #
 # settings
 #
@@ -45,16 +51,27 @@ echo "TIMESTAMP: $TIMESTAMP"
 
 cd $WORKNODE
 
+if [ "$OSHARED" = "1" ]; then
+	sudo cp -P $WORKNODE/libs/* /usr/local/lib
+	sudo ldconfig
+fi
 
 # start servers first
 #
-#$BINDIR/mpdbi -daemon
-#$BINDIR/psserver -daemon
-#$BINDIR/mpnet -daemon
-#cp $WORKNODE/classes/org.yafra.wicket.war $TOMEE/webapps
-#cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps
-#$SYSADM/shellscripts/start-tomcat.sh
 
+if [ "$DBSERVER" = "localhost" ]; then
+	sudo $YAFRABIN/yafra-prgkill.sh mpdbi
+	sudo $YAFRABIN/yafra-prgkill.sh mpnet
+	sudo $YAFRABIN/yafra-prgkill.sh psserver
+	$BINDIR/mpdbi -daemon
+	$BINDIR/psserver -daemon
+	$BINDIR/mpnet -daemon
+	sudo $SYSADM/shellscripts/start-tomcat.sh
+	sudo rm -rf $TOMEE/webapps/org.yafra*
+	sudo cp $WORKNODE/classes/org.yafra.wicket.war $TOMEE/webapps
+	sudo cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps
+	sudo $SYSADM/shellscripts/start-tomcat.sh
+fi
 
 
 #

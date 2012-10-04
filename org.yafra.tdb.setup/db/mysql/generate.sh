@@ -36,11 +36,6 @@ echo "\n"
 mysql --user=root --password=$2 -v -v <dbe_delete.sql
 mysql --user=root --password=$2 -v -v <dbe_create.sql >tdb_core_$1.log
 
-# 
-# convert abstract scripts
-#
-. ./convert.sh
-
 #
 # execute scripts
 #

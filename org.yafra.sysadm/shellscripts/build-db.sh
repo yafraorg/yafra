@@ -82,6 +82,9 @@ if [ "$1" = "dev" ]; then
 		echo "using the mssql localhost database"
 		cp $YAFRACORE/src/org.yafra.release.mssql.Node.driver.xml $YAFRACORE/$CAYCONFIG
 	fi
+	if [ "$DBSERVER" != "localhost" ]; then
+		sed -i 's/localhost/$DBSERVER/g' $YAFRACORE/$CAYCONFIG
+	fi
 else
 	if [ "$2" = "mysql" ]; then
 		echo "using the mysql localhost database"
@@ -110,6 +113,7 @@ if [ "$3" = "setupdb" ]; then
 	if [ "$2" = "mysql" ]; then
 		echo "installing mysql database"
 		cd $TDBDB/mysql
+		$TDBDB/mysql/convert.sh
 		$TDBDB/mysql/generate.sh tdbadmin $SAPWD
 		cd $JAVANODE/org.yafra.tests.serverdirectclient
 		ant installmysql
@@ -117,6 +121,7 @@ if [ "$3" = "setupdb" ]; then
 	if [ "$2" = "oracle" ]; then
 		echo "installing oracle database"
 		cd $TDBDB/oracle
+		$TDBDB/oracle/convert.sh
 		$TDBDB/oracle/generate.bat tdbadmin $SAPWD
 		cd $JAVANODE/org.yafra.tests.serverdirectclient
 		ant installora
@@ -124,6 +129,7 @@ if [ "$3" = "setupdb" ]; then
 	if [ "$2" = "mssql" ]; then
 		echo "installing mssql database"
 		cd $TDBDB/mssql
+		$TDBDB/mssql/convert.sh
 		$TDBDB/mssql/generate.bat $SAPWD yafra
 		cd $JAVANODE/org.yafra.tests.serverdirectclient
 		ant installmssql
