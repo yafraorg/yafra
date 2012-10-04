@@ -8,8 +8,10 @@ use yafra;
 commit;
 
 /* create root user */
-grant all privileges on yafra.* to 'yafraadmin' identified by 'yafraadmin' with grant option;
-/*grant all privileges on yafra.* to 'yafraadmin@% localhost' identified by 'yafraadmin' with grant option;*/
+CREATE USER 'yafraadmin'@'localhost' IDENTIFIED BY  'yafra';
+GRANT ALL PRIVILEGES ON * . * TO  'yafraadmin'@'localhost' IDENTIFIED BY  'yafra' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
+GRANT ALL PRIVILEGES ON  `yafraadmin\_%` . * TO  'yafraadmin'@'localhost';
+
 commit;
 
 /* create roles */

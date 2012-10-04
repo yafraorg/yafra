@@ -110,6 +110,8 @@ cd -
 # create database TDB
 # this works fine on unix with perl
 if [ "$3" = "setupdb" ]; then
+	cd $SYSADM/databases/yafradb
+	./generate.sh $2 $SAPWD
 	if [ "$2" = "mysql" ]; then
 		echo "installing mysql database"
 		cd $TDBDB/mysql

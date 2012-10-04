@@ -5,7 +5,7 @@ use tdbadmin;
 commit;
 
 /* create root user */
-grant all privileges on tdbadmin.* to 'tdbadmin@%' identified by 'tdbadmin' with grant option;
+grant all privileges on tdbadmin.* to 'tdbadmin' identified by 'tdbadmin' with grant option;
 commit;
 
 /* create roles */

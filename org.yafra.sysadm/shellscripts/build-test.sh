@@ -56,9 +56,13 @@ if [ "$OSHARED" = "1" ]; then
 	sudo ldconfig
 fi
 
+#
+# start yafra test first as this creates the tables if they are still missing
+java -classpath $YAFRACLASSES -jar $WORKNODE/classes/org.yafra.tests.serverdirectclient.jar
+
+#
 # start servers first
 #
-
 if [ "$DBSERVER" = "localhost" ]; then
 	sudo $YAFRABIN/yafra-prgkill.sh mpdbi
 	sudo $YAFRABIN/yafra-prgkill.sh mpnet
@@ -79,7 +83,6 @@ fi
 #
 echo "test yafra java system at version $YAFRAVER.$YAFRAREL"
 java -classpath $YAFRACLASSES -jar $WORKNODE/classes/org.yafra.tests.utils.jar
-java -classpath $YAFRACLASSES -jar $WORKNODE/classes/org.yafra.tests.serverdirectclient.jar
 #java -jar $WORKNODE/classes/org.yafra.tests.serverejb3.jar
 #java -jar $WORKNODE/classes/org.yafra.tests.wsclient.jar
 
