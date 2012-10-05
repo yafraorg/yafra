@@ -1,19 +1,20 @@
-/* drop any old database first */
-DROP SCHEMA if exists yafra;
+/* drop any old database / users first */
+DROP DATABASE if exists yafra;
+drop user 'yafraadmin'@'localhost';
+drop user 'yafraadmin'@'192.168.%.%';
+commit;
 
-/* use the newly created database now */
-/* create database root DEFAULT CHARACTER SET utf8; for UTF8 support */
+/* create users */
+CREATE USER 'yafraadmin'@'localhost' IDENTIFIED BY  'yafra';
+CREATE USER 'yafraadmin'@'192.168.%.%' IDENTIFIED BY  'yafra';
+commit;
+
+/* create database now */
+/* create database yafra DEFAULT CHARACTER SET utf8; for UTF8 support */
 create database yafra;
 use yafra;
 commit;
 
-/* create root user */
-CREATE USER 'yafraadmin'@'localhost' IDENTIFIED BY  'yafra';
-GRANT ALL PRIVILEGES ON * . * TO  'yafraadmin'@'localhost' IDENTIFIED BY  'yafra' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
-GRANT ALL PRIVILEGES ON  `yafraadmin\_%` . * TO  'yafraadmin'@'localhost';
-
+GRANT ALL PRIVILEGES ON yafra. * TO  'yafraadmin'@'localhost';
+GRANT ALL PRIVILEGES ON yafra. * TO  'yafraadmin'@'192.168.%.%';
 commit;
-
-/* create roles */
-
-/* add members to the roles */

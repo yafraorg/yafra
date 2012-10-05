@@ -30,7 +30,7 @@ echo Create a new "yafradb" database by your tools
 
 if [ "$1" = "mysql" ]; then
 	echo "installing mysql database"
-	mysql --user=root --password=$2 -v -v <dbe_init_mysql.sql
+	mysql --user=root --password=$2 --force -v -v <dbe_init_mysql.sql
 fi
 if [ "$1" = "oracle" ]; then
 	echo "installing oracle database"
