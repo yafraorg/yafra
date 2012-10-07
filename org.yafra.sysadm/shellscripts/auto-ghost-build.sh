@@ -65,7 +65,11 @@ echo "init done" >> $LOGFILEADM
 
 # create development db
 echo "create dev db now" >> $LOGFILEADM
-$SYSADM/shellscripts/build-db.sh dev $1 >> $LOGFILE 2>&1
+if [ "$2" = "reset" ]; then
+	$SYSADM/shellscripts/build-db.sh dev $1 setupdb >> $LOGFILE 2>&1
+else
+	$SYSADM/shellscripts/build-db.sh dev $1 >> $LOGFILE 2>&1
+fi
 echo "build done" >> $LOGFILEADM
 
 # build
