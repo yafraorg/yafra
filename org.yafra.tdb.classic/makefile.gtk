@@ -77,7 +77,7 @@ include $(YAFRATOOLS)/include/prgflags.mak
 # defines for compiler and linker
 #
 ifeq ($(PS_OS),ps_linux)
-LIBS = -ltdb -ltdbcomm -ltdbxml -lpsmodul -lpsipc -lpssys \
+LIBS = -ltdbcommon -ltdbcomm -ltdbxml -lpsmodul -lpsipc -lpssys \
        -lXm -lXpm -lXt -lX11 -lXext -lm 
 ADDON = `pkg-config --cflags gtk+-3.0` $(XMLINC)
 ADDLIBS = `pkg-config --libs gtk+-3.0` $(XMLLIB)
@@ -85,7 +85,7 @@ endif
 
 ifeq ($(PS_OS),ps_mingw)
 ADDON = -mno-cygwin -mms-bitfields `pkg-config --cflags gtk+-win32-2.0` $(XMLINC)
-LIBS = `pkg-config --libs gtk+-win32-2.0` -ltdb -ltdbcomm -ltdbxml -lpsipc -lpssys -lwsock32 -ladvapi32 -luser32
+LIBS = `pkg-config --libs gtk+-win32-2.0` -ltdbcommon -ltdbcomm -ltdbxml -lpsipc -lpssys -lwsock32 -ladvapi32 -luser32
 ADDLIBS = -mno-cygwin $(XMLLIB)
 CC=gcc
 LD=gcc
@@ -94,7 +94,7 @@ endif
 # does not work currently, because cygwin GTK 2.0 is not out as native cygwin and with GTK win32 is does not work
 ifeq ($(PS_OS),ps_cygwin)
 ADDGNOME = `pkg-config --libs gtk`
-LIBS = -ltdb -ltdbcomm -ltdbxml -lpsmodul -lpsipc -lpssys \
+LIBS = -ltdbcommon -ltdbcomm -ltdbxml -lpsmodul -lpsipc -lpssys \
        -lXm -lXpm -lXt -lX11 -lXext -lICE -lSM -lm -lwinmm -lxml2 $(ADDGNOME)
 ADDON = `pkg-config --cflags gtk` $(XMLINC)
 ADDLIBS = 
@@ -103,7 +103,7 @@ endif
 ifeq ($(PS_OS),ps_hpux)
 ADDGNOME = `gnome-config --libs gtk`
 AUDIOLIBS=-L/opt/audio/lib -lAlib
-LIBS = -ltdb -ltdbcomm -ltdbxml -lpsmodul -lpsipc -lpssys \
+LIBS = -ltdbcommon -ltdbcomm -ltdbxml -lpsmodul -lpsipc -lpssys \
        $(AUDIOLIBS) -lXm -lXt -lXext -lX11 $(ADDGNOME)
 ADDON = -Ae +w1 `gnome-config --cflags gtk` $(XMLINC)
 ADDLIBS = $(XMLLIB)

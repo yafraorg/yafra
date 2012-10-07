@@ -16,7 +16,7 @@
 # P: PATH
 # F: FLAG
 
-CORENAME = tdb
+CORENAME = tdbcommon
 VER_NAME = "travelDB global library"
 SONAMEVER = $(MAPOVER)
 

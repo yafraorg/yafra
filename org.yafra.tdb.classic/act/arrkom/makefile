@@ -60,7 +60,7 @@ include $(TDBS)/makefile.dblib
 ifeq ($(PS_OS),ps_winnt)
 LIBS = @ntactlibs.txt
 else
-LIBS = -ltdbact -ltdbdb -ltdb -lpssercom -lpssys $(DBLIBS)
+LIBS = -ltdbact -ltdbdb -ltdbcomm -ltdbcommon -lpssercom -lpssys $(DBLIBS)
 endif
 
 #

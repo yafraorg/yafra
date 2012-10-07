@@ -57,23 +57,23 @@ include $(YAFRATOOLS)/include/searchpath.mak
 # link libraries
 #
 ifeq ($(PS_OS),ps_linux)
-LIBS = -ltdbcomm -ltdb -lpsmatrix -lpsmume -lpsmodul -lpsipc -lpssys \
+LIBS = -ltdbcomm -ltdbcommon -lpsmatrix -lpsmume -lpsmodul -lpsipc -lpssys \
        $(ADDLIBS) -lXm -lXpm -lXt -lX11 -lXext -lm 
 endif
 
 ifeq ($(PS_OS),ps_hpux)
 AUDIOLIBS=-L/opt/audio/lib -lAlib
-LIBS = -ltdbcomm -ltdb -lpsmatrix -lpsmume -lpsmodul -lpsipc -lpssys \
+LIBS = -ltdbcomm -ltdbcommon -lpsmatrix -lpsmume -lpsmodul -lpsipc -lpssys \
        $(AUDIOLIBS) $(ADDLIBS) -lXm -lXt -lXext -lX11 -lPW -lm 
 endif
 
 ifeq ($(PS_OS),ps_mingw)
-LIBS = -ltdbcomm -ltdb -lpsmatrix -lpsmume -lpsmodul -lpsipc -lpssys \
+LIBS = -ltdbcomm -ltdbcommon -lpsmatrix -lpsmume -lpsmodul -lpsipc -lpssys \
        $(ADDLIBS) -lXm -lXpm -lXt -lX11 -lXext -lICE -lSM -lm -lwinmm 
 endif
 
 ifeq ($(PS_OS),ps_cygwin)
-LIBS = -ltdbcomm -ltdb -lpsmatrix -lpsmume -lpsmodul -lpsipc -lpssys \
+LIBS = -ltdbcomm -ltdbcommon -lpsmatrix -lpsmume -lpsmodul -lpsipc -lpssys \
       $(ADDLIBS) -lXm -lXpm -lXt -lX11 -lXext -lICE -lSM -lm -lwinmm 
 endif
 

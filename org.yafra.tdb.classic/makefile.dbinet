@@ -58,19 +58,19 @@ include $(YAFRATOOLS)/include/searchpath.mak
 include makefile.dblib
 
 ifeq ($(PS_OS),ps_hpux)
-LIBS     = -ltdbdb -ltdbxml -ltdbcomm -ltdb -lpsipc -lpssys $(ADDLIBS) $(DBLIBS) -lportnls -lcl
+LIBS     = -ltdbdb -ltdbxml -ltdbcomm -ltdbcommon -lpsipc -lpssys $(ADDLIBS) $(DBLIBS) -lportnls -lcl
 endif
 
 ifeq ($(PS_OS),ps_linux)
-LIBS     = -ltdb -ltdbdb -ltdbxml -ltdbcomm -lpsipc -lpssys $(ADDLIBS) $(DBLIBS)
+LIBS     = -ltdbcommon -ltdbdb -ltdbxml -ltdbcomm -lpsipc -lpssys $(ADDLIBS) $(DBLIBS)
 endif
 
 ifeq ($(PS_OS),ps_cygwin)
-LIBS     = -ltdbdb -ltdbxml -ltdbcomm -ltdb -lpsipc -lpssys $(ADDLIBS) $(DBLIBS)
+LIBS     = -ltdbdb -ltdbxml -ltdbcomm -ltdbcommon -lpsipc -lpssys $(ADDLIBS) $(DBLIBS)
 endif
 
 ifeq ($(PS_OS),ps_mingw)
-LIBS     = -ltdbdb -ltdbxml -ltdbcomm -ltdb -lpsipc -lpssys $(ADDLIBS) $(DBLIBS) -lwsock32 -ladvapi32 -luser32
+LIBS     = -ltdbdb -ltdbxml -ltdbcomm -ltdbcommon -lpsipc -lpssys $(ADDLIBS) $(DBLIBS) -lwsock32 -ladvapi32 -luser32
 endif
 
 #
