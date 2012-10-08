@@ -29,7 +29,7 @@ then
 	exit
 fi
 if [ -z "$2" ]; then
-	echo "missing arguments 1 dev/rel 2 mysql/derby/mssql/oracle"
+	echo "missing arguments 1 dev/rel 2 mysql/derby/mssql/oracle 3 host or setupdb 4 sa/dba pwd"
 	exit
 fi
 
@@ -45,7 +45,9 @@ YAFRACORE=$BASENODE/org.yafra.server.core
 # database server
 DBSERVER="localhost"
 if [ -n "$3" ]; then
-	DBSERVER="$3"
+	if [ "$3" != "setupdb" ]; then
+		DBSERVER="$3"
+	fi
 fi
 
 # database root/dba password
@@ -57,11 +59,9 @@ fi
 # print settings
 echo "create database in mode $1, dbtype $2, server $DBSERVER, dbapwd $SAPWD"
 
-# create default cayenne config - use CAYCONFIG to set to your default config
-if [ ! -f $YAFRACORE/$CAYCONFIG ]
-then
-cp $YAFRACORE/$CAYSRCCONFIG $YAFRACORE/$CAYCONFIG
-fi
+#if [ ! -f $YAFRACORE/$CAYCONFIG ]; then
+#cp $YAFRACORE/$CAYSRCCONFIG $YAFRACORE/$CAYCONFIG
+#fi
 
 # create database YAFRA
 cd $JAVANODE/org.yafra.tests.serverdirectclient
@@ -86,6 +86,8 @@ if [ "$1" = "dev" ]; then
 		sed -i 's/localhost/$DBSERVER/g' $YAFRACORE/$CAYCONFIG
 	fi
 else
+	# copy a default config and later the correct one according $2
+	cp $YAFRACORE/$CAYSRCCONFIG $YAFRACORE/$CAYCONFIG
 	if [ "$2" = "mysql" ]; then
 		echo "using the mysql localhost database"
 		cp $YAFRACORE/src/org.yafra.release.mysql.Node.driver.xml $YAFRACORE/$CAYCONFIG

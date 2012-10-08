@@ -40,7 +40,6 @@ fi
 #
 TIMESTAMP="$(date +%y%m%d)"
 TOMEE=/work/apache-tomee-webprofile-1.0.0
-DBSERVER=localhost
 BINDIR=$YAFRAEXE
 APPDIR=$WORKNODE/apps
 echo "-> start test build with basenode $BASENODE"
@@ -97,14 +96,14 @@ echo "test travelDB classic system"
 ldd $BINDIR/mpdbi
 ldd $BINDIR/mpgui
 ldd $BINDIR/mpnet
-$BINDIR/pswhat -i $BINDIR/mpdbi
+$BINDIR/pswhat -i $BINDIR/pswhat
 $BINDIR/pswhat $BINDIR/mpdbi
 $BINDIR/pswhat $BINDIR/mpgui
 #start tests now
 $BINDIR/pschar
 $BINDIR/pslog
 $BINDIR/psdatetime -d 01.01.2013 -t 12.30
-$BINDIR/psclientcons localhost
+$BINDIR/psclientcons $DBSERVER
 $BINDIR/mpstruct
 $BINDIR/mptest -n $DBSERVER
 $APPDIR/tdbmono/tdbtest.exe tdbadmin $DBSERVER MySQL
