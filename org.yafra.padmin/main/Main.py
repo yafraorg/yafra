@@ -27,7 +27,7 @@ import MySQLdb
 import sys
 
 print("start")
-db=MySQLdb.connect(host="webdevelop",user="yafraadmin",passwd="yafra",db="yafra")
+db=MySQLdb.connect(host=sys.argv[1],user="yafraadmin",passwd="yafra",db="yafra")
 print ("got connecton")
 
 
