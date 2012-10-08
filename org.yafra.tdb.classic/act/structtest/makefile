@@ -55,11 +55,11 @@ include $(YAFRATOOLS)/include/searchpath.mak
 include $(TDBS)/makefile.dblib
 
 ifeq ($(PS_OS),ps_hpux)
-LIBS = -ltdbact -ltdbdb -ltdbact -ltdbdb -ltdb -lpssys $(DBLIBS) -lportnls -lcl
+LIBS = -ltdbact -ltdbdb -ltdbact -ltdbdb -ltdbcommon -lpssys $(DBLIBS) -lportnls -lcl
 endif
 
 ifeq ($(PS_OS),ps_linux)
-LIBS = -ltdbact -ltdbdb -ltdb -lpssys $(DBLIBS)
+LIBS = -ltdbact -ltdbdb -ltdbcommon -lpssys $(DBLIBS)
 endif
 
 ifeq ($(PS_OS),ps_winnt)

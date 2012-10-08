@@ -18,6 +18,6 @@
 # 1: database name (Oracle SID, Mysql Schema)
 # 2/3: user / pwd
 #
-1:root
-2:your_user
-3:your_pwd
+1:tdbadmin
+2:tdbadmin
+3:yafra
