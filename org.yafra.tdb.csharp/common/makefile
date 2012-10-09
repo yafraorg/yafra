@@ -19,8 +19,8 @@ POBJTEST = $(PTESTS)/bin
 
 CMDDEBMONO=mdtool build
 CMDOPTMONO=mdtool build
-CMDDEBVS=msbuild foundation.sln /p:Configuration=Debug /p:Platform=Win32
-CMDOPTVS=msbuild foundation.sln /p:Configuration=Optimize /p:Platform=Win32
+CMDDEBVS=msbuild.exe foundation.sln /p:Configuration=Debug /p:Platform=Win32
+CMDOPTVS=msbuild.exe foundation.sln /p:Configuration=Optimize /p:Platform=Win32
 CMDMONO = $(CMDDEBMONO)
 CMDVS = $(CMDDEBVS)
 
