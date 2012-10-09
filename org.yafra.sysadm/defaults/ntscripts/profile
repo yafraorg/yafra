@@ -78,7 +78,7 @@ export LOADJAVAPATH=travel/travel@localhost:1521:oraserver
 	export LC_MESSAGES=C.iso88591
 
 # system search path
-	export PATH=/apps/opt/gnome/bin:$PATH:$PISOBIN:/work/bin
+	export PATH=/cygdrive/c/WINDOWS/Microsoft.NET/Framework/v4.0.30319:$PATH:$YAFRAEXE
 
 # setup X11 / OSF/Motif paths
 	export INCX11=/usr/X11R6/include
