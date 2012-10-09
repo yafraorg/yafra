@@ -42,11 +42,14 @@ TIMESTAMP="$(date +%y%m%d)"
 TOMEE=/work/apache-tomee-webprofile-1.0.0
 BINDIR=$YAFRAEXE
 APPDIR=$WORKNODE/apps
+echo "============================================================"
 echo "-> start test build with basenode $BASENODE"
 echo "settings:" 
 echo "TOMEE: $TOMEE"
 echo "DBSERVER: $DBSERVER"
 echo "TIMESTAMP: $TIMESTAMP"
+echo "Version $YAFRAVER.$YAFRAREL"
+echo "============================================================"
 
 cd $WORKNODE
 
@@ -57,12 +60,18 @@ fi
 
 #
 # start yafra test first as this creates the tables if they are still missing
+echo "============================================================"
+echo " TEST CASE 1: Yafra db access with data operation and test data fill"
+echo "============================================================"
 java -classpath $YAFRACLASSES -jar $WORKNODE/classes/org.yafra.tests.serverdirectclient.jar
 
 #
 # start servers first
 #
 if [ "$DBSERVER" = "localhost" ]; then
+	echo "============================================================"
+	echo " TEST CASE 1b: starting server processes (daemons/services or JEE)"
+	echo "============================================================"
 	sudo $YAFRABIN/yafra-prgkill.sh mpdbi
 	sudo $YAFRABIN/yafra-prgkill.sh mpnet
 	sudo $YAFRABIN/yafra-prgkill.sh psserver
@@ -80,19 +89,26 @@ fi
 #
 # test yafra components
 #
-echo "test yafra java system at version $YAFRAVER.$YAFRAREL"
+echo "============================================================"
+echo " TEST CASE 2: java utils, ejb, ws"
+echo "============================================================"
 java -classpath $YAFRACLASSES -jar $WORKNODE/classes/org.yafra.tests.utils.jar
 #java -jar $WORKNODE/classes/org.yafra.tests.serverejb3.jar
 #java -jar $WORKNODE/classes/org.yafra.tests.wsclient.jar
 
 #run test server, utils, wsclient, rest, url getter of tomee installed apps
+echo "============================================================"
+echo " TEST CASE 3: yafra python test read data from db - reading db"
+echo "============================================================"
 python $APPDIR/yafrapadmin/Main.py
 
 #
 # test tdb components
 #
-echo "test travelDB classic system"
 #get releases of binaries
+echo "============================================================"
+echo " TEST CASE 4: tdb - get information on binaries"
+echo "============================================================"
 ldd $BINDIR/mpdbi
 ldd $BINDIR/mpgui
 ldd $BINDIR/mpnet
@@ -100,11 +116,23 @@ $BINDIR/pswhat -i $BINDIR/pswhat
 $BINDIR/pswhat $BINDIR/mpdbi
 $BINDIR/pswhat $BINDIR/mpgui
 #start tests now
+echo "============================================================"
+echo " TEST CASE 5: ansi c common libraries test"
+echo "============================================================"
 $BINDIR/pschar
 $BINDIR/pslog
 $BINDIR/psdatetime -d 01.01.2013 -t 12.30
 $BINDIR/psclientcons $DBSERVER
+echo "============================================================"
+echo " TEST CASE 6: tdb classic test db access and structure - reading db"
+echo "============================================================"
 $BINDIR/mpstruct
 $BINDIR/mptest -n $DBSERVER
+echo "============================================================"
+echo " TEST CASE 7: tdb .net/mono csharp test - reading db"
+echo "============================================================"
 $APPDIR/tdbmono/tdbtest.exe tdbadmin $DBSERVER MySQL
+echo "============================================================"
+echo " TEST CASE 8: tdb perl DBI test - reading db"
+echo "============================================================"
 perl $APPDIR/tdbdbadmin/tdb-testdbi.pl tdbadmin $DBSERVER mysql

@@ -29,6 +29,6 @@ They make modifications in the AKTIONSTEXTE tabel.
 
 The def_* files are for global initialization of the database tables.
 
-The dbe_* are the CORE files to generate a MARCO POLO TO database.
+The dbe_* are the CORE files to generate a travelDB database.
 
 31. January 2004
