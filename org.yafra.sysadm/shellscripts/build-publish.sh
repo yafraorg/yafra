@@ -77,6 +77,7 @@ test -d $APPDIR/tdbpyadmin || mkdir $APPDIR/tdbpyadmin
 
 # system administration files
 cp $SYSADM/shellscripts/build-install.sh $TDBINSTDIR/install.sh
+cp $SYSADM/README-DISTRIBUTION.txt $TDBINSTDIR
 cp $SYSADM/defaults/profile.sh $ETCDIR/yafra-profile.sh
 cp $SYSADM/shellscripts/start-tomcat.sh $BINDIR
 cp $SYSADM/shellscripts/stop-servers.sh $BINDIR

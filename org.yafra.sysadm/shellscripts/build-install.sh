@@ -27,7 +27,7 @@
 #
 if [ ! -d $SYSADM/defaults ]
 then
-	. ../defaults/profile.sh
+	. etc/yafra-profile.sh
 fi
 if [ ! -d $SYSADM/defaults ]
 then
@@ -50,17 +50,17 @@ echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILE
 echo "LOGFILE: $LOGFILE" >> $LOGFILE
 
 
-TDBINSTDIR=/usr/local
-if [ ! -d $TDBINSTDIR ]
+DESTDIR=/usr/local
+if [ ! -d $DESTDIR ]
 then
 	echo "error: deployment directory not available, exit now - create first !" >> $LOGFILE
 	exit
 fi
-BINDIR=$TDBINSTDIR/bin
-ETCDIR=$TDBINSTDIR/etc
-LIBSDIR=$TDBINSTDIR/lib
+BINDIR=$DESTDIR/bin
+ETCDIR=$DESTDIR/etc
+LIBSDIR=$DESTDIR/lib
 GUIINSTALL=$ETCDIR/tdb
-APPDIR=$TDBINSTDIR/apps
+APPDIR=$DESTDIR/apps
 #create dirs
 test -d $BINDIR || mkdir $BINDIR  >> $LOGFILE 2>&1
 test -d $ETCDIR || mkdir $ETCDIR  >> $LOGFILE 2>&1
@@ -102,33 +102,7 @@ cp $WORKNODE/apps/yafrapadmin/* $APPDIR/yafrapadmin/
 #war's
 cp $WORKNODE/classes/org.yafra.wicket.war $TOMEE/webapps
 cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps
-# create database
-if [ -n "$1" ]; then
-	#create yafra db and run tests
-	cd $JAVANODE/org.yafra.tests.serverdirectclient
-	if [ "$1" = "mysql" ]; then
-		echo "installing mysql database"
-		cd $TDBDB/mysql
-		$TDBDB/mysql/generate.sh tdbadmin $SAPWD
-		ant installmysql
-	fi
-	if [ "$1" = "derby" ]; then
-		ant installdbderby >> $LOGFILE 2>&1
-	fi
-	if [ "$1" = "oracle" ]; then
-		echo "installing oracle database"
-		cd $TDBDB/oracle
-		$TDBDB/oracle/generate.bat tdbadmin $SAPWD
-		ant installdbora >> $LOGFILE 2>&1
-	fi
-	if [ "$1" = "mssql" ]; then
-		echo "installing mssql database"
-		cd $TDBDB/mssql
-		$TDBDB/mssql/generate.bat $SAPWD yafra
-		ant installdbmssql >> $LOGFILE 2>&1
-	fi
-	cd - >> $LOGFILE 2>&1
-fi
+
 #start servers now
 $SYSADM/shellscripts/start-tomcat.sh >> $LOGFILE 2>&1
 
@@ -159,48 +133,16 @@ fi
 # print settings
 echo "create database in mode $1, dbtype $2, server $DBSERVER, dbapwd $SAPWD"
 
-# create default cayenne config - use CAYCONFIG to set to your default config
-if [ ! -f $YAFRACORE/$CAYCONFIG ]
-then
-cp $YAFRACORE/$CAYSRCCONFIG $YAFRACORE/$CAYCONFIG
-fi
-
 # create database YAFRA
-cd $JAVANODE/org.yafra.tests.serverdirectclient
-if [ "$1" = "dev" ]; then
-	ant installdb
-else
-	if [ "$2" = "mysql" ]; then
-		echo "using the mysql localhost database"
-		cp $YAFRACORE/src/org.yafra.release.mysql.Node.driver.xml $YAFRACORE/$CAYCONFIG
-		ant installmysql
-	fi
-	if [ "$2" = "derby" ]; then
-		echo "using the derby localhost database"
-		cp $YAFRACORE/src/org.yafra.release.derby.Node.driver.xml $YAFRACORE/$CAYCONFIG
-		ant installderby
-	fi
-	if [ "$2" = "oracle" ]; then
-		echo "using the oracle localhost database"
-		cp $YAFRACORE/src/org.yafra.release.oracle.Node.driver.xml $YAFRACORE/$CAYCONFIG
-		ant installora
-	fi
-	if [ "$2" = "mssql" ]; then
-		echo "using the mssql localhost database"
-		cp $YAFRACORE/src/org.yafra.release.mssql.Node.driver.xml $YAFRACORE/$CAYCONFIG
-		ant installmssql
-	fi
-fi
-cd -
-
-
 # create database TDB
 # this works fine on unix with perl
-if [ "$1" = "rel" ]; then
+if [ "$1" = "setupdb" ]; then
 	if [ "$2" = "mysql" ]; then
 		echo "installing mysql database"
 		cd $TDBDB/mysql
 		$TDBDB/mysql/generate.sh tdbadmin $SAPWD
+		cd $YAFRADB
+		./generate.sh mysql $SAPWD
 	fi
 	if [ "$2" = "oracle" ]; then
 		echo "installing oracle database"
