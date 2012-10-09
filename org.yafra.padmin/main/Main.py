@@ -27,7 +27,11 @@ import MySQLdb
 import sys
 
 print("start")
-db=MySQLdb.connect(host=sys.argv[1],user="yafraadmin",passwd="yafra",db="yafra")
+if len(sys.argv) > 1:
+	server=sys.argv[1]
+else:
+	server="localhost"
+db=MySQLdb.connect(host=server,user="yafraadmin",passwd="yafra",db="yafra")
 print ("got connecton")
 
 
