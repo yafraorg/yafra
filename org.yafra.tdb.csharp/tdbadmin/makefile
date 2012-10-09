@@ -28,7 +28,7 @@ version:
 #--------------------------- db ------------------------------------
 admin:
 ifeq ($(PS_OSTYPE),ps_win)
-	devenv tdbadmin.sln /build Debug
+	msbuild tdbadmin.sln /p:Configuration=Debug /p:Platform=Win32
 else
 	mdtool build
 endif

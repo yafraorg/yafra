@@ -24,7 +24,7 @@ all: found
 
 found:
 ifeq ($(PS_OSTYPE),ps_win)
-	devenv foundation.sln /build Debug
+	msbuild foundation.sln /p:Configuration=Debug /p:Platform=Win32
 else
 	mdtool build
 endif
