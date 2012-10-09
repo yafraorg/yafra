@@ -19,8 +19,8 @@ PBINA = $(PADMIN)/tdbadmin/bin
 
 CMDDEBMONO=mdtool build
 CMDOPTMONO=mdtool build
-CMDDEBVS=msbuild.exe tdbadmin.sln /p:Configuration=Debug /p:Platform=Win32
-CMDOPTVS=msbuild.exe tdbadmin.sln /p:Configuration=Optimize /p:Platform=Win32
+CMDDEBVS=msbuild.exe tdbadmin.sln /p:Configuration=Debug
+CMDOPTVS=msbuild.exe tdbadmin.sln /p:Configuration=Optimize
 CMDMONO = $(CMDDEBMONO)
 CMDVS = $(CMDDEBVS)
 
