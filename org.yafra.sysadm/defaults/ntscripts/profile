@@ -24,46 +24,28 @@
 # system settings 
 alias ll='ls -l'
 alias del='rm'
-export PATH=/apps/opt/gnome/bin:/usr/X11R6/bin:$PATH
 set -o vi
 #export ORACLE_HOME=/ntwork/opt/Oracle/Ora81
-export ORACLE_SERVICE=sess_iiop://localhost:2481:oraserver
+#export ORACLE_SERVICE=sess_iiop://localhost:2481:oraserver
 #export JDK_CLASSPATH=/ntwork/opt
-export LOADJAVAPATH=travel/travel@localhost:1521:oraserver
+#export LOADJAVAPATH=travel/travel@localhost:1521:oraserver
+
 # global umask rw rw r (002)
-	umask 002
+#	umask 002
 # set standard language to english iso not to C, but date remains on C
 	export LANG=C.iso88591
 	export LC_ALL=C.iso88591
 	export LC_MESSAGES=C.iso88591
-# setup X11 / OSF/Motif paths
-	export INCX11=/usr/X11R6/include
-	export INCMOTIF=/usr/X11R6/include
-	export LIBX11=/usr/X11R6/lib
-
-
-#
-# section:  global system defines
-#
 
 # setup system
-	export PS_HOSTNAME=devhost
-	export PS_HW=IA32
-
-# cygwin environment
-	export PS_TARGET=cygwin-intel
-	export PS_OSTYPE=ps_unix
-	export PS_OS=ps_cygwin
-	export PS_OSVER=1
-	export PS_COMPTYPE=ps_unix
-
+#	export PS_HOSTNAME=devhost
+#	export PS_HW=IA32
 # mingw environemnt (under cygwin)
 #	export PS_TARGET=mingw-intel
 #	export PS_OSTYPE=ps_win
 #	export PS_OS=ps_mingw
 #	export PS_OSVER=1
 #	export PS_COMPTYPE=ps_unix
-
 # microsoft visual studio .net (under cygwin)
 #	export PS_TARGET=win2k-intel
 #	export PS_OS=ps_winnt
@@ -72,20 +54,5 @@ export LOADJAVAPATH=travel/travel@localhost:1521:oraserver
 #	export PS_OSTYPE=ps_win
 #	export PS_LOCALDRV=G:
 
-# set standard language to english iso not to C, but date remains on C
-	export LANG=C.iso88591
-	export LC_ALL=C.iso88591
-	export LC_MESSAGES=C.iso88591
-
 # system search path
-	export PATH=/cygdrive/c/WINDOWS/Microsoft.NET/Framework/v4.0.30319:$PATH:$YAFRAEXE
-
-# setup X11 / OSF/Motif paths
-	export INCX11=/usr/X11R6/include
-	export INCMOTIF=/usr/X11R6/include
-	export LIBX11=/usr/X11R6/lib
-	export LIBMOTIF=/usr/X11R6/lib
-
-#
-# import generic profile here
-#
+	export PATH=/work/apache-ant-1.8.4/bin:/cygdrive/c/WINDOWS/Microsoft.NET/Framework/v4.0.30319:$PATH
