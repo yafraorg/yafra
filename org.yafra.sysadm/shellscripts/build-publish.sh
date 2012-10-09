@@ -48,6 +48,7 @@ LIBSDIR=$TDBINSTDIR/lib
 GUIINSTALL=$ETCDIR/tdb
 APPDIR=$TDBINSTDIR/apps
 DBDIR=$ETCDIR/yafradb
+TRAVELDBDIR=$ETCDIR/traveldb
 CLASSDIR=$TDBINSTDIR/classes
 TDBCONFIG=$TDBSETUP/config
 echo "-> start publish with worknode $WORKNODE"
@@ -62,6 +63,7 @@ test -d $LIBSDIR || mkdir $LIBSDIR
 test -d $GUIINSTALL || mkdir $GUIINSTALL
 test -d $CLASSDIR || mkdir $CLASSDIR
 test -d $DBDIR || mkdir $DBDIR
+test -d $TRAVELDBDIR || mkdir $TRAVELDBDIR
 test -d $APPDIR || mkdir $APPDIR
 test -d $APPDIR/yafrapadmin || mkdir $APPDIR/yafrapadmin
 test -d $APPDIR/tdbmono || mkdir $APPDIR/tdbmono
@@ -89,20 +91,21 @@ if [ "$1" = "mysql" ]; then
 	echo "installing mysql database"
 	cd $TDBDB/mysql
 	$TDBDB/mysql/convert.sh
-	cp $TDBDB/mysql/* $DBDIR/
+	cp $TDBDB/mysql/* $TRAVELDBDIR/
 fi
 if [ "$1" = "oracle" ]; then
 	echo "installing oracle database"
 	cd $TDBDB/oracle
 	$TDBDB/oracle/convert.sh
-	cp $TDBDB/oracle/* $DBDIR/
+	cp $TDBDB/oracle/* $TRAVELDBDIR/
 fi
 if [ "$1" = "mssql" ]; then
 	echo "installing mssql database"
 	cd $TDBDB/mssql
 	$TDBDB/mssql/convert.sh
-	cp $TDBDB/mssql/* $DBDIR/
+	cp $TDBDB/mssql/* $TRAVELDBDIR/
 fi
+cp $SYSADM/databases/yafradb/* $DBDIR/
 
 #
 # YAFRA JAVA parts

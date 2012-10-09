@@ -57,6 +57,7 @@ if [ "$2" = "reset" ]; then
 	git clone https://github.com/yafraorg/yafra.git YafraLocalGit >> $LOGFILEADM 2>&1
 fi
 cd $BASENODE >> $LOGFILEADM 2>&1
+git pull >> $LOGFILEADM 2>&1
 
 # init build
 echo "init build" >> $LOGFILEADM
