@@ -17,6 +17,13 @@ PBASE = $(BASENODE)/org.yafra.tdb.csharp
 PADMIN = $(PBASE)/tdbadmin
 PBINA = $(PADMIN)/tdbadmin/bin
 
+CMDDEBMONO=mdtool build
+CMDOPTMONO=mdtool build
+CMDDEBVS=msbuild tdbadmin.sln /p:Configuration=Debug /p:Platform=Win32
+CMDOPTVS=msbuild tdbadmin.sln /p:Configuration=Optimize /p:Platform=Win32
+CMDMONO = $(CMDDEBMONO)
+CMDVS = $(CMDDEBVS)
+
 #--------------------- general tasks for all --------------------
 default: info
 
@@ -28,9 +35,13 @@ version:
 #--------------------------- db ------------------------------------
 admin:
 ifeq ($(PS_OSTYPE),ps_win)
-	msbuild tdbadmin.sln /p:Configuration=Debug /p:Platform=Win32
+	$(CMDVS)
 else
-	mdtool build
+ifeq ($(PS_OS),ps_cygwin)
+	$(CMDVS)
+else
+	$(CMDMONO)
+endif
 endif
 
 install:

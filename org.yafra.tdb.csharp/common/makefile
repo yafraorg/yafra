@@ -17,6 +17,13 @@ PBINR = $(POBJ)/Release
 PBIND = $(POBJ)/Debug
 POBJTEST = $(PTESTS)/bin
 
+CMDDEBMONO=mdtool build
+CMDOPTMONO=mdtool build
+CMDDEBVS=msbuild foundation.sln /p:Configuration=Debug /p:Platform=Win32
+CMDOPTVS=msbuild foundation.sln /p:Configuration=Optimize /p:Platform=Win32
+CMDMONO = $(CMDDEBMONO)
+CMDVS = $(CMDDEBVS)
+
 #--------------------- general tasks for all --------------------
 default: info
 
@@ -24,9 +31,13 @@ all: found
 
 found:
 ifeq ($(PS_OSTYPE),ps_win)
-	msbuild foundation.sln /p:Configuration=Debug /p:Platform=Win32
+	$(CMDVS)
 else
-	mdtool build
+ifeq ($(PS_OS),ps_cygwin)
+	$(CMDVS)
+else
+	$(CMDMONO)
+endif
 endif
 
 run:
