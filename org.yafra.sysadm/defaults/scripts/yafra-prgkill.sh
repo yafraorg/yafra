@@ -23,14 +23,14 @@
 if test $# -lt 1
 	then echo usage: $0 processname ...
 else
-	for dick in $*
-		do golly=`ps -e | fgrep $dick | awk '{print $1}'`
- 		   if test -n $golly 2>/dev/null
-		   then
-			echo killing $dick pid $golly
-			kill -9 $golly
-		   else
-			echo no process $dick
-		  fi
-		done
+	for i in `ps -e | grep $1 | awk '{ printf "%06d%s ",$1,$4 }'`
+	do
+		PID=`echo $i | cut -c1-6 | awk '{ printf "%d",$1 }'`
+		NAME=`echo $i | cut -c7-78` 
+ 		if test -n $PID 2>/dev/null
+		then
+			echo killing $NAME pid $PID
+			kill -9 $PID
+		fi
+	done
 fi

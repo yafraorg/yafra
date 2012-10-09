@@ -39,7 +39,7 @@ fi
 #
 # settings
 #
-TIMESTAMP="$(date +%y%m%d)"
+TIMESTAMP="$(date +%Y%m%d)"
 LOGFILE=/tmp/YAFRA-buildghost-$TIMESTAMP.log
 LOGFILEADM=/tmp/YAFRA-buildghostadmin-$TIMESTAMP.log
 echo "-> start auto distribution build with basenode $BASENODE" > $LOGFILEADM
@@ -87,7 +87,7 @@ echo "init done" >> $LOGFILEADM
 # create release note
 echo "yafra release $YAFRAVER.$YAFRAREL" > $WORKNODE/yafra-dist/RELEASE.txt
 echo "\n" >> $WORKNODE/yafra-dist/RELEASE.txt
-echo "distribution release build on $TIMESTAMP" >> $WORKNODE/yafra-dist/RELEASE.txt
+echo "distribution release build on $(date +'%Y-%m-%d %H:%M')" >> $WORKNODE/yafra-dist/RELEASE.txt
 echo "distribution target OS: $PS_OS and DB: $1" >> $WORKNODE/yafra-dist/RELEASE.txt
 echo "\n" >> $WORKNODE/yafra-dist/RELEASE.txt
 echo "https://github.com/yafraorg/yafra/wiki/Release" >> $WORKNODE/yafra-dist/RELEASE.txt
