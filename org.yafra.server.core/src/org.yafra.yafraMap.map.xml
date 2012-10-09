@@ -20,13 +20,13 @@
 		<db-attribute name="eventAuditReviewer" type="VARCHAR" length="1000"/>
 		<db-attribute name="eventCreator" type="VARCHAR" isMandatory="true" length="1000"/>
 		<db-attribute name="eventDate" type="DATE" isMandatory="true"/>
-		<db-attribute name="eventDescription" type="VARCHAR" isMandatory="true" length="10000"/>
+		<db-attribute name="eventDescription" type="VARCHAR" isMandatory="true" length="4000"/>
 		<db-attribute name="fkPersonId" type="INTEGER" isMandatory="true"/>
 		<db-attribute name="pkPersonLog" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
 	</db-entity>
 	<db-entity name="YafraAudit" schema="yafra">
 		<db-attribute name="auditobject" type="VARCHAR" length="1000"/>
-		<db-attribute name="audittext" type="VARCHAR" isMandatory="true" length="10000"/>
+		<db-attribute name="audittext" type="VARCHAR" isMandatory="true" length="4000"/>
 		<db-attribute name="fkUser" type="INTEGER" isMandatory="true"/>
 		<db-attribute name="pkAudit" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
 		<db-attribute name="timestamp" type="DATE" isMandatory="true"/>
