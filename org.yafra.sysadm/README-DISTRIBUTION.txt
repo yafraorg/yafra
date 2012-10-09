@@ -1,4 +1,3 @@
-
 LICENSE
 
 Licensed to the Apache Software Foundation (ASF) under one
@@ -34,12 +33,12 @@ https://github.com/yafraorg/yafra/wiki
 
 install the following components on your local PC
 - java runtime edition 6.x
-- apache openejb-3.1.2
-- apache tomcat-7.0.x
-- apache derby-10.x
+- apache tomee webprofile 1.0.0 into /work or c:\work
+- apache cxf 2.6.1 into /work or c:\work
+- apache cayenne 3.0.2 into /work or c:\work
 follow the installation guides on those products to get them running (except cayenne, see later).
 Make sure they are installed correctly and are running before you continue.
-Make sure you have enabled some users in tomcat /conf/tomcat-users.xml
+Make sure you have enabled some users in tomee under conf/tomcat-users.xml
 
 * Database generation
 
