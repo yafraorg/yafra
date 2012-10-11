@@ -40,35 +40,15 @@ follow the installation guides on those products to get them running (except cay
 Make sure they are installed correctly and are running before you continue.
 Make sure you have enabled some users in tomee under conf/tomcat-users.xml
 
+
 * Database generation
 
-You have two options to generate the database. One with the pre defined script (recommended) or
-doing it the developer way using Apache Cayenne Modeler (description is on the sourceforge trac wiki page).
-
-Installation with the script:
-Make sure the database server is up and running. Start the derby net server (startNetworkServer).
-Start in the derby/bin directory the ij and execute:
-connect 'jdbc:derby://localhost:1527/yafra;user=yafra;create=true';
-copy past now the content of the yafra-db-creation.sql (in the root directoy of this distribution) into
-the open ij shell, this will create the database schema.
+Releases for the full yafra applications and demonstrations are available as MySQL builds. The Java Yafra part
+can be available as derby standalone version. An installation script will create the databases and users in order
+to run the samples or tests.
 
 
 * Steps to get ready
 
-Start the derby net server (startNetworkServer).
-Open a dos / unix shell and go to testclients/.
-Run: java -jar test-coreserver.jar
-Ignore the final exception but this creates the database with test data, check the output for more information
-
-Deploy the ear file to openejb-3.1.2/apps and start the server.
-Deploy the war file to tomcat through its console.
-
-Run the other test clients.
-Run the Eclipse RCP fat client.
-Run the Internet application, connect to your tomcat and select the deployed war url (org.yafra.internet).
-
-* Web Services
-
-The web services example is based on Apache CXF 2.x and is only available as source within Eclipse, however you can export
-test client and the web service server to run as standalone applications (java -jar xxxx.jar). To test drive the web services check out the
-source to your eclipse.
+Execute the install.sh scripts on linux or cygwin in order to install the build. A windows install.bat will install
+windows specific parts.
