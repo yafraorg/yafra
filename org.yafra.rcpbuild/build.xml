@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- ant script for:  org.yafra server core based on cayenne orm -->
+<!-- project name:    org.yafra.server.core -->
+<!-- author:          yafra info@yafra.org -->
+<!-- source control:  git -->
+<!-- @author Yafraorg Admin -->
+
+<project name="org.yafra.rcpbuild" basedir="." default="main">
+  <property file="build.properties"/>
+  <target name="main">
+    <property name="baseLocation" value="/work/eclipse/eclipse-rcp"/>
+    <!-- by default, check for deltapack co-located with eclipse -->
+    <property name="deltapack" value="/work/deltapack/eclipse"/>
+
+    <!-- Check that we have a deltapack -->
+    <available property="haveDeltaPack" file="${deltapack}"/>
+    <fail unless="haveDeltaPack" message="The deltapack is required to build this product.  Please edit buildProduct.xml or set the &quot;deltapack&quot; property." />
+      
+    <property name="builder" value="${basedir}" />
+    <property name="buildDirectory" value="${basedir}/buildDirectory"/>
+    <property name="pluginPath" value="${basedir}/..${path.separator}${deltapack}" />
+    <property name="buildTempFolder" value="${buildDirectory}" />
+      
+    <ant antfile="/work/eclipse/eclipse-rcp/plugins/org.eclipse.pde.build_3.8.0.v20120523-1555/scripts/productBuild/productBuild.xml" />
+
+    <move todir="${basedir}">
+      <fileset dir="${buildDirectory}/${buildLabel}" includes="*.zip"/>
+    </move>
+
+    <!-- refresh the workspace -->
+    <eclipse.convertPath fileSystemPath="${basedir}" property="resourcePath"/>
+    <eclipse.refreshLocal resource="${resourcePath}" depth="infinite"/>
+  </target>
+</project> 

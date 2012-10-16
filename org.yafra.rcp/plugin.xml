@@ -35,7 +35,7 @@
          </property>
          <property
                name="aboutText"
-               value="Version 1.0.2.M2&#x0A;$Id: yafra.product,v 1.2 2009-12-19 20:40:33 mwn Exp $">
+               value="Version 1.0.4.RC1&#x0A;https://github.com/yafraorg/yafra">
          </property>
       </product>
    </extension>

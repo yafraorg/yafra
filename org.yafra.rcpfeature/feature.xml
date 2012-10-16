@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.yafra.rcpfeature"
+      label="yafra rcp feature"
+      version="1.0.4.RC1">
+
+   <description url="http://www.example.com/description">
+      Yafra Java Fat Client Example
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      http://www.yafra.org/
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      http://www.yafra.org/
+   </license>
+
+   <includes
+         id="org.eclipse.rcp"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.yafra.rcp"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
