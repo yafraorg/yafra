@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="yafra rich client platform" uid="org.yafra.rcp.gui" id="org.yafra.rcp.product" application="org.yafra.rcp.application" version="1.0.4.RC1" useFeatures="false" includeLaunchers="false">
+<product name="yafra rich client platform" uid="org.yafra.rcp.product" id="org.yafra.rcp.product" application="org.yafra.rcp.application" version="1.0.4.RC1" useFeatures="false" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/org-yafra-128x128.png"/>
