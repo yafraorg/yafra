@@ -1,0 +1,8 @@
+org.yafra.utils.jar
+org.yafra.server.coreclient.jar
+org.yafra.server.ejbstubs.jar
+commons-logging-*.jar
+log4j-*.jar
+javaee-api-*.jar
+openejb-client-*.jar
+openejb-core-*.jar
