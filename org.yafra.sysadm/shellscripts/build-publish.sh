@@ -114,8 +114,9 @@ cp $WORKNODE/classes/* $CLASSDIR
 #python admin
 cp $WORKNODE/apps/yafrapadmin/* $APPDIR/yafrapadmin/
 #rcp
-if [ -d $WORKNODE/eclipse-build/eclipse ]
-	cp $WORKNODE/eclipse-build/eclipse $APPDIR/yafrarcp/
+if [ -d $WORKNODE/eclipse-build/eclipse ]; then
+	cp -r $WORKNODE/eclipse-build/eclipse/* $APPDIR/yafrarcp/
+fi
 
 # TDB parts
 cp $TDBCONFIG/linux/mpgui.pro $ETCDIR

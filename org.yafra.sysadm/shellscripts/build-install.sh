@@ -35,6 +35,8 @@ then
 	exit
 fi
 
+echo "-> start yafra installation"
+
 #
 # settings
 #
@@ -42,14 +44,6 @@ TIMESTAMP="$(date +%y%m%d)"
 LOGFILE=$WORKNODE/YAFRA-install-$TIMESTAMP.log
 TOMEE=/work/apache-tomee-webprofile-1.0.0
 DBSERVER=localhost
-echo "-> start auto build with basenode $BASENODE and version $YAFRAVER.$YAFRAREL" > $LOGFILE
-echo "settings:" >> $LOGFILE
-echo "TOMEE: $TOMEE" >> $LOGFILE
-echo "DBSERVER: $DBSERVER" >> $LOGFILE
-echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILE
-echo "LOGFILE: $LOGFILE" >> $LOGFILE
-
-
 DESTDIR=/usr/local
 if [ ! -d $DESTDIR ]
 then
@@ -62,11 +56,11 @@ LIBSDIR=$DESTDIR/lib
 GUIINSTALL=$ETCDIR/tdb
 APPDIR=$DESTDIR/apps
 #create dirs
-test -d $BINDIR || mkdir $BINDIR  >> $LOGFILE 2>&1
-test -d $ETCDIR || mkdir $ETCDIR  >> $LOGFILE 2>&1
-test -d $LIBSDIR || mkdir $LIBSDIR  >> $LOGFILE 2>&1
-test -d $APPDIR || mkdir $APPDIR  >> $LOGFILE 2>&1
-test -d $APPDIR/yafrapadmin || mkdir $APPDIR/yafrapadmin  >> $LOGFILE 2>&1
+test -d $BINDIR || mkdir $BINDIR
+test -d $ETCDIR || mkdir $ETCDIR
+test -d $LIBSDIR || mkdir $LIBSDIR
+test -d $APPDIR || mkdir $APPDIR
+test -d $GUIINSTALL || mkdir $GUIINSTALL
 
 #
 # copy setup scripts first
@@ -74,11 +68,50 @@ test -d $APPDIR/yafrapadmin || mkdir $APPDIR/yafrapadmin  >> $LOGFILE 2>&1
 echo "installing setup scripts"
 cp bin/*.sh $BINDIR
 
+echo "make sure TomEE is installed in $TOMEE"
+echo "is that the case ? (yes/no)"
+read yesno
+if [ "$yesno" = "no" ]; then
+	exit 1
+fi
+
+
+# database server
+DBSERVER="localhost"
+echo "your database and application server is set to $DBSERVER"
+echo "is that correct ? (yes/no)"
+read yesno
+if [ "$yesno" = "no" ]; then
+	echo "enter the hostname now:"
+	read hostname
+	if [ -z "$hostname" ]; then
+		echo "you need to enter a hostname - start script again"
+		exit 1
+	else
+		DBSERVER=$hostname
+	fi
+fi
+
 #
 # stop all running servers and clean up runtime environment
 #
 
 if [ "$DBSERVER" = "localhost" ]; then
+	# database root/dba password
+	SAPWD="yafra"
+	echo "your database admin password is set to $SAPWD"
+	echo "is that correct ? (yes/no)"
+	read yesno
+	if [ "$yesno" = "no" ]; then
+		echo "enter the password now:"
+		read dbpwd
+		if [ -z "$dbpwd" ]; then
+			echo "you need to enter a password - start script again"
+			exit 1
+		else
+			SAPWD=$dbpwd
+		fi
+	fi
 	echo "stop server processes"
 	$BINDIR/yafra-prgkill.sh mpdbi
 	$BINDIR/yafra-prgkill.sh mpnet
@@ -93,65 +126,32 @@ fi
 echo "install binaries and apps"
 cp bin/* $BINDIR
 cp -P lib/* $LIBSDIR
-#python admin
-cp $WORKNODE/apps/yafrapadmin/* $APPDIR/yafrapadmin/
+cp -r apps/* $APPDIR
+cp etc/mpgui.pro $ETCDIR
+cp etc/tdb/* $GUIINSTALL
+cp etc/tdb/MPgui /usr/X11/app-defaults
 
+if [ "$DBSERVER" = "localhost" ]; then
+	perl bin/tdb-setup-services.pl
+	#war's
+	cp classes/org.yafra.wicket.war $TOMEE/webapps
+	cp classes/org.yafra.server.jee.war $TOMEE/webapps
+	cp classes/org.yafra.gwt.admin.war $TOMEE/webapps
+	#start servers now
+	$BINDIR/start-tomcat.sh
+	$BINDIR/mpdbi -daemon
+	$BINDIR/mpnet -daemon
+	$BINDIR/psserver -daemon
 
-
-
-#war's
-cp $WORKNODE/classes/org.yafra.wicket.war $TOMEE/webapps
-cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps
-
-#start servers now
-$SYSADM/shellscripts/start-tomcat.sh >> $LOGFILE 2>&1
-
-#
-# install tdb components
-#
-echo "install travelDB classic system"
-#create tdb db run tdb test
-# create database
-if [ -n "$1" ]
-	then $TDBSETUP/config/install.sh all $1 >> $LOGFILE 2>&1
-	else $TDBSETUP/config/install.sh all >> $LOGFILE 2>&1
+	# create database YAFRA
+	# create database TDB
+	# this works fine on unix with perl
+	echo "installing mysql database"
+	cd etc/yafradb
+	generate.sh yafradmin $SAPWD
+	cd ../traveldb
+	generate.sh tdbadmin $SAPWD
+	cd ../..
 fi
 
-
-# database server
-DBSERVER="localhost"
-if [ -n "$3" ]; then
-	DBSERVER="$3"
-fi
-
-# database root/dba password
-SAPWD="yafra"
-if [ -n "$4" ]; then
-	SAPWD="$4"
-fi
-
-# print settings
-echo "create database in mode $1, dbtype $2, server $DBSERVER, dbapwd $SAPWD"
-
-# create database YAFRA
-# create database TDB
-# this works fine on unix with perl
-if [ "$1" = "setupdb" ]; then
-	if [ "$2" = "mysql" ]; then
-		echo "installing mysql database"
-		cd $TDBDB/mysql
-		$TDBDB/mysql/generate.sh tdbadmin $SAPWD
-		cd $YAFRADB
-		./generate.sh mysql $SAPWD
-	fi
-	if [ "$2" = "oracle" ]; then
-		echo "installing oracle database"
-		cd $TDBDB/oracle
-		$TDBDB/oracle/generate.bat tdbadmin $SAPWD
-	fi
-	if [ "$2" = "mssql" ]; then
-		echo "installing mssql database"
-		cd $TDBDB/mssql
-		$TDBDB/mssql/generate.bat $SAPWD yafra
-	fi
-fi
+echo "done"

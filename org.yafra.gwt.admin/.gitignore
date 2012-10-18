@@ -8,3 +8,4 @@ build.number
 /war/WEB-INF/classes
 /.gwt
 *~
+/war/WEB-INF/lib

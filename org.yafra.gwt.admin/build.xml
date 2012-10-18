@@ -23,110 +23,182 @@ under the License.
 <!-- author:          yafra info@yafra.org -->
 <!-- source control:  git -->
 <!-- @author Yafraorg -->
-<project name="org.yafra.gwt.admin" basedir="." default="war">
+<project name="org.yafra.gwt.admin" default="build" basedir=".">
+  <!-- Arguments to gwtc and devmode targets -->
+  <property name="gwt.args" value="" />
+ 
+	
+	<!-- yafra.org settings -->
+	<property environment="env"/>
+	<property name="gwt.module.name" value="org.yafra.gwt.admin.AdminEntryPoint"/>
+	<property name="war.name" value="org.yafra.gwt.admin.war"/>
+	<property name="build.dir" location="build"/>
+	<property name="deploy.dir" value="${env.YAFRACLASSES}" />
+	<property name="YAFRACLASSES" value="${env.YAFRACLASSES}"/>
+	<property name="ECLIPSE_HOME" value="/work/eclipse/eclipse-gwt"/>
+	<property name="debuglevel" value="source,lines,vars"/>
+	<property name="target" value="1.6"/>
+	<property name="source" value="1.6"/>
 
-    <property name="gwt.module.name" value="org.yafra.gwt.admin.AdminEntryPoint"/>
-    <property name="server.resources.name" value="server_resources"/>
-    <property name="jar.name" value="org.yafra.gwt.admin.jar"/>
-    <property name="war.name" value="org.yafra.gwt.admin.war"/>
-    <property name="src.dir" location="src"/>
-    <property name="server.resources.dir" location="war/${server.resources.name}"/>
-    <property name="build.dir" location="build"/>   
-    <property name="build.server.resources.dir" location="war/WEB-INF/classes/server_resources"/>       
-    <property name="lib.dir" location="war/WEB-INF/lib"/>
-    <property name="gwt.client.dir" location="com/rubiconred/soauiext/client"/>
-    <property name="YAFRACLASSES" value="/work/classes"/>
-    <property name="ECLIPSE_HOME" value="/work/eclipse/eclipse-gwt"/>
-    <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.6"/>
-    <property name="source" value="1.6"/>
-    <path id="GWT SDK [GWT - 2.4.0].libraryclasspath">
-        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080121-rel-r42/gwt-2.4.0/gwt-user.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080121-rel-r42/gwt-2.4.0/gwt-dev.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080121-rel-r42/gwt-2.4.0/validation-api-1.0.0.GA-sources.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.v201208080121-rel-r42/gwt-2.4.0/validation-api-1.0.0.GA.jar"/>
-    </path>
-    <path id="YafraCayenne.userclasspath">
-        <pathelement location="${YAFRACLASSES}/ashwood-2.0.jar"/>
-        <pathelement location="${YAFRACLASSES}/commons-logging-1.1.1.jar"/>
-        <pathelement location="${YAFRACLASSES}/vpp-2.2.1.jar"/>
-        <pathelement location="${YAFRACLASSES}/org.yafra.server.core.jar"/>
-        <pathelement location="${YAFRACLASSES}/org.yafra.utils.jar"/>
-        <pathelement location="${YAFRACLASSES}/cayenne-server-3.0.2.jar"/>
-        <pathelement location="${YAFRACLASSES}/log4j-1.2.17.jar"/>
-        <pathelement location="${YAFRACLASSES}/mysql-connector-java-5.1.21-bin.jar"/>
-        <pathelement location="${YAFRACLASSES}/commons-collections-3.2.1.jar"/>
-    </path>
-    <path id="org.yafra.gwt.admin.classpath">
-        <pathelement location="war/WEB-INF/classes"/>
-        <path refid="GWT SDK [GWT - 2.4.0].libraryclasspath"/>
-        <path refid="YafraCayenne.userclasspath"/>
-        <pathelement location="${YAFRACLASSES}/org.yafra.server.directclient.jar"/>
-        <pathelement location="${YAFRACLASSES}/org.yafra.server.coreclient.jar"/>
-    </path>
+  <!-- Configure path to GWT SDK -->
+  <property name="gwt.sdk" location="/work/gwt-2.4.0" />
 
-    <path id="project.classpath">       
-        <fileset dir="${lib.dir}">
-            <include name="**/*.jar"/>
+  <path id="project.class.path">
+    <pathelement location="war/WEB-INF/classes"/>
+    <pathelement location="${gwt.sdk}/gwt-user.jar"/>
+    <fileset dir="${gwt.sdk}" includes="gwt-dev*.jar"/>
+    <!-- Add any additional non-server libs (such as JUnit) -->
+    <fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
+  </path>
+
+  <target name="libs" description="Copy libs to WEB-INF/lib">
+	<mkdir dir="war/WEB-INF/lib" />
+	<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
+	<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet-deps.jar" />
+	 <copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/ashwood-2.0.jar"/>
+	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/commons-logging-1.1.1.jar"/>
+	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/vpp-2.2.1.jar"/>
+	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/org.yafra.server.core.jar"/>
+	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/org.yafra.utils.jar"/>
+	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/cayenne-server-3.0.2.jar"/>
+	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/log4j-1.2.17.jar"/>
+	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/mysql-connector-java-5.1.21-bin.jar"/>
+	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/commons-collections-3.2.1.jar"/>
+	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/org.yafra.server.directclient.jar"/>
+	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/org.yafra.server.coreclient.jar"/>
+	<!-- Add any additional server libs that need to be copied -->
+  </target>
+
+  <target name="javac" depends="libs" description="Compile java source to bytecode">
+    <mkdir dir="war/WEB-INF/classes"/>
+    <javac srcdir="src" includes="**" encoding="utf-8"
+        destdir="war/WEB-INF/classes"
+        source="1.6" target="1.6" nowarn="true"
+        debug="true" debuglevel="lines,vars,source">
+      <classpath refid="project.class.path"/>
+    </javac>
+    <copy todir="war/WEB-INF/classes">
+      <fileset dir="src" excludes="**/*.java"/>
+    </copy>
+  </target>
+
+  <target name="gwtc" depends="javac" description="GWT compile to JavaScript (production mode)">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+        <pathelement location="${gwt.sdk}/validation-api-1.0.0.GA.jar" />
+        <pathelement location="${gwt.sdk}/validation-api-1.0.0.GA-sources.jar" />
+      </classpath>
+      <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+      <jvmarg value="-Xmx256M"/>
+      <arg line="-war"/>
+      <arg value="war"/>
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg line="${gwt.args}"/>
+      <arg value="${gwt.module.name}"/>
+    </java>
+  </target>
+
+  <target name="devmode" depends="javac" description="Run development mode">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.DevMode">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+        <pathelement location="${gwt.sdk}/validation-api-1.0.0.GA.jar" />
+        <pathelement location="${gwt.sdk}/validation-api-1.0.0.GA-sources.jar" />
+      </classpath>
+      <jvmarg value="-Xmx256M"/>
+      <arg value="-startupUrl"/>
+      <arg value="YafraAdmin.html"/>
+      <arg line="-war"/>
+      <arg value="war"/>
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg line="${gwt.args}"/>
+      <arg value="${gwt.module.name}"/>
+    </java>
+  </target>
+
+<!--
+Test targets suppressed because -junit argument was not specified when running webAppCreator.
+
+  <target name="javac.tests" depends="javac" description="Compiles test code">
+    <javac srcdir="test" includes="**" encoding="utf-8"
+      source="1.5" target="1.5" nowarn="true"
+      destdir="war/WEB-INF/classes"
+      debug="true" debuglevel="lines,vars,source">
+      <classpath location="path_to_the_junit_jar"/>
+      <classpath refid="project.class.path"/>
+    </javac>
+  </target>
+  
+  <target name="test.dev" depends="javac.tests" description="Run development mode tests">
+    <mkdir dir="reports/htmlunit.dev" />
+    <junit fork="yes" printsummary="yes" haltonfailure="yes">
+      <jvmarg line="-Xmx256m" />
+      <sysproperty key="gwt.args" value="-standardsMode -logLevel WARN" />
+      <sysproperty key="java.awt.headless" value="true" />
+      <classpath>
+        <pathelement location="src" />
+        <pathelement location="test" />
+        <path refid="project.class.path" />
+        <pathelement location="/work/gwt-2.4.0/validation-api-1.0.0.GA.jar" />
+        <pathelement location="/work/gwt-2.4.0/validation-api-1.0.0.GA-sources.jar" />
+        <pathelement location="path_to_the_junit_jar" />
+      </classpath>
+      <batchtest todir="reports/htmlunit.dev" >
+        <fileset dir="test" >
+          <include name="**/*Test.java" />
         </fileset>
-    </path>  
+      </batchtest>
+      <formatter type="plain" />
+      <formatter type="xml" />
+    </junit>
+  </target>
 
-    <target name="prepare">
-        <mkdir dir="${build.dir}"/>
-    </target>
-   
-    <target name="clean">
-        <delete dir="${build.dir}"/>
-    </target>  
+  <target name="test.prod" depends="javac.tests" description="Run production mode tests">
+    <mkdir dir="reports/htmlunit.prod" />
+    <junit fork="yes" printsummary="yes" haltonfailure="yes">
+      <jvmarg line="-Xmx256m" />
+      <sysproperty key="gwt.args" value="-prod -standardsMode -logLevel WARN -standardsMode -out www-test" />
+      <sysproperty key="java.awt.headless" value="true" />
+      <classpath>
+        <pathelement location="src" />
+        <pathelement location="test" />
+        <path refid="project.class.path" />
+        <pathelement location="/work/gwt-2.4.0/validation-api-1.0.0.GA.jar" />
+        <pathelement location="/work/gwt-2.4.0/validation-api-1.0.0.GA-sources.jar" />
+        <pathelement location="path_to_the_junit_jar" />
+      </classpath>
+      <batchtest todir="reports/htmlunit.prod" >
+        <fileset dir="test" >
+          <include name="**/*Test.java" />
+        </fileset>
+      </batchtest>
+      <formatter type="plain" />
+      <formatter type="xml" />
+    </junit>
+  </target>
 
-    <!-- Compile the java source code using javac -->
-    <target name="compile" depends="prepare">       
-        <javac srcdir="${src.dir}" destdir="${build.dir}">
-            <classpath refid="project.classpath"/>
-            <classpath refid="org.yafra.gwt.admin.classpath"/>
-        </javac>       
-    </target>      
-    <!-- Invoke the GWT compiler to create the Javascript for us -->
-   <target name="gwt-compile" depends="compile">
-        <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
-            <classpath>
-                <!-- src dir is added to ensure the module.xml file(s) are on the classpath -->
-                <pathelement location="${src.dir}"/>               
-                <pathelement location="${build.dir}"/>
-                <path refid="project.classpath"/>
-                <path refid="org.yafra.gwt.admin.classpath"/>
-            </classpath>
-            <jvmarg value="-Xmx256M"/>
-            <arg value="${gwt.module.name}"/>
-         </java>
-     </target>
-    <!-- Package the compiled Java source into a JAR file -->
-    <target name="jar" depends="compile">       
-        <jar jarfile="${lib.dir}/${jar.name}" basedir="${build.dir}/">
-            <!-- Don't wrap any of the client only code into the JAR -->
-            <exclude name="${gwt.client.dir}/**/*.class"/>
-        </jar>   
-    </target>
-    <!-- Copy the static server resources into the required
-    directory ready for packaging -->   
-    <target name="copy-resources">
-        <copy todir="${build.server.resources.dir}" preservelastmodified="true">
-            <fileset dir="${server.resources.dir}"/>           
-        </copy>
-    </target>   
-    <!-- Package the JAR file, Javascript, static resources
-    and external libraries into a WAR file -->
-    <target name="war" depends="gwt-compile, jar, copy-resources">
-        <war basedir="war" destfile="${war.name}" webxml="war/WEB-INF/web.xml">
-            <exclude name="WEB-INF/**" />
-            <exclude name="${server.resources.name}/**"/>
-            <webinf dir="war/WEB-INF/">
-                <include name="classes/${server.resources.name}/**" />
-                <include name="**/*.jar" />
-                <exclude name="**/gwt-dev.jar" />
-                <exclude name="**/gwt-user.jar" />
-            </webinf>
-        </war>
-    </target>   
-   
+  <target name="test" description="Run development and production mode tests">
+    <antcall target="test.dev" />
+    <antcall target="test.prod" />
+  </target>
+-->
+
+  <target name="hosted" depends="devmode" description="Run development mode (NOTE: the 'hosted' target is deprecated)" />
+
+  <target name="build" depends="gwtc" description="Build this project" />
+
+  <target name="war" depends="build" description="Create a war file">
+    <zip destfile="${deploy.dir}/${war.name}" basedir="war"/>
+  </target>
+
+  <target name="clean" description="Cleans this project">
+    <delete dir="war/WEB-INF/classes" failonerror="false" />
+    <delete dir="war/WEB-INF/deploy" failonerror="false" />
+    <delete dir="war/org_yafra_gwt_admin" failonerror="false" />
+    <delete dir="${build.dir}" failonerror="false" />
+   </target>
+
 </project>

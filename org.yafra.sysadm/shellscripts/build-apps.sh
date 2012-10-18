@@ -148,6 +148,8 @@ cd $JAVANODE/org.yafra.wicket
 ant
 
 #gwt
+cd $JAVANODE/org.yafra.gwt.admin
+ant war
 
 #rcp
 cd $JAVANODE/org.yafra.rcpbuild

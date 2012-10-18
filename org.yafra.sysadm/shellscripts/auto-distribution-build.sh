@@ -107,6 +107,7 @@ echo "build done" >> $LOGFILEADM
 # publish build
 echo "publish build" >> $LOGFILEADM
 $SYSADM/shellscripts/build-publish.sh $1 >> $LOGFILE 2>&1
+echo "if you want yafra rcp - you need a to perform a manual task and re run build-publish.sh" >> $LOGFILEADM
 echo "publish done" >> $LOGFILEADM
 
 echo "distribution build done" >> $LOGFILEADM

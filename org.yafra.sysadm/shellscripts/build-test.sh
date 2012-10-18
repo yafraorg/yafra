@@ -82,6 +82,7 @@ if [ "$DBSERVER" = "localhost" ]; then
 	sudo rm -rf $TOMEE/webapps/org.yafra*
 	sudo cp $WORKNODE/classes/org.yafra.wicket.war $TOMEE/webapps
 	sudo cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps
+	sudo cp $WORKNODE/classes/org.yafra.gwt.admin.war $TOMEE/webapps
 	sudo $SYSADM/shellscripts/start-tomcat.sh
 fi
 

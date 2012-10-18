@@ -19,6 +19,7 @@
 TOMEE_HOME=/work/apache-tomee-webprofile-1.0.0
 echo "starting tomee in path $TOMEE_HOME"
 $TOMEE_HOME/bin/startup.sh run
+sleep 4
 
 # openejb standalone
 #/opt/openejb-3.1.2/bin/openejb start &

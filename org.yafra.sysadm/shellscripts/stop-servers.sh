@@ -26,3 +26,4 @@ $TOMEE_HOME/bin/shutdown.sh
 #$DERBY_HOME/bin/stopNetworkServer
 #/opt/openejb-3.1.2/bin/openejb stop
 #/opt/geronimo-tomcat7-javaee6-3.0-M1/bin/shutdown
+sleep 7
