@@ -24,4 +24,4 @@
 java -jar /work/eclipse/eclipse-rcp/plugins/org.eclipse.equinox.launcher_1.3.0.v20120522-1813.jar \
 -application org.eclipse.ant.core.antRunner \
 -buildfile /work/eclipse/eclipse-rcp/plugins/org.eclipse.pde.build_3.8.1.v20120725-202643/scripts/productBuild/productBuild.xml \
--Dbuilder=.
+-Dbuilder=$BASENODE/org.yafra.rcpbuild
