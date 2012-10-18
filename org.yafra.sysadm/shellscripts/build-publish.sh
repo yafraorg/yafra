@@ -65,11 +65,11 @@ test -d $CLASSDIR || mkdir $CLASSDIR
 test -d $DBDIR || mkdir $DBDIR
 test -d $TRAVELDBDIR || mkdir $TRAVELDBDIR
 test -d $APPDIR || mkdir $APPDIR
+test -d $APPDIR/yafrarcp || mkdir $APPDIR/yafrarcp
 test -d $APPDIR/yafrapadmin || mkdir $APPDIR/yafrapadmin
 test -d $APPDIR/tdbmono || mkdir $APPDIR/tdbmono
 test -d $APPDIR/tdbdbadmin || mkdir $APPDIR/tdbdbadmin
 test -d $APPDIR/tdbpyadmin || mkdir $APPDIR/tdbpyadmin
-
 
 #
 # copy files to staging area
@@ -113,6 +113,9 @@ cp $SYSADM/databases/yafradb/* $DBDIR/
 cp $WORKNODE/classes/* $CLASSDIR
 #python admin
 cp $WORKNODE/apps/yafrapadmin/* $APPDIR/yafrapadmin/
+#rcp
+if [ -d $WORKNODE/eclipse-build/eclipse ]
+	cp $WORKNODE/eclipse-build/eclipse $APPDIR/yafrarcp/
 
 # TDB parts
 cp $TDBCONFIG/linux/mpgui.pro $ETCDIR

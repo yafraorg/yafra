@@ -150,6 +150,9 @@ ant
 #gwt
 
 #rcp
+cd $JAVANODE/org.yafra.rcpbuild
+./build-rcp.sh
+echo "TODO: use eclipse-rcp and export the product through IDE!"
 
 #test as jar exe
 cd $JAVANODE/org.yafra.tests.utils

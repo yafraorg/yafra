@@ -13,7 +13,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: yafra.org
 Bundle-ClassPath: .,
  libs/commons-logging-1.1.1.jar,
- libs/log4j-1.2.15.jar,
+ libs/log4j-1.2.17.jar,
  libs/org.yafra.utils.jar,
  libs/calendarcombo-1.0.0.jar,
  libs/javaee-api-6.0-3-tomcat.jar,
