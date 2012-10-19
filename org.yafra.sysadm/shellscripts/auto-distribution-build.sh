@@ -31,7 +31,7 @@ then
 fi
 
 if [ -z "$1" ]; then
-	echo "missing arguments 1 dev/rel 2 mysql/derby/mssql/oracle"
+	echo "missing arguments 1 mysql/derby/mssql/oracle (2 reset - optional reset of git)"
 	exit
 fi
 
@@ -43,10 +43,10 @@ TIMESTAMP="$(date +%Y%m%d)"
 LOGFILE=/tmp/YAFRA-buildghost-$TIMESTAMP.log
 LOGFILEADM=/tmp/YAFRA-buildghostadmin-$TIMESTAMP.log
 echo "-> start auto distribution build with basenode $BASENODE" > $LOGFILEADM
-echo "settings:" >> $LOGFILEADM
-echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILEADM
-echo "LOGFILEADM: $LOGFILEADM" >> $LOGFILEADM
-echo "LOGFILE: $LOGFILE" >> $LOGFILEADM
+echo "settings:" >> $LOGFILE
+echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILE
+echo "LOGFILEADM: $LOGFILEADM" >> $LOGFILE
+echo "LOGFILE: $LOGFILE" >> $LOGFILE
 
 # set environment to build distribution - no debug, correct build settings
 if [ "$PS_OS" = "ps_cygwin" ]; then
@@ -71,19 +71,19 @@ fi
 
 # get newest source via git pull without pwd
 if [ "$2" = "reset" ]; then
-	echo "reset source now" >> $LOGFILEADM
-	cd $BASENODE >> $LOGFILEADM 2>&1
-	cd .. >> $LOGFILEADM 2>&1
-	rm -rf YafraLocalGit/ >> $LOGFILEADM 2>&1
-	git clone https://github.com/yafraorg/yafra.git YafraLocalGit >> $LOGFILEADM 2>&1
+	echo "reset source now" >> $LOGFILE
+	cd $BASENODE >> $LOGFILE 2>&1
+	cd .. >> $LOGFILE 2>&1
+	rm -rf YafraLocalGit/ >> $LOGFILE 2>&1
+	git clone https://github.com/yafraorg/yafra.git YafraLocalGit >> $LOGFILE 2>&1
 fi
-cd $BASENODE >> $LOGFILEADM 2>&1
-git pull >> $LOGFILEADM 2>&1
+cd $BASENODE >> $LOGFILE 2>&1
+git pull >> $LOGFILE 2>&1
 
 # init build
-echo "init build" >> $LOGFILEADM
+echo "init build" >> $LOGFILE
 $SYSADM/shellscripts/build-init.sh > $LOGFILE 2>&1
-echo "init done" >> $LOGFILEADM
+echo "init done" >> $LOGFILE
 
 # create release note
 echo "yafra release $YAFRAVER.$YAFRAREL" > $WORKNODE/yafra-dist/RELEASE.txt
@@ -95,21 +95,21 @@ echo "https://github.com/yafraorg/yafra/wiki/Release" >> $WORKNODE/yafra-dist/RE
 
 
 # set db
-echo "create rel $1 db now" >> $LOGFILEADM
+echo "create rel $1 db now" >> $LOGFILE
 $SYSADM/shellscripts/build-db.sh rel $1 >> $LOGFILE 2>&1
-echo "build done" >> $LOGFILEADM
+echo "build done" >> $LOGFILE
 
 # build
-echo "build" >> $LOGFILEADM
+echo "build" >> $LOGFILE
 $SYSADM/shellscripts/build-apps.sh >> $LOGFILE 2>&1
-echo "build done" >> $LOGFILEADM
+echo "build done" >> $LOGFILE
 
 # publish build
-echo "publish build" >> $LOGFILEADM
+echo "publish build" >> $LOGFILE
 $SYSADM/shellscripts/build-publish.sh $1 >> $LOGFILE 2>&1
 echo "if you want yafra rcp - you need a to perform a manual task and re run build-publish.sh" >> $LOGFILEADM
-echo "publish done" >> $LOGFILEADM
+echo "publish done" >> $LOGFILE
 
-echo "distribution build done" >> $LOGFILEADM
+echo "distribution build done" >> $LOGFILE
 
 exit
