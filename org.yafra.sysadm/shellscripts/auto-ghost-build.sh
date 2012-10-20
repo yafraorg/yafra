@@ -31,7 +31,7 @@ then
 fi
 
 if [ -z "$1" ]; then
-	echo "missing arguments 1 mysql/derby/mssql/oracle (2 reset - optional reset of git)"
+	echo "missing arguments 1 mysql/derby/mssql/oracle (2 reset - optional reset of git / or servername)"
 	exit
 fi
 
@@ -41,48 +41,51 @@ fi
 #
 TIMESTAMP="$(date +%y%m%d)"
 LOGFILE=/tmp/YAFRA-buildghost-$TIMESTAMP.log
-LOGFILEADM=/tmp/YAFRA-buildghostadmin-$TIMESTAMP.log
-echo "-> start auto ghost build with basenode $BASENODE" > $LOGFILEADM
-echo "settings:" >> $LOGFILEADM
-echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILEADM
-echo "LOGFILEADM: $LOGFILEADM" >> $LOGFILEADM
-echo "LOGFILE: $LOGFILE" >> $LOGFILEADM
+echo "-> start auto ghost build with basenode $BASENODE" > $LOGFILE
+echo "settings:" >> $LOGFILE
+echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILE
+echo "LOGFILEADM: $LOGFILEADM" >> $LOGFILE
+echo "LOGFILE: $LOGFILE" >> $LOGFILE
 
 # get newest source via git pull without pwd
 if [ "$2" = "reset" ]; then
-	echo "reset source now" >> $LOGFILEADM
-	cd $BASENODE >> $LOGFILEADM 2>&1
-	cd .. >> $LOGFILEADM 2>&1
-	rm -rf YafraLocalGit/ >> $LOGFILEADM 2>&1
-	git clone https://github.com/yafraorg/yafra.git YafraLocalGit >> $LOGFILEADM 2>&1
+	echo "reset source now" >> $LOGFILE
+	cd $BASENODE >> $LOGFILE 2>&1
+	cd .. >> $LOGFILE 2>&1
+	rm -rf YafraLocalGit/ >> $LOGFILE 2>&1
+	git clone https://github.com/yafraorg/yafra.git YafraLocalGit >> $LOGFILE 2>&1
 fi
-cd $BASENODE >> $LOGFILEADM 2>&1
-git pull >> $LOGFILEADM 2>&1
+cd $BASENODE >> $LOGFILE 2>&1
+git pull >> $LOGFILE 2>&1
 
 # init build
-echo "init build" >> $LOGFILEADM
-$SYSADM/shellscripts/build-init.sh > $LOGFILE 2>&1
-echo "init done" >> $LOGFILEADM
+echo "init build" >> $LOGFILE
+$SYSADM/shellscripts/build-init.sh >> $LOGFILE 2>&1
+echo "init done" >> $LOGFILE
 
 # create development db
-echo "create dev db now" >> $LOGFILEADM
+echo "create dev db now" >> $LOGFILE
 if [ "$2" = "reset" ]; then
 	$SYSADM/shellscripts/build-db.sh dev $1 setupdb >> $LOGFILE 2>&1
 else
-	$SYSADM/shellscripts/build-db.sh dev $1 >> $LOGFILE 2>&1
+	$SYSADM/shellscripts/build-db.sh dev $1 $2 >> $LOGFILE 2>&1
 fi
-echo "build done" >> $LOGFILEADM
+echo "build done" >> $LOGFILE
 
 # build
-echo "build" >> $LOGFILEADM
+echo "build" >> $LOGFILE
 $SYSADM/shellscripts/build-apps.sh >> $LOGFILE 2>&1
-echo "build done" >> $LOGFILEADM
+echo "build done" >> $LOGFILE
 
 # test
-echo "test" >> $LOGFILEADM
-$SYSADM/shellscripts/build-test.sh >> $LOGFILE 2>&1
-echo "test done" >> $LOGFILEADM
+echo "test" >> $LOGFILE
+if [ "$2" = "reset" ]; then
+	$SYSADM/shellscripts/build-test.sh >> $LOGFILE 2>&1
+else
+	$SYSADM/shellscripts/build-test.sh $2 >> $LOGFILE 2>&1
+fi
+echo "test done" >> $LOGFILE
 
-echo "ghost build done" >> $LOGFILEADM
+echo "ghost build done" >> $LOGFILE
 
 exit

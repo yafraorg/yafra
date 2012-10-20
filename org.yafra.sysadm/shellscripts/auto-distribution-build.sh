@@ -41,7 +41,6 @@ fi
 #
 TIMESTAMP="$(date +%Y%m%d)"
 LOGFILE=/tmp/YAFRA-buildghost-$TIMESTAMP.log
-LOGFILEADM=/tmp/YAFRA-buildghostadmin-$TIMESTAMP.log
 echo "-> start auto distribution build with basenode $BASENODE" > $LOGFILEADM
 echo "settings:" >> $LOGFILE
 echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILE
@@ -82,7 +81,7 @@ git pull >> $LOGFILE 2>&1
 
 # init build
 echo "init build" >> $LOGFILE
-$SYSADM/shellscripts/build-init.sh > $LOGFILE 2>&1
+$SYSADM/shellscripts/build-init.sh >> $LOGFILE 2>&1
 echo "init done" >> $LOGFILE
 
 # create release note

@@ -18,6 +18,8 @@
 # Author:       Administrator
 #
 # Purpose:      build step 4: test build
+#
+# Args:           1 (optional) servername
 #-------------------------------------------------------------------------------
 
 #
