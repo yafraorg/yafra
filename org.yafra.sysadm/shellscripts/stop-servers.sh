@@ -17,7 +17,7 @@
 # stop servers
 #
 DERBY_HOME=/work/db-derby-10.8.2.2-bin
-TOMEE_HOME=/work/apache-tomee-webprofile-1.0.0
+TOMEE_HOME=/work/apache-tomee-webprofile-1.5.0
 #export CATALINA_HOME=/opt/openreports-tomcat/tomcat
 
 echo "stoping servers"

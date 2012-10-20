@@ -41,7 +41,7 @@ fi
 # settings
 #
 TIMESTAMP="$(date +%y%m%d)"
-TOMEE=/work/apache-tomee-webprofile-1.0.0
+TOMEE=/work/apache-tomee-webprofile-1.5.0
 BINDIR=$YAFRAEXE
 APPDIR=$WORKNODE/apps
 echo "============================================================"

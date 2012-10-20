@@ -16,7 +16,7 @@
 #
 # start tomee
 #
-TOMEE_HOME=/work/apache-tomee-webprofile-1.0.0
+TOMEE_HOME=/work/apache-tomee-webprofile-1.5.0
 echo "starting tomee in path $TOMEE_HOME"
 $TOMEE_HOME/bin/startup.sh run
 sleep 4
