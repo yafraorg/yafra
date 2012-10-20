@@ -12,7 +12,8 @@ http://cxf.apache.org/jaxws
 http://cxf.apache.org/schemas/jaxws.xsd">
 
   <import resource="classpath:META-INF/cxf/cxf.xml" />
-
+  <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+ 
   <!-- JAX-RS -->
   <jaxrs:server id="yafrapersonRestful" address="/yafrarest">
     <jaxrs:serviceBeans>
@@ -25,6 +26,7 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 	  id="personHandler" 
 	  implementor="org.yafra.server.jee.ws.PersonHandler" 
 	  address="/PersonSEI" />
+
+<bean id="personHandlerREST" class="org.yafra.server.rest.PersonHandler" />	  
 	 
-  <bean id="personHandlerREST" class="org.yafra.server.rest.PersonHandler" />	  
 </beans>

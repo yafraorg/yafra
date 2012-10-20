@@ -70,8 +70,8 @@ public class YafraUserPage extends AdminPage
 
         final YafraUserDP userProvider = new YafraUserDP();
         
-		List<IColumn<?>> columns = new ArrayList<IColumn<?>>();
-		columns.add(new AbstractColumn<MYafraUser>(new Model<String>("Actions"))
+		List<IColumn<MYafraUser, String>> columns = new ArrayList<IColumn<MYafraUser, String>>();
+		columns.add(new AbstractColumn<MYafraUser, String>(new Model<String>("Actions"))
 		{
 			public void populateItem(Item<ICellPopulator<MYafraUser>> cellItem, String componentId,
 				IModel<MYafraUser> model)

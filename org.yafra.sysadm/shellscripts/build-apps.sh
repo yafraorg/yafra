@@ -42,7 +42,6 @@ YAFRACORE=$JAVANODE/org.yafra.server.core
 echo "YAFRACORE: $YAFRACORE"
 #
 echo "java classes for yafra project"
-YAFRACLASSES=/work/classes
 echo "YAFRACLASSES: $YAFRACLASSES"
 #
 echo "OSAHRED: $OSHARED and ODEBUG: $ODEBUG"
@@ -51,25 +50,25 @@ echo "OSAHRED: $OSHARED and ODEBUG: $ODEBUG"
 #CLASSIC/ANSIC
 #
 cd $YAFRALIBS
-make clean
+#make clean
 make all
 cd psipc/testsuite/psserver
-make clean
+#make clean
 make all
 cd ../psclient-cons
-make clean
+#make clean
 make all
 cd ../fork
-make clean
+#make clean
 make all
 cd $YAFRALIBS/pssys/testsuite/datetime
-make clean
+#make clean
 make all
 cd ../logging
-make clean
+#make clean
 make all
 cd ../chars
-make clean
+#make clean
 make all
 if [ "$PS_OS" = "ps_cygwin" ]; then
 	cd $PSMATRIXLIB
@@ -79,18 +78,18 @@ fi
 
 #CLASSIC/ADDONS
 cd $PSWHAT
-make clean
+#make clean
 make all
 cd $PSEDIT
-make clean
+#make clean
 make all
 cd $CMDSRV
-make clean
+#make clean
 make all
 
 #CLASSIC/TDB
 cd $TDBS
-make clean
+#make clean
 make mpapi
 make all
 

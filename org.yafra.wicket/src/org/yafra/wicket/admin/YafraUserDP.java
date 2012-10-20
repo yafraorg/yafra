@@ -51,8 +51,8 @@ public class YafraUserDP extends SortableDataProvider
 		{
 		public int compare(final MYafraUser o1, final MYafraUser o2)
 			{
-			PropertyModel<Comparable> model1 = new PropertyModel<Comparable>(o1, getSort().getProperty());
-			PropertyModel<Comparable> model2 = new PropertyModel<Comparable>(o2, getSort().getProperty());
+			PropertyModel<Comparable> model1 = new PropertyModel<Comparable>(o1, (String) getSort().getProperty());
+			PropertyModel<Comparable> model2 = new PropertyModel<Comparable>(o2, (String) getSort().getProperty());
 
 			int result = model1.getObject().compareTo(model2.getObject());
 
@@ -91,7 +91,7 @@ public class YafraUserDP extends SortableDataProvider
 		return newList.subList(first, first + count).iterator();
 		}
 
-	public int size()
+	public long size()
 		{
 		return list.getObject().size();
 		}
@@ -110,6 +110,13 @@ public class YafraUserDP extends SortableDataProvider
 					return (MYafraUser) object;
 					}
 			};
+		}
+
+	@Override
+	public Iterator iterator(long arg0, long arg1)
+		{
+		// TODO Auto-generated method stub
+		return null;
 		}
 
 	}

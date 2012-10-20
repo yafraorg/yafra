@@ -67,41 +67,41 @@ echo "create database in mode $1, dbtype $2, server $DBSERVER, dbapwd $SAPWD"
 cd $JAVANODE/org.yafra.tests.serverdirectclient
 if [ "$1" = "dev" ]; then
 	if [ "$2" = "mysql" ]; then
-		echo "using the mysql localhost database"
+		echo "using the mysql $DBSERVER database"
 		cp $YAFRACORE/src/org.yafra.release.mysql.Node.driver.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$2" = "derby" ]; then
-		echo "using the derby localhost database"
+		echo "using the derby $DBSERVER database"
 		cp $YAFRACORE/src/org.yafra.release.derby.Node.driver.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$2" = "oracle" ]; then
-		echo "using the oracle localhost database"
+		echo "using the oracle $DBSERVER database"
 		cp $YAFRACORE/src/org.yafra.release.oracle.Node.driver.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$2" = "mssql" ]; then
-		echo "using the mssql localhost database"
+		echo "using the mssql $DBSERVER database"
 		cp $YAFRACORE/src/org.yafra.release.mssql.Node.driver.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$DBSERVER" != "localhost" ]; then
-		sed -i 's/localhost/$DBSERVER/g' $YAFRACORE/$CAYCONFIG
+		sed -i "s/localhost/$DBSERVER/g" $YAFRACORE/$CAYCONFIG
 	fi
 else
 	# copy a default config and later the correct one according $2
 	cp $YAFRACORE/$CAYSRCCONFIG $YAFRACORE/$CAYCONFIG
 	if [ "$2" = "mysql" ]; then
-		echo "using the mysql localhost database"
+		echo "using the mysql $DBSERVER database"
 		cp $YAFRACORE/src/org.yafra.release.mysql.Node.driver.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$2" = "derby" ]; then
-		echo "using the derby localhost database"
+		echo "using the derby $DBSERVER database"
 		cp $YAFRACORE/src/org.yafra.release.derby.Node.driver.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$2" = "oracle" ]; then
-		echo "using the oracle localhost database"
+		echo "using the oracle $DBSERVER database"
 		cp $YAFRACORE/src/org.yafra.release.oracle.Node.driver.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$2" = "mssql" ]; then
-		echo "using the mssql localhost database"
+		echo "using the mssql $DBSERVER database"
 		cp $YAFRACORE/src/org.yafra.release.mssql.Node.driver.xml $YAFRACORE/$CAYCONFIG
 	fi
 fi
