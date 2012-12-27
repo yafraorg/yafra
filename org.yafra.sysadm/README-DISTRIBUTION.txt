@@ -23,18 +23,16 @@ DISTRIBUTION
 http://www.yafra.org/
 https://github.com/yafraorg/yafra/   GET YOUR LOGIN AND FORK ME NOW!
 
-Version 1.0-B1
-
-Beta 1
+Version 1.0.0 (Black Kite)
 
 * Before you start:
 you find up to date information on:
 https://github.com/yafraorg/yafra/wiki
 
 install the following components on your local PC
-- java runtime edition 6.x
-- apache tomee webprofile 1.0.0 into /work or c:\work
-- apache cxf 2.6.1 into /work or c:\work
+- java runtime edition 7.x
+- apache tomee webprofile 1.5.1 into /work or c:\work
+- apache cxf 2.6.4 into /work or c:\work
 - apache cayenne 3.0.2 into /work or c:\work
 follow the installation guides on those products to get them running (except cayenne, see later).
 Make sure they are installed correctly and are running before you continue.
@@ -46,7 +44,6 @@ Make sure you have enabled some users in tomee under conf/tomcat-users.xml
 Releases for the full yafra applications and demonstrations are available as MySQL builds. The Java Yafra part
 can be available as derby standalone version. An installation script will create the databases and users in order
 to run the samples or tests.
-
 
 * Steps to get ready
 
