@@ -20,6 +20,8 @@
 # Purpose:      build step 4: test build
 #
 # Args:           1 (optional) servername
+#
+# change TOMEE to your local installation
 #-------------------------------------------------------------------------------
 
 #
@@ -41,7 +43,7 @@ fi
 # settings
 #
 TIMESTAMP="$(date +%y%m%d)"
-TOMEE=/work/apache-tomee-webprofile-1.5.0
+TOMEE=/work/apache-tomee-webprofile-1.5.1
 BINDIR=$YAFRAEXE
 APPDIR=$WORKNODE/apps
 echo "============================================================"
@@ -80,12 +82,12 @@ if [ "$DBSERVER" = "localhost" ]; then
 	$BINDIR/mpdbi -daemon
 	$BINDIR/psserver -daemon
 	$BINDIR/mpnet -daemon
-	sudo $SYSADM/shellscripts/start-tomcat.sh
+	sudo $SYSADM/shellscripts/server-tomee.sh stop $TOMEE
 	sudo rm -rf $TOMEE/webapps/org.yafra*
 	sudo cp $WORKNODE/classes/org.yafra.wicket.war $TOMEE/webapps
 	sudo cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps
 	sudo cp $WORKNODE/classes/org.yafra.gwt.admin.war $TOMEE/webapps
-	sudo $SYSADM/shellscripts/start-tomcat.sh
+	sudo $SYSADM/shellscripts/server-tomee.sh start $TOMEE
 fi
 
 
@@ -134,7 +136,7 @@ $BINDIR/mptest -n $DBSERVER
 echo "============================================================"
 echo " TEST CASE 7: tdb .net/mono csharp test - reading db"
 echo "============================================================"
-$APPDIR/tdbmono/tdbtest.exe tdbadmin $DBSERVER MySQL
+mono $APPDIR/tdbmono/tdbtest.exe tdbadmin $DBSERVER MySQL
 echo "============================================================"
 echo " TEST CASE 8: tdb perl DBI test - reading db"
 echo "============================================================"
