@@ -10,3 +10,8 @@ background: rgb 98 119 58 - #62773A
 foreground: #ffffff (white)
 
 Default font ARIAL with size 12
+
+bootstrap http://twitter.github.com/bootstrap/customize.html :
+
+bodybackground: #F7FFC9
+textcolor: #464646
