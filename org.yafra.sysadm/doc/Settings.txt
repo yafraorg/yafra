@@ -15,3 +15,9 @@ bootstrap http://twitter.github.com/bootstrap/customize.html :
 
 bodybackground: #F7FFC9
 textcolor: #464646
+navbarBackground: #d2d8ab
+navbarBackgroundHighlight: #62773a
+tableBackgroundAccent: #d2d8ab
+placeholderText: #464646
+inputBackground: #dddddd
+dropdownBackground: #dddddd
