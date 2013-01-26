@@ -1,5 +1,25 @@
 <?php include('ahead.php');?>  
 
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">yafra.org</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav nav-pills pull-right">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/project.php">Projects</a></li>
+              <li><a href="https://github.com/yafraorg/yafra/wiki">Wiki</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
     <div class="container">
 
 
@@ -38,22 +58,16 @@
       </div>
 
 
-      <div class="row">
-        <div class="span12">
-          <div class="hero-unit">
-            <h1>Application technologies for you!</h1>
-            <p>Why should you still spend money on a specific services which need to be customised for you? Use the cloud and crowd approach and create your own specific service tailored to your needs while not being locked in with a vendor.</p>
-            <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-          </div>
+
           <div class="row">
             <div class="span4">
-              <h2>Basic services</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+              <h2>J2EE based on Apache Wicket</h2>
+              <p>This sample uses the Apache Cayenne ORM, Apache TOMEE/Tomcat or Jetty as server and Apache Wicket as web framework. It shows how you can utilise Apache Wicket with Apache Cayenne running in within the virtual machine</p>
               <p><a class="btn" href="#">View details &raquo;</a></p>
             </div><!--/span-->
             <div class="span4">
-              <h2>Application services</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+              <h2>J2EE with EJB3</h2>
+              <p>If you need to distribute components over different virtual machines or using fat clients EJB3 provides a prooven layer to establish multi tier applications using different client technologies. This sample has a simple console program, Eclipse RCP fat client and a simple servlet.</p>
               <p><a class="btn" href="#">View details &raquo;</a></p>
             </div><!--/span-->
             <div class="span4">
@@ -79,8 +93,6 @@
               <p><a class="btn" href="#">View details &raquo;</a></p>
             </div><!--/span-->
           </div><!--/row-->
-        </div><!--/span-->
-      </div><!--/row-->
 
 
 <?php include('afooter.php');?>  
