@@ -57,13 +57,20 @@
         </div>
       </div>
 
+      <div class="row">
+        <div class="span12">
+        <br />
+        <br />
+        <br />
+        </div>
+      </div>
 
 
           <div class="row">
             <div class="span4">
-              <h2>J2EE based on Apache Wicket</h2>
+              <h2>J2EE with Apache Wicket</h2>
               <p>This sample uses the Apache Cayenne ORM, Apache TOMEE/Tomcat or Jetty as server and Apache Wicket as web framework. It shows how you can utilise Apache Wicket with Apache Cayenne running in within the virtual machine</p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
+              <p><a class="btn" href="https://github.com/yafraorg/yafra/wiki/Wicket">View details &raquo;</a></p>
             </div><!--/span-->
             <div class="span4">
               <h2>J2EE with EJB3</h2>
@@ -71,24 +78,24 @@
               <p><a class="btn" href="#">View details &raquo;</a></p>
             </div><!--/span-->
             <div class="span4">
-              <h2>Document management</h2>
+              <h2>Apache Cayenne</h2>
               <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
               <p><a class="btn" href="#">View details &raquo;</a></p>
             </div><!--/span-->
           </div><!--/row-->
           <div class="row">
             <div class="span4">
-              <h2>Knowledge management</h2>
+              <h2>Python</h2>
               <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
               <p><a class="btn" href="#">View details &raquo;</a></p>
             </div><!--/span-->
             <div class="span4">
-              <h2>Administration services</h2>
+              <h2>Continous Integration</h2>
               <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
               <p><a class="btn" href="#">View details &raquo;</a></p>
             </div><!--/span-->
             <div class="span4">
-              <h2>Computing power</h2>
+              <h2>Google Web Toolkit</h2>
               <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
               <p><a class="btn" href="#">View details &raquo;</a></p>
             </div><!--/span-->
