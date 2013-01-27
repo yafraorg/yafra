@@ -9,7 +9,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">yafra.org</a>
+          <a class="brand" href="/"><img src="/img/org-yafra2.jpg"></a>
           <div class="nav-collapse collapse">
             <ul class="nav nav-pills pull-right">
               <li><a href="/">Home</a></li>
