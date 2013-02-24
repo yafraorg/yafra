@@ -56,8 +56,8 @@ under the License.
 	<property name="package.file" value="${cp.dir}/${projname}.war" />
 	
 	<property name="debuglevel" value="source,lines,vars"/>
-	<property name="target" value="1.6"/>
-	<property name="source" value="1.6"/>
+	<property name="target" value="1.7"/>
+	<property name="source" value="1.7"/>
 	<filelist id="depjars" dir="${cp.dir}">
 		<file name="${cp.dir}/mysql-connector-java-5.1.21-bin.jar"/>
 		<file name="${cp.dir}/derbyclient.jar"/>

@@ -47,8 +47,8 @@ under the License.
 	<property name="cp.dir" value="${workdir}/classes" />
 
 	<property name="debuglevel" value="source,lines,vars"/>
-	<property name="target" value="1.6"/>
-	<property name="source" value="1.6"/>
+	<property name="target" value="1.7"/>
+	<property name="source" value="1.7"/>
 	<filelist id="ejbjars" dir="../../../../apache-tomee-webprofile-1.5.1/lib">
 		<file name="openejb-client-4.0.0.jar"/>
 		<file name="openejb-core-4.0.0.jar"/>

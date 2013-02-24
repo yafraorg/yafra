@@ -47,8 +47,8 @@ under the License.
 	<property name="cp.dir" value="${workdir}/classes" />
 
 	<property name="debuglevel" value="source,lines,vars"/>
-	<property name="target" value="1.6"/>
-	<property name="source" value="1.6"/>
+	<property name="target" value="1.7"/>
+	<property name="source" value="1.7"/>
 	<filelist id="depjars" dir="${cp.dir}">
 		<file name="${cp.dir}/commons-collections-3.2.1.jar"/>
 		<file name="${cp.dir}/commons-logging-1.1.1.jar"/>

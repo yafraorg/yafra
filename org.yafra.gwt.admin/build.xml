@@ -37,8 +37,8 @@ under the License.
 	<property name="YAFRACLASSES" value="${env.YAFRACLASSES}"/>
 	<property name="ECLIPSE_HOME" value="/work/eclipse/eclipse-gwt"/>
 	<property name="debuglevel" value="source,lines,vars"/>
-	<property name="target" value="1.6"/>
-	<property name="source" value="1.6"/>
+	<property name="target" value="1.7"/>
+	<property name="source" value="1.7"/>
 
   <!-- Configure path to GWT SDK -->
   <property name="gwt.sdk" location="/work/gwt-2.5.0" />
