@@ -73,11 +73,11 @@ under the License.
 		<file name="${cp.dir}/log4j-1.2.17.jar"/>
 		<file name="${cp.dir}/slf4j-api-1.7.2.jar"/>
 		<file name="${cp.dir}/slf4j-log4j12-1.7.2.jar"/>
-		<file name="${cp.dir}/wicket-core-6.1.1.jar"/>
-		<file name="${cp.dir}/wicket-request-6.1.1.jar"/>
-		<file name="${cp.dir}/wicket-util-6.1.1.jar"/>
-		<file name="${cp.dir}/wicket-extensions-6.1.1.jar"/>
-		<file name="${cp.dir}/wicket-auth-roles-6.1.1.jar"/>
+		<file name="${cp.dir}/wicket-core-6.6.0.jar"/>
+		<file name="${cp.dir}/wicket-request-6.6.0.jar"/>
+		<file name="${cp.dir}/wicket-util-6.6.0.jar"/>
+		<file name="${cp.dir}/wicket-extensions-6.6.0.jar"/>
+		<file name="${cp.dir}/wicket-auth-roles-6.6.0.jar"/>
 		<file name="${cp.dir}/jxl.jar" />
 		<file name="${cp.dir}/org.yafra.utils.jar"/>
 		<file name="${cp.dir}/org.yafra.server.core.jar"/>
