@@ -38,4 +38,4 @@ fi
 
 
 # renew pem request from database (see index which to renew)
-openssl ca -config openssl.cnf -in CA_ROOT/certs/cert-id$1.csr -out CA_ROOT/certs/cert-id$1new.crt -startdate $2 -enddate $3 -policy policy_anything 
+openssl ca -config openssl.cnf -in nissle/certs/cert-id$1.csr -out nissle/certs/cert-id$1new.crt -startdate $2 -enddate $3 -policy policy_anything 

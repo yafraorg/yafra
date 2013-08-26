@@ -37,10 +37,10 @@ if [ -z "$3" ]; then
 fi
 
 # renew pem request from database (see index which to renew)
-openssl ca -config openssl.cnf -in CA_ROOT/certs/cert-id$1.req -out newcert.pem -startdate $2 -enddate $3 -policy policy_anything 
+openssl ca -config openssl.cnf -in nissle/certs/cert-id$1.req -out newcert.pem -startdate $2 -enddate $3 -policy policy_anything 
 
 # extract private key from p12 cert
 openssl pkcs12 -in cert-id$1.p12 -out cert-id$1.key -nocerts
 
 # export new cert to p12 with former private key
-openssl pkcs12 -export -in newcert.pem -inkey cert-id$1.key -certfile CA_ROOT/cacert.pem -name "Your Name" -out newcert.p12
+openssl pkcs12 -export -in newcert.pem -inkey cert-id$1.key -certfile nissle/cacert.pem -name "Martin Weber Nissle" -out newcert.p12

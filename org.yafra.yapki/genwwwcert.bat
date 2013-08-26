@@ -24,8 +24,8 @@ REM check first argument
 if ""%1""=="""" goto about
 
 REM create WWW server request
-openssl genrsa -des3 -rand C:\hpfr5550.log -out %1.key 1024
-openssl req -config openssl.cnf -new -key %1.key -out %1.csr
+openssl genrsa -des3 -rand C:\xy.log -out %1.key 1024
+openssl req -config openssl.cnf -new -sha1 -key %1.key -out %1.csr
 REM sign WWW server request with CA
 openssl ca -config openssl.cnf -policy policy_anything -out %1.crt -infiles %1.csr
 REM create RSA private key with password for automatic server startup

@@ -25,14 +25,13 @@
 #
 # CVS tag:   $Name:  $
 # author:    $Author: mwn $
-# revision:  $Revision: 24 $
+# revision:  $Revision: 16 $
 #-------------------------------------------------------------------------------
 
 # arguments are: 1: crl days
 if [ -z "$1" ]; then
-		echo yafra.org - revoke command
-        echo please specify cert hex id
+        echo Please specify cert hex id
         exit
 fi
 
-openssl ca -config openssl.cnf -revoke CA_ROOT/newcerts/$1.pem
+openssl ca -config openssl.cnf -revoke nissle/newcerts/$1.pem
