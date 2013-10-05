@@ -21,7 +21,7 @@ if [ -z "$1" ]; then
 	exit
 fi
 
-TOMEE_HOME=/work/apache-tomee-webprofile
+TOMEE_HOME=/work/apache-tomee-webprofile-1.5.2
 if [ -n "$2" ]; then
 	TOMEE_HOME="$2"
 fi

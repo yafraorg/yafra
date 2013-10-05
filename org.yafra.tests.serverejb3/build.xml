@@ -49,10 +49,10 @@ under the License.
 	<property name="debuglevel" value="source,lines,vars"/>
 	<property name="target" value="1.7"/>
 	<property name="source" value="1.7"/>
-	<filelist id="ejbjars" dir="../../../../apache-tomee-webprofile-1.5.1/lib">
-		<file name="openejb-client-4.0.0.jar"/>
-		<file name="openejb-core-4.0.0.jar"/>
-		<file name="javaee-api-6.0-3-tomcat.jar"/>
+	<filelist id="ejbjars" dir="../../../../apache-tomee-webprofile-1.5.2/lib">
+		<file name="openejb-client-4.5.2.jar"/>
+		<file name="openejb-core-4.5.2.jar"/>
+		<file name="javaee-api-6.0-5-tomcat.jar"/>
 	</filelist>
 	<filelist id="depjars" dir="${cp.dir}">
 		<file name="org.yafra.utils.jar"/>

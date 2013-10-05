@@ -6,9 +6,9 @@
 	<classpathentry kind="var" path="YAFRACLASSES/org.yafra.server.ejbstubs.jar"/>
 	<classpathentry kind="var" path="YAFRACLASSES/org.yafra.server.coreclient.jar"/>
 	<classpathentry kind="var" path="YAFRACLASSES/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="var" path="YAFRAEJB/javaee-api-6.0-4-tomcat.jar"/>
-	<classpathentry kind="var" path="YAFRAEJB/openejb-core-4.5.1.jar"/>
-	<classpathentry kind="var" path="YAFRAEJB/openejb-client-4.5.1.jar"/>
+	<classpathentry kind="var" path="YAFRAEJB/javaee-api-6.0-5-tomcat.jar"/>
+	<classpathentry kind="var" path="YAFRAEJB/openejb-core-4.5.2.jar"/>
+	<classpathentry kind="var" path="YAFRAEJB/openejb-client-4.5.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

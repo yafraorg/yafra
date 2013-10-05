@@ -41,7 +41,7 @@ under the License.
 	<property name="source" value="1.7"/>
 
   <!-- Configure path to GWT SDK -->
-  <property name="gwt.sdk" location="/work/gwt-2.5.0" />
+  <property name="gwt.sdk" location="/work/gwt-2.5.1" />
 
   <path id="project.class.path">
     <pathelement location="war/WEB-INF/classes"/>
@@ -73,7 +73,7 @@ under the License.
     <mkdir dir="war/WEB-INF/classes"/>
     <javac srcdir="src" includes="**" encoding="utf-8"
         destdir="war/WEB-INF/classes"
-        source="1.6" target="1.6" nowarn="true"
+        source="1.7" target="1.7" nowarn="true"
         debug="true" debuglevel="lines,vars,source">
       <classpath refid="project.class.path"/>
     </javac>
