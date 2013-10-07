@@ -46,7 +46,7 @@ LINTOUT    = $(PSRC)/lint.out
 #
 # defines for the sourcecode
 #
-DEFINES   = -D$(PS_OS) -D$(PS_OSTYPE)
+DEFINES   = -D$(PS_OS) -D$(PS_OSTYPE) -D$(PS_HW)
 
 #
 # search path for includes and librarys

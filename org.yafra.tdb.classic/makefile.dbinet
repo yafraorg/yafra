@@ -98,7 +98,7 @@ LINTOUT    = $(SOURCEPATH)/lint.out
 #
 # defines for the sourcecode
 #
-DEFINES    = -D$(PS_OS) -D$(PS_OSTYPE)
+DEFINES    = -D$(PS_OS) -D$(PS_OSTYPE) -D$(PS_HW)
 MANSECTION = 1
 XMLINC     = `xml2-config --cflags`
 XMLLIB     = `xml2-config --libs`

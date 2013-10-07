@@ -83,7 +83,7 @@ LINTOUT    = $(PSRC)/lint.out
 #
 # defines for the sourcecode
 #
-DEFINES    = -D$(PS_OS) -D$(PS_OSTYPE) $(TDBDEF)
+DEFINES    = -D$(PS_OS) -D$(PS_OSTYPE) $(TDBDEF) -D$(PS_HW)
 #XMLINC     = `xml2-config --cflags`
 #
 # search path and flags for cc/ar/ld

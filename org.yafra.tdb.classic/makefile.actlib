@@ -41,7 +41,7 @@ LINTOUT    = $(PSRC)/lint.out
 #
 NOLOCKING  = -DNOACTLOCK
 DBDEFS     = -D$(MPDBDEF)
-DEFINES   = -D$(PS_OS) -D$(PS_OSTYPE)
+DEFINES   = -D$(PS_OS) -D$(PS_OSTYPE) -D$(PS_HW)
 XMLINC     = `xml2-config --cflags`
 
 #

@@ -15,14 +15,14 @@ int MailSend(char *user, FILE *fpmail, char *filename)
 	char *mailhost;
 
 #ifdef ps_unix
-	(void)sprintf(command, "mailx -s \"MARCO POLO TO Aktionsmail\" %s < /tmp/%s", user, filename);
+	(void)sprintf(command, "mailx -s \"TDB mailing\" %s < /tmp/%s", user, filename);
 	status = UtilExec(command, (int)0);
 #else
 	(void)fclose(fpmail);
 	mailhost = getenv( "TDBSMTPHOST" );
 	if (mailhost != NULL)
 		{
-		(void)sprintf(command, "smtpmail -h %s -s \"MARCO POLO TO Aktionsmail\" %s < \\\\TEMP\\\\%s", mailhost, user, filename);
+		(void)sprintf(command, "smtpmail -h %s -s \"TDB mailing\" %s < \\\\TEMP\\\\%s", mailhost, user, filename);
 		status = UtilExec(command, (int)0);
 		}
 #endif

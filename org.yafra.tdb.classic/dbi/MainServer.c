@@ -15,7 +15,7 @@ static char rcsid[]="$Header: /yafra/cvsroot/mapo/source/dbi/MainServer.c,v 1.2 
    started.
 */
 char *PSIPCservicename = SERVICE;
-char *PSIPCservicetitle = "MARCO POLO TO Server";
+char *PSIPCservicetitle = "TDB TO Server";
 char *PSIPCprot = PROT;
 char *PSIPCservicedeps = "tcpip\0NuTCRACKER Service\0\0";
 int (*PSclient)(int, char**, int);

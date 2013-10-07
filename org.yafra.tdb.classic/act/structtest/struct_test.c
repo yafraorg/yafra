@@ -1,18 +1,29 @@
 #define SQL_MAX_ROW 50
 
-#include <mpdb.h>      /* Includefile fuer die Relationalen Datenbanken */
-#include <mpmain.h>    /* Includefile fuer MARCO-POLO */
-#include <mpproapi.h>  /* Prototypes fœr ANSI-C */
+#include <mpdb.h>      /* Includefile for relational database */
+#include <mpmain.h>    /* Includefile for TDB */
+#include <mpproapi.h>  /* Prototypes ANSI-C */
 
 /* include def_table struct */
 #include <mpdbglob.h>
-
+#include <locale.h>
 
 
 void main()
 {
 
 	int aaa, aai, table_nr;
+
+#ifdef ps_linux
+	setlocale(LC_ALL, "en_US.utf8");
+#endif
+
+	printf("structure test - test sizeof struct and struct padding on CPU\n");
+	printf("sizeof char: %2d\n", sizeof(char));
+	printf("sizeof int: %2d\n", sizeof(int));
+	printf("sizeof long: %2d\n", sizeof(long));
+	printf("sizeof float: %2d\n", sizeof(float));
+	printf("sizeof double: %2d\n\n", sizeof(double));
 
 	for (table_nr = 0; table_nr < 292; table_nr++) {
 		if (def_table[table_nr].name != NULL ) {

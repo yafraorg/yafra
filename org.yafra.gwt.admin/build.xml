@@ -23,7 +23,7 @@ under the License.
 <!-- author:          yafra info@yafra.org -->
 <!-- source control:  git -->
 <!-- @author Yafraorg -->
-<project name="org.yafra.gwt.admin" default="build" basedir=".">
+<project name="org.yafra.gwt.admin" default="war" basedir=".">
   <!-- Arguments to gwtc and devmode targets -->
   <property name="gwt.args" value="" />
  
@@ -195,6 +195,7 @@ Test targets suppressed because -junit argument was not specified when running w
   </target>
 
   <target name="clean" description="Cleans this project">
+    <delete dir="gwt-unitCache" failonerror="false" />
     <delete dir="war/WEB-INF/classes" failonerror="false" />
     <delete dir="war/WEB-INF/deploy" failonerror="false" />
     <delete dir="war/org_yafra_gwt_admin" failonerror="false" />

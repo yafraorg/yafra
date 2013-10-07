@@ -104,7 +104,7 @@ TAROUT     = $(HOME)/$(PROGRAM).tar
 #
 # defines for the sourcecode
 #
-DEFINES    = -D$(PS_OSTYPE) -D$(PS_OS)
+DEFINES    = -D$(PS_OSTYPE) -D$(PS_OS) -D$(PS_HW)
 MANSECTION = 1
 
 #

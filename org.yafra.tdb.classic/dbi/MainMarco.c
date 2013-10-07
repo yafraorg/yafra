@@ -99,6 +99,9 @@ int MainMarco(int argv, char **argc, int fd)
 #ifdef ps_hpux
 	setlocale(LC_ALL, "de_DE.iso88591");
 #endif
+#ifdef ps_linux
+	setlocale(LC_ALL, "en_US.utf8");
+#endif
 
 	/* GLOBINIT lesen */
 	COMMSTAT   = (char)NULL;
@@ -156,14 +159,14 @@ int MainMarco(int argv, char **argc, int fd)
 
 		/* open syslog */
 		MPsyslog(_LOGOPEN, 0, (char *)NULL);
-		MPsyslog(_LOGMP, MPINFO, "MARCO POLO: user connected - starting");
+		MPsyslog(_LOGMP, MPINFO, "TDB: user connected - starting");
 
 		/* open debug files */
 		if (MP_DBIDEBUGFILENAME != (char *)NULL)
 			{
 			MP_DBIDEBUGFILE = fopen(MP_DBIDEBUGFILENAME, _P_APPEND_);
 			if (MP_DBIDEBUGFILE == NULL)
-				perror("MARCO POLO DBI debug file open error");
+				perror("TDB DBI debug file open error");
 			}
 
 		/* open database */

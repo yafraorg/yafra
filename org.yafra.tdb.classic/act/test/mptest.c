@@ -199,6 +199,10 @@ int main(int argc, char **argv)
 	MPV_KUNADR	*Pmpv_kunadr;
 	STATUS_WERTE	*Pstatus_werte;
 
+#ifdef ps_linux
+	setlocale(LC_ALL, "en_US.utf8");
+#endif
+
 	/* extern FILE *FPmail; */
 
 	(void)printf("Start travelDB test access to database");
@@ -250,7 +254,7 @@ int main(int argc, char **argv)
 
 	if (argc < 2)
 		{
-		printf("usage: mptest -n database_name (default user is root/root)\n");
+		printf("usage: mptest -n database_name (default user is tdbadmin/yafra)\n");
 		exit(-1);
 		}
 	if (strcmp(argv[1], "-n") == 0)
@@ -259,7 +263,7 @@ int main(int argc, char **argv)
 		}
 	else
 		{
-		printf("usage: mptest -n database_name (default user is root/root)\n");
+		printf("usage: mptest -n database_name (default user is tdbadmin/yafra)\n");
 		exit(-1);
 		}
 
