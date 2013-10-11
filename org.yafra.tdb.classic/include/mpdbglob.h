@@ -17,8 +17,6 @@
  * null     = 2 Einheiten
  *************************************************************/
 
-//TODO address 64bit architecture structure alignment - address 32bit vs 64bit mixture in client / server
-
 static struct {
 		char  *name;
 		int   sqln;

@@ -7,7 +7,7 @@
 /* include def_table struct */
 #include <mpdbglob.h>
 #include <locale.h>
-
+#include  <stdalign.h>
 
 void main()
 {
@@ -18,13 +18,21 @@ void main()
 	setlocale(LC_ALL, "en_US.utf8");
 #endif
 
-	printf("structure test - test sizeof struct and struct padding on CPU\n");
+	printf("\nstructure test - test sizeof of standard types (int, char, long, etc)\n");
 	printf("sizeof char: %2d\n", sizeof(char));
+	printf("sizeof short: %2d\n", sizeof(short));
 	printf("sizeof int: %2d\n", sizeof(int));
+	printf("sizeof int *: %2d\n", sizeof(int *));
+	printf("sizeof void *: %2d\n", sizeof(void *));
 	printf("sizeof long: %2d\n", sizeof(long));
 	printf("sizeof float: %2d\n", sizeof(float));
-	printf("sizeof double: %2d\n\n", sizeof(double));
+	printf("sizeof double: %2d\n", sizeof(double));
 
+	printf("\nstructure test - test sizeof struct STATUS_WERTE and alignof()\n");
+	printf("sizeof STATUS_WERTE: %4d\n", sizeof(STATUS_WERTE));
+	printf("alignof STATUS_WERTE: %4d\n", alignof(STATUS_WERTE));
+
+	printf("\nstructure test - test sizeof of all TDB structs\n");
 	for (table_nr = 0; table_nr < 292; table_nr++) {
 		if (def_table[table_nr].name != NULL ) {
  			for (aai = aaa = 0; aai < def_table[table_nr].sqln; aai++) {

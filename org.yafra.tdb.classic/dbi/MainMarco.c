@@ -15,6 +15,9 @@
 #ifdef ps_hpux
 #include <locale.h>
 #endif
+#ifdef ps_linux
+#include <locale.h>
+#endif
 #include "version.h"
 
 static char rcsid[]="$Header: /yafra/cvsroot/mapo/source/dbi/MainMarco.c,v 1.3 2008-11-17 10:42:51 mwn Exp $";
