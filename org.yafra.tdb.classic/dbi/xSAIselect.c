@@ -87,6 +87,7 @@ int SAIchoose(int table, char *buffer)
 	extern SAISON	sai;
 
 	struct tm DateTime;
+	time_t date;
 	char	bezeichnung[RECLAENGE];
 	char	buffer1[RECLAENGE];
 	char	message[RECLAENGE];
@@ -121,7 +122,8 @@ int SAIchoose(int table, char *buffer)
 	DateTime.tm_mday=(int)_UNDEF;
 	DateTime.tm_mon =(int)_UNDEF;
 	DateTime.tm_year=(int)_UNDEF;
-	(void)WriteDate(&DateTime, (time_t *)&sai.von, bezeichnung);
+	date = (time_t)sai.von;
+	(void)WriteDate(&DateTime, &date, bezeichnung);
 	(void)strcat(buffer, bezeichnung);
 	(void)strcat(buffer, "\t");
 
@@ -129,7 +131,8 @@ int SAIchoose(int table, char *buffer)
 	DateTime.tm_mday=(int)_UNDEF;
 	DateTime.tm_mon =(int)_UNDEF;
 	DateTime.tm_year=(int)_UNDEF;
-	(void)WriteDate(&DateTime, (time_t *)&sai.bis, bezeichnung);
+	date = (time_t)sai.bis;
+	(void)WriteDate(&DateTime, &date, bezeichnung);
 	(void)strcat(buffer, bezeichnung);
 	(void)strcat(buffer, "\t");
 

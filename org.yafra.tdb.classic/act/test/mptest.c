@@ -456,6 +456,10 @@ static void StructTest(void)
 		return;
 		}
 
+	fprintf(sfp,"%sTest summary of database access and struct memory alignment%s", _P_EOL_, _P_EOL_);
+	fprintf(sfp,"%sTests on standard types: sizeof int %d, long %d, float %d, double %d, pointer %d %s",
+		_P_EOL_, sizeof(int), sizeof(long), sizeof(float), sizeof(double), sizeof(void *), _P_EOL_);
+	fprintf(sfp,"%sList of all structs and sizes: %s", _P_EOL_, _P_EOL_);
 	for ( table = 0; table < 293; table++ )
 		{
 		if (def_table[table].name == NULL)
@@ -467,12 +471,12 @@ static void StructTest(void)
 			}
 		if ( def_table[table].sqlrowlen != elemleng )
 			{
-			fprintf(sfp,"TABELLE = %-20.20s SIZEOF LENG = %4d ELEMENT LENG = %4d%s",
+			fprintf(sfp,"TABLE = %-20.20s SIZEOF LENGTH = %4d ELEMENT LENGTH = %4d%s",
 			def_table[table].name, def_table[table].sqlrowlen,elemleng, _P_EOL_);
 			}
 		else
 			{
-			fprintf(sfp,"TABELLE = %-20.20s SIZEOF = %4d | %4d%s",
+			fprintf(sfp,"TABLE = %-20.20s SIZEOF = %4d | %4d%s",
 			def_table[table].name, def_table[table].sqlrowlen,elemleng, _P_EOL_);
 			}
 		}

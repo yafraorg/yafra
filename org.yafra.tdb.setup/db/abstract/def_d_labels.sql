@@ -1,4 +1,4 @@
-insert into label values (180, 0, 0, 0, 1, 'MARCO POLO - Graphik                     ');
+insert into label values (180, 0, 0, 0, 1, 'travelDB - Graphik                     ');
 insert into label values (180, 0, 1, 0, 1, 'Graphik                                  ');
 insert into label values (180, 0, 2, 0, 1, 'Datei:                                   ');
 insert into label values (180, 0, 3, 0, 1, 'Dialogfenster                            ');
@@ -478,8 +478,8 @@ insert into label values (181, 152, 6, 0, 1, 'Abbrechen                         
 insert into label values (181, 152, 7, 0, 1, 'Printen                                  ');
 insert into label values (181, 152, 8, 0, 1, 'naechster                                ');
 insert into label values (181, 152, 9, 0, 1, 'vorhergehender                           ');
-insert into label values (181, 152, 10, 0, 1, 'MARCO POLO Applikation verlassen ?       ');
-insert into label values (181, 152, 11, 0, 1, 'Globale Werte speichern ?                ');
+insert into label values (181, 152, 10, 0, 1, 'travelDB Applikation verlassen ?        ');
+insert into label values (181, 152, 11, 0, 1, 'Globale Werte speichern ?               ');
 insert into label values (181, 153, 0, 0, 1, 'optionale Felder                         ');
 insert into label values (181, 153, 1, 0, 1, 'Neueingeben                              ');
 insert into label values (181, 153, 2, 0, 1, 'Aendern                                  ');
@@ -489,7 +489,7 @@ insert into label values (181, 154, 1, 0, 1, 'optionale Felder                  
 insert into label values (181, 154, 2, 0, 1, 'Befehle                                  ');
 insert into label values (181, 154, 3, 0, 1, 'Einstellungen                            ');
 insert into label values (181, 157, 0, 0, 1, '                                         ');
-insert into label values (181, 157, 1, 0, 1, 'MARCO POLO                               ');
+insert into label values (181, 157, 1, 0, 1, 'travelDB                                 ');
 insert into label values (181, 157, 2, 0, 1, 'Globale Werte                            ');
 insert into label values (181, 157, 3, 0, 1, 'GLOBAL                                   ');
 insert into label values (181, 157, 4, 0, 1, 'Information                              ');
@@ -547,7 +547,7 @@ insert into label values (181, 210, 7, 0, 1, 'Audio einschalten                 
 insert into label values (181, 210, 8, 0, 1, 'Debug Information                        ');
 insert into label values (181, 210, 9, 0, 1, 'Schnelles Lesen                          ');
 insert into label values (181, 211, 0, 0, 1, 'Setup Globalewerte Datei...              ');
-insert into label values (181, 212, 0, 0, 1, 'MARCO POLO beenden...                    ');
+insert into label values (181, 212, 0, 0, 1, 'travelDB beenden...                      ');
 insert into label values (181, 213, 0, 0, 1, 'Applikation                              ');
 insert into label values (181, 214, 0, 0, 1, 'About...                                 ');
 insert into label values (182, 2, 0, 0, 1, 'Kurzeingabe Reisender                    ');

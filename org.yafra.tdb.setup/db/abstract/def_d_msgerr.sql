@@ -76,7 +76,7 @@ delete from msg where msg.msg_typ = 1 and msg.msg_id = 25 and msg.s_id = 1;
 insert into msg values (1, 25, 1, 1,
 'Sie haben KEINE BERECHTIGUNG fuer diese Operation. Fragen Sie Ihren');
 insert into msg values (1, 25, 1, 2,
-'MARCO POLO Administrator wegen Ihrer Berechtigungsstufe.');
+'travelDB Administrator wegen Ihrer Berechtigungsstufe.');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 26 and msg.s_id = 1;
 insert into msg values (1, 26, 1, 1,

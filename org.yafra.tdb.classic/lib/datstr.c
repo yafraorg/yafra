@@ -16,7 +16,7 @@ static char rcsid[]="$Header: /yafra/cvsroot/mapo/source/lib/datstr.c,v 1.2 2008
 
 void MPdate_makecurrent(char *aDate, char *aTime)
 {
-	PSSYSwriteDate(0, aDate, aTime, 30, PSSYS_DAT_GERMAN);
+	PSSYSwriteDate(0, aDate, aTime, sizeof(aTime), PSSYS_DAT_GERMAN);
 }
 
 void MPdate_makefromint(int aClock, char *aDatestring, int aDatestrlen)

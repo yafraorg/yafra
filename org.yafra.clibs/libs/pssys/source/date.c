@@ -86,12 +86,11 @@ PS_DLLAPI void PSSYSwriteDate(time_t aTimevalue, /* read time_t value */
 PS_DLLAPI int PSSYSint2datetime(struct tm *aDateTime, /* control struct */
                       time_t    *aClock_value, /* INPUT time value */
                       char      *aRecord, /* OUTPUT string */
-                      size_t    aRecordLen, /* OUTPUT string lenght */
-                      char      *aLayout, /* how shall it looks */
+                      size_t    aRecordLen, /* OUTPUT string length */
+                      char      *aLayout, /* how shall it look */
                       int       aFormat /* Date or Duration */)
 {
 	struct tm	*tv;
-	char			buffer[1024];
 	size_t		len;
 	int			value;
 	char			value_char[16];
@@ -111,7 +110,7 @@ PS_DLLAPI int PSSYSint2datetime(struct tm *aDateTime, /* control struct */
 		case PSSYS_DAT_GERMAN:
 		default:
 			tv = localtime(aClock_value);
-			*aRecord = (char)NULL;
+			*aRecord = (char)0;
 			len = strftime(aRecord, aRecordLen, aLayout, tv);
 			if (len == 0)
 				return(PSNODATE);
@@ -146,7 +145,7 @@ PS_DLLAPI int PSSYSdatetime2int(struct tm *aDatecontrol,
 	int	status = PSOK;
 
 	/* check if outputstring is not NULL */
-	if (*aDatestring == NULL)
+	if (*aDatestring == (char)0)
 		{
 		*aDatevalue = (int)_NODATE;
 		return(PSERROR);
@@ -198,7 +197,7 @@ static int PSSYSgerman_int2time(struct tm *aDateTime,
 {
 	int			status=PSOK;
 
-	(void)memset((void *)aDateTime, NULL, sizeof(aDateTime));
+	(void)memset((void *)aDateTime, (int)0, sizeof(aDateTime));
 
 	aDateTime->tm_isdst = (int)-1;
 	aDateTime->tm_sec  = *aClock_value % 60;

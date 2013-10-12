@@ -26,18 +26,18 @@
 #define PSWRITE       14 /* Schreib Fehler */
 #define PSNODATE      15 /* kein Datum */
 
-/* Allocationsdefinitionen */
+/* memory management */
 typedef struct
 {
-   char *buffer;                   /* Datenbuffer               */
-   unsigned int alloclen;          /* L�nge des alloz. Buffers  */
-   unsigned int datalen;           /* L�nge der Daten           */
+   char *buffer;                   /* memory allocation         */
+   unsigned int alloclen;          /* memory allocation length  */
+   unsigned int datalen;           /* effective data length     */
 } PSmemobj;
-#define PSMEMCHUNK    (int)4096      /*   4 kb Erh�hung       */
-#define PSMEMCHUNK30  (int)30720     /*  30 kb Ausgangsbuffer */
-#define PSMEMCHUNK100 (int)1024000   /* 100 kb Erh�hung       */
+#define PSMEMCHUNK    (int)4096      /*   4 kb increase       */
+#define PSMEMCHUNK30  (int)30720     /*  30 kb increase       */
+#define PSMEMCHUNK100 (int)1024000   /* 100 kb increase       */
 
-/* Moegliche if-Zustaende */
+/* state definition (true and false) */
 #ifndef TRUE
 #define  TRUE  1
 #define  FALSE 0
@@ -47,7 +47,7 @@ typedef struct
 #define PS_DEFAULTLANGUAGE  1
 #define PS_DEFAULTLANGTEXT  "german"
 
-/* interne Trennzeichen zwischen GUI - DBI */
+/* internal GUI - DBI communication delimiters */
 #define _PSSYMBLEN   1
 #define _PSSYMB_TAB  '\t'
 #define _PSSYMB_CR   '\n'

@@ -137,7 +137,11 @@ int MainMarco(int argv, char **argc, int fd)
 		{
 		status = PSSYSsetUser(&mpusernumber, globprof.user);
 		if (status != MPOK)
+			{
 			status = MPE_PASSWD;
+			if (DebugFlag)
+				PSSYSdebug(MP_DBIDEBUGFILE, PROGRAMNAME, "ERROR: user / password error - most likely user not found in passwd file - status: %d", status);
+			}
 		}
 
 	/* open logs and DATABASE */
@@ -178,6 +182,8 @@ int MainMarco(int argv, char **argc, int fd)
 		status = MPAPIdb_connect(globprof.database, globprof.user, globprof.password);
 		MPlog(_LOGMP, MSGTYP_INFO, " connect done !", __FILE__);
 		logging_sql = (unsigned char)FALSE;
+		if (DebugFlag)
+			PSSYSdebug(MP_DBIDEBUGFILE, PROGRAMNAME, "DB opened with status: %d", status);
 		}
 
 	/* print debug infos of DB open */
@@ -188,8 +194,8 @@ int MainMarco(int argv, char **argc, int fd)
 		logging_sql = (unsigned char)TRUE;
 		logging_user  = (unsigned char)TRUE;
 		PSSYSdebug(MP_DBIDEBUGFILE, PROGRAMNAME, "%s", MPversiontext);
-		PSSYSdebug(MP_DBIDEBUGFILE, PROGRAMNAME, "DB opened with %d", status);
-		PSSYSdebug(MP_DBIDEBUGFILE, PROGRAMNAME, "Setting SQL logging - see log files", status);
+		PSSYSdebug(MP_DBIDEBUGFILE, PROGRAMNAME, "Current status: %d", status);
+		PSSYSdebug(MP_DBIDEBUGFILE, PROGRAMNAME, "Setting SQL logging - see log files");
 		}
 
 	/* set signal handling */

@@ -12,6 +12,7 @@ static char rcsid[]="$Header: /yafra/cvsroot/mapo/source/act/lib/AKTdatetime.c,v
 
 /* MarcoPolo API includes */
 #include <mpact.h>
+#include <time.h>
 
 
 /*F************************************************************
@@ -121,9 +122,10 @@ int AKTdateConvertToAge( char *dateStr )
 	double	elapsed ;
 	long		leap, nbdays ;
 	char		ageTxt[_TEXTLEN];
-	int		age, len, i ;
+	int		age, len, i, currentyear;
 	struct	tm			date;
 	time_t	now, seconds;
+	struct tm *today;
 
 	/*-- check text for validity ----*/
 	if (len = strlen(dateStr) <= 0 )
@@ -138,7 +140,9 @@ int AKTdateConvertToAge( char *dateStr )
 		{
 		if (i > 1800) /* entered as 18xx or 19xx or 20xx */
 			{
-			age = (1998 - i); // TODO hardcoded current year - change !!!
+			today = localtime(time(NULL));
+			currentyear = today->tm_year;
+			age = (currentyear - i);
 			return(age);
 			}
 		else

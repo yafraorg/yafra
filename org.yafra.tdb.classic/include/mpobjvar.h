@@ -9,6 +9,7 @@
  $Header: /yafra/cvsroot/mapo/source/include/mpobjvar.h,v 1.6 2009-01-02 16:51:35 mwn Exp $
 */
 
+// TODO convert all date/time to long (8 bytes - 64 bits) - issue with time in 2038
 
 /************************************************************
  * Sektion:  physische Datenbankobjekte (tables)

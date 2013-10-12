@@ -202,12 +202,12 @@ PS_DLLAPI void PSSYSsyslog(int aLogtype,  /* type of log described in pssys.h */
 	va_list ap;
 
 
-#ifdef ps_unix
-	int priority;
-#else
+#ifdef ps_win
 	static HANDLE log_hndl = NULL;
 	DWORD	Estrlen = 0;
 	WORD priority;
+#else
+	int priority;
 #endif
 
 #ifdef ps_win

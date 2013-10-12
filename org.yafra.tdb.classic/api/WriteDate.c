@@ -27,9 +27,9 @@ int WriteDate(struct tm *DateTime, time_t *clock_value, char *record)
    if (DateTime->tm_mday == (int)_UNDEF && DateTime->tm_mon == (int)_UNDEF &&
        DateTime->tm_year == (int)_UNDEF && DateTime->tm_hour == (int)_UNDEF &&
        DateTime->tm_min == (int)_UNDEF )
-		status = PSSYSint2datetime(DateTime, clock_value, record, 30, "%d.%m.%Y %H:%M", PSSYS_DAT_GERMAN);
+		status = PSSYSint2datetime(DateTime, clock_value, record, sizeof(record), "%d.%m.%Y %H:%M", PSSYS_DAT_GERMAN);
 	else
-		status = PSSYSint2datetime(DateTime, clock_value, record, 30, "%d.%m.%Y", PSSYS_DAT_GERMAN);
+		status = PSSYSint2datetime(DateTime, clock_value, record, sizeof(record), "%d.%m.%Y", PSSYS_DAT_GERMAN);
 
 	return(status);
 }

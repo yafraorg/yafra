@@ -10,7 +10,7 @@
 
 static char rcsid[]="$Header: /yafra/cvsroot/mapo/source/api/MailOpen.c,v 1.2 2008-11-02 19:55:48 mwn Exp $";
 
-#define DEFAULTMAILHEADER "Default mailheader for MARCO POLO actions"
+#define DEFAULTMAILHEADER "Default mail header for travelDB batch/command line programs"
 
 #define _MAIL_TMPFILE   "MAIL_XXXXXX"
 

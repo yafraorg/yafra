@@ -13,11 +13,11 @@
  * Sektion:  memory defines and objects
  *************************************************************/
 
-/* Allocationsdefinitionen */
+/* memory management */
 typedef struct
 {
    char *buffer;                    /* buffer pointer    */
-   unsigned long alloclen;          /* lenght of buffer  */
+   unsigned long alloclen;          /* length of buffer  */
    unsigned long datalen;           /* length of data (must be lower or equal to alloclen! */
 } MEMOBJ;
 #define STARTMEMCHUNK   (int)30720     /*  30 kb initial size   */
@@ -30,7 +30,7 @@ typedef struct
  * Sektion:  global defines
  *************************************************************/
 
-/* Moegliche if-Zustaende */
+/* true / false definition */
 #ifndef TRUE
 #define  TRUE  1
 #define  FALSE 0
@@ -41,7 +41,7 @@ typedef struct
 #define DEFAULTLANGTEXT  "german"
 
 /* program name */
-#define PROGRAMNAME "MARCO POLO"
+#define PROGRAMNAME "travelDB"
 
 /* error/debug/log handling */
 #define MP_GUI_D "MPGUI debug:"

@@ -31,6 +31,7 @@ int GLOBinit(MP_PROFIL *aProf, GLOBDATA *aGlobdata)
 	char bez[_RECORDLEN];
 	int status = (int)MPOK;
 	int id;
+	time_t tmpdate;
 
 	/* init global ID's to UNDEF */
 	globBCHST.kun_id = (int)_UNDEF;
@@ -157,7 +158,8 @@ int GLOBinit(MP_PROFIL *aProf, GLOBDATA *aGlobdata)
 		DateTime.tm_year=(int)_UNDEF;
 		DateTime.tm_hour=(int)_UNDEF;
 		DateTime.tm_min =(int)_UNDEF;
-		(void)WriteDate(&DateTime, (time_t *)&aProf->a_zeit, bez);
+		tmpdate = (time_t)aProf->a_zeit;
+		(void)WriteDate(&DateTime, &tmpdate, bez);
 		(void)strcpy(aGlobdata->a_zeit, bez);
 		}
 
@@ -171,7 +173,8 @@ int GLOBinit(MP_PROFIL *aProf, GLOBDATA *aGlobdata)
 		DateTime.tm_year=(int)_UNDEF;
 		DateTime.tm_hour=(int)_UNDEF;
 		DateTime.tm_min =(int)_UNDEF;
-		(void)WriteDate(&DateTime, (time_t *)&aProf->e_zeit, bez);
+		tmpdate = (time_t)aProf->e_zeit;
+		(void)WriteDate(&DateTime, &tmpdate, bez);
 		(void)strcpy(aGlobdata->e_zeit, bez);
 		}
 

@@ -34,12 +34,12 @@
 ;
 ; project name and installer output file
 ;
-Name "MARCO POLO"
+Name "travelDB"
 OutFile "mapotoclassic-v${VER_MAJOR}r${VER_MINOR}.exe"
 Icon ${MAPOETC}\mapo.ico
 
 ;
-; PISO License for MARCO POLO TO Classic
+; License for travelDB TO Classic
 ;
 LicenseText "You must read the following license before installing:"
 LicenseData ${MAPOLICENSE}
@@ -47,7 +47,7 @@ LicenseData ${MAPOLICENSE}
 ;
 ; install section and settings
 ;
-ComponentText "This will install MARCO POLO TO Classic v${VER_MAJOR}.${VER_MINOR} on your computer:"
+ComponentText "This will install travelDB TO Classic v${VER_MAJOR}.${VER_MINOR} on your computer:"
 InstType "GTK user interface (required)"
 InstType "X11/Motif user interface"
 InstType "Server program (without Oracle !)"
@@ -55,7 +55,7 @@ InstType "Outputs and actions"
 InstallDir "$PROGRAMFILES\mapo"
 InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\PISOAG\mapo" ""
 DirShow show
-DirText "Select the directory to install MARCO POLO in:"
+DirText "Select the directory to install travelDB in:"
 
 Section "" ; (default installation for ALL)
 	SetOutPath "$INSTDIR"
@@ -67,7 +67,7 @@ Section "" ; (default installation for ALL)
 	File ${MAPOETC}\mpgui.ini
 	; write registry
 	WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\PISOAG\mapo" "" "$INSTDIR"
-	WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\mapo" "DisplayName" "MARCO POLO TO Classic"
+	WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\mapo" "DisplayName" "travelDB TO Classic"
 	WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\mapo" "UninstallString" '"$INSTDIR\uninst.exe"'
 	; write uninstaller
 	WriteUninstaller "$INSTDIR\uninst.exe"
@@ -80,13 +80,13 @@ SectionEnd
 
 Section "" ; (default start programs entries)
 	SetShellVarContext all
-	SetOutPath "$SMPROGRAMS\MARCO POLO"
-	Delete "$SMPROGRAMS\MARCO POLO\MAPO Home Page.lnk"
-	WriteINIStr "$SMPROGRAMS\MARCO POLO\MAPO Home Page.url" \
+	SetOutPath "$SMPROGRAMS\travelDB"
+	Delete "$SMPROGRAMS\travelDB\yafra.org Home Page.lnk"
+	WriteINIStr "$SMPROGRAMS\travelDB\yafra.org Home Page.url" \
 		"InternetShortcut" "URL" "http://www.touristic.ch/"
-	CreateShortCut "$SMPROGRAMS\MARCO POLO\Uninstall MAPO.lnk" \
+	CreateShortCut "$SMPROGRAMS\travelDB\Uninstall TDB.lnk" \
 		"$INSTDIR\uninst.exe"
-	CreateShortCut "$SMPROGRAMS\MARCO POLO\Documentation.lnk" \
+	CreateShortCut "$SMPROGRAMS\travelDB\Documentation.lnk" \
 		"$INSTDIR\manual\index.htm"
 SectionEnd
 
@@ -97,8 +97,8 @@ Section "GTK user interface"
 	File ${GNOMEDLL}
 
 	SetShellVarContext all
-	SetOutPath "$SMPROGRAMS\MARCO POLO"
-	CreateShortCut "$SMPROGRAMS\MARCO POLO\MAPO-Gtk.lnk" \
+	SetOutPath "$SMPROGRAMS\travelDB"
+	CreateShortCut "$SMPROGRAMS\travelDB\TDB-Gtk.lnk" \
 		"$INSTDIR\bin\mpgtk.exe" "" "$INSTDIR\mapo.ico"
 	SetOutPath $INSTDIR
 	CreateShortCut "$DESKTOP\MAPO.lnk" "$INSTDIR\bin\mpgtk.exe" "" "$INSTDIR\mapo.ico"
@@ -129,8 +129,8 @@ Section "X11/Motif user interface (without X11 server)"
 	; aendern von MPgui fehlt und restliche dateien
 
 	SetShellVarContext all
-	SetOutPath "$SMPROGRAMS\MARCO POLO"
-	CreateShortCut "$SMPROGRAMS\MARCO POLO\MAPO-X11.lnk" \
+	SetOutPath "$SMPROGRAMS\travelDB"
+	CreateShortCut "$SMPROGRAMS\travelDB\TDB-X11.lnk" \
 		"$INSTDIR\bin\mpgui.exe" "-D -s $R0 -display localhost:0.0" "$INSTDIR\mpgui.ico"
 	SetOutPath $INSTDIR
 	CreateShortCut "$DESKTOP\MAPO-X11.lnk" \
@@ -148,8 +148,8 @@ Section "Database server (without Oracle)"
 	File "${MAPOBIN}\psfifo.exe"
 	File ${CYGWINDLL}
 	SetShellVarContext all
-	SetOutPath "$SMPROGRAMS\MARCO POLO"
-	CreateShortCut "$SMPROGRAMS\MARCO POLO\MAPO-Server.lnk" \
+	SetOutPath "$SMPROGRAMS\travelDB"
+	CreateShortCut "$SMPROGRAMS\travelDB\MAPO-Server.lnk" \
 		"$INSTDIR\bin\mpdbi.exe" "-debug" "$INSTDIR\mpgui.ico"
 	SetOutPath $INSTDIR
 	CreateShortCut "$DESKTOP\MAPO-Server.lnk" \
@@ -166,12 +166,12 @@ SectionEnd
 ;
 ; uninstall settings/section
 ;
-UninstallText "This will uninstall MARCO POLO from your system"
+UninstallText "This will uninstall travelDB from your system"
 Section Uninstall
 	SetShellVarContext all
-	Delete "$SMPROGRAMS\MARCO POLO\*.lnk"
-	Delete "$SMPROGRAMS\MARCO POLO\*.url"
-	RMDir "$SMPROGRAMS\MARCO POLO"
+	Delete "$SMPROGRAMS\travelDB\*.lnk"
+	Delete "$SMPROGRAMS\travelDB\*.url"
+	RMDir "$SMPROGRAMS\travelDB"
 	Delete "$DESKTOP\MAPO.lnk"
 	Delete "$DESKTOP\MAPO-X11.lnk"
 	Delete $DESKTOP\MAPO-Server.lnk"
@@ -188,7 +188,7 @@ Section Uninstall
 SectionEnd ; end of uninstall section
 
 Function .onInstSuccess
-	MessageBox MB_YESNO "Thank you for installing MARCO POLO TO Classic - would you like to see the README.txt ?" IDNO NoReadme
+	MessageBox MB_YESNO "Thank you for installing travelDB TO Classic - would you like to see the README.txt ?" IDNO NoReadme
 		Exec "notepad.exe ${MAPOREADME}"
 	NoReadme:
 FunctionEnd

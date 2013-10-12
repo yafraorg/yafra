@@ -64,7 +64,7 @@ static void xUIinitMenuMembers();
 ApplicationData   app_data;						/* xUIappdefaults.h */
 DatabaseData      db_data;
 
-/* MARCO POLO global profile data */
+/* travelDB global profile data */
 GLOBDATA				globdata;
 MP_GLOBALPROFIL	globprof; /* the main profile */
 Boolean				setupcleanflag = False;
@@ -91,7 +91,7 @@ char	allowed;				/* PS modul has allowed        */
 Boolean		allmenuflag;				/* true generates all menu stuff at init phase*/
 Boolean		undraw;
 long			maxtablist = 0;            /* aktuelle Anzahl Zeilen (LISTWIDGET) */
-unsigned char actiontoggle = INSERT; /* Defaulteinstellung f�r toggles     */
+unsigned char actiontoggle = INSERT; /* Defaulteinstellung for toggles     */
 char           rec[RECLAENGE];
 long    maxentries = 0;   /* aktuelle Anzahl Characters  (INPUT)    */
 char    *entries;         /* INPUT Eintrag                          */
@@ -110,7 +110,7 @@ MENULIST  grouplist[ANZGROUPS+1][ANZ_MENU];
 MENU     *suchzuo;					   /* MENU zur SUCHMASKE */
 int		aktmenuz = -1;             /* Anzahl des aktuell aktiven Menus    */
 int		aktmenu[ANZ_MENU];         /* aktuell aktive Menus                */
-int		aktmenuobj[ANZ_MENU];      /* aktuelles MENU Objekt f�r COMM      */
+int		aktmenuobj[ANZ_MENU];      /* aktuelles MENU Objekt for COMM      */
 int		menutypzuo[ANZ_MENU];		/* Zuordnung Typ zu MENU               */
 /* MENUDIM	menudim[ANZ_MENU];			menu dimensions used for scrollwin  */
 
@@ -295,6 +295,9 @@ void main(int argc, char** argv)
 #ifdef ps_hpux
 	(void)setlocale(LC_ALL, "de_DE.iso88591");
 #endif
+#ifdef ps_linux
+	setlocale(LC_ALL, "en_US.utf8");
+#endif
 
 	/* init PSIPC functions */
 	cret = PSIPCsocketinit();
@@ -337,7 +340,7 @@ void main(int argc, char** argv)
 		}
 	if (DebugFlag)
 		{
-		PSSYSdebug(NULL, NULL, "MARCO POLO GUI debugmode enabled");
+		PSSYSdebug(NULL, NULL, "travelDB GUI debugmode enabled");
 		PSSYSdebug(NULL, NULL, "UI allowed %d, GRA allowed %d",
 		        allowed, graphikallowed);
 		}
@@ -426,12 +429,15 @@ void main(int argc, char** argv)
 		PSSYSdebug(NULL, NULL, "communication with daemon NOT OK (code %d)!",
 		        databasenotok);
 
-#ifdef ps_unix
-	/*------ Get the user id of this process */
+// TODO update to a proper authentication dialog / user/pwd usage - depends on database and OS
+/***
+ #ifdef ps_unix
+	// Get the user id of this process
 	userid = getuid();
 	userpasswd = (struct passwd *)getpwuid(userid);
 	(void)strcpy((char *)globprof.user, (char *)userpasswd->pw_name);   
-#endif
+ #endif
+***/
 	if (DebugFlag)
 		PSSYSdebug(NULL, NULL, "user from passwd is now %s", globprof.user);
 

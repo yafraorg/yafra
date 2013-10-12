@@ -1,8 +1,8 @@
 /*
-* labels used in Marco Polo TO 2000 only !
+* labels used in travelDB TO 2000 only !
 * 
 * Copyright : yafra.org
-* Author : Genevieve Rolli
+* Author : 
 * Creation Date : 01/12/1998
 *
 * execution steps :

@@ -11,7 +11,7 @@
 static char rcsid[]="$Header: /yafra/cvsroot/mapo/source/act/lib/AKTmsg.c,v 1.2 2008-11-02 19:55:50 mwn Exp $";
 
 /* MarcoPolo API includes */
-#include <mpact.h>         /* Standart Includefile   */
+#include <mpact.h>         /* default include  */
 
 #define _SEL_ALL_AKTMSG "SELECT * FROM TDBADMIN.MSG \
 	WHERE S_ID = %d AND MSG_TYP = %d \
