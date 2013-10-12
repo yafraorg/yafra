@@ -1,3 +1,12 @@
+/*D***********************************************************
+ * program:      mpstruct
+ * description:  complete c struct test
+ *               program to check variable sizes
+ *
+ * arguments:    none
+ *
+ * Copyright: yafra.org
+ *************************************************************/
 #define SQL_MAX_ROW 50
 
 #include <mpdb.h>      /* Includefile for relational database */
@@ -8,6 +17,7 @@
 #include <mpdbglob.h>
 #include <locale.h>
 #include  <stdalign.h>
+#include "version.h"
 
 void main()
 {
@@ -18,6 +28,7 @@ void main()
 	setlocale(LC_ALL, "en_US.utf8");
 #endif
 
+	printf("\nstructure test - %s\n", PSIDENT);
 	printf("\nstructure test - test sizeof of standard types (int, char, long, etc)\n");
 	printf("sizeof char: %2d\n", sizeof(char));
 	printf("sizeof short: %2d\n", sizeof(short));

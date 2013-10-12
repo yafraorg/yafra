@@ -22,7 +22,7 @@
 # program and library names
 #
 CORENAME   = mpstruct
-VER_NAME   = "MARCO POLO struct test"
+VER_NAME   = "yafra.org c struct test"
 
 ifeq ($(PS_OSTYPE),ps_win)
 PROGRAM    = $(CORENAME).exe
