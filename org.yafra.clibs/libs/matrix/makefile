@@ -58,6 +58,10 @@ ifeq ($(PS_OS),ps_linux)
 ADDON =
 endif
 
+ifeq ($(PS_OS),ps_cygwin)
+ADDON = -I/usr/include/freetype2
+endif
+
 ifeq ($(PS_OS),ps_hpux)
 #ADDON = -Wp,-H900 -D__hpux -Dhpux -DSYSV -DMERGE -DTDUX -Dhp9000s300
 ADDON =  -Aa -D_HPUX_SOURCE +w1
