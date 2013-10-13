@@ -16,7 +16,7 @@
 /* include def_table struct */
 #include <mpdbglob.h>
 #include <locale.h>
-#include  <stdalign.h>
+//#include  <stdalign.h>
 #include "version.h"
 
 void main()
@@ -41,7 +41,7 @@ void main()
 
 	printf("\nstructure test - test sizeof struct STATUS_WERTE and alignof()\n");
 	printf("sizeof STATUS_WERTE: %4d\n", sizeof(STATUS_WERTE));
-	printf("alignof STATUS_WERTE: %4d\n", alignof(STATUS_WERTE));
+	//printf("alignof STATUS_WERTE: %4d\n", alignof(STATUS_WERTE));
 
 	printf("\nstructure test - test sizeof of all TDB structs\n");
 	for (table_nr = 0; table_nr < 292; table_nr++) {

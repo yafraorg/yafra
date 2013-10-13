@@ -58,6 +58,10 @@ ifeq ($(PS_OS),ps_hpux)
 LIBS = -ltdbact -ltdbdb -ltdbact -ltdbdb -ltdbcommon -lpssys $(DBLIBS) -lportnls -lcl
 endif
 
+ifeq ($(PS_OS),ps_osx)
+LIBS = -ltdbact -ltdbcommon -lpssys
+endif
+
 ifeq ($(PS_OS),ps_linux)
 LIBS = -ltdbact -ltdbdb -ltdbcommon -lpssys $(DBLIBS)
 endif
@@ -84,6 +88,11 @@ MANSECTION = 1
 # search path for includes and libraries
 #
 include $(YAFRATOOLS)/include/prgflags.mak
+
+ifeq ($(PS_OS),ps_osx)
+ADDLIBS	=
+ADDON		= -I/usr/include/malloc
+endif
 
 ifeq ($(PS_OS),ps_linux)
 ADDLIBS	=

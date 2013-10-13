@@ -85,9 +85,10 @@ ifdef OSHARED
 else
 	AR        = ar crus
 endif
-FCC       = $(FDEBUG) $(FSHARED) $(FRELEASE)
+FCC       = -I/usr/include/malloc $(FDEBUG) $(FSHARED) $(FRELEASE)
 CMANFLAGS = -P "cc -E -C" -I$(PINC) -V -i$(INCLUDE) -o$(PMAN) -S$(MANSECTION)
 MAKE      = make
+CC        = gcc
 endif
 
 #
