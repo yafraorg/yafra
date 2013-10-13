@@ -149,7 +149,7 @@ else
 endif
 CC        = gcc -I/usr/gnu/include
 LD        = gcc -L/usr/gnu/lib
-FCC       = $(FDEBUG) $(FRELEASE)
+FCC       = -I/usr/include/freetype2 $(FDEBUG) $(FRELEASE)
 CMANFLAGS = -P "cc -E -C" -I$(PINC) -V -i$(INCLUDE) -o$(PMAN) -S$(MANSECTION)
 endif
 

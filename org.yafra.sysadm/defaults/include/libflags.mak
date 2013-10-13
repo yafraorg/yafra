@@ -143,7 +143,7 @@ else
 	AR       = ar crus
 endif
 CC        = gcc
-FCC       = $(FDEBUG) $(FSHARED) $(FRELEASE)
+FCC       = -I/usr/include/freetype2 $(FDEBUG) $(FSHARED) $(FRELEASE)
 CMANFLAGS = -P "cc -E -C -Aa -D_HPUX_SOURCE +e" \
 -I$(PINC) -V -o$(PMAN) -S$(MANSECTION)
 endif
