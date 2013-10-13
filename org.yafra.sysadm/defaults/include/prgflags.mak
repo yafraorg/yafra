@@ -71,6 +71,8 @@ endif
 # MAC OS/X
 #
 ifeq ($(PS_OS),ps_osx)
+CC = gcc
+LD = gcc
 ifdef ODEBUG
 	FDEBUG = -g -DDEBUG -Wall -fno-strength-reduce
 	FLD = -g

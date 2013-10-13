@@ -61,6 +61,10 @@ ifeq ($(PS_OS),ps_linux)
 ADDON =
 endif
 
+ifeq ($(PS_OS),ps_osx)
+ADDON =
+endif
+
 ifeq ($(PS_OS),ps_hpux)
 ADDON = -Ae +w1
 endif

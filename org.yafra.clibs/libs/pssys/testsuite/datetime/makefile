@@ -59,6 +59,10 @@ ifeq ($(PS_OS),ps_hpux)
 LIBS = -lpssys
 endif
 
+ifeq ($(PS_OS),ps_osx)
+LIBS = -lpssys
+endif
+
 ifeq ($(PS_OS),ps_linux)
 LIBS = -lpssys
 endif

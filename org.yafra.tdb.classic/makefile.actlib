@@ -49,6 +49,10 @@ XMLINC     = `xml2-config --cflags`
 #
 include $(YAFRATOOLS)/include/libflags.mak
 
+ifeq ($(PS_OS),ps_osx)
+ADDON = $(XMLINC)
+endif
+
 ifeq ($(PS_OS),ps_linux)
 ADDON = $(XMLINC)
 endif
