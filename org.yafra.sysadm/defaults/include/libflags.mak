@@ -71,6 +71,26 @@ MAKE      = make
 endif
 
 #
+# MAC OS/X
+#
+ifeq ($(PS_OS),ps_osx)
+ifdef ODEBUG
+	FDEBUG = -g -DDEBUG -Wall -fno-strength-reduce
+else
+	FDEBUG = -O -fno-strength-reduce
+endif
+ifdef OSHARED
+	FSHARED  = -fPIC -DPS_SHAREDLIB=1
+	AR = gcc -shared -Wl,-soname,$(LIBRARY).$(SONAMEVER) -o
+else
+	AR        = ar crus
+endif
+FCC       = $(FDEBUG) $(FSHARED) $(FRELEASE)
+CMANFLAGS = -P "cc -E -C" -I$(PINC) -V -i$(INCLUDE) -o$(PMAN) -S$(MANSECTION)
+MAKE      = make
+endif
+
+#
 # SCO Unix / OpenServer
 #
 ifeq ($(PS_OS),ps_sco)

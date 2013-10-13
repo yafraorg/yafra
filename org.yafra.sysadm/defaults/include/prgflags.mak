@@ -68,6 +68,21 @@ CMANFLAGS = -P "cc -E -C" -I$(PINC) -V -i$(INCLUDE) -o$(PMAN) -S$(MANSECTION)
 endif
 
 #
+# MAC OS/X
+#
+ifeq ($(PS_OS),ps_osx)
+ifdef ODEBUG
+	FDEBUG = -g -DDEBUG -Wall -fno-strength-reduce
+	FLD = -g
+else
+	FDEBUG = -O -fno-strength-reduce
+	FLD = -O
+endif
+FCC       = $(FDEBUG) $(FRELEASE)
+CMANFLAGS = -P "cc -E -C" -I$(PINC) -V -i$(INCLUDE) -o$(PMAN) -S$(MANSECTION)
+endif
+
+#
 # SCO Unix
 #
 ifeq ($(PS_OS),ps_sco)
