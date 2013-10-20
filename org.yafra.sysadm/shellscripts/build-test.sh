@@ -126,7 +126,10 @@ echo " TEST CASE 5: ansi c common libraries test"
 echo "============================================================"
 $BINDIR/pschar
 $BINDIR/pslog
-$BINDIR/psdatetime -d 01.01.2013 -t 12.30
+$BINDIR/psdatetime -d 01.01.1013 -t 12.30
+$BINDIR/psdatetime -d 01.02.2013 -t 12.30
+$BINDIR/psdatetime -d 01.03.2113 -t 12.30
+$BINDIR/psdatetime -d 01.04.3013 -t 12.30
 $BINDIR/psclientcons $DBSERVER
 echo "============================================================"
 echo " TEST CASE 6: tdb classic test db access and structure - reading db"

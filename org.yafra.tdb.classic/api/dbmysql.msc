@@ -354,12 +354,13 @@ int MPAPIdb_sqlquery(int table_nr, char **mp_sqltargetptr, char *mp_sqlquery,
 	/* temporary buffers for BIND */
 	unsigned char	char_data[MP_MAXSTRINGLEN][MP_MAXCOLS];
 	unsigned long	char_len[MP_MAXCOLS];
-	int	int_data[MP_MAXCOLS];
-	float		float_data[MP_MAXCOLS];
-	double	double_value;
-	MYSQL_TIME ts[MP_MAXCOLS];
-	my_bool is_null[MP_MAXCOLS];
-	my_bool error[MP_MAXCOLS];
+	int				int_data[MP_MAXCOLS];
+	long long 		long_data[MP_MAXCOLS];
+	float			float_data[MP_MAXCOLS];
+	double			double_value;
+	MYSQL_TIME 		ts[MP_MAXCOLS];
+	my_bool 		is_null[MP_MAXCOLS];
+	my_bool 		error[MP_MAXCOLS];
 
 
 	int param_count, column_count, row_count;
@@ -459,9 +460,14 @@ int MPAPIdb_sqlquery(int table_nr, char **mp_sqltargetptr, char *mp_sqlquery,
 				break;
 			case MYSQL_TYPE_SHORT:
 			case MYSQL_TYPE_LONG:
-			case MYSQL_TYPE_LONGLONG:
 				bind[i].buffer_type= MYSQL_TYPE_LONG;
 				bind[i].buffer= (char *)&int_data[i];
+				bind[i].length= &char_len[i];
+				bind[i].error= &error[i];
+				break;
+			case MYSQL_TYPE_LONGLONG:
+				bind[i].buffer_type= MYSQL_TYPE_LONGLONG;
+				bind[i].buffer= (char *)&long_data[i];
 				bind[i].length= &char_len[i];
 				bind[i].error= &error[i];
 				break;
@@ -529,9 +535,13 @@ int MPAPIdb_sqlquery(int table_nr, char **mp_sqltargetptr, char *mp_sqlquery,
 					break;
 				case MYSQL_TYPE_SHORT:
 				case MYSQL_TYPE_LONG:
-				case MYSQL_TYPE_LONGLONG:
 					(void)memcpy((void *) (*mp_sqltargetptr + memoff),
 					   (void *)&int_data[i], sizeof(int));
+					memoff += structsize;
+					break;
+				case MYSQL_TYPE_LONGLONG:
+					(void)memcpy((void *) (*mp_sqltargetptr + memoff),
+					   (void *)&long_data[i], sizeof(long long));
 					memoff += structsize;
 					break;
 				case MYSQL_TYPE_FLOAT:

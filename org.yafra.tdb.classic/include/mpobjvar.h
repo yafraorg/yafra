@@ -80,7 +80,7 @@ typedef struct {
 	int	s_id;					/* Sprachcode */
 	int	textnr;				/* Zeilennummer */
 	char	text[_TEXTLEN];	/* effektiver Text */
-	int	date;					/* Datum */
+	long long	date;					/* Datum */
 	int	typ;					/* Objekttyp */
 } HISTORY;
 
@@ -118,8 +118,8 @@ typedef struct {
 	char	code[_CHAR256];	/* Season code */
 	short	code_null;			/* null */
 	int	bez_id;				/* Description (lang dependend) */
-	int	von;					/* From date */
-	int	bis;					/* To date */
+	long long	von;					/* From date */
+	long long	bis;					/* To date */
 	int	textid;				/* Text */
 	short	textid_null;		/* null */
 } SAISON;
@@ -188,7 +188,7 @@ typedef struct {
 	int	kurs_typ;			/* Art des Kurses (Bar/Devisen) */
 	double	a_kurs;			/* Ankaufskurs */
 	double	v_kurs;			/* Verkaufskurs */
-	int von_dat;
+	long long von_dat;
 	short von_dat_null;
 } LAND_WHR;
 
@@ -503,9 +503,9 @@ typedef struct {
 	int	dla_id;				/* Angebot */
 	int	ord;					/* Reihenfolge */
 	short	ord_null;			/* Nullindikator */
-	int	a_zeit;				/* Anfangszeit */
+	long long	a_zeit;				/* Anfangszeit */
 	short	a_zeit_null;		/* Nullindikator */
-	int	e_zeit;				/* Endzeit */
+	long long	e_zeit;				/* Endzeit */
 	short	e_zeit_null;		/* Nullindikator */
 	int	res_f;				/* Flag zur Steuerung der Reservation */
 	int	kid;					/* Reservationsadresse */
@@ -528,7 +528,7 @@ typedef struct {
 	int	textid;				/* Beschreibung */
 	short	textid_null;		/* Nullindikator */
 	int	sai_id;				/* Saison */
-	int	a_zeit;				/* Anfangszeit */
+	long long	a_zeit;				/* Anfangszeit */
 	short	a_zeit_null;		/* Nullindikator */
 	int	akt_id;				/* Aktions_id */
 	short	akt_id_null;		/* Nullindikator */
@@ -558,7 +558,7 @@ typedef struct {
 	char	code[_CHAR256];
 	short	code_null;
 	int	bez_id;				/* Bezeichnung */
-	int	a_dat;				/* Datum des Arrangements */
+	long long	a_dat;				/* Datum des Arrangements */
 	int	prg_id;				/* Programm */
 	int	textid;				/* Beschreibung */
 	short	textid_null;		/* Nullindikator */
@@ -591,13 +591,13 @@ typedef struct {
 	short	dla_id_null;		/* Nullindikator */
 	int	dl_id;				/* Dienstleistung */
 	short	dl_id_null;			/* Nullindikator */
-	int	dl_vondat;			/* DL von Datum */
+	long long	dl_vondat;			/* DL von Datum */
 	short	dl_vondat_null;	/* Nullindikator */
-	int	dl_bisdat;			/* DL bis Datum */
+	long long	dl_bisdat;			/* DL bis Datum */
 	short	dl_bisdat_null;	/* Nullindikator */
 	int	textid;				/* Beschreibung */
 	short	textid_null;		/* Nullindikator */
-	int	opt_dat;				/* Optionsdatum */
+	long long	opt_dat;				/* Optionsdatum */
 	short	opt_dat_null;		/* Nullindikator */
 	int	sai_id;				/* Saison */
 	char	ref[_CHAR256];		/* Referenznummer */
@@ -612,7 +612,7 @@ typedef struct {
 	int	bez_id;				/* Kontingents Bezeichnung */
 	int	hostkont_id;		/* zu welchem Host Kontingent */
 	int	kunden_id;			/* an welchen Kunden */
-	int	opt_dat;				/* Optionsdatum */
+	long long	opt_dat;				/* Optionsdatum */
 	short	opt_dat_null;		/* Nullindikator */
 	char	ref[_CHAR256];		/* Referenznummer */
 	short	ref_null;			/* Nullindikator */
@@ -624,19 +624,19 @@ typedef struct {
 /* KONT_DETAIL 14 Felder */
 typedef struct {
 	int	hostkont_id;		/* Host-Kontingent */
-	int	kont_id;				/* Kontingent */
+	int	kont_id;			/* Kontingent */
 	int	kat_id;				/* Kategorien */
 	int	dlt_id;				/* Dienstleistungstraeger id */
-	int	sta_id;				/* �berbuchungsfaktor typ=117 */
-	short	sta_id_null;		/* Nullindikator */
-	int	anz;					/* Anzahl */
-	short	anz_null;			/* Nullindikator */
-	int   busy;					/* Anzahl besetzter Plaetze */
-	short busy_null;			/* Nullindikator */
-	int	minanz;					/* Mindesanzahl von Plaetzen die bestzt sein muessen*/
-	short minanz_null;			/* Nullindikator */
-   int von_dat;  /* Datum f�r dynamische DLs */
-   int bis_dat;
+	int	sta_id;				/* over booking factor - typ=117 */
+	short	sta_id_null;	/* Nullindikator */
+	int	anz;				/* Anzahl */
+	short	anz_null;		/* Nullindikator */
+	int   busy;				/* Anzahl besetzter Plaetze */
+	short busy_null;		/* Nullindikator */
+	int	minanz;				/* Mindesanzahl von Plaetzen die bestzt sein muessen*/
+	short minanz_null;		/* Nullindikator */
+	long long von_dat;			/* date of dynamic DLs */
+	long long bis_dat;
 } KONT_DETAIL;
 
 
@@ -647,21 +647,21 @@ typedef struct {
 /* MP_PROFIL 16 Felder */
 typedef struct {
 	int	mpid;
-	char	mpuser[_CHAR128];	/* Anwender             PRIMAER SCHLUESSEL */
-	int	bchst;				/* Buchungsstelle       PRIMAER SCHLUESSEL */
+	char mpuser[_CHAR128];	/* User           PRIMAER SCHLUESSEL */
+	int	bchst;				/* Booking office PRIMAER SCHLUESSEL */
 	int	seclevel;			/* security level */
-	int	s_id;					/* Sprache        */
-	int	land_id;				/* Land           */
-	int	dltt_id;				/* Traegertyp     */
+	int	s_id;				/* language       */
+	int	land_id;			/* country        */
+	int	dltt_id;			/* Traegertyp     */
 	int	dlt_id;				/* Diensttraeger  */
 	int	kat_id;				/* Kategorie      */
-	int	dlat_id;				/* Angebotstyp    */
-	int	dlnt_id;				/* Reisendertyp   */
+	int	dlat_id;			/* Angebotstyp    */
+	int	dlnt_id;			/* Reisendertyp   */
 	int	sai_id;				/* Saison         */
 	int	prg_id;				/* Programm       */
-	int	a_zeit;				/* Anfangs-Zeit/Dat */
-	int	e_zeit;				/* End-Zeit/Dat   */
-	int	p_range;				/* Planungsboardrange */
+	long long	a_zeit;			/* Anfangs-Zeit/Dat */
+	long long	e_zeit;			/* End-Zeit/Dat   */
+	int	p_range;			/* Planungsboardrange */
 } MP_PROFIL;
 
 
@@ -680,9 +680,9 @@ typedef struct {
 	int	kid;					/* Kunde / Rechnungsempfaenger */
 	int	sach;					/* Sachbearbeiter */
 	int	anw;					/* Anwender */
-	int	b_dat;				/* Buchungsdatum */
+	long long	b_dat;				/* Buchungsdatum */
 	short	b_dat_null;			/* Nullindikator */
-	int	m_dat;				/* Modifikationsdatum */
+	long long	m_dat;				/* Modifikationsdatum */
 	short	m_dat_null;			/* Nullindikator */
 	int	opt_bst;				/* Option Buchungsstelle */
 	short	opt_bst_null;		/* Nullindikator */
@@ -720,7 +720,7 @@ typedef struct {
 	int	akt_nr;				/* fortlaufende Nummer pro a_typ_id */
 	int	sai_id;				/* Saison Id */
 	int	parentakt;			/* Vater Aktion */
-	int	exec_dat;			/* letztes Ausfuehrungsdatum */
+	long long	exec_dat;			/* letztes Ausfuehrungsdatum */
 	int	file_id;
 	short	fileid_null;
 } AKT_DETAIL;
@@ -753,9 +753,9 @@ typedef struct {
 	short dla_id_null;		/* Nullindikator */
 	int	dl_id;				/* Dienstleistung */
 	short dl_id_null;			/* Nullindikator */
-	int	dl_vondat;			/* DL von Datum */
+	long long	dl_vondat;			/* DL von Datum */
 	short	dl_vondat_null;	/* Nullindikator */
-	int	dl_bisdat;			/* DL bis Datum */
+	long long	dl_bisdat;			/* DL bis Datum */
 	short	dl_bisdat_null;	/* Nullindikator */
 	int	kont_id;				/* Kontingent */
 	short kont_id_null;		/* Nullindikator */
@@ -803,9 +803,9 @@ typedef struct {
 	short	b_kon_null;			/* Nullindikator */
 	int	r_sta;				/* Reservationsstatus */
 	int	sai_id;				/* Saison */
-	int	a_zeit;				/* Anfangszeitpunkt f�r zeitlose DL */
+	long long	a_zeit;				/* Anfangszeitpunkt f�r zeitlose DL */
 	short a_zeit_null;		/* Nullindikator */
-	int	e_zeit;				/* Endzeitpunkt f�r zeitlose DL */
+	long long	e_zeit;				/* Endzeitpunkt f�r zeitlose DL */
 	short e_zeit_null;		/* Nullindikator */
 	int	textid;				/* Text */
 	short textid_null;		/* Nullindikator */
@@ -817,7 +817,7 @@ typedef struct {
 	double	apr;				/* Ankaufspreis */
 	double	epr;				/* Einstandspreis */
 	double	vpr;				/* Verkaufspreis */
-	int	glt;					/* gueltig ab */
+	long long	glt;					/* gueltig ab */
 	int	whr_id;				/* W�hrung */
 	int	kbst;					/* Buchungsstelle */
 	int	kar_id;				/* Kostenart */
@@ -836,9 +836,9 @@ typedef struct {
 	short dl_id_null;			/* Nullindikator */
 	int	ext_id;
 	short	ext_id_null;
-	int	dl_vondat;			/* DL von Datum */
+	long long	dl_vondat;			/* DL von Datum */
 	short	dl_vondat_null;	/* Nullindikator */
-	int	dl_bisdat;			/* DL bis Datum */
+	long long	dl_bisdat;			/* DL bis Datum */
 	short	dl_bisdat_null;	/* Nullindikator */
 	int	kont_id;				/* Kontingent */
 	short kont_id_null;		/* Nullindikator */
@@ -857,9 +857,9 @@ typedef struct {
 	short	unit_bis_null;
 	int	dau;
 	short	dau_null;
-	int	dau_von;
+	long long	dau_von;
 	short	dau_von_null;
-	int	dau_bis;
+	long long	dau_bis;
 	short	dau_bis_null;
 } PREIS;
 
@@ -876,8 +876,8 @@ typedef struct {
 	short busy_null;			/* Nullindikator */
 	double	vpr;				/* Verkaufspreis */
 	short vpr_null;			/* Nullindikator */
-   int von_dat; /* Datum f�r dynamische DLs */
-   int bis_dat;
+	long long von_dat; /* Datum f�r dynamische DLs */
+	long long bis_dat;
 } KAPA;
 
 
@@ -963,8 +963,8 @@ typedef struct {
 	int	sai_id;
 	char	bez[_BEZLEN];
 	int	s_id;
-	int	von;
-	int	bis;
+	long long	von;
+	long long	bis;
 	int	textid;
 	short	textid_null;
 } SAI_VIEW;
@@ -1205,9 +1205,9 @@ typedef struct {
 	int	s_id;				/* Sprachcode */
 	int	ord;				/* Reihenfolge */
 	short	ord_null;		/* Nullindikator */
-	int	a_zeit;			/* Anfangszeit */
+	long long	a_zeit;			/* Anfangszeit */
 	short	a_zeit_null;	/* Nullindikator */
-	int	e_zeit;			/* Endzeit */
+	long long	e_zeit;			/* Endzeit */
 	short	e_zeit_null;	/* Nullindikator */
 	int	res_f;			/* Flag zur Steuerung der Reservation */
 	int	kid;				/* Reservationsadresse */
@@ -1226,9 +1226,9 @@ typedef struct {
 	short start_null;    /* Nullindikator */
 	int   dl_id;         /* Teildienstleistung */
 	char  bez[_BEZLEN];       /* Bezeichnung der Teildienstleistung */
-	int   a_zeit;        /* Startzeit DL-Teil */
+	long long   a_zeit;        /* Startzeit DL-Teil */
 	short a_zeit_null;   /* Nullindikator */
-	int   e_zeit;        /* Endzeit DL-Teil */
+	long long   e_zeit;        /* Endzeit DL-Teil */
 	short e_zeit_null;   /* Nullindikator */
 	int	ord;           /* Reihenfolge Nummer */
 	int   res_f;         /* Reservationsstatus (m�glich/nicht m�glich) */
@@ -1243,7 +1243,7 @@ typedef struct {
 	int	textid;			/* Beschreibung */
 	short	textid_null;	/* Nullindikator */
 	int	sai_id;			/* Saison */
-	int	a_zeit;			/* Anfangszeit */
+	long long	a_zeit;			/* Anfangszeit */
 	short	a_zeit_null;	/* Nullindikator */
 	int	akt_id;			/* Aktions_id */
 	short	akt_id_null;	/* Nullindikator */
@@ -1265,10 +1265,10 @@ typedef struct {
 /* ARRDL_VIEW 11 Felder */
 typedef struct {
 	int   arr_id;        /* Arrangement */
-	int   a_dat;         /* Anfangszeit ARR */
+	long long   a_dat;         /* Anfangszeit ARR */
 	int   dlg_id;        /* Dienstleistung */
 	char  bez[_BEZLEN];       /* Bezeichnung der Teildienstleistung */
-	int   a_zeit;        /* Startzeit DL-Teil */
+	long long   a_zeit;        /* Startzeit DL-Teil */
 	short a_zeit_null;   /* Nullindikator */
 	int	teil;				/* Reihenfolge Nummer */
 	int   prio;          /* Priorit�t */
@@ -1282,7 +1282,7 @@ typedef struct {
 	int	arr_id;			/* Arrangement */
 	char	bez[_BEZLEN];			/* Bezeichnung */
 	int	s_id;				/* Sprachcode */
-	int	a_dat;			/* Datum des Arrangements */
+	long long	a_dat;			/* Datum des Arrangements */
 	int	prg_id;			/* Programm */
 	int	textid;			/* Beschreibung */
 	short	textid_null;	/* Nullindikator */
@@ -1297,13 +1297,13 @@ typedef struct {
 	int	dlg_id;			/* Dienstleistung */
 	int	dl_id;			/* Teil Dienstleistung */
 	int	ord;				/* Reihenfolge in der �bergeordneten */
-	int	a_zeit;			/* Abfahrtszeit */
+	long long	a_zeit;			/* Abfahrtszeit */
 	short	zeit_null;		/* Nullindikator */
 	int	res_f;			/* Reservationsflag */
 	char	bez[_BEZLEN];			/* Bezeichnung Dienstleistung */
 	char	bez1[_BEZLEN];		/* Bezeichnung Teil Dienstleistung */
 	int	s_id;				/* Sprachcode */
-	int	dtg_zeit;		/* Abfahrtszeit Dienstleistung */
+	long long	dtg_zeit;		/* Abfahrtszeit Dienstleistung */
 	short	dtg_zeit_null;	/* Nullindikator */
 } ARR_DETAIL;
 
@@ -1319,7 +1319,7 @@ typedef struct {
 	int	s_id;				/* Sprachcode */
 	int	hostkont_id;	/* �bergeordnetes Kontingent */
 	int	kunden_id;		/* zu Kunde */
-	int	opt_dat;
+	long long	opt_dat;
 	short	opt_dat_null;	/* Nullindikator */
 	char	ref[_CHAR256];			/* Referenznummer */
 	short	ref_null;		/* Nullindikator */
@@ -1351,16 +1351,16 @@ typedef struct {
 	int	pers_id;				/* Reisender         */
 	char	name[_CHAR512];			/* Reisender Name    */
 	int	dl_id;				/* Dienstleistung    */
-	int	dlazeit;				/* Dl a_zeit         */
+	long long	dlazeit;				/* Dl a_zeit         */
 	short dlazeit_null;		/* Nullindikator     */
 	int	tdl_id;				/* Teil Dl id  (dlg_parts) */
-	int	tdlazeit;			/* TDl a_zeit        */
+	long long	tdlazeit;			/* TDl a_zeit        */
 	short tdlazeit_null;		/* Nullindikator     */
-	int	tdlezeit;			/* TDl e_zeit        */
+	long long	tdlezeit;			/* TDl e_zeit        */
 	short tdlezeit_null;		/* Nullindikator     */
-	int	resazeit;			/* Reservation  a_zeit */
+	long long	resazeit;			/* Reservation  a_zeit */
 	short resazeit_null;		/* Nullindikator       */
-	int	resezeit;			/* Reservation  e_zeit */
+	long long	resezeit;			/* Reservation  e_zeit */
 	short resezeit_null;		/* Nullindikator       */
 	int	kat_id;				/* Kategorie           */
 	char	kat_bez[_BEZLEN];		/* Kategorie Bez       */
@@ -1380,9 +1380,9 @@ typedef struct {
 	int	teil;					/* Teilnummber im ARR */
 	int	dl_id;				/* Dienstleistung    */
 	int	tdl_id;				/* Teil Dl id  (dlg_parts) */
-	int	resazeit;			/* Reservation  a_zeit */
+	long long	resazeit;			/* Reservation  a_zeit */
 	short resazeit_null;		/* Nullindikator       */
-	int	resezeit;			/* Reservation  e_zeit */
+	long long	resezeit;			/* Reservation  e_zeit */
 	short resezeit_null;		/* Nullindikator       */
 	int	kat_id;				/* Kategorie           */
 	int	typ_id;				/* Traeger Typ         */
@@ -1400,9 +1400,9 @@ typedef struct {
 	char	dl_bez[_BEZLEN];			/* Dienstleistung BEZ  */
 	int	dl_sid;				/* Dienstleistung SPR  */
 	int	tdl_id;				/* Teil Dl id  (dlg_parts) */
-	int	resazeit;			/* Reservation  a_zeit */
+	long long	resazeit;			/* Reservation  a_zeit */
 	short resazeit_null;		/* Nullindikator       */
-	int	resezeit;			/* Reservation  e_zeit */
+	long long	resezeit;			/* Reservation  e_zeit */
 	short resezeit_null;		/* Nullindikator       */
 	int	kat_id;				/* Kategorie           */
 	int	typ_id;				/* Traeger Typ         */
@@ -1471,7 +1471,7 @@ typedef struct {
  * Sektion:  diverse Objekte (nicht in der DB)
  *************************************************************/
 
-/* MARCO POLO global profile */
+/* travelDB global profile */
 typedef struct {
    char   database[_CHAR200+1];
    char   user[_USERLEN+1];
@@ -1480,7 +1480,7 @@ typedef struct {
 	char   displayname[_CHAR30+1];
 } MP_GLOBALPROFIL;
 
-/* MARCO POLO GUI global mask values */
+/* travelDB GUI global mask values */
 typedef struct {
    char   bchst[_BEZLEN];
    char   sprache[_BEZLEN];

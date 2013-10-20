@@ -24,9 +24,9 @@ int SAIselect(long *len, char *buffer, int *anzahl)
 	int i;
 	int status = (int)MPOK;
 	char *buffer_ptr;
-	char tmp_buffer[RECLAENGE];
-	char query[RECLAENGE];
-	char message[RECLAENGE];
+	char tmp_buffer[STDMEMCHUNK];
+	char query[STDMEMCHUNK];
+	char message[STDMEMCHUNK];
 	size_t buffersize;
 
 	(void)sprintf(query, _SEL_BEZ_SAI, sprache, (int)_SAISON);
@@ -88,9 +88,9 @@ int SAIchoose(int table, char *buffer)
 
 	struct tm DateTime;
 	time_t date;
-	char	bezeichnung[RECLAENGE];
-	char	buffer1[RECLAENGE];
-	char	message[RECLAENGE];
+	char	bezeichnung[STDMEMCHUNK];
+	char	buffer1[STDMEMCHUNK];
+	char	message[STDMEMCHUNK];
 
 	(void)memset((void *)&DateTime, NULL, sizeof(DateTime));
 	(void)memset((void *)buffer1, NULL, sizeof(buffer1));

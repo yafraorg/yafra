@@ -73,6 +73,7 @@ static char rcsid[]="$Header: test program$";
 #define _SELECT_KAPA "SELECT * FROM TDBADMIN.KAPA WHERE ROWNUM < 4 ORDER BY ROWNUM"
 #define _SELECT_STA_VIEW "SELECT * FROM TDBADMIN.STA_VIEW WHERE ROWNUM < 4 \
                           ORDER BY ROWNUM"
+#define _SELECT_SAI_VIEW "SELECT * FROM TDBADMIN.SAI_VIEW WHERE ROWNUM < 4 ORDER BY ROWNUM"
 #define _SELECT_LAND_VIEW "SELECT * FROM TDBADMIN.LAND_VIEW WHERE ROWNUM < 4 \
                            ORDER BY ROWNUM"
 #define _SELECT_KUN_VIEW "SELECT * FROM TDBADMIN.KUNDEN_VIEW WHERE ROWNUM < 4 \
@@ -107,6 +108,7 @@ static char rcsid[]="$Header: test program$";
 #define _SELECT_TRAEGER_VIEW "SELECT * FROM TDBADMIN.TRAEGER_VIEW WHERE SPR=1 \
                               AND ID=-1 ORDER BY BEZ;"
 #define _SELECT_STA_VIEW "SELECT * FROM TDBADMIN.STA_VIEW;"
+#define _SELECT_SAI_VIEW "SELECT * FROM TDBADMIN.SAI_VIEW;"
 #define _SELECT_LAND_VIEW "SELECT * FROM TDBADMIN.LAND_VIEW;"
 #define _SELECT_KUN_VIEW "SELECT * FROM TDBADMIN.KUNDEN_VIEW;"
 #define _SELECT_MPV_KAPA "SELECT * FROM TDBADMIN.MPV_KAPA;"
@@ -123,6 +125,7 @@ static void put_mp_profil(MP_PROFIL *, int);
 static void put_land(LAND *, int);
 static void put_sprachen(SPRACHEN *, int);
 static void put_saison(SAISON *, int);
+static void put_sai_view(SAI_VIEW *, int);
 static void put_personen(PERSONEN *, int);
 static void put_reisender_typ(REISENDER_TYP *, int);
 static void put_persadr(PERSADR *, int);
@@ -192,6 +195,7 @@ int main(int argc, char **argv)
 	PREIS		*Ppreis;
 	KAPA		*Pkapa;
 	STA_VIEW	*Psta_view;
+	SAI_VIEW	*Psai_view;
 	LAND_VIEW	*Pland_view;
 	KUN_VIEW	*Pkun_view;
 	MPV_KAPA	*Pmpv_kapa;
@@ -316,8 +320,34 @@ int main(int argc, char **argv)
 		return((int)MPERROR);
 	(void)put_status_werte(Pstatus_werte, row_cnt);
 
+/* TEST SELECT ON SAISON */
+	(void)printf("start SAISON SQL query - date/unix timestamp/8bytes\n");
+	(void)sprintf(query, _SELECT_SAISON);
+	status = MPAPIdb_sqlquery((int)_SAISON, &sqlmem.buffer, query,
+			 &row_cnt, &sqlmem.datalen, &sqlmem.alloclen);
+	Psaison = (SAISON *)sqlmem.buffer;
+	printf("SQL query done with status %d and rowcnt %d\n", status, row_cnt);
+	if (status != (int)MPOK)
+		return((int)MPERROR);
+	if (row_cnt < 1)
+		return((int)MPERROR);
+	(void)put_saison(Psaison, row_cnt);
+
+/* TEST SELECT ON SAI_VIEW */
+	(void)printf("start SAISON_VIEW SQL query - same as SAISON and char/int padding issue on 8bytes in 64bit\n");
+	(void)sprintf(query, _SELECT_SAI_VIEW);
+	status = MPAPIdb_sqlquery((int)_SAI_VIEW, &sqlmem.buffer, query,
+			 &row_cnt, &sqlmem.datalen, &sqlmem.alloclen);
+	Psai_view = (SAI_VIEW *)sqlmem.buffer;
+	printf("SQL query done with status %d and rowcnt %d\n", status, row_cnt);
+	if (status != (int)MPOK)
+		return((int)MPERROR);
+	if (row_cnt < 1)
+		return((int)MPERROR);
+	(void)put_sai_view(Psai_view, row_cnt);
+
 /* TEST SELECT ON LAND */
-   (void)printf("start LAND (nullables) SQL query\n");
+   (void)printf("start LAND SQL query - case with nullables\n");
    (void)sprintf(query, _SELECT_LAND);
    status = MPAPIdb_sqlquery((int)_LAND, &sqlmem.buffer, query,
             &row_cnt, &sqlmem.datalen, &sqlmem.alloclen);
@@ -436,7 +466,7 @@ static int UtilSetUser(void)
 #else
 	int user = 0;
 
-   strcpy(userid, "root");
+   strcpy(userid, "tdbadmin");
 #endif
 
    return((int)user);
@@ -459,6 +489,8 @@ static void StructTest(void)
 	fprintf(sfp,"%sTest summary of database access and struct memory alignment%s", _P_EOL_, _P_EOL_);
 	fprintf(sfp,"%sTests on standard types: sizeof int %d, long %d, float %d, double %d, pointer %d %s",
 		_P_EOL_, sizeof(int), sizeof(long), sizeof(float), sizeof(double), sizeof(void *), _P_EOL_);
+	fprintf(sfp,"%sTests on special types: sizeof size_t %d, time_t %d %s",
+		_P_EOL_, sizeof(size_t), sizeof(time_t), _P_EOL_);
 	fprintf(sfp,"%sList of all structs and sizes: %s", _P_EOL_, _P_EOL_);
 	for ( table = 0; table < 293; table++ )
 		{
@@ -525,6 +557,10 @@ static void put_land(LAND *Pland, int row_cnt)
 {
 	int i;
 
+#if defined(TDBODBC) || defined(TDBMYSQL) || defined(TDBMSSQL) || defined(TDBADABAS)
+	row_cnt = 3;
+#endif
+
 	fprintf(fp, "LAND:%s", _P_EOL_);
 	fprintf(fp, "==========%s", _P_EOL_);
 	for (i = 0; i < row_cnt; i++ ) {
@@ -550,6 +586,10 @@ static void put_land(LAND *Pland, int row_cnt)
 static void put_sprachen(SPRACHEN *Psprachen, int row_cnt) {
 	int i;
 
+#if defined(TDBODBC) || defined(TDBMYSQL) || defined(TDBMSSQL) || defined(TDBADABAS)
+	row_cnt = 3;
+#endif
+
 	fprintf(fp, "SPRACHEN:%s", _P_EOL_);
 	fprintf(fp, "==========%s", _P_EOL_);
 	for (i = 0; i < row_cnt; i++ ) {
@@ -559,6 +599,96 @@ static void put_sprachen(SPRACHEN *Psprachen, int row_cnt) {
 		fprintf(fp, "|%d| ", Psprachen[i].output);
 		fprintf(fp, "|%d| ", Psprachen[i].gui);
 		fprintf(fp, "|%s|<<", Psprachen[i].sysbez);
+
+		fprintf(fp, "%s", _P_EOL_);
+	}
+	fprintf(fp, "%s", _P_EOL_);
+}
+
+/*SF**********************************************************
+ * Function:
+ * Return:
+ *************************************************************/
+static void put_saison(SAISON *Psaison, int row_cnt) {
+	int	i;
+	struct tm DateTime;
+	time_t date;
+	char datestring[RECLAENGE];
+
+	fprintf(fp, "SAISON:%s", _P_EOL_);
+	fprintf(fp, "==========%s", _P_EOL_);
+	for (i = 0; i < row_cnt; i++ ) {
+		fprintf(fp, "|%d| ", Psaison[i].sai_id);
+		fprintf(fp, "|%d| ", Psaison[i].bez_id);
+		fprintf(fp, "|%s| ", Psaison[i].code);
+		/* UNDEF  Saisonbeginn */
+		DateTime.tm_mday=(int)_UNDEF;
+		DateTime.tm_mon =(int)_UNDEF;
+		DateTime.tm_year=(int)_UNDEF;
+		(void)strcpy(datestring, "no date");
+		if (Psaison[i].von != 0L)
+			{
+			date = (time_t)Psaison[i].von;
+			(void)WriteDate(&DateTime, &date, datestring);
+			}
+		fprintf(fp, "|%s| ", datestring);
+		/* UNDEF  Saisonbeginn */
+		DateTime.tm_mday=(int)_UNDEF;
+		DateTime.tm_mon =(int)_UNDEF;
+		DateTime.tm_year=(int)_UNDEF;
+		(void)strcpy(datestring, "no date");
+		if (Psaison[i].bis != 0L)
+			{
+			date = (time_t)Psaison[i].bis;
+			(void)WriteDate(&DateTime, &date, datestring);
+			}
+		fprintf(fp, "|%s| ", datestring);
+		fprintf(fp, "|%d|<<", Psaison[i].textid);
+
+		fprintf(fp, "%s", _P_EOL_);
+	}
+	fprintf(fp, "%s", _P_EOL_);
+}
+
+/*SF**********************************************************
+ * Function:
+ * Return:
+ *************************************************************/
+static void put_sai_view(SAI_VIEW *Psai_view, int row_cnt) {
+	int i;
+	struct tm DateTime;
+	time_t date;
+	char datestring[RECLAENGE];
+
+	fprintf(fp, "SAISON VIEW:%s", _P_EOL_);
+	fprintf(fp, "==========%s", _P_EOL_);
+	for (i = 0; i < row_cnt; i++ ) {
+		fprintf(fp, "|%d| ", Psai_view[i].sai_id);
+		fprintf(fp, "|%s| ", Psai_view[i].bez);
+		fprintf(fp, "|%d| ", Psai_view[i].s_id);
+		/* UNDEF  Saisonbeginn */
+		DateTime.tm_mday=(int)_UNDEF;
+		DateTime.tm_mon =(int)_UNDEF;
+		DateTime.tm_year=(int)_UNDEF;
+		(void)strcpy(datestring, "no date");
+		if (Psai_view[i].von != 0L)
+			{
+			date = (time_t)Psai_view[i].von;
+			(void)WriteDate(&DateTime, &date, datestring);
+			}
+		fprintf(fp, "|%s| ", datestring);
+		/* UNDEF  Saisonbeginn */
+		DateTime.tm_mday=(int)_UNDEF;
+		DateTime.tm_mon =(int)_UNDEF;
+		DateTime.tm_year=(int)_UNDEF;
+		(void)strcpy(datestring, "no date");
+		if (Psai_view[i].bis != 0L)
+			{
+			date = (time_t)Psai_view[i].bis;
+			(void)WriteDate(&DateTime, &date, datestring);
+			}
+		fprintf(fp, "|%s| ", datestring);
+		fprintf(fp, "|%d|<<", Psai_view[i].textid);
 
 		fprintf(fp, "%s", _P_EOL_);
 	}
@@ -759,6 +889,10 @@ static void put_kapa(KAPA *Pkapa, int row_cnt) {
 static void put_sta_view(STA_VIEW *Psta_view, int row_cnt) {
 	int i;
 
+#if defined(TDBODBC) || defined(TDBMYSQL) || defined(TDBMSSQL) || defined(TDBADABAS)
+	row_cnt = 3;
+#endif
+
 	fprintf(fp, "STA VIEW:%s", _P_EOL_);
 	fprintf(fp, "==========%s", _P_EOL_);
 	for (i = 0; i < row_cnt; i++ ) {
@@ -782,6 +916,10 @@ static void put_sta_view(STA_VIEW *Psta_view, int row_cnt) {
  *************************************************************/
 static void put_land_view(LAND_VIEW *Pland_view, int row_cnt) {
 	int i;
+
+#if defined(TDBODBC) || defined(TDBMYSQL) || defined(TDBMSSQL) || defined(TDBADABAS)
+	row_cnt = 3;
+#endif
 
 	fprintf(fp, "LAND VIEW:%s", _P_EOL_);
 	fprintf(fp, "==========%s", _P_EOL_);
@@ -925,6 +1063,10 @@ static void put_mpv_kunadr(MPV_KUNADR *Pmpv_kunadr, int row_cnt) {
  *************************************************************/
 static void put_status_werte(STATUS_WERTE *Pstatus_werte, int row_cnt) {
 	int i;
+
+#if defined(TDBODBC) || defined(TDBMYSQL) || defined(TDBMSSQL) || defined(TDBADABAS)
+	row_cnt = 3;
+#endif
 
 	fprintf(fp, "STATUS WERTE:%s", _P_EOL_);
 	fprintf(fp, "==========%s", _P_EOL_);

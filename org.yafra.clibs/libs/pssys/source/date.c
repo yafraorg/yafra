@@ -63,7 +63,7 @@ PS_DLLAPI void PSSYSwriteDate(time_t aTimevalue, /* read time_t value */
 		case PSSYS_DAT_GERMAN:
 		case PSSYS_TIME_GERMAN:
 		default:
-			status = PSSYSint2datetime(&dat, &clock_value, aDate, aLen, "%d.%m.%y", PSSYS_DAT_GERMAN);
+			status = PSSYSint2datetime(&dat, &clock_value, aDate, aLen, "%d.%m.%Y", PSSYS_DAT_GERMAN);
 			status = PSSYSint2datetime(&dat, &clock_value, aTime, aLen, "%H:%M", PSSYS_DAT_GERMAN);
 			break;
 		}
@@ -200,10 +200,10 @@ static int PSSYSgerman_int2time(struct tm *aDateTime,
 	(void)memset((void *)aDateTime, (int)0, sizeof(aDateTime));
 
 	aDateTime->tm_isdst = (int)-1;
-	aDateTime->tm_sec  = *aClock_value % 60;
-	aDateTime->tm_min  = ((*aClock_value-aDateTime->tm_sec)/60) % 60;
-	aDateTime->tm_hour = ((*aClock_value-(aDateTime->tm_min*60)-aDateTime->tm_sec)/(60*60)) % 24;
-	aDateTime->tm_mday = ((*aClock_value-(aDateTime->tm_hour*60*60)-(aDateTime->tm_min)-aDateTime->tm_sec)/(60*60*24));
+    aDateTime->tm_sec  = *aClock_value % 60;
+    aDateTime->tm_min  = ((*aClock_value-aDateTime->tm_sec)/60) % 60;
+    aDateTime->tm_hour = ((*aClock_value-(aDateTime->tm_min*60)-aDateTime->tm_sec)/(60*60)) % 24;
+    aDateTime->tm_mday = ((*aClock_value-(aDateTime->tm_hour*60*60)-(aDateTime->tm_min)-aDateTime->tm_sec)/(60*60*24));
 
 	(void)sprintf(aRecord, "%02d %02d:%02d", aDateTime->tm_mday, aDateTime->tm_hour,aDateTime->tm_min);
 
@@ -226,6 +226,8 @@ static int PSSYSgerman_date2int(struct tm *aDatecontrol,
 	char	*ptr_orig;
 	int	status = PSOK;
 	int	index;
+	time_t currtime;
+	struct tm	*tv;
 
 	/* format date string ! incomming format is now german TT.MM.JJ SS.MM\0 */
 	/* 15 bytes (incl. NULL termination. Only parse if element is set to UNDEF */
@@ -264,21 +266,16 @@ static int PSSYSgerman_date2int(struct tm *aDatecontrol,
 		/* falls 2 Stellen, dann das aktuelle century dazu tun (1900, 2000, ...)
          dies ist noch zu tun spaeter */
 		if (strlen(ptr_src) == 2) {
+			currtime = time(NULL);
+			tv = localtime(&currtime);
 			ptr_src[2] = NULL;
 			value = atoi(ptr_src);
+			value += ((int)(tv->tm_year / 100)*100);
 			index = 9;
-		} else if (strlen(ptr_src) == 4 && *ptr_src == '2') {
-			value = 100 + (atoi(ptr_src) - 2000);
-			index = 11;
-		} else if (strlen(ptr_src) == 4 && *ptr_src == '1') {
+		} else {
 			value = (atoi(ptr_src) - 1900);
 			index = 11;
-		} else {
-			ptr_src[2] = NULL;
-			value = atoi(ptr_src);
-			index = 9;
 		}
-
 		aDatecontrol->tm_year = value;
 		}
 
@@ -305,8 +302,8 @@ static int PSSYSgerman_date2int(struct tm *aDatecontrol,
 	/* daylight saving flag (<0 means don't know, 0 is not and 1 is in effect) */
 	aDatecontrol->tm_isdst = (int)-1;
 
-	/* make int value */
-	*aDatevalue = (int)mktime(aDatecontrol);
+	/* make time_t value */
+	*aDatevalue = (time_t)mktime(aDatecontrol);
 	if (errno == ERANGE)
 		{
 		*aDatevalue=(int)_NODATE;
@@ -372,7 +369,7 @@ static int PSSYSgerman_time2int(struct tm *aDateTime,
 		if (aDateTime->tm_sec == (int)_UNDEF)
 			aDateTime->tm_sec = time_value[gemacht++];
 
-		*aClock_value = (int)0;
+		*aClock_value = (time_t)0;
 
 		*aClock_value += aDateTime->tm_sec;
 		*aClock_value += (aDateTime->tm_min*(int)60);
@@ -381,7 +378,7 @@ static int PSSYSgerman_time2int(struct tm *aDateTime,
 		}
 	else
 		{
-		*aClock_value = (int)_NODATE;
+		*aClock_value = (time_t)_NODATE;
 		status = (int)PSNODATE;
 		}
 

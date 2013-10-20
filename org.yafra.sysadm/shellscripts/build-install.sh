@@ -55,6 +55,7 @@ ETCDIR=$DESTDIR/etc
 LIBSDIR=$DESTDIR/lib
 GUIINSTALL=$ETCDIR/tdb
 APPDIR=$DESTDIR/apps
+X11APPDEF=/etc/X11/app-defaults
 #create dirs
 test -d $BINDIR || mkdir $BINDIR
 test -d $ETCDIR || mkdir $ETCDIR
@@ -129,7 +130,7 @@ cp -P lib/* $LIBSDIR
 cp -r apps/* $APPDIR
 cp etc/mpgui.pro $ETCDIR
 cp etc/tdb/* $GUIINSTALL
-cp etc/tdb/MPgui /usr/X11/app-defaults
+cp etc/tdb/MPgui $X11APPDEF
 
 if [ "$DBSERVER" = "localhost" ]; then
 	perl bin/tdb-setup-services.pl
@@ -146,7 +147,7 @@ if [ "$DBSERVER" = "localhost" ]; then
 	# create database YAFRA
 	# create database TDB
 	# this works fine on unix with perl
-	echo "installing mysql database"
+	echo "installing database"
 	cd etc/yafradb
 	generate.sh yafradmin $SAPWD
 	cd ../traveldb

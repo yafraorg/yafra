@@ -77,6 +77,8 @@ echo "build" >> $LOGFILE
 $SYSADM/shellscripts/build-apps.sh >> $LOGFILE 2>&1
 echo "build done" >> $LOGFILE
 
+sudo ldconfig
+
 # test
 echo "test" >> $LOGFILE
 if [ "$2" = "reset" ]; then

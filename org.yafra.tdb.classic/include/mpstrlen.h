@@ -13,29 +13,31 @@
 #define _CHAR128		(int)128
 #define _CHAR256		(int)256
 #define _CHAR512		(int)512
+#define _CHAR1024		(int)1024
 #define _CHAR2000		(int)1024
 
 #define _CHARMAXLEN	(int)_CHAR2000
 
-/* default string len */
-#define   _RECORDLEN     (int)1024 /* MarcoPolo record length */
-#define   _LABELLEN      (int)40   /* Labell�nge */
-#define   _SHORTLEN      (int)8    /* Shortl�nge */
-#define   _INTLEN        (int)16   /* Integerl�nge */
-#define   _BEZLEN        _CHAR2000   /* Bezeichnungsl�nge */
-#define   _PARALEN       (int)1024   /* Parameterl�nge */
-#define   _PROZLEN       (int)1024  /* Prozessl�nge */
-#define   _TEXTLEN       _CHAR2000   /* Textl�nge */
-#define   _KRZLLEN       (int)10   /* K�rzell�nge */
-#define   _FILELEN       (int)127  /* Dateiname und Pfad Laenge */
-#define   _DATLEN        (int)12   /* Datum/Zeit Laenge */
-#define   _GRAFORMLEN    (int)160  /* Grafik Formatlaenge */
-#define   _USERLEN       (int)128  /* len of user name */
-#define   _PWDLEN        (int)20   /* len of password */
+/* default string length */
+#define   _RECORDLEN     _CHAR1024 /* TDB standard record length */
+#define   _LABELLEN      (int)40   /* labels */
+#define   _SHORTLEN      (int)8    /* short */
+#define   _INTLEN        (int)16   /* int */
+#define   _BEZLEN        _CHAR1024   /* description (BEZ) */
+#define   _PARALEN       _CHAR1024   /* action parameters */
+#define   _PROZLEN       _CHAR1024  /* process length */
+#define   _TEXTLEN       _CHAR1024   /* text */
+#define   _KRZLLEN       (int)10   /* shortcut */
+#define   _FILELEN       (int)127  /* filename */
+#define   _DATLEN        (int)12   /* date */
+#define   _GRAFORMLEN    (int)160  /* graphics */
+#define   _USERLEN       (int)128  /* user name */
+#define   _PWDLEN        (int)20   /* password */
 #define   _NUMLEN        (int)9    /* PLZ/ZIP / KONTO len */
+#define   _DATELEN       (int)64   /* datestring */
+#define   _FLAGLEN       (int)8    /* flag field */
+
 #define   _QUERYLEN      (int)10240 /* SQL query length */
-#define   _DATELEN       (int)64   /* Length of Datestring */
-#define   _FLAGLEN       (int)8    /* lenght of a flag field */
 
 #define   _CHAR1         (int)1
 #define   _CHAR2         (int)2

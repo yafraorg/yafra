@@ -60,6 +60,11 @@ DEFINES   = -D$(PS_OS) -D$(PS_OSTYPE)
 include $(YAFRATOOLS)/include/libflags.mak
 
 ifeq ($(PS_OS),ps_linux)
+ADDON = -I/usr/include/freetype2
+endif
+
+ifeq ($(PS_OS),ps_cygwin)
+ADDON = -I/usr/include/freetype2
 endif
 
 ifeq ($(PS_OS),ps_hpux)

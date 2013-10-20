@@ -92,8 +92,10 @@ make all
 #CLASSIC/TDB
 cd $TDBS
 #make clean
-make mpapi
 make all
+#make mpapi
+#make alllibs
+#make allact
 
 if [ "$PS_COMPTYPE" = "ps_unix" ]; then
 	if [ "$PS_OS" != "ps_cygwin" ]; then
@@ -101,5 +103,7 @@ if [ "$PS_COMPTYPE" = "ps_unix" ]; then
 		symlinks -c .
 	fi
 fi
+
+sudo ldconfig
 
 exit

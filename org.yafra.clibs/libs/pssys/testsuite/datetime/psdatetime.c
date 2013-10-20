@@ -16,8 +16,8 @@ void main(int argc, char *argv[])
 	char	new_tmp_bez2[_BEZLEN+1];
 	char	new_tmp_bez3[_BEZLEN+1];
 	char	new_tmp_bez4[_BEZLEN+1];
-	int	intdate;
-	int	inttime;
+	time_t	intdate;
+	time_t	inttime;
 	int	cret;
 	size_t len;
 	struct tm DateTime;
@@ -78,13 +78,12 @@ void main(int argc, char *argv[])
 	intdate = -1;
 	cret = PSSYSdatetime2int(&DateTime,(time_t *)&intdate, new_tmp_bez1, PSSYS_DAT_GERMAN);
 	if (cret == PSOK)
-		printf(" Date-Integer: %s ==> %ld\n", new_tmp, intdate);
+		printf(" Date-Integer: %s ==> %d\n", new_tmp, intdate);
 	else
 		printf(" Error by converting\n");
 
 	/* ------ NEW TIME TO INT ------ */
 	(void)memset((void *)&DateTime, NULL, sizeof(DateTime));
-	DateTime.tm_mday=(int)_UNDEF;
 	DateTime.tm_hour=(int)_UNDEF;
 	DateTime.tm_min =(int)_UNDEF;
 	strcpy(new_tmp_bez2, tmp_time);
@@ -99,7 +98,7 @@ void main(int argc, char *argv[])
 	/* ------ NEW INT TO DATE ------ */
 	(void)memset((void *)&DateTime, NULL, sizeof(DateTime));
 	*new_tmp_bez3 = NULL;
-	cret = PSSYSint2datetime(&DateTime, (time_t *)&intdate, new_tmp_bez3, (size_t)_BEZLEN+1, "%x %X %Z", PSSYS_DAT_GERMAN);
+	cret = PSSYSint2datetime(&DateTime, (time_t *)&intdate, new_tmp_bez3, (size_t)_BEZLEN+1, "%c %Z", PSSYS_DAT_GERMAN);
 	if (cret == PSOK)
 		printf(" Integer-Date: %d ==> %s\n", intdate, new_tmp_bez3);
 	else
@@ -109,9 +108,7 @@ void main(int argc, char *argv[])
 	(void)memset((void *)&DateTime, NULL, sizeof(DateTime));
 	DateTime.tm_min  = (int)_UNDEF;
 	DateTime.tm_hour = (int)_UNDEF;
-	DateTime.tm_mday = (int)_UNDEF;
 	*new_tmp_bez4 = NULL;
-	DateTime.tm_year = (int)_UNDEF;
 	cret = PSSYSint2datetime(&DateTime, (time_t *)&inttime, new_tmp_bez4, (size_t)_BEZLEN+1, NULL, PSSYS_TIME_GERMAN);
 	if (cret == PSOK)
 		printf(" Integer-Time: %d ==> %s\n", inttime, new_tmp_bez4);

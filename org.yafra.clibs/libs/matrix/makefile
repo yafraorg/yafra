@@ -55,7 +55,7 @@ MANSECTION = 3
 include $(YAFRATOOLS)/include/libflags.mak
 
 ifeq ($(PS_OS),ps_linux)
-ADDON =
+ADDON = -I/usr/include/freetype2
 endif
 
 ifeq ($(PS_OS),ps_cygwin)

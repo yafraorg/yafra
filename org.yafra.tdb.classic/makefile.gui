@@ -99,12 +99,12 @@ MANSECTION = 1
 include $(YAFRATOOLS)/include/prgflags.mak
 
 ifeq ($(PS_OS),ps_linux)
-ADDON =
+ADDON = -I/usr/include/freetype2
 ADDLIBS  =
 endif
 
 ifeq ($(PS_OS),ps_mingw)
-ADDON = -mno-cygwin
+ADDON = -mno-cygwin -I/usr/include/freetype2
 ADDLIBS  =
 endif
 

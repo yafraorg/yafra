@@ -16,15 +16,11 @@
 /* include def_table struct */
 #include <mpdbglob.h>
 #include <locale.h>
-<<<<<<< HEAD
 
 #ifndef ps_osx
 #include  <stdalign.h>
 #endif
 
-=======
-//#include  <stdalign.h>
->>>>>>> 6392c6ab470ea3d710fff40b0551ac9b82d0847c
 #include "version.h"
 
 void main()
@@ -41,21 +37,17 @@ void main()
 	printf("sizeof char: %2d\n", sizeof(char));
 	printf("sizeof short: %2d\n", sizeof(short));
 	printf("sizeof int: %2d\n", sizeof(int));
-	printf("sizeof int *: %2d\n", sizeof(int *));
-	printf("sizeof void *: %2d\n", sizeof(void *));
 	printf("sizeof long: %2d\n", sizeof(long));
+	printf("sizeof long long: %2d\n", sizeof(long long));
 	printf("sizeof float: %2d\n", sizeof(float));
 	printf("sizeof double: %2d\n", sizeof(double));
+	printf("sizeof void *: %2d\n", sizeof(void *));
 
 	printf("\nstructure test - test sizeof struct STATUS_WERTE and alignof()\n");
 	printf("sizeof STATUS_WERTE: %4d\n", sizeof(STATUS_WERTE));
-<<<<<<< HEAD
 #ifndef ps_oxs
 	printf("alignof STATUS_WERTE: %4d\n", alignof(STATUS_WERTE));
 #endif
-=======
-	//printf("alignof STATUS_WERTE: %4d\n", alignof(STATUS_WERTE));
->>>>>>> 6392c6ab470ea3d710fff40b0551ac9b82d0847c
 
 	printf("\nstructure test - test sizeof of all TDB structs\n");
 	for (table_nr = 0; table_nr < 292; table_nr++) {

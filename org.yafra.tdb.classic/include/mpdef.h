@@ -20,11 +20,12 @@ typedef struct
    unsigned long alloclen;          /* length of buffer  */
    unsigned long datalen;           /* length of data (must be lower or equal to alloclen! */
 } MEMOBJ;
-#define STARTMEMCHUNK   (int)30720     /*  30 kb initial size   */
-#define DEFMEMCHUNK     (int)4096      /*   4 kb increase       */
-#define BIGMEMCHUNK     (int)102400    /* 100 kb increase       */
-#define LITTELMEMCHUNK  (int)1024      /*   1 kb increase       */
-#define RECLAENGE       (int)8192      /*   8 kb increase       */
+#define STARTMEMCHUNK   (int)30720	/*  30 kb initial size   */
+#define DEFMEMCHUNK     (int)4096	/*   4 kb increase       */
+#define BIGMEMCHUNK     (int)102400	/* 100 kb increase       */
+#define LITTELMEMCHUNK  (int)1024	/*   1 kb increase       */
+#define STDMEMCHUNK		(int)8192	/*   8kb increase */
+#define RECLAENGE       STDMEMCHUNK	/*   8kb increase       */
 
 /************************************************************
  * Sektion:  global defines
