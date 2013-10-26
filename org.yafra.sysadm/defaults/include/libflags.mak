@@ -81,14 +81,14 @@ else
 endif
 ifdef OSHARED
 	FSHARED  = -fPIC -DPS_SHAREDLIB=1
-	AR = gcc -shared -Wl,-soname,$(LIBRARY).$(SONAMEVER) -o
+	AR = clang -shared -Wl,-soname,$(LIBRARY).$(SONAMEVER) -o
 else
-	AR        = ar crus
+	AR        = llvm-ar crus
 endif
 FCC       = -I/usr/include/malloc $(FDEBUG) $(FSHARED) $(FRELEASE)
 CMANFLAGS = -P "cc -E -C" -I$(PINC) -V -i$(INCLUDE) -o$(PMAN) -S$(MANSECTION)
 MAKE      = make
-CC        = gcc
+CC        = clang
 endif
 
 #

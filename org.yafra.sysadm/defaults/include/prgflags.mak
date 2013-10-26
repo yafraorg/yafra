@@ -71,14 +71,14 @@ endif
 # MAC OS/X
 #
 ifeq ($(PS_OS),ps_osx)
-CC = gcc
-LD = gcc
+CC = clang
+LD = clang
 ifdef ODEBUG
 	FDEBUG = -g -DDEBUG -Wall -fno-strength-reduce
-	FLD = -g
+	FLD = -emit-llvm -g
 else
 	FDEBUG = -O -fno-strength-reduce
-	FLD = -O
+	FLD = -emit-llvm -O
 endif
 FCC       = $(FDEBUG) $(FRELEASE)
 CMANFLAGS = -P "cc -E -C" -I$(PINC) -V -i$(INCLUDE) -o$(PMAN) -S$(MANSECTION)

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Aptana Studio
+GenericName=Eclipse
+X-GNOME-FullName=Aptana Studio 3
+Comment=Aptana Studio
+Type=Application
+Categories=Application;Development;CPP;IDE;Programming
+Exec=env UBUNTU_MENUPROXY= /work/Aptana_Studio_3/AptanaStudio3
+TryExec=/work/Aptana_Studio_3/AptanaStudio3
+Terminal=false
+StartupNotify=true
+Icon=/work/Aptana_Studio_3/icon.xpm

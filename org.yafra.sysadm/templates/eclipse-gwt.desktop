@@ -6,7 +6,7 @@ X-GNOME-FullName=Eclipse GWT IDE
 Comment=Eclipse GWT
 Type=Application
 Categories=Application;Development;GWT;IDE;Programming
-Exec=/work/eclipse/eclipse-gwt/eclipse
+Exec=env UBUNTU_MENUPROXY= /work/eclipse/eclipse-gwt/eclipse
 TryExec=/work/eclipse/eclipse-gwt/eclipse
 Terminal=false
 StartupNotify=true

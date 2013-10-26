@@ -6,7 +6,7 @@ X-GNOME-FullName=Eclipse CPP IDE
 Comment=Eclipse CPP
 Type=Application
 Categories=Application;Development;CPP;IDE;Programming
-Exec=/work/eclipse/eclipse-cpp/eclipse
+Exec=env UBUNTU_MENUPROXY= /work/eclipse/eclipse-cpp/eclipse
 TryExec=/work/eclipse/eclipse-cpp/eclipse
 Terminal=false
 StartupNotify=true
