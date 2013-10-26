@@ -2,15 +2,15 @@
   <footer>
     <div class="row">
 		<div class="col-sm-4">
-		  <p>&copy; yafra.org 2013</p>
+		&copy; yafra.org 2013
 		</div>
 		<div class="col-sm-8">
-		<ul class="inline pull-right">
-		<li><a href="https://plus.google.com/102820242176605176023?prsrc=3">Google+</a></li>
-		<li><a href="http://yafratech.blogspot.com">Blog</a></li>
-		<li><a href="http://www.twitter.com/yafraorg">Twitter</a></li>
-		<li><a href="#contact" data-toggle="modal">Contact</a></li>
-		<li><a href="#about" data-toggle="modal">About</a></li>
+		<ul class="list-inline pull-right">
+			<li><a href="https://plus.google.com/102820242176605176023?prsrc=3">Google+</a></li>
+			<li><a href="http://yafratech.blogspot.com">Blog</a></li>
+			<li><a href="http://www.twitter.com/yafraorg">Twitter</a></li>
+			<li><a href="#contact" data-toggle="modal">Contact</a></li>
+			<li><a href="#about" data-toggle="modal">About</a></li>
 		 </ul>
 		</div>
     </div>

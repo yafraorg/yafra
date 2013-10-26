@@ -13,21 +13,23 @@
   
   <body>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="navbar-header">
+     <div class="container">
+     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">yafra.org</a>
+        <a class="navbar-brand" href="/">org.yafra</a>
         </div>
         
         <div class="navbar-collapse navbar-ex1-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/">Home</a></li>
-          <li><a href="/holz.php">Holz/Stein</a></li>
-          <li><a href="/figuren.php">Figuren</a></li>
-          <li><a href="/personen.php">Personen</a></li>
+          <li><a href="/project.php">Projects</a></li>
+          <li><a href="https://github.com/yafraorg/yafra/wiki">Wiki</a></li>
         </ul>
       </div><!--/.nav-collapse -->
+      </div>
     </nav>
+     <div class="container">
