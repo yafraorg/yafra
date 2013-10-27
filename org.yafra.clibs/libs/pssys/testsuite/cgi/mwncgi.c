@@ -13,7 +13,7 @@ static char rcsid[]="$Id: mwncgi.c,v 1.1 2002-11-23 09:28:07 mwn Exp $";
 /* Include or define globals */
 #include <stdio.h>
 #include <stdlib.h>
-#include <ipc.h>
+#include <sys/ipc.h>
 #include <pssys.h>
 
 #define CLBUFSIZE 1024

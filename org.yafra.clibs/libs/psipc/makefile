@@ -61,6 +61,9 @@ ifeq ($(PS_OS),ps_mingw)
 ADDON =-mno-cygwin
 endif
 
+ifeq ($(PS_OS),ps_osx)
+endif
+
 ifeq ($(PS_OS),ps_linux)
 endif
 

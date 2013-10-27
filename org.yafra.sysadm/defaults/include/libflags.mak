@@ -75,13 +75,13 @@ endif
 #
 ifeq ($(PS_OS),ps_osx)
 ifdef ODEBUG
-	FDEBUG = -g -DDEBUG -Wall -fno-strength-reduce
+	FDEBUG = -g -DDEBUG -Wall
 else
 	FDEBUG = -O -fno-strength-reduce
 endif
 ifdef OSHARED
 	FSHARED  = -fPIC -DPS_SHAREDLIB=1
-	AR = clang -shared -Wl,-soname,$(LIBRARY).$(SONAMEVER) -o
+	AR = libtool -dynamic -undefined dynamic_lookup -o
 else
 	AR        = llvm-ar crus
 endif

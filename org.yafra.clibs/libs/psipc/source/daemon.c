@@ -225,7 +225,11 @@ int PSIPCbackgroundProcess(
 			 * set SIGCLD to SIG_IGN to prevent the
 			 * accumulation of zombie processes.
 			 */
+#ifdef ps_osx
+			signal(SIGCHLD, SIG_IGN);
+#else
 			signal(SIGCLD, SIG_IGN);
+#endif
 			return(childPID);
 
 		/* It's the parent process */

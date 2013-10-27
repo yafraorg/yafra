@@ -74,7 +74,7 @@ ifeq ($(PS_OS),ps_osx)
 CC = clang
 LD = clang
 ifdef ODEBUG
-	FDEBUG = -g -DDEBUG -Wall -fno-strength-reduce
+	FDEBUG = -g -DDEBUG -Wall
 	FLD = -emit-llvm -g
 else
 	FDEBUG = -O -fno-strength-reduce

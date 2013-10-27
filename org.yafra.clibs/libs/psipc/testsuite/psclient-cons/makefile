@@ -71,6 +71,10 @@ ifeq ($(PS_OS),ps_linux)
 LIBS = -lpsipc -lpssys
 endif
 
+ifeq ($(PS_OS),ps_osx)
+LIBS = -lpsipc -lpssys
+endif
+
 ifeq ($(PS_OS),ps_cygwin)
 LIBS = -lpsipc -lpssys
 endif

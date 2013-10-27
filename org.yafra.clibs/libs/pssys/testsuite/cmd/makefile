@@ -38,19 +38,19 @@ endif
 # the reference(REF) is used to find the RCS repository
 #
 PBASE	= $(PSSYSLIB)/testsuite/cmd
-PSLIB    = $(PISOTESTLIBPATH)
-PSLIBINC = $(PISOINC)
-PLIB	= $(PISOTESTLIBPATH)
+PSLIB    = $(YAFRALIBPATH)
+PSLIBINC = $(YAFRAINC)
+PLIB	= $(YAFRALIBPATH)
 PSRC    = $(PBASE)
 PMAN    = $(PBASE)
 PINC	= $(PBASE)
 POBJ	= $(PSSYSLIBO)
-PEXE    = /work/bin
+PEXE    = $(YAFRAEXE)
 
 # GNU make
 # set the vpath and suffixes
 #
-include $(PISOTOOLS)/include/searchpath.mak
+include $(YAFRATOOLS)/include/searchpath.mak
 
 #
 # link libraries
@@ -60,6 +60,10 @@ LIBS = -lpssys
 endif
 
 ifeq ($(PS_OS),ps_linux)
+LIBS = -lpssys
+endif
+
+ifeq ($(PS_OS),ps_osx)
 LIBS = -lpssys
 endif
 
@@ -90,7 +94,7 @@ MANSECTION = 1
 #
 # search path for includes and libraries
 #
-include $(PISOTOOLS)/include/prgflags.mak
+include $(YAFRATOOLS)/include/prgflags.mak
 
 ifeq ($(PS_OS),ps_linux)
 ADDLIBS	=
@@ -133,12 +137,12 @@ endif
 #
 # dependencies
 #
-include $(PISOTOOLS)/include/objects.mak
+include $(YAFRATOOLS)/include/objects.mak
 
 #
 # to do list
 #
-include $(PISOTOOLS)/include/prgrules.mak
+include $(YAFRATOOLS)/include/prgrules.mak
 
 $(CORENAME): all
 

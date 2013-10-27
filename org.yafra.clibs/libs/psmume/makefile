@@ -58,6 +58,9 @@ include $(YAFRATOOLS)/include/libflags.mak
 ifeq ($(PS_OS),ps_linux)
 endif
 
+ifeq ($(PS_OS),ps_osx)
+endif
+
 ifeq ($(PS_OS),ps_hpux)
 AINC = -I/opt/audio/include
 ADDON = -Ae +w1 $(AINC)
