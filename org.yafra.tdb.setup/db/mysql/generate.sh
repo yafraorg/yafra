@@ -33,60 +33,63 @@ fi
 #
 echo Create a new "traveldb" database by your mysql tools
 echo "\n"
-mysql --user=root --password=$2 --force -v -v <dbe_init.sql >tdb_core_$1.log
+mysql --user=root --password=$2 --force -v -v <dbe_init.sql >/tmp/mysql_tdb_setup$i.log
 
 #
 # execute scripts
 #
 echo Creates the core database ...
 echo ... tables and functions stored procs
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_dbe_tables.sql >>tdb_core_$1.log
-#mysql $1 --user=tdbadmin --password=yafra -v -v <dbe_functions.sql >>tdb_core_$1.log
-#mysql $1 --user=tdbadmin --password=yafra -v -v <dbe_tdbsp.sql >>tdb_core_$1.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_dbe_tables.sql >>/tmp/mysql_tdb_setup$i.log
+#mysql $1 --user=tdbadmin --password=yafra -v -v <dbe_functions.sql >>/tmp/mysql_tdb_setup$i.log
+#mysql $1 --user=tdbadmin --password=yafra -v -v <dbe_tdbsp.sql >>/tmp/mysql_tdb_setup$i.log
 echo ... views
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_dbe_views.sql >>tdb_core_$1.log
-#mysql $1 --user=tdbadmin --password=yafra -v -v <dbe_javaviews.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_dbe_tdbviews.sql >>tdb_core_$1.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_dbe_views.sql >>/tmp/mysql_tdb_setup$i.log
+#mysql $1 --user=tdbadmin --password=yafra -v -v <dbe_javaviews.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_dbe_tdbviews.sql >>/tmp/mysql_tdb_setup$i.log
 echo ... index
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_dbe_index.sql >>tdb_core_$1.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_dbe_index.sql >>/tmp/mysql_tdb_setup$i.log
 
 #echo ... grant
-#mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_dbe_grant.sql >>tdb_core_$1.log
-#mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_dbe_tdbviewsgrant.sql >>tdb_core_$1.log
+#mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_dbe_grant.sql >>/tmp/mysql_tdb_setup$i.log
+#mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_dbe_tdbviewsgrant.sql >>/tmp/mysql_tdb_setup$i.log
 
 echo ... initial load lang: german
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_languages.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_init.sql >>tdb_core_$1.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_languages.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_init.sql >>/tmp/mysql_tdb_setup$i.log
 echo ... load geo
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_geo.sql >>tdb_core_$1.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_geo.sql >>/tmp/mysql_tdb_setup$i.log
 echo ... load types
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_types.sql >>tdb_core_$1.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_types.sql >>/tmp/mysql_tdb_setup$i.log
 echo ... load status_werte
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_status.sql >>tdb_core_$1.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_status.sql >>/tmp/mysql_tdb_setup$i.log
 
 echo ... load other scripts lang: german
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_aktionen.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_aktionen.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_labels.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_mp2000labels.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_msgsys.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_msgerr.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_msgsql.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_msgwar.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_msgakt.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_msginf.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_out_d_common.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_out_d_request.sql >>tdb_core_$1.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_aktionen.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_aktionen.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_labels.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_mp2000labels.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_msgsys.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_msgerr.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_msgsql.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_msgwar.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_msgakt.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_d_msginf.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_out_d_common.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_out_d_request.sql >>/tmp/mysql_tdb_setup$i.log
 
 echo ... load other scripts lang: english
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_e_labels.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_e_msgsys.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_e_msgerr.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_e_msgsql.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_e_msgwar.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_e_msgact.sql >>tdb_core_$1.log
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_e_msginf.sql >>tdb_core_$1.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_e_labels.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_e_msgsys.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_e_msgerr.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_e_msgsql.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_e_msgwar.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_e_msgact.sql >>/tmp/mysql_tdb_setup$i.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_e_msginf.sql >>/tmp/mysql_tdb_setup$i.log
 
 echo ... load demo data
-mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_demo.sql >>tdb_core_$1.log
+mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_demo.sql >>/tmp/mysql_tdb_setup$i.log
+
+echo ... removing converted sql files
+rm mysql_*
 

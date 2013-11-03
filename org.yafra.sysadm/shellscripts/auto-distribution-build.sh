@@ -41,7 +41,7 @@ fi
 #
 TIMESTAMP="$(date +%Y%m%d)"
 LOGFILE=/tmp/YAFRA-buildghost-$TIMESTAMP.log
-echo "-> start auto distribution build with basenode $BASENODE" > $LOGFILEADM
+echo "-> start auto distribution build with basenode $BASENODE" > $LOGFILE
 echo "settings:" >> $LOGFILE
 echo "TIMESTAMP: $TIMESTAMP" >> $LOGFILE
 echo "LOGFILEADM: $LOGFILEADM" >> $LOGFILE
@@ -106,7 +106,7 @@ echo "build done" >> $LOGFILE
 # publish build
 echo "publish build" >> $LOGFILE
 $SYSADM/shellscripts/build-publish.sh $1 >> $LOGFILE 2>&1
-echo "if you want yafra rcp - you need a to perform a manual task and re run build-publish.sh" >> $LOGFILEADM
+echo "if you want yafra rcp - you need a to perform a manual task and re run build-publish.sh" >> $LOGFILE
 echo "publish done" >> $LOGFILE
 
 echo "distribution build done" >> $LOGFILE
