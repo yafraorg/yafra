@@ -22,7 +22,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<cxf.version>2.2.3</cxf.version>
+		<cxf.version>2.7.10</cxf.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
@@ -44,6 +44,11 @@
 			<version>${cxf.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.6.4</version>
@@ -51,6 +56,16 @@
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-core</artifactId>
+			<version>6.13.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-auth-roles</artifactId>
+			<version>6.13.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-extensions</artifactId>
 			<version>6.13.0</version>
 		</dependency>
 		<dependency>
@@ -68,6 +83,21 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>2.6.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.yafra</groupId>
+			<artifactId>utils</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.yafra.server</groupId>
+			<artifactId>core</artifactId>
+			<version>1.0</version>
 		</dependency>
 		<!--
 		<dependency>
