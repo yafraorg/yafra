@@ -12,7 +12,8 @@ import javax.xml.ws.WebServiceException;
 import javax.xml.ws.handler.MessageContext;
 
 import org.apache.cayenne.access.DataContext;
-import org.apache.cayenne.conf.ServletUtil;
+import org.apache.cayenne.BaseContext;
+import org.apache.cayenne.ObjectContext;
 import org.yafra.directclient.YafraDirectSession;
 import org.yafra.modelhandler.MHPerson;
 import org.yafra.orm.Person;
@@ -34,13 +35,14 @@ public class PersonHandler implements PersonSEI {
 	    HttpSession session = ((javax.servlet.http.HttpServletRequest)mc.get(MessageContext.SERVLET_REQUEST)).getSession();
 	    if (session == null)
 	         throw new WebServiceException("No HTTP Session found");
-		DataContext dbcontext = ServletUtil.getSessionContext(session);
+		//DataContext dbcontext = ServletUtil.getSessionContext(session);
+		ObjectContext dbcontext = BaseContext.getThreadObjectContext();
 		log = new Logging();
 		log.setDebugFlag(true);
 		log.logInfo("org.yafra.tests.serverdirectclient - logging init done - getting session now");
 		sess = new YafraDirectSession();
 		sess.setLogging(log);
-		sess.setContext(dbcontext);
+		//sess.setContext(dbcontext);
 		sess.logMessage(" - client starts now with session id " + sess.getSessionId());
 
 		MHPerson mhp = new MHPerson(dbcontext, log);

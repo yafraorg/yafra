@@ -32,6 +32,10 @@
 	<filter>
 		 <filter-name>CayenneFilter</filter-name>
 		 <filter-class>org.apache.cayenne.configuration.web.CayenneFilter</filter-class>
+		<init-param>
+			<param-name>configuration-location</param-name>
+			<param-value>cayenne-org_yafra.xml</param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		 <filter-name>CayenneFilter</filter-name>

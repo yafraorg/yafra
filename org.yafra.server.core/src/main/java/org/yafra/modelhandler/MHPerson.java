@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.apache.cayenne.CayenneRuntimeException;
 import org.apache.cayenne.DeleteDenyException;
-import org.apache.cayenne.access.DataContext;
+import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.query.SelectQuery;
 import org.apache.cayenne.query.SortOrder;
@@ -45,7 +45,7 @@ import org.yafra.utils.Logging;
  * @since 1.0
  */
 public class MHPerson implements IYafraMHPerson {
-	private DataContext dbcontext = null;
+	private ObjectContext dbcontext = null;
 	private Logging log = null;
 
 	/**
@@ -57,7 +57,7 @@ public class MHPerson implements IYafraMHPerson {
 	 *            a org.yafra.utils logging context which is already open/active
 	 * @since 1.0
 	 */
-	public MHPerson(DataContext ctx, Logging l) {
+	public MHPerson(ObjectContext ctx, Logging l) {
 		dbcontext = ctx;
 		log = l;
 	}

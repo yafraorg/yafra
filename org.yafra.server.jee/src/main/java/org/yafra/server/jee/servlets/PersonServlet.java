@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.cayenne.access.DataContext;
-import org.apache.cayenne.conf.ServletUtil;
+import org.apache.cayenne.BaseContext;
+import org.apache.cayenne.ObjectContext;
 import org.yafra.directclient.YafraDirectSession;
 import org.yafra.modelhandler.MHPerson;
 import org.yafra.orm.Person;
@@ -40,7 +41,8 @@ public class PersonServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO simple servlet - use more advanced logging and sharing between servlets
 		HttpSession session = request.getSession(true);
-		DataContext dbcontext = ServletUtil.getSessionContext(session);
+		//DataContext dbcontext = ServletUtil.getSessionContext(session);
+		ObjectContext dbcontext = BaseContext.getThreadObjectContext();
 		PrintWriter out = response.getWriter();
 		YafraDirectSession sess = null;
 		Logging yafralog = null;
@@ -50,7 +52,7 @@ public class PersonServlet extends HttpServlet {
 		yafralog.YafraDebug("org.yafra.internet - got cayenne context and init finished", dev);
 		yafralog.logInfo("org.yafra.internet - got cayenne context and init finished");
 		sess = new YafraDirectSession();
-		sess.setContext(dbcontext);
+		//sess.setContext(dbcontext);
 		sess.setLogging(yafralog);
 		sess.logMessage(" - simple servlet session started with id " + sess.getSessionId());
 		sess.logMessage("\norg.yafra.tests - get person list");
