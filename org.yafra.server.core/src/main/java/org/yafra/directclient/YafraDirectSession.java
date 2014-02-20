@@ -19,6 +19,8 @@
 package org.yafra.directclient;
 
 import java.util.Random;
+
+import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.access.DataContext;
 import org.yafra.interfaces.IYafraSession;
 import org.yafra.utils.Logging;
@@ -35,7 +37,7 @@ import org.yafra.utils.Logging;
  */
 public class YafraDirectSession implements IYafraSession
 {
-	private DataContext yafracontext;
+	private ObjectContext yafracontext;
 
 	private Logging log = null;
 
@@ -126,12 +128,12 @@ public class YafraDirectSession implements IYafraSession
 	 * dedicated functions to direct clients - EJB version needs different
 	 * approach (EJB 3.1 singleton)
 	 */
-	public DataContext getContext()
+	public ObjectContext getContext()
 		{
 		return yafracontext;
 		}
 
-	public void setContext(DataContext context)
+	public void setContext(ObjectContext context)
 		{
 		yafracontext = context;
 		return;

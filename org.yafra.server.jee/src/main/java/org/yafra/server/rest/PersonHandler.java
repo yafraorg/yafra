@@ -9,8 +9,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.CayenneRuntimeException;
-import org.apache.cayenne.access.DataContext;
+import org.apache.cayenne.ObjectContext;
 import org.yafra.directclient.YafraDirectSession;
 import org.yafra.modelhandler.MHPerson;
 import org.yafra.orm.Person;
@@ -21,7 +22,7 @@ import org.yafra.utils.Logging;
 @Produces("application/xml")
 public class PersonHandler implements PersonRSI {
 
-	private DataContext dbcontext;
+	private ObjectContext dbcontext;
 	private Logging log;
 	private YafraDirectSession sess;
 
@@ -30,7 +31,8 @@ public class PersonHandler implements PersonRSI {
 		// start 1 session (could be n in parallel)
 		try
 			{
-			dbcontext = DataContext.createDataContext();
+			ObjectContext dbcontext = BaseContext.getThreadObjectContext();
+			//dbcontext = DataContext.createDataContext();
 			log = new Logging();
 			log.setDebugFlag(true);
 			log.logInfo("org.yafra.tests.serverdirectclient - logging init done - getting session now");

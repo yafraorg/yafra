@@ -11,7 +11,6 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.WebServiceException;
 import javax.xml.ws.handler.MessageContext;
 
-import org.apache.cayenne.access.DataContext;
 import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.ObjectContext;
 import org.yafra.directclient.YafraDirectSession;
