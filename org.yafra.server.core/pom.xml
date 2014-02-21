@@ -27,11 +27,6 @@
 			<version>3.1RC1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derby</artifactId>
-			<version>10.5.3.0_1</version>
-		</dependency>
-		<dependency>
 			<groupId>org.yafra</groupId>
 			<artifactId>utils</artifactId>
 			<version>1.0</version>

@@ -30,9 +30,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.cayenne.ObjectContext;
+import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.CayenneRuntimeException;
 import org.apache.cayenne.DeleteDenyException;
-import org.apache.cayenne.access.DataContext;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.query.NamedQuery;
 import org.apache.cayenne.query.QueryChain;
@@ -63,13 +64,14 @@ public class TestCoreServer
 	public static void main(String[] args)
 		{
 		// create logging and cayenne context
-		DataContext dbcontext;
+		ObjectContext dbcontext;
 		Logging log;
 		
 		// start 1 session (could be n in parallel)
 		try
 			{
-			dbcontext = DataContext.createDataContext();
+			ServerRuntime cayenneRuntime = new ServerRuntime("cayenne-org_yafra.xml");
+			dbcontext = cayenneRuntime.getContext();
 			log = new Logging();
 			log.setDebugFlag(true);
 			log.logInfo("org.yafra.tests.serverdirectclient - logging init done - getting session now");
@@ -100,7 +102,7 @@ public class TestCoreServer
 		TestHandlers(sess.getContext());
 		}
 
-	private static void InsertPerson(DataContext context)
+	private static void InsertPerson(ObjectContext context)
 		{
 		Date today = new Date();
 		sess.logMessage("\norg.yafra.tests - insert person plain cayenne");
@@ -164,7 +166,7 @@ public class TestCoreServer
 		sess.logMessage("\n - end");
 		}
 
-	private static void InsertYafra(DataContext context)
+	private static void InsertYafra(ObjectContext context)
 		{
 		Date today = new Date();
 		sess.logMessage("\norg.yafra.tests - insert yafra users plain cayenne");
@@ -284,7 +286,7 @@ public class TestCoreServer
 		sess.logMessage(" - end");
 		}
 
-	private static void TestHandlers(DataContext context)
+	private static void TestHandlers(ObjectContext context)
 		{
 		sess.logMessage("\norg.yafra.tests - test model handlers from core server");
 		// TODO test model handler methods here
@@ -310,7 +312,7 @@ public class TestCoreServer
 		sess.logMessage(" - end");
 		}
 	
-	private static void Doquery1(DataContext context)
+	private static void Doquery1(ObjectContext context)
 		{
 		sess.logMessage("\norg.yafra.tests - get person list");
 		// test with pre def where clause
@@ -329,7 +331,7 @@ public class TestCoreServer
 		sess.logMessage(" - end");
 		}
 
-	private static void Doquery2(DataContext context)
+	private static void Doquery2(ObjectContext context)
 		{
 		sess.logMessage("\norg.yafra.tests - get one person");
 		sess.logMessage(" - get one entry by Id (1)");
@@ -344,7 +346,7 @@ public class TestCoreServer
 		sess.logMessage("\n - end");
 		}
 
-	private static void Doquery3(DataContext context)
+	private static void Doquery3(ObjectContext context)
 		{
 		sess.logMessage("\norg.yafra.tests - get one user");
 		List<YafraUser> yulist;
@@ -378,7 +380,7 @@ public class TestCoreServer
 		sess.logMessage("\n - end");
 		}
 
-	private static void Update1(DataContext context)
+	private static void Update1(ObjectContext context)
 		{
 		sess.logMessage("\norg.yafra.tests - update a user");
 		// TODO change role (relation) change content (userid)
@@ -415,7 +417,7 @@ public class TestCoreServer
 		sess.logMessage(" - end update done");
 		}
 
-	private static void Delete1(DataContext context)
+	private static void Delete1(ObjectContext context)
 		{
 		sess.logMessage("\norg.yafra.tests - delete a person");
 		try
@@ -440,7 +442,7 @@ public class TestCoreServer
 		sess.logMessage(" - end");
 		}
 
-	private static void Delete2(DataContext context)
+	private static void Delete2(ObjectContext context)
 		{
 		String userid = new String("\"jd77\"");
 		sess.logMessage("\norg.yafra.tests - delete a user with id " + userid);
@@ -474,7 +476,7 @@ public class TestCoreServer
 		sess.logMessage(" - end");
 		}
 
-	private static void DoqueryDeleteAll(DataContext context)
+	private static void DoqueryDeleteAll(ObjectContext context)
 		{
 		sess.logMessage("\norg.yafra.tests - delete all entries");
 		QueryChain chain = new QueryChain();
