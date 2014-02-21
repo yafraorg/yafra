@@ -23,7 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.cayenne.CayenneRuntimeException;
-import org.apache.cayenne.DataObjectUtils;
+import org.apache.cayenne.Cayenne;
 import org.apache.cayenne.DeleteDenyException;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.query.SelectQuery;
@@ -86,7 +86,7 @@ public class MHPersonLog implements IYafraMHPersonLog
 	@Override
 	public void insertMPersonLog(MPersonLog mpl) {
 		PersonLog pl = this.insertPersonLog(mpl);
-		mpl.setDbPK(DataObjectUtils.intPKForObject(pl));
+		mpl.setDbPK(Cayenne.intPKForObject(pl));
 	}
 
 	/**
@@ -170,7 +170,7 @@ public class MHPersonLog implements IYafraMHPersonLog
 			MPersonLogTransform mplt = new MPersonLogTransform();
 			MPersonLog mpl = null;
 			mpl = mplt.from(pl);
-			mpl.setDbPK(DataObjectUtils.intPKForObject(pl));
+			mpl.setDbPK(Cayenne.intPKForObject(pl));
 			mpl_list.add(mpl);
 		}
 		return mpl_list;
@@ -182,7 +182,7 @@ public class MHPersonLog implements IYafraMHPersonLog
 	@Override
 	public PersonLog selectPersonLog(Integer id)
 		{
-		PersonLog pl = DataObjectUtils.objectForPK(dbcontext, PersonLog.class, id);
+		PersonLog pl = Cayenne.objectForPK(dbcontext, PersonLog.class, id);
 		log.logDebug(" - query user with name: " + Integer.toString(id));
 		return pl;
 		}
@@ -196,7 +196,7 @@ public class MHPersonLog implements IYafraMHPersonLog
 		PersonLog pl = this.selectPersonLog(id);
 		MPersonLogTransform pt = new MPersonLogTransform();
 		mpl = pt.from(pl);
-		mpl.setDbPK(DataObjectUtils.intPKForObject(pl));
+		mpl.setDbPK(Cayenne.intPKForObject(pl));
 		return mpl;
 	}
 

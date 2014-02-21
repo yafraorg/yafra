@@ -18,7 +18,7 @@
  */
 package org.yafra.model;
 
-import org.apache.cayenne.DataObjectUtils;
+import org.apache.cayenne.Cayenne;
 import org.yafra.orm.PersonLog;
 
 
@@ -42,7 +42,7 @@ public class MPersonLogTransform
 	public MPersonLog from(PersonLog from)
 		{
 		MPersonLog to = new MPersonLog();
-		to.setDbPK(DataObjectUtils.intPKForObject(from));
+		to.setDbPK(Cayenne.intPKForObject(from));
 		to.setEventAudit(from.getEventAudit());
 		to.setEventAuditReviewer(from.getEventAuditReviewer());
 		to.setEventCreator(from.getEventCreator());

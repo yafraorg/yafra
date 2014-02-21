@@ -5,7 +5,7 @@
 	<artifactId>serverdirectclient</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0</version>
-	<name>utils</name>
+	<name>YAFRA tests server cayenne</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>

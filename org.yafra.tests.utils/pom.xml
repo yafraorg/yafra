@@ -5,7 +5,7 @@
 	<artifactId>utils</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0</version>
-	<name>utils</name>
+	<name>YAFRA tests utils</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
