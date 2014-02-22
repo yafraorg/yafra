@@ -41,7 +41,7 @@ public class PersonHandler implements PersonSEI {
 		log.logInfo("org.yafra.tests.serverdirectclient - logging init done - getting session now");
 		sess = new YafraDirectSession();
 		sess.setLogging(log);
-		//sess.setContext(dbcontext);
+		sess.setContext(dbcontext);
 		sess.logMessage(" - client starts now with session id " + sess.getSessionId());
 
 		MHPerson mhp = new MHPerson(dbcontext, log);

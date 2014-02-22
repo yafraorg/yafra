@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.cayenne.access.DataContext;
 import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.ObjectContext;
 import org.yafra.directclient.YafraDirectSession;
@@ -52,7 +51,7 @@ public class PersonServlet extends HttpServlet {
 		yafralog.YafraDebug("org.yafra.internet - got cayenne context and init finished", dev);
 		yafralog.logInfo("org.yafra.internet - got cayenne context and init finished");
 		sess = new YafraDirectSession();
-		//sess.setContext(dbcontext);
+		sess.setContext(dbcontext);
 		sess.setLogging(yafralog);
 		sess.logMessage(" - simple servlet session started with id " + sess.getSessionId());
 		sess.logMessage("\norg.yafra.tests - get person list");

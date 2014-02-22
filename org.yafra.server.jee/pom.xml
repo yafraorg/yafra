@@ -23,6 +23,7 @@
 
 	<properties>
 		<cxf.version>2.7.10</cxf.version>
+		<wicket.version>6.13.0</wicket.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
@@ -91,6 +92,11 @@
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-extensions</artifactId>
+			<version>6.13.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-devutils</artifactId>
 			<version>6.13.0</version>
 		</dependency>
 		<dependency>
