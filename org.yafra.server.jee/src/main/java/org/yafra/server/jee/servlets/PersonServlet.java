@@ -38,7 +38,7 @@ public class PersonServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO simple servlet - use more advanced logging and sharing between servlets
+		// TODO simple servlet - use more advanced logging and sharing between servlets öäü
 		HttpSession session = request.getSession(true);
 		//DataContext dbcontext = ServletUtil.getSessionContext(session);
 		ObjectContext dbcontext = BaseContext.getThreadObjectContext();
