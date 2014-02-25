@@ -31,7 +31,7 @@ public class PersonHandler implements PersonRSI {
 		// start 1 session (could be n in parallel)
 		try
 			{
-			ObjectContext dbcontext = BaseContext.getThreadObjectContext();
+			dbcontext = BaseContext.getThreadObjectContext();
 			//dbcontext = DataContext.createDataContext();
 			log = new Logging();
 			log.setDebugFlag(true);

@@ -252,5 +252,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.yafra.server.core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.yafra.utils"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
