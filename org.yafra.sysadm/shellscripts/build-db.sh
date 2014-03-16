@@ -35,10 +35,10 @@ fi
 
 #
 echo "apache cayenne config file"
-CAYCONFIG=src/org.yafra.dbNode.driver.xml
+CAYCONFIG=src/cayenne-org_yafra.xml
 echo "CAYCONFIG: $CAYCONFIG"
 #this is the development version - release versions are copied later
-CAYSRCCONFIG=src/org.yafra.release.mysql.Node.driver.xml
+CAYSRCCONFIG=src/cayenne-org_yafra-localmysql.xml
 echo "CAYSRCCONFIG: $CAYSRCCONFIG - TODO make sure you changed this file according to your environment!"
 YAFRACORE=$BASENODE/org.yafra.server.core
 
@@ -68,19 +68,19 @@ cd $JAVANODE/org.yafra.tests.serverdirectclient
 if [ "$1" = "dev" ]; then
 	if [ "$2" = "mysql" ]; then
 		echo "using the mysql $DBSERVER database"
-		cp $YAFRACORE/src/org.yafra.release.mysql.Node.driver.xml $YAFRACORE/$CAYCONFIG
+		cp $YAFRACORE/src/main/resources/cayenne-org_yafra-localmysql.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$2" = "derby" ]; then
 		echo "using the derby $DBSERVER database"
-		cp $YAFRACORE/src/org.yafra.release.derby.Node.driver.xml $YAFRACORE/$CAYCONFIG
+		cp $YAFRACORE/src/main/resources/cayenne-org_yafra-localderby.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$2" = "oracle" ]; then
 		echo "using the oracle $DBSERVER database"
-		cp $YAFRACORE/src/org.yafra.release.oracle.Node.driver.xml $YAFRACORE/$CAYCONFIG
+		cp $YAFRACORE/src/main/resources/cayenne-org_yafra-localoracle.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$2" = "mssql" ]; then
 		echo "using the mssql $DBSERVER database"
-		cp $YAFRACORE/src/org.yafra.release.mssql.Node.driver.xml $YAFRACORE/$CAYCONFIG
+		cp $YAFRACORE/src/main/resources/cayenne-org_yafra-localmssql.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$DBSERVER" != "localhost" ]; then
 		sed -i "s/localhost/$DBSERVER/g" $YAFRACORE/$CAYCONFIG
@@ -90,19 +90,19 @@ else
 	cp $YAFRACORE/$CAYSRCCONFIG $YAFRACORE/$CAYCONFIG
 	if [ "$2" = "mysql" ]; then
 		echo "using the mysql $DBSERVER database"
-		cp $YAFRACORE/src/org.yafra.release.mysql.Node.driver.xml $YAFRACORE/$CAYCONFIG
+		cp $YAFRACORE/src/main/resources/cayenne-org_yafra-localmysql.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$2" = "derby" ]; then
 		echo "using the derby $DBSERVER database"
-		cp $YAFRACORE/src/org.yafra.release.derby.Node.driver.xml $YAFRACORE/$CAYCONFIG
+		cp $YAFRACORE/src/main/resources/cayenne-org_yafra-localderby.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$2" = "oracle" ]; then
 		echo "using the oracle $DBSERVER database"
-		cp $YAFRACORE/src/org.yafra.release.oracle.Node.driver.xml $YAFRACORE/$CAYCONFIG
+		cp $YAFRACORE/src/main/resources/cayenne-org_yafra-localoracle.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$2" = "mssql" ]; then
 		echo "using the mssql $DBSERVER database"
-		cp $YAFRACORE/src/org.yafra.release.mssql.Node.driver.xml $YAFRACORE/$CAYCONFIG
+		cp $YAFRACORE/src/main/resources/cayenne-org_yafra-localmssql.xml $YAFRACORE/$CAYCONFIG
 	fi
 fi
 

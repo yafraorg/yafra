@@ -121,30 +121,13 @@ cp $BASENODE/org.yafra.tdb.setup/db/tdbdb.pm $WORKNODE/apps/tdbdbadmin
 # build java system
 #
 
-#utils
-cd $JAVANODE/org.yafra.utils
-ant all
-
-#core
-cd $YAFRACORE
-ant all
-
-#directclient
-cd $JAVANODE/org.yafra.server.directclient
-ant all
+#maven build
+cd $JAVANODE
+mvn clean install
 
 #ejb
-cd $JAVANODE/org.yafra.server.ejb-openejb
-ant
-
-#jee server
-cd $JAVANODE/org.yafra.server.jee
-ant
-
-#wicket ui
-mkdir -p $JAVANODE/org.yafra.wicket/WebContent/WEB-INF/lib
-cd $JAVANODE/org.yafra.wicket
-ant
+#cd $JAVANODE/org.yafra.server.ejb-openejb
+#ant
 
 #gwt
 cd $JAVANODE/org.yafra.gwt.admin
@@ -160,12 +143,12 @@ cd $JAVANODE/org.yafra.tests.utils
 ant deploy
 cd $JAVANODE/org.yafra.tests.serverdirectclient
 ant deploy
-cd $JAVANODE/org.yafra.tests.serverejb3
-ant deploy
+#cd $JAVANODE/org.yafra.tests.serverejb3
+#ant deploy
 #cd $JAVANODE/org.yafra.tests.wsclient
 #ant deploy
 
-cp $YAFRACLASSES/org.yafra* $WORKNODE/classes/
+#cp $YAFRACLASSES/org.yafra* $WORKNODE/classes/
 
 #copy python yafra app to worknode
 test -d $WORKNODE/apps/yafrapadmin || mkdir $WORKNODE/apps/yafrapadmin

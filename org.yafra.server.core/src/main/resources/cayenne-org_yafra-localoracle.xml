@@ -8,9 +8,9 @@
 		>
 		<map-ref name="org.yafra.yafraMap"/>
 		<data-source>
-			<driver value="com.mysql.jdbc.Driver"/>
-			<url value="jdbc:mysql://localhost/yafra"/>
-			<connectionPool min="1" max="5"/>
+			<driver value="oracle.jdbc.OracleDriver"/>
+			<url value="jdbc:oracle:thin:@localhost:1521:XE"/>
+			<connectionPool min="1" max="1"/>
 			<login userName="yafraadmin" password="yafra"/>
 		</data-source>
 	</node>

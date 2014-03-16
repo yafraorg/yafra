@@ -38,6 +38,7 @@ under the License.
 	<property name="yafrarel" value="${env.YAFRAREL}" />
 	<property name="workdir" value="${drive}work" />
 	<property name="wsdir" value="${env.JAVANODE}" />
+	<property name="mavenrepo" value="${env.YAFRAREPO}" />
 
 	<!-- toplevel directories -->
 	<property name="prg.dir" value="${wsdir}/${projname}" />
@@ -107,6 +108,7 @@ under the License.
 
 	<!-- CREATE executable jar -->
 	<target name="deploy" depends="build">
+		<copy file="${prg.src}/log4j.properties" todir="${temp.ejbstubs}"/>
 		<manifestclasspath property="jars" jarfile="${deploy.dir}/org.yafra.tests.serverdirectclient.jar">
 			<classpath refid="pathdepjars" />
 		</manifestclasspath>
