@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{% if myself == None %}
+	{% set active_user = '' %}
+	{% set active_uid = '' %}
+{% else %}
+	{% set active_user = myself.email %}
+	{% set active_uid = myself.key().id() %}
+{% endif %}
+{% block content %}
+<div class="container">
+
+<div class="row">
+<div class="col-sm-12">
+	<h3>Insasse</h3>
+	{% if gfangeni != None %}
+	<p>Top 100 vo de gfeerligschte Insasse im Netz (<a href="/gfangenipdf" target="_blank">alli als PDF aaluege</a>)</p>
+	<div class="row">
+	<div class="col-sm-6">
+
+	<!-- start of accordion -->
+	<div class="panel-group" id="imp1">
+	  <div class="panel panel-success">
+	    <div class="panel-heading">
+	      <h3 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#imp1" href="#impVor">
+	        Vorträbler [drugg do druff]
+	        </a>
+	      </h3>
+	    </div>
+	    <div id="impVor" class="panel-collapse collapse">
+	      <div class="panel-body">
+
+ 	{% for g in vor %}
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<a href="/gfangene/{{ g.key().id() }}">Gfangene {{ g.pseudonym }}</a>
+			{% if mymem.code == g.code %}
+			<a href="/member/{{ g.key().id() }}">[Aendere]</a>
+			{% endif %}
+		</div>
+		<div class="panel-body">
+			<div class="row">
+			<div class="col-sm-3">
+				<img src="/pict?memid={{g.key().id()}}" width="72" />
+			</div>
+			<div class="col-sm-9">
+			   Steggbrief: {{ g.steckbrief }}<br />
+			   Strof: {{ g.strof }}<br />
+			   Au no wichtig: {{ g.cmt }}<br />
+			   Ufgob: {{ g.type }}<br />
+			</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+
+	</div>
+	</div>
+	</div>
+	</div>
+	<!-- end of accordion -->
+
+	<br />
+	
+	<!-- start of accordion -->
+	<div class="panel-group" id="imp2">
+	  <div class="panel panel-success">
+	    <div class="panel-heading">
+	      <h3 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#imp2" href="#impPfy">
+	        Pfyffer [drugg do druff]
+	        </a>
+	      </h3>
+	    </div>
+	    <div id="impPfy" class="panel-collapse collapse">
+	      <div class="panel-body">
+
+  	{% for g in pfy %}
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<a href="/gfangene/{{ g.key().id() }}">Gfangene {{ g.pseudonym }}</a>
+			{% if mymem.code == g.code %}
+			<a href="/member/{{ g.key().id() }}">[Aendere]</a>
+			{% endif %}
+		</div>
+		<div class="panel-body">
+			<div class="row">
+			<div class="col-sm-3">
+				<img src="/pict?memid={{g.key().id()}}" width="72">
+			</div>
+			<div class="col-sm-9">
+			   Steggbrief: {{ g.steckbrief }}<br />
+			   Strof: {{ g.strof }}<br />
+			   Au no wichtig: {{ g.cmt }}<br />
+			   Ufgob: {{ g.type }}<br />
+			</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+
+	</div>
+	</div>
+	</div>
+	</div>
+	<!-- end of accordion -->
+
+	<br />
+
+	</div>
+	<!-- end of column -->
+
+	<div class="col-sm-6">
+
+	<!-- start of accordion -->
+	<div class="panel-group" id="imp4">
+	  <div class="panel panel-success">
+	    <div class="panel-heading">
+	      <h3 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#imp4" href="#impMaj">
+	        Dambuurmajoor [drugg do druff]
+	        </a>
+	      </h3>
+	    </div>
+	    <div id="impMaj" class="panel-collapse collapse">
+	      <div class="panel-body">
+
+  	{% for g in major %}
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<a href="/gfangene/{{ g.key().id() }}">Gfangene {{ g.pseudonym }}</a>
+			{% if mymem.code == g.code %}
+			<a href="/member/{{ g.key().id() }}">[Aendere]</a>
+			{% endif %}
+		</div>
+		<div class="panel-body">
+			<div class="row">
+			<div class="col-sm-3">
+				<img src="/pict?memid={{g.key().id()}}" width="72">
+			</div>
+			<div class="col-sm-9">
+			   Steggbrief: {{ g.steckbrief }}<br />
+			   Strof: {{ g.strof }}<br />
+			   Au no wichtig: {{ g.cmt }}<br />
+			   Ufgob: {{ g.type }}<br />
+			</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+
+	</div>
+	</div>
+	</div>
+	</div>
+	<!-- end of accordion -->
+
+	<br />
+
+	<!-- start of accordion -->
+	<div class="panel-group" id="imp3">
+	  <div class="panel panel-success">
+	    <div class="panel-heading">
+	      <h3 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#imp3" href="#impTam">
+	        Dambuure [drugg do druff]
+	        </a>
+	      </h3>
+	    </div>
+	    <div id="impTam" class="panel-collapse collapse">
+	      <div class="panel-body">
+
+  	{% for g in tam %}
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<a href="/gfangene/{{ g.key().id() }}">Gfangene {{ g.pseudonym }}</a>
+			{% if mymem.code == g.code %}
+			<a href="/member/{{ g.key().id() }}">[Aendere]</a>
+			{% endif %}
+		</div>
+		<div class="panel-body">
+			<div class="row">
+			<div class="col-sm-3">
+				<img src="/pict?memid={{g.key().id()}}" width="72">
+			</div>
+			<div class="col-sm-9">
+			   Steggbrief: {{ g.steckbrief }}<br />
+			   Strof: {{ g.strof }}<br />
+			   Au no wichtig: {{ g.cmt }}<br />
+			   Ufgob: Dambuur<br />
+			</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+
+	</div>
+	</div>
+	</div>
+	</div>
+	<!-- end of accordion -->
+
+
+	</div>
+	</div>
+	<!-- end of column and row -->
+
+	{% else %}
+		S Gfängnis isch grad leer, alli sin offline :-)
+	{% endif %}
+</div>
+</div>
+
+</div>
+{% endblock content %}

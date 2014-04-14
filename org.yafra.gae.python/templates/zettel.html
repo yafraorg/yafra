@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% if myself == None %}
+	{% set active_user = '' %}
+	{% set active_uid = '' %}
+{% else %}
+	{% set active_user = myself.email %}
+	{% set active_uid = myself.key().id() %}
+{% endif %}
+{% block content %}
+<div class="container">
+
+<div class="row">
+<div class="col-sm-6">
+{% if myself != None %}
+	<a href="#createcommentmodal" data-toggle="modal" class="btn btn-primary btn-default commentlink" role="button" title="add this comment">Fieg die Väärsli drzue &raquo;</a>
+	<br />
+	<hr />
+{% endif %}
+	<p><strong>Väärsli:</strong></p>
+	Nei au mit dr <a href="https://itunes.apple.com/ch/app/mcb-sujet/id800829343?mt=8&uo=4" target="itunes_store">Apple</a> oder <a href="https://play.google.com/store/apps/details?id=ch.mcbsujet.app" target="_blank">Android</a> App aluege!
+	<div class="zettel">
+	<div class="btn-group btn-group-vertical">
+		{% for v in verse %}
+			<pre class="zettel">{{ v.post }}</pre>
+		{% endfor %}
+	</div>
+	</div>
+</div>
+<div class="col-sm-4">
+	<a href="/zeedel/export" class="btn btn-primary" target="_blank" title="export PDF">Hol dr Zeedel &raquo;</a>
+	<br />
+	<hr />
+{% if myself != None %}
+	<p><strong>Intäärni Väärsli:</strong></p>
+	{% for c in cmts %}
+		<div class="btn-group btn-group-vertical">
+		<p>{{ c.post|mkurl }}</p>
+		<br />
+		</div>
+	{% endfor %}
+{% endif %}
+
+</div>
+</div>
+
+</div>
+
+<!-- modal create new comment -->
+<div class="modal fade" id="createcommentmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+	<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"	aria-hidden="true">&times;</button>
+			<h4 class="modal-title">Neus Väärsli</h4>
+		</div>
+		<div class="modal-body">
+			<form action="/zeedel" class="form-horizontal" role="form" method="post">
+			<input type="hidden" name="fmemid" value="" />
+			<input type="hidden" name="fwithcode" value="" />
+			<input type="hidden" name="fcode" value="" />
+{% include "post-createdialog.html" ignore missing %}
+
+
+{% endblock content %}

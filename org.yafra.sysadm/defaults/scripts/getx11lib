@@ -34,5 +34,11 @@ if test "$SYSTEM" = "james"
 	then LIBX11=/usr/lib/X11R4
 fi
 
+# test for Mac OS/X
+#
+if test "$SYSTEM" = "Darwin"
+	then LIBX11=/opt/X11/lib
+fi
+
 # put the platform string to the stdout
 echo $LIBX11

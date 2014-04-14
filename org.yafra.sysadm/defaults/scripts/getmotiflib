@@ -28,5 +28,12 @@ if test "$SYSTEM" = "Linux"
 	then LIBMOTIF=/usr/lib
 fi
 
+
+# test for Mac OS/X
+#
+if test "$SYSTEM" = "Darwin"
+	then LIBMOTIF=/usr/lib
+fi
+
 # put the platform string to the stdout
 echo $LIBMOTIF

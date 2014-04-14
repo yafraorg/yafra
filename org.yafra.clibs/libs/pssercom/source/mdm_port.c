@@ -10,7 +10,7 @@ static char rcsid[]="$Header: /yafraorg/cvsroot/foundation/ansic/libs/pssercom/s
 
 /* Includes */
 #include <pssercom.h>
-#include <termio.h>
+#include <termios.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>

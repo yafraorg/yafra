@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% if myself == None %}
+	{% set active_user = '' %}
+	{% set active_uid = '' %}
+{% else %}
+	{% set active_user = myself.email %}
+	{% set active_uid = myself.key().id() %}
+{% endif %}
+{% block content %}
+<div class="container">
+
+<div class="row">
+<div class="col-sm-6">
+	<p>
+	Lischte vo alle im Netz:
+	</p>
+	<ul>
+		{% for g in gfangeni %}
+		{% if g.lon != None %}
+		<li><a href="javascript:centermem({{ g.lat  }},{{ g.lon  }});">{{ g.indexname }}: {{ g.name }}</a></li>
+		{% endif %}
+		{% endfor %}
+	</ul>
+</div>
+
+<div class="col-sm-6">
+<script>
+	var map;
+	function initialize() {
+		var isMobile = {
+			Android: function() {
+			   return navigator.userAgent.match(/Android/i);
+				},
+			iOS: function() {
+			   return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+				},
+			any: function() {
+			   return (isMobile.Android() || isMobile.iOS());
+				}
+			};
+
+		var gpxpoint = new google.maps.LatLng(47.557421,7.592573);
+		var mapOptions = {
+			zoom: 13,
+			center: gpxpoint,
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			panControl: true,
+			zoomControl: true,
+			mapTypeControl: true,
+			scaleControl: false,
+			streetViewControl: false,
+			overviewMapControl: false
+			};
+		map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+		// Info window element 
+		infowindow = new google.maps.InfoWindow(); 
+
+		i = 0;
+		{% for g in gfangeni %}
+		{% if g.lon != None %}
+		var wptpoint{{g.key}} = new google.maps.LatLng({{ g.lat }}, {{ g.lon}});
+		var wptmarker{{g.key}} = new google.maps.Marker({
+    		position: wptpoint{{g.key}},
+    		map: map,
+    		draggable:false,
+    		title: '{{g.name }}',
+    		icon: '{{ g.icon }}',
+    		// url: 'http://maps.google.com/maps?z=12&t=m&q=loc:{{ g.lat  }}+{{ g.lon }}',
+  			});
+		google.maps.event.addListener(wptmarker{{g.key}}, 'click', function() {
+			var pin = wptmarker{{g.key}};
+			var href = "";
+			if (isMobile.iOS()) {
+				href="http://maps.apple.com/?q={{ g.lat  }},{{ g.lon }}";
+			   }
+			else if (isMobile.Android()) {
+				href="geo:{{ g.lat  }},{{ g.lon }}";
+				}
+			else {
+				href="http://maps.apple.com/?q={{ g.lat  }},{{ g.lon }}";
+				}
+			map.setCenter(new google.maps.LatLng(pin.position.lat(), pin.position.lng())); 
+			onItemClick(event, pin, '{{g.name}}', '{{g.date}}', href, {{g.key}});
+			//window.location.href = wptmarker{{g.key}}.url;
+			});
+		i++;
+		{% endif %}
+		{% endfor %}
+
+		// Info window trigger function 
+		function onItemClick(event, pin, label, datum, url, key) { 
+		  // Create content  
+		  var contentString = "Gfangene: <a href=\"/gfangene/" + key + "\">" + label + "</a><br />Zyt: " + datum + "<br />Uf Google Maps: <a href=\"" + url + "\">oeffnet Maps App</a>"; 
+
+		  // Replace our Info Window's content and position 
+		  infowindow.setContent(contentString); 
+		  infowindow.setPosition(pin.position); 
+		  infowindow.open(map) 
+		} 
+
+	}
+
+	// Info window trigger function 
+	function centermem(lat, lon) { 
+		map.setCenter(new google.maps.LatLng(lat, lon));
+	} 
+
+	function loadScript() {
+		var script = document.createElement("script");
+		script.type = "text/javascript";
+		script.src = "http://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyC7YQiQf3c_QWXlAvzlYJ8m27jLAIuSuvU&sensor=false&callback=initialize";
+		document.body.appendChild(script);
+	}
+	window.onload = loadScript;
+	</script>
+	<div id="map_canvas" class="map" style="width: 450px; height: 350px;"></div>
+
+</div>
+</div>
+
+</div>
+{% endblock content %}
+
+{% block addon %}
+{{ super() }}
+{% endblock addon %}
+
+

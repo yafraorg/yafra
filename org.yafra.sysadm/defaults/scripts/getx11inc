@@ -28,5 +28,11 @@ if test "$SYSTEM" = "Linux"
 	then INCX11=/usr/include
 fi
 
+# test for Mac OS/X
+#
+if test "$SYSTEM" = "Darwin"
+	then INCX11=/opt/X11/include
+fi
+
 # put the platform string to the stdout
 echo $INCX11

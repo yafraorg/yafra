@@ -1,0 +1,36 @@
+	  		<div class="form-group">
+		    	<label for="idcmt" class="col-sm-2 control-label">Die Väärsli</label>
+				<div class="col-sm-10">
+		      <textarea class="form-control" name="fcmt" id="idcmt" placeholder="Schrib do ine di Säänf" rows="3"></textarea>
+				</div>
+			</div>
+	  		<div class="form-group">
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="ftype" id="optionsRadios1" value="1" checked>
+				    Väärsli
+				  </label>
+				</div>
+				{% if myself.admin == True %}
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="ftype" id="optionsRadios3" value="3">
+				    Mäldig
+				  </label>
+				</div>
+				{% endif %}
+			</div>
+			<div class="form-group">
+		    	<div class="col-sm-offset-2 col-sm-10">
+		      <button type="submit" class="btn btn-default">Publiziere</button>
+		    	</div>
+	  		</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
+		</div>
+	</div>
+	</div>
+</div>
+<!-- /.modal -->

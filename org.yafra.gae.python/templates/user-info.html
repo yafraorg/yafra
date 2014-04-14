@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% if myself == None %}
+	{% set active_user = '' %}
+	{% set active_uid = '' %}
+{% else %}
+	{% set active_user = myself.email %}
+	{% set active_uid = myself.key().id() %}
+{% endif %}
+{% block content %}
+	<div class="container">
+
+	<div class="row">
+	<div class="col-sm-12">
+		<h3>Mini Date mit Login</h3>
+		<p>Do sehsch alli Date zu {{ user.name }}: (Di Super-Admin Status: {{ myself.admin }})</p>
+		<ul>
+			<li>Username: {{ user.name }}</li>
+			<li>email: {{ user.email }}</li>
+			<li>Aktiv: 
+				{% if user.active %}
+					Ja
+				{% else %}
+					Nein
+				{% endif %}
+				</li>
+			<li>Admin:
+				{% if user.admin %}
+					Ja
+				{% else %}
+					Nein
+				{% endif %}
+				</li>
+			<li>Mit eme Gfangene verknüpft:
+				{% if user.linked %}
+					Ja
+				{% else %}
+					Nein (kontaktier umgehend dr Martin via webernissle(at)gmail.com)
+				{% endif %}
+				</li>
+			<li>Loginprovider: {{ user.provider }}</li>
+		</ul>
+		{% if user.linked %}
+    	<div class="well">
+			<a href="/gc/{{ member.code }}" class="btn btn-primary" role="button" title="show details">Dini Gfangene Site &raquo;</a></td>
+			<a href="/gcxls/{{ member.code }}" class="btn btn-primary btn-default" role="button" title="export">Lad d Gfangenelischte abe &raquo;</a></td>
+			<a href="/gps" class="btn btn-primary" role="button" title="show GPS positions">Wär isch wo &raquo;</a></td>
+			<a href="/zeedel" class="btn btn-primary" role="button" >Fieg die Väärsli drzu &raquo;</a></td>
+			<a href="/fc/{{ member.code }}" class="btn btn-primary btn-default commentlink" role="button" title="add new impression">Vo dr Fasnacht &raquo;</a></td>
+		</div>
+		{% endif %}
+
+	</div>
+	</div>
+
+
+{% endblock content %}
+

@@ -20,55 +20,75 @@ Created on Jan 5, 2013
 This module is the main entry point of this application - dispatches all URLs - see app.yaml as well
 '''
 import webapp2
-from views import MainPage, HelpPage
-from views_community import Search, Community
-from views_club import ClubAdminPage, ClubEmptyPage, ClubAdminEmptyPage, ClubPage, ClubAddmembersPage, ClubGPSPage, ExportMembersPage
-from views_member import MemberPage, MemberStartPage, MemberReqPage
-from views_admin import LoginPage, Settings
-from views_super import SuperAdminPage, SuperClubAdminPage, DeleteClub, TaskLoadTestData, TaskUpdMemlist, TaskPurgeData
-from views_event import EventPage
-from views_route import RoutePage
-from views_plan import PlanPage, ExportPlanPage, PlanAddPage
-from views_mygps import MygpsPage
+from views import MainPage, HelpPage, Search, SearchStr
+from views_admin import MemberPage, MembersPage, UserPage, AdmUserPage, UsersPage, PostsPage, DeleteMem, DeleteUser, DeletePost, TogglePost, ExportMembersPage, ExportUsersPage, ExportPostsPage
+from views_admin import LoginPage, SuperAdminPage, TaskLoadTestData, ExportAllPage, TaskQRgen, AdmFasnachtsPage, AdmFasnachtDel, AdmFasnachtToggle, AdmFasnachtExport, TogglePostScope, PostsUpd, AdmFasnachtUpd
+from views_zettel import ZettelPage, ZettelExportPage
+from views_fasnacht import FasnachtsPage, FasnachtAddImpPage, FasnachtUploadHandler, FasnachtsAllPage
+from views_gfangene import GfangenePage, GfangeneDetPage, ExportGfangenePage, ExportGfangeniPage, ImageHandler, QRcode, GpsPage, GfangeneCodePage, GfangeneCodeWPage, GfangeneCodeXlsPage
+from rest_posts import PostsRest, PostsMsgRest, PostsIntRest
+from rest_gfangene import GfangeneRest, GfangeneCodeRest, GPSRest, GfangeneValidateCodeRest
+from rest_fasnacht import FasnachtRest, FasnachtUploadRest
 from job_loadtests import JobInitTest
-from job_updatememof import JobUpdMemOf
-from job_purgedata import JobPurgeData
+from job_qrgen import JobQRgen
 
 app = webapp2.WSGIApplication([
         ('/', MainPage), 
         ('/login', LoginPage),
         ('/_ah/login_required', LoginPage),
-        ('/help', HelpPage),
-        ('/community', Community),
-        ('/club', ClubEmptyPage),
-        ('/club/([\d]+)', ClubPage),
-        ('/clubmap/([\d]+)', ClubGPSPage),
-        ('/clubxls/([\d]+)', ExportMembersPage),
-        ('/clubadmin', ClubAdminEmptyPage),
-        ('/clubadmin/([\d]+)', ClubAdminPage),
-        ('/clubaddmembers/([\d]+)', ClubAddmembersPage),
-        ('/clubaddmembers', ClubAddmembersPage),
-        ('/member', MemberStartPage),
-        ('/member/([\d]+)', MemberPage),
-        ('/member/req/([\d]+)', MemberReqPage),
-        ('/event', EventPage),
-        ('/route', RoutePage),
-        ('/plan', PlanPage),
-        ('/plan/new/([\d]+)', PlanAddPage),
-        ('/planpdf/([\d]+)', ExportPlanPage),
-        ('/mygps', MygpsPage),
-        ('/settings', Settings),
-        ('/settingsexport', Settings),
+        ('/zeedel', ZettelPage),
+        ('/zeedel/export', ZettelExportPage),
+        ('/fasnacht', FasnachtsPage),
+        ('/fasnachtalli', FasnachtsAllPage),
+        ('/fc/([\w]+)', FasnachtAddImpPage),
+        ('/fcupload', FasnachtUploadHandler),
+        ('/gfangene', GfangenePage),
+        ('/gfangene/([\d]+)', GfangeneDetPage),
+        ('/gfangenepdf/([\d]+)', ExportGfangenePage),
+        ('/gfangenipdf', ExportGfangeniPage),
+        ('/gc/([\w]+)', GfangeneCodePage),
+        ('/gcxls/([\w]+)', GfangeneCodeXlsPage),
+        ('/gc', GfangeneCodeWPage),
+        ('/pict', ImageHandler),
+        ('/qrcode', QRcode),
+        ('/gps', GpsPage),
         ('/search', Search),
-        ('/search/([\w]+)', Search),
-        ('/super', SuperAdminPage),
-        ('/super/club', SuperClubAdminPage),
-        ('/super/testdata', TaskLoadTestData),
-        ('/super/purgedata', TaskPurgeData),
-        ('/super/updmemlist', TaskUpdMemlist),
-        ('/delclub/([\d]+)', DeleteClub),
-        ('/cron/jobupdmemof', JobUpdMemOf),
-        ('/cron/jobpurgedata', JobPurgeData),
-        ('/cron/jobinittests', JobInitTest)
+        ('/search/([\w]+)', SearchStr),
+        ('/member/([\d]+)', MemberPage),
+        ('/member/export', ExportMembersPage),
+        ('/user/([\d]+)', UserPage),
+        ('/admin', SuperAdminPage),
+        ('/admin/user', UsersPage),
+        ('/admin/user/([\d]+)', AdmUserPage),
+        ('/admin/deluser/([\d]+)', DeleteUser),
+        ('/admin/exportuser', ExportUsersPage),
+        ('/admin/member', MembersPage),
+        ('/admin/delmem/([\d]+)', DeleteMem),
+        ('/admin/post', PostsPage),
+        ('/admin/delpost/([\d]+)', DeletePost),
+        ('/admin/togglepost/([\d]+)', TogglePost),
+        ('/admin/togglepostscope/([\d]+)', TogglePostScope),
+        ('/admin/postupd', PostsUpd),
+        ('/admin/exportpost', ExportPostsPage),
+        ('/admin/imp', AdmFasnachtsPage),
+        ('/admin/delimp/([\d]+)', AdmFasnachtDel),
+        ('/admin/toggleimp/([\d]+)', AdmFasnachtToggle),
+        ('/admin/impupd', AdmFasnachtUpd),
+        ('/admin/exportimp', AdmFasnachtExport),
+        ('/admin/export', ExportAllPage),
+        ('/admin/testdatamcbgugug', TaskLoadTestData),
+        ('/admin/qrgen', TaskQRgen),
+        ('/help', HelpPage),
+        ('/cron/jobinittests', JobInitTest),
+        ('/cron/jobqrgen', JobQRgen),
+        ('/rest/f', FasnachtRest),
+        ('/rest/fupl', FasnachtUploadRest),
+        ('/rest/g', GfangeneRest),
+        ('/rest/gc/([\w]+)', GfangeneCodeRest),
+        ('/rest/gcvalid/([\w]+)', GfangeneValidateCodeRest),
+        ('/rest/gps/([\w]+)', GPSRest),
+        ('/rest/msg/([\w]+)', PostsMsgRest),
+        ('/rest/postsint/([\w]+)', PostsIntRest),
+        ('/rest/posts', PostsRest)
         ],
         debug=True)

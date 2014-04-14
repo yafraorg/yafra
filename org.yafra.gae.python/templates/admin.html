@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% if myself == None %}
+	{% set active_user = '' %}
+	{% set active_uid = '' %}
+{% else %}
+	{% set active_user = myself.email %}
+	{% set active_uid = myself.key().id() %}
+{% endif %}
+{% block content %}
+<div class="container">
+<div class="row">
+	<div class="col-sm-5">
+	<h3>Admin functions</h3>
+	<p>Manage members, purge temporary data, ....</p>
+	<ul>
+		<li><a href="/admin/member">Manage members</a></li>
+		<li><a href="/admin/user">Manage users</a></li>
+		<li><a href="/admin/post">Manage posts</a></li>
+		<li><a href="/admin/imp">Manage impressions/Fasnachtbeiträge</a></li>
+		<li><a href="/admin/export">Download/Export all posts</a></li>
+		<li><a href="/admin/qrgen">Update members with QR Code (only the ones who have None/Null currently)</a></li>
+	</ul>
+   </div>
+
+   <div class="col-sm-7">
+   <h3>Stats</h3>
+   <p>Statistics about data like posts, club activities, amount of entries, ....</p>
+   <p>to be done</p>
+	<table class="table table-condensed">
+		<thead><tr>
+			<th>Was</th> <th>Wieviel</th>
+		</tr></thead>
+		<tbody>
+			<tr> <td>Azahl Väärsli:</td>	<td>{{ anzposts }}</td> </tr>
+			<tr> <td>Azahl Gfangeni:</td>	<td>{{ anzgfangeni }}</td> </tr>
+		</tbody>
+   </table>
+   </div>
+
+</div>
+
+{% endblock content %}

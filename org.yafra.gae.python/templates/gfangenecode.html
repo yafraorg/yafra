@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% if myself == None %}
+	{% set active_user = '' %}
+	{% set active_uid = '' %}
+{% else %}
+	{% set active_user = myself.email %}
+	{% set active_uid = myself.key().id() %}
+{% endif %}
+{% block content %}
+	<div class="container">
+
+{% if member != None %}
+	<div class="row">
+		<div class="col-sm-4">
+			<h3>Gfangene {{ member.pseudonym }}</h3>
+		</div>
+		<div class="col-sm-4">
+			<img src="/pict?memid={{member.key().id()}}">
+		</div>
+		<div class="col-sm-4">
+			<img style="background: white" src="/qrcode?memid={{member.key().id()}}">
+		</div>
+	</div>
+
+	<div class="row">
+	<div class="col-sm-12">
+
+	<br />
+
+	<!-- start of accordion -->
+	<div class="panel-group" id="gfangene">
+	  <div class="panel panel-success">
+	    <div class="panel-heading">
+	      <h3 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#gfangene" href="#gfangeneDet">
+	        Aendere dini Date: [do druff drugge zum Aendere!]
+	        </a>
+	      </h3>
+	    </div>
+	    <div id="gfangeneDet" class="panel-collapse collapse">
+	      <div class="panel-body">
+
+			<form action="/gc" class="form-horizontal" role="form" method="post">
+	      	<input type="hidden" name="fmemid" value="{{ member.key().id() }}">
+				<div class="form-group">
+					<div class="row">
+					<label for="idname" class="col-sm-2 control-label">Vor- / Nochname</label>
+			   	<div class="col-sm-5">
+			      	<input type="text" class="form-control" name="fprename" id="idname" value="{{ member.prename }}">
+					</div>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" name="fname" id="idname" value="{{ member.name }}">
+					</div>
+					</div>
+				</div>
+			    
+				<div class="form-group">
+					<div class="row">
+					<label for="idemail" class="col-sm-2 control-label">Handy / e-mail</label>
+					<div class="col-sm-5">
+					  <input type="text" class="form-control" name="fmobil" id="idmobil" value="{{ member.mobil }}">
+					</div>
+					<div class="col-sm-5">
+						  <input type="text" class="form-control" name="femail" id="idemail" value="{{ member.email }}">
+					</div>
+					</div>
+			  </div>
+
+				<div class="form-group">
+					<div class="row">
+					<label for="idpseudo" class="col-sm-2 control-label">Pseudonym</label>
+					<div class="col-sm-10">
+					  <input type="text" class="form-control" name="fpseudo" id="idpseudo" value="{{ member.pseudonym }}">
+					</div>
+					</div>
+			    
+					<div class="row">
+					<label for="idstrof" class="col-sm-2 control-label">Strof</label>
+					<div class="col-sm-10">
+					  <textarea class="form-control" name="fstrof" id="idstrof" rows="1">{{ member.strof }}</textarea>
+					</div>
+					</div>
+			    
+					<div class="row">
+					<label for="idsteck" class="col-sm-2 control-label">Steckbrief</label>
+					<div class="col-sm-10">
+					  <textarea class="form-control" name="fsteck" id="idsteck" rows="3">{{ member.steckbrief }}</textarea>
+					</div>
+					</div>
+			    
+					<div class="row">
+					<label for="idcmt" class="col-sm-2 control-label">Kommentar</label>
+					<div class="col-sm-10">
+					  <textarea class="form-control" name="fcmt" id="idcmt" rows="3">{{ member.cmt }}</textarea>
+					</div>
+					</div>
+				</div>
+			  
+			  <div class="form-group">
+			    <div class="col-sm-offset-2 col-sm-10">
+			      <button type="submit" class="btn btn-default">Speichere</button>
+			    </div>
+			  </div>
+			</form>
+
+	</div>
+	</div>
+	</div>
+	</div>
+	<!-- end of accordion -->
+
+	<br />
+
+	</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-6">
+    	<div class="well">
+			<div id="getgps">
+			<button class="btn btn-primary"	title="share your location" onclick="getLocation()">Teil mini Position &raquo;</button>
+			<a href="/gps" class="btn btn-primary" role="button" title="show GPS positions">Wär isch wo &raquo;</a></td>
+			</div>
+			<a href="#createcommentmodal" data-toggle="modal" class="btn btn-primary btn-default" role="button" title="add this comment">Fieg die Väärsli drzue &raquo;</a></td>
+			<a href="/fc/{{ member.code }}" class="btn btn-primary btn-default" role="button" title="add new impression">Neii Impression &raquo;</a></td>
+			<a href="/gcxls/{{ member.code }}" class="btn btn-primary btn-default" role="button" title="export">Lad d Gfangenelischte abe &raquo;</a></td>
+		</div>
+		</div>
+		<div class="col-sm-6">
+    	<div class="well">
+    		Di Gfangenebild hochladen:
+			<form enctype="multipart/form-data" method="post" action="/pict">
+			<span class="btn btn-default btn-file">
+			    <input type="file" name="image" />
+			</span>
+			<input type="hidden" name="memid" value="{{ member.key().id() }}" />
+	      <button type="submit" class="btn btn-default">Hochlade</button>
+			</form>
+		</div>
+		</div>
+	</div>
+
+	<div class="row">
+	<div class="col-sm-12">
+
+	<table class="table table-condensed table-hover">
+		<tbody>
+			{% for msg in msgs %}
+			<tr>
+				<td>{{ msg.date|dtform }}</td><td>{{ msg.postfromname }}</td><td>{{ msg.post }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	</div>
+	</div>
+
+	<!-- modal create new comment -->
+	<div class="modal fade" id="createcommentmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"	aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Neus Väärsli</h4>
+			</div>
+			<div class="modal-body">
+				<form action="/zeedel" class="form-horizontal" role="form" method="post">
+				<input type="hidden" name="fmemid" value="{{ member.key().id() }}" />
+				<input type="hidden" name="fwithcode" value="True" />
+				<input type="hidden" name="fcode" value="{{ member.code }}" />
+	{% include "post-createdialog.html" ignore missing %}
+
+{% else %}
+	<div class="row">
+	<div class="col-sm-12">
+		<p>Die CODE stimmt nid! Missbruch wird scharf verurteilt, bis läbenslänglich!!</p>
+	</div>
+	</div>
+{% endif %}
+
+	</div>
+
+{% endblock content %}
+
+{% block addon %}
+{{ super() }}
+{% include "member-gpsjs.html" ignore missing %}
+{% endblock addon %}

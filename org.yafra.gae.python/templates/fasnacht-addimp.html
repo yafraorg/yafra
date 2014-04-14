@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% if myself == None %}
+	{% set active_user = '' %}
+	{% set active_uid = '' %}
+{% else %}
+	{% set active_user = myself.email %}
+	{% set active_uid = myself.key().id() %}
+{% endif %}
+{% block content %}
+<div class="container">
+
+<div class="row">
+<div class="col-sm-12">
+	<h4>Neui Impression</h4>
+		<form action="{{ uploadurl }}" class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="fmemid" value="{{ member.key().id() }}" />
+			<input type="hidden" name="fwithcode" value="{{ member.code }}" />
+			<input type="hidden" name="fwithcode" value="{{ member.code }}" />
+			<input type="hidden" name="fmobile" value="2" />
+
+			<div class="form-group">
+				<div class="row">
+				<label for="idfile" class="col-sm-2 control-label">Bild</label>
+		   	<div class="col-sm-10">
+					<input type="file" class="form-control" name="ffile" id="idfile">
+				</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="row">
+				<label for="idpost" class="col-sm-2 control-label">Kommentar</label>
+		   	<div class="col-sm-10">
+					<textarea class="form-control" name="fpost" id="idpost" rows="4"></textarea>
+				</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-default">Speichere</button>
+				</div>
+			</div>
+		
+		</form>
+</div>
+</div>
+
+</div>
+{% endblock content %}

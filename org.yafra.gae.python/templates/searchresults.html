@@ -1,0 +1,13 @@
+	<table class="table table-condensed">
+		<thead><tr>
+			<th>Resultat</th> <th>Vom</th>
+		</tr></thead>
+		<tbody>
+	   	{% for res in results %}
+			<tr>
+			<td>{{ res.post }}</td>
+			<td>{{ res.date|dform }}</td>
+			</tr>
+	      {% endfor %}
+		</tbody>
+   </table>

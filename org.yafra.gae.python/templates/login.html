@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+
+{% if user != None %}
+<div class="row">
+    <div class="col-sm-12">
+    <h3>Willkomme {{ user.userid }}</h3>
+    <p><a href="{{ logout }}">Abmälde.</a></p>
+    </div>
+</div>
+{% endif %}
+
+
+{% if user == None %}
+<div class="row">
+	<div class="col-sm-12">
+	<h3>Aamälde:</h3>
+	<p>Du kasch Di nummen iber en Account aamälde, wos scho git oder mit dim CODE. Mir schpychere do kaini Passwerter. Nach dr erschte Aamäldig muesch warte bis di dr Admin mit em
+	entsrpächende Gfangene verknipft het! (das ka ruhig e paar Täg duure).</p>
+	<div class="well">
+		<p>Aamälde iber e account wos scho git.</p>
+		{% for link, name in reglist %}
+		<p>[<a href="{{ name }}">{{ link }}</a>]</p>
+		{% endfor %}
+	</div>
+	<div class="well">
+		<p>Aamälde mit dim CODE: Benutz die URL/Webadrässe wo de per mail griegt hesch, do kasch di nur mit der OpenID (Google, Facebook, etc) aamälde!</p>
+	</div>
+   </div>
+</div>
+{% endif %}
+
+</div>
+{% endblock content %}

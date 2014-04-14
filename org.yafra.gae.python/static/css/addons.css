@@ -1,0 +1,22 @@
+/* route4y.com 2012 - the running, hiking, journey exchange for everyone
+ *
+ *  boxes CSS
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 70px;
+  padding-bottom: 20px;
+}
+
+.zettel {
+	background-color: black;
+	color: green;
+	border-color: black;
+}
+
+/*
+#gpxdetails input { font-size:xx-small !important; padding:0; margin:0; height: 15px !important; background:#CDEBF5;}
+#gpxdetails table td {padding:0 !important;}
+#gpxdetails table th {text-align:left !important;}
+*/

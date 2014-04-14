@@ -1,0 +1,8 @@
+<component name="libraryTable">
+  <library name="Google App Engine SDK">
+    <CLASSES>
+      <root url="file:///usr/local/google_appengine" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

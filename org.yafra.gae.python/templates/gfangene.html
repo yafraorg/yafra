@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% if myself == None %}
+	{% set active_user = '' %}
+	{% set active_uid = '' %}
+{% else %}
+	{% set active_user = myself.email %}
+	{% set active_uid = myself.key().id() %}
+{% endif %}
+{% block content %}
+	<div class="container">
+
+	<div class="row">
+		<div class="col-sm-4">
+			<h3>Gfangene {{ member.pseudonym }}</h3>
+		</div>
+		<div class="col-sm-4">
+			<img src="/pict?memid={{member.key().id()}}"/>
+		</div>
+		<div class="col-sm-4">
+			<img style="background: white" src="/qrcode?memid={{member.key().id()}}" />
+		</div>
+	</div>
+	
+	<br />
+	<br />
+
+	<div class="row">
+	<div class="col-sm-12">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+			<h3 class="panel-title">Steggbrief:</h3>
+			</div>
+			<div class="panel-body">
+			{{ member.steckbrief }}
+			</div>
+		</div>
+		<div class="panel panel-success">
+			<div class="panel-heading">
+			<h3 class="panel-title">Strof:</h3>
+			</div>
+			<div class="panel-body">
+			{{ member.strof }}
+			</div>
+		</div>
+		<div class="panel panel-success">
+			<div class="panel-heading">
+			<h3 class="panel-title">Au no wichtig:</h3>
+			</div>
+			<div class="panel-body">
+			{{ member.cmt }}
+			</div>
+		</div>
+		<a href="/gfangenepdf/{{ member.key().id() }}" target="_blank" class="btn btn-primary">Drugge/Steggbrief zum mitneh</a>
+		<br />
+
+	</div>
+	</div>
+
+
+	</div>
+
+{% endblock content %}

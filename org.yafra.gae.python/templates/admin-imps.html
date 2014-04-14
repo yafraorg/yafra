@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% if myself == None %}
+	{% set active_user = '' %}
+	{% set active_uid = '' %}
+{% else %}
+	{% set active_user = myself.email %}
+	{% set active_uid = myself.key().id() %}
+{% endif %}
+{% block content %}
+	<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+		links: [<a href="/admin/user">users</a>] [<a href="/admin/member">members</a>] [<a href="/admin/post">väärsli</a>]
+		</div>
+	</div>
+
+	<div class="row">
+	<div class="col-sm-12">
+	   <h3>Impressione</h3>
+	   <p>Liste vo alle Impressione:</p>
+		<table class="table table-condensed">
+			<thead><tr>
+		    	<th>Text</th> <th>Vo</th> <th>Datum</th> <th>Picture URL</th> <th>Aktiv</th> <th>Aktione</th>
+			</tr></thead>
+			<tbody>
+				{% for p in posts %}
+				<tr>
+					<td data-toggle="modal" data-id="{{ p.key().id() }}" data-text="{{ p.post }}" data-target="#updimpmodal" class="tdbtn">{{ p.post }}</td> <td>{{ p.fromname }}</td> <td>{{ p.date|dform }}</td> <td><a href="{{ p.picturl2 }}" target="_blank">{{ p.picturl2 }}</a></td>  <td>{{ p.active }}</td>
+					<td><a href="/admin/delimp/{{ p.key().id() }}" class="btn btn-danger btn-xs">Delete</a> <a href="/admin/toggleimp/{{ p.key().id() }}" class="btn btn-danger btn-xs">ToggleActive</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+	   </table>
+	</div>
+	</div>
+</div>
+
+<!-- modal create new comment -->
+<div class="modal fade" id="updimpmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel9" aria-hidden="true">
+	<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"	aria-hidden="true">&times;</button>
+			<h4 class="modal-title">Text</h4>
+		</div>
+		<div class="modal-body">
+			<form action="/admin/impupd" class="form-horizontal" role="form" method="post">
+			<input type="hidden" name="fimpid" id="idpostid" value="" />
+	  		<div class="form-group">
+		    	<label for="idpost" class="col-sm-2 control-label">Text</label>
+				<div class="col-sm-10">
+				<textarea class="form-control" name="fpost" id="idimp" rows="3"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+		    	<div class="col-sm-offset-2 col-sm-10">
+		      <button type="submit" class="btn btn-default">Aendere</button>
+		    	</div>
+	  		</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
+		</div>
+	</div>
+	</div>
+</div>
+<!-- /.modal -->
+
+{% endblock content %}
+
+{% block addon %}
+{{ super() }}
+<script>
+$('.tdbtn').on('click', function(e) {
+	//if (window.console) console.log('got click event');
+	var txt = $(e.target).data('text');
+	var pid = $(e.target).data('id');
+	$("#idpostid").val(pid);
+	$("#idimp").val(txt);
+	//if (window.console) console.log('got data txt: ' + txt);
+	//if (window.console) console.log('got data id: ' + pid);
+});
+</script>
+{% endblock addon %}

@@ -28,5 +28,12 @@ if test "$SYSTEM" = "Linux"
 	then INCMOTIF=/usr/include
 fi
 
+
+# test for Mac OS/X
+#
+if test "$SYSTEM" = "Darwin"
+	then INCMOTIF=/usr/include
+fi
+
 # put the platform string to the stdout
 echo $INCMOTIF

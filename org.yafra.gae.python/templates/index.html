@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% if myself == None %}
+	{% set active_user = '' %}
+	{% set active_uid = '' %}
+{% else %}
+	{% set active_user = myself.email %}
+	{% set active_uid = myself.key().id() %}
+{% endif %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+			<h3>Gfangen im Netz</h3>
+			<ul class="disc">
+				<li>Sujet 2014 vo dr Märtplatz Clique Basel, Stammverein</li>
+				<li>Das isch dr interaggtiv <strong>Zeedel</strong></li>
+				<li>Jede Gfangene isch dokumentiert <strong>e paar kenne nit schryybe</strong></li>
+				<li>Es git jetzt e <strong><a href="https://play.google.com/store/apps/details?id=ch.mcbsujet.app" target="_blank">Android</a> und <a href="https://itunes.apple.com/ch/app/mcb-sujet/id800829343?mt=8&uo=4" target="itunes_store">
+				iPhone/iPad</a> APP</strong> fir uns !!! - Android App und Apple iOS App (iPhone und iPad), suech nach "MCB"</li>
+			</ul>
+			
+			<div class="row">
+			<div class="col-sm-4 col-sm-offset-1">
+				<a href="https://play.google.com/store/apps/details?id=ch.mcbsujet.app">
+				<img alt="Get it on Google Play" src="https://developer.android.com/images/brand/de_generic_rgb_wo_45.png" />
+				</a>
+			</div>
+			<div class="col-sm-4">
+				<a href="https://itunes.apple.com/ch/app/mcb-sujet/id800829343?mt=8&uo=4" target="itunes_store" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/de_de//images/web/linkmaker/badge_appstore-lrg.png) no-repeat;width:135px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/de_de//images/web/linkmaker/badge_appstore-lrg.svg);}"></a>
+			</div>
+			</div>
+			<br />
+			<img src="/static/screenshot-maps-iphone.jpg" class="img-responsive" />
+			<br />
+		</div>
+		<div class="col-sm-6">
+			{% if myself == None %}
+				<a href="/login" class="btn btn-primary btn-lg"	title="login to our system">Mäld Di aa, wenn den e Märtplätzler bisch &raquo;</a>
+			{% else %}
+				<strong>Scheen dass Du au mitmachsch,</strong>
+				{% if myself.linked %}
+				<br />
+				<a href="/zeedel" class="btn btn-primary">jetzt schryyb e paar Väärsli!</a> &nbsp
+				<a href="/gps" class="btn btn-primary">lueg wär wo isch</a>
+				{% endif %}
+			{% endif %}
+			<br />
+			<br />
+			<p>
+			{% if myself == None %}
+				<strong>Und do kemme die letschte Väärsli:</strong>
+			{% else %}
+				<strong>Und do kemme die letschte Clique Mäldige:</strong>
+			{% endif %}
+			</p>
+			<table class="table table-condensed">
+				<tbody>
+					{% for cmt in comments %}
+					<tr>
+						<td>{{ cmt.post|mkurl }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<br />
+			<img src="/static/mcb-regen-small.png" />
+			<br /> <br />
+		</div>
+	</div>
+</div>
+</div>
+<!--container-->
+
+<div class="container">
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style ">
+<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+<a class="addthis_button_tweet"></a>
+<a class="addthis_button_linkedin_counter"></a>
+<a class="addthis_counter addthis_pill_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52e280314103814a"></script>
+<!-- AddThis Button END -->
+</div>
+
+<!-- 
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="alert alert-warning">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h4>Achtig!</h4>
+				Dä Dienscht isch erscht uff d Fasnacht 2014 aggtiv!
+			</div>
+		</div>
+	</div>
+</div>
+ -->
+ <!--container-->
+
+{% endblock content %}
