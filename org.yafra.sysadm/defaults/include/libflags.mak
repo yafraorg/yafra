@@ -83,7 +83,7 @@ ifdef OSHARED
 	FSHARED  = -fPIC -DPS_SHAREDLIB=1
 	AR = libtool -dynamic -undefined dynamic_lookup -o
 else
-	AR        = llvm-ar crus
+	AR        = ar crus
 endif
 FCC       = -I/usr/include/malloc $(FDEBUG) $(FSHARED) $(FRELEASE)
 CMANFLAGS = -P "cc -E -C" -I$(PINC) -V -i$(INCLUDE) -o$(PMAN) -S$(MANSECTION)

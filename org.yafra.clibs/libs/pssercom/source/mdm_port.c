@@ -13,6 +13,7 @@ static char rcsid[]="$Header: /yafraorg/cvsroot/foundation/ansic/libs/pssercom/s
 #include <termios.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/ioctl.h>
 #include <fcntl.h>
 
 /**************************************************************/
