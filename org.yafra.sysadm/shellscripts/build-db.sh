@@ -35,10 +35,10 @@ fi
 
 #
 echo "apache cayenne config file"
-CAYCONFIG=src/cayenne-org_yafra.xml
+CAYCONFIG=src/main/resources/cayenne-org_yafra.xml
 echo "CAYCONFIG: $CAYCONFIG"
 #this is the development version - release versions are copied later
-CAYSRCCONFIG=src/cayenne-org_yafra-localmysql.xml
+CAYSRCCONFIG=src/main/resources/cayenne-org_yafra-localmysql.xml
 echo "CAYSRCCONFIG: $CAYSRCCONFIG - TODO make sure you changed this file according to your environment!"
 YAFRACORE=$BASENODE/org.yafra.server.core
 
