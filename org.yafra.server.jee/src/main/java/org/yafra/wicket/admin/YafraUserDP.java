@@ -26,6 +26,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+//import java.util.function.Function;
+//import java.util.function.ToDoubleFunction;
+//import java.util.function.ToIntFunction;
+//import java.util.function.ToLongFunction;
 
 import org.apache.cayenne.access.DataContext;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
@@ -44,30 +48,29 @@ import org.yafra.utils.Logging;
  * @version
  * @since 1.0
  */
-public class YafraUserDP extends SortableDataProvider
+public class YafraUserDP extends SortableDataProvider<MYafraUser, String>
 	{
-
 	class SortableDataProviderComparator implements Comparator<MYafraUser>, Serializable
+	{
+	public int compare(final MYafraUser o1, final MYafraUser o2)
 		{
-		public int compare(final MYafraUser o1, final MYafraUser o2)
+		PropertyModel<Comparable> model1 = new PropertyModel<Comparable>(o1, (String) getSort().getProperty());
+		PropertyModel<Comparable> model2 = new PropertyModel<Comparable>(o2, (String) getSort().getProperty());
+
+		int result = model1.getObject().compareTo(model2.getObject());
+
+		if (!getSort().isAscending())
 			{
-			PropertyModel<Comparable> model1 = new PropertyModel<Comparable>(o1, (String) getSort().getProperty());
-			PropertyModel<Comparable> model2 = new PropertyModel<Comparable>(o2, (String) getSort().getProperty());
-
-			int result = model1.getObject().compareTo(model2.getObject());
-
-			if (!getSort().isAscending())
-				{
-				result = -result;
-				}
-
-			return result;
+			result = -result;
 			}
 
+		return result;
 		}
 
-	private IModel<List<MYafraUser>> list;
+	}
 	private SortableDataProviderComparator comparator = new SortableDataProviderComparator();
+
+	private IModel<List<MYafraUser>> list;
 
 	public YafraUserDP()
 		{
@@ -85,6 +88,7 @@ public class YafraUserDP extends SortableDataProvider
 		List<MYafraUser> newList = new ArrayList<MYafraUser>(list.getObject());
 
 		// Sort the data
+		// JAVA8 support: Collections.sort(newList, (MYafraUser a1, MYafraUser a2 ) -> ( a1.compareTo( a2 ) ));
 		Collections.sort(newList, comparator);
 
 		// Return the data for the current page - this can be determined only after sorting
@@ -100,14 +104,14 @@ public class YafraUserDP extends SortableDataProvider
 	 * @see org.apache.wicket.markup.repeater.data.IDataProvider#model(java.lang.Object)
 	 */
 	@Override
-	public IModel<MYafraUser> model(final Object object)
+	public IModel<MYafraUser> model(final MYafraUser mu)
 		{
 		return new AbstractReadOnlyModel<MYafraUser>()
 			{
 				@Override
 				public MYafraUser getObject()
 					{
-					return (MYafraUser) object;
+					return (MYafraUser) mu;
 					}
 			};
 		}

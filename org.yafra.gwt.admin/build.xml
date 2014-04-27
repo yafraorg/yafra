@@ -41,7 +41,7 @@ under the License.
 	<property name="source" value="1.7"/>
 
   <!-- Configure path to GWT SDK -->
-  <property name="gwt.sdk" location="/work/gwt-2.5.1" />
+  <property name="gwt.sdk" location="/work/gwt-2.6.0" />
 
   <path id="project.class.path">
     <pathelement location="war/WEB-INF/classes"/>

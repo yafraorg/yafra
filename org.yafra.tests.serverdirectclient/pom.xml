@@ -7,6 +7,7 @@
 	<version>1.0</version>
 	<name>YAFRA tests server cayenne</name>
 	<url>http://maven.apache.org</url>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -30,6 +31,7 @@
 			<version>10.10.1.1</version>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -37,8 +39,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -69,4 +71,128 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>installderby</id>
+			<build>
+				<plugins>
+					<plugin>
+					    <groupId>org.apache.cayenne.plugins</groupId>
+					    <artifactId>maven-cayenne-plugin</artifactId>
+					    <version>3.1RC1</version>
+					
+					    <executions>
+					        <execution>
+					            <configuration>
+					                <map>${env.JAVANODE}/org.yafra.server.core/src/main/resources/cayenne-org_yafra.xml</map>
+					                <url>jdbc:derby://localhost:1527/yafra;user=yafra;create=true</url>
+					                <adapter>org.apache.cayenne.dba.derby.DerbyAdapter</adapter>
+					                <driver>org.apache.derby.jdbc.ClientDriver</driver>
+					                <droppk>yes</droppk>
+					                <droptables>yes</droptables>
+					                <username>yafra</username>
+					                <password>yafraadmin</password>
+					            </configuration>
+					            <goals>
+					                <goal>cdbgen</goal>
+					            </goals>
+					        </execution>
+					    </executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>installmysql</id>
+			<build>
+				<plugins>
+					<plugin>
+					    <groupId>org.apache.cayenne.plugins</groupId>
+					    <artifactId>maven-cayenne-plugin</artifactId>
+					    <version>3.1RC1</version>
+					
+					    <executions>
+					        <execution>
+					            <configuration>
+					                <map>${env.JAVANODE}/org.yafra.server.core/src/main/resources/cayenne-org_yafra.xml</map>
+					                <url>jdbc:mysql://localhost/yafra</url>
+					                <adapter>org.apache.cayenne.dba.mysql.MySQLAdapter</adapter>
+					                <driver>com.mysql.jdbc.Driver</driver>
+					                <droppk>yes</droppk>
+					                <droptables>yes</droptables>
+					                <username>yafra</username>
+					                <password>yafraadmin</password>
+					            </configuration>
+					            <goals>
+					                <goal>cdbgen</goal>
+					            </goals>
+					        </execution>
+					    </executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>installora</id>
+			<build>
+				<plugins>
+					<plugin>
+					    <groupId>org.apache.cayenne.plugins</groupId>
+					    <artifactId>maven-cayenne-plugin</artifactId>
+					    <version>3.1RC1</version>
+					
+					    <executions>
+					        <execution>
+					            <configuration>
+					                <map>${env.JAVANODE}/org.yafra.server.core/src/main/resources/cayenne-org_yafra.xml</map>
+					                <url>jdbc:derby://localhost:1527/yafra;user=yafra;create=true</url>
+					                <adapter>org.apache.cayenne.dba.oracle.OracleAdapter</adapter>
+					                <driver>org.apache.derby.jdbc.ClientDriver</driver>
+					                <droppk>yes</droppk>
+					                <droptables>yes</droptables>
+					                <username>yafra</username>
+					                <password>yafraadmin</password>
+					            </configuration>
+					            <goals>
+					                <goal>cdbgen</goal>
+					            </goals>
+					        </execution>
+					    </executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>installmssql</id>
+			<build>
+				<plugins>
+					<plugin>
+					    <groupId>org.apache.cayenne.plugins</groupId>
+					    <artifactId>maven-cayenne-plugin</artifactId>
+					    <version>3.1RC1</version>
+					
+					    <executions>
+					        <execution>
+					            <configuration>
+					                <map>${env.JAVANODE}/org.yafra.server.core/src/main/resources/cayenne-org_yafra.xml</map>
+					                <url>jdbc:sqlserver://localhost:1433</url>
+					                <adapter>org.apache.cayenne.dba.sqlserver.SQLServerAdapter</adapter>
+					                <driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+					                <droppk>yes</droppk>
+					                <droptables>yes</droptables>
+					                <username>yafra</username>
+					                <password>yafraadmin</password>
+					            </configuration>
+					            <goals>
+					                <goal>cdbgen</goal>
+					            </goals>
+					        </execution>
+					    </executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	
 </project>
