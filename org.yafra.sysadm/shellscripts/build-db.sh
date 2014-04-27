@@ -120,7 +120,7 @@ if [ "$3" = "setupdb" ]; then
 		$TDBDB/mysql/convert.sh
 		$TDBDB/mysql/generate.sh tdbadmin $SAPWD
 		cd $JAVANODE/org.yafra.tests.serverdirectclient
-		ant installmysql
+		mvn install -P installmysql
 	fi
 	if [ "$2" = "oracle" ]; then
 		echo "installing oracle database"
@@ -128,7 +128,7 @@ if [ "$3" = "setupdb" ]; then
 		$TDBDB/oracle/convert.sh
 		$TDBDB/oracle/generate.bat tdbadmin $SAPWD
 		cd $JAVANODE/org.yafra.tests.serverdirectclient
-		ant installora
+		mvn install -P installora
 	fi
 	if [ "$2" = "mssql" ]; then
 		echo "installing mssql database"
@@ -136,10 +136,10 @@ if [ "$3" = "setupdb" ]; then
 		$TDBDB/mssql/convert.sh
 		$TDBDB/mssql/generate.bat $SAPWD yafra
 		cd $JAVANODE/org.yafra.tests.serverdirectclient
-		ant installmssql
+		mvn install -P installmssql
 	fi
 	if [ "$2" = "derby" ]; then
 		echo "installing derby database"
-		ant installderby
+		mvn install -P installderby
 	fi
 fi
