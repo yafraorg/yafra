@@ -7,6 +7,10 @@
 	<version>1.0</version>
 	<name>YAFRA tests server cayenne</name>
 	<url>http://maven.apache.org</url>
+	<properties>
+		<cayenne.version>3.1RC1</cayenne.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -102,8 +106,14 @@
 					<plugin>
 					    <groupId>org.apache.cayenne.plugins</groupId>
 					    <artifactId>maven-cayenne-plugin</artifactId>
-					    <version>3.1RC1</version>
-					
+					    <version>${cayenne.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>com.oracle</groupId>
+								<artifactId>ojdbc14</artifactId>
+								<version>10.2.0.4.0</version>
+							</dependency>           
+						</dependencies>
 					    <executions>
 					        <execution>
 					            <configuration>
@@ -113,8 +123,8 @@
 					                <driver>org.apache.derby.jdbc.ClientDriver</driver>
 					                <droppk>yes</droppk>
 					                <droptables>yes</droptables>
-					                <username>yafra</username>
-					                <password>yafraadmin</password>
+					                <username>yafraadmin</username>
+					                <password>yafra</password>
 					            </configuration>
 					            <goals>
 					                <goal>cdbgen</goal>
@@ -132,7 +142,14 @@
 					<plugin>
 					    <groupId>org.apache.cayenne.plugins</groupId>
 					    <artifactId>maven-cayenne-plugin</artifactId>
-					    <version>3.1RC1</version>
+					    <version>${cayenne.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>mysql</groupId>
+								<artifactId>mysql-connector-java</artifactId>
+								<version>5.1.30</version>
+							</dependency>           
+						</dependencies>
 					
 					    <executions>
 					        <execution>
@@ -143,8 +160,8 @@
 					                <driver>com.mysql.jdbc.Driver</driver>
 					                <droppk>yes</droppk>
 					                <droptables>yes</droptables>
-					                <username>yafra</username>
-					                <password>yafraadmin</password>
+					                <username>yafraadmin</username>
+					                <password>yafra</password>
 					            </configuration>
 					            <goals>
 					                <goal>cdbgen</goal>
@@ -162,7 +179,14 @@
 					<plugin>
 					    <groupId>org.apache.cayenne.plugins</groupId>
 					    <artifactId>maven-cayenne-plugin</artifactId>
-					    <version>3.1RC1</version>
+					    <version>${cayenne.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>com.oracle</groupId>
+								<artifactId>ojdbc14</artifactId>
+								<version>10.2.0.4.0</version>
+							</dependency>           
+						</dependencies>
 					
 					    <executions>
 					        <execution>
@@ -173,8 +197,8 @@
 					                <driver>org.apache.derby.jdbc.ClientDriver</driver>
 					                <droppk>yes</droppk>
 					                <droptables>yes</droptables>
-					                <username>yafra</username>
-					                <password>yafraadmin</password>
+					                <username>yafraadmin</username>
+					                <password>yafra</password>
 					            </configuration>
 					            <goals>
 					                <goal>cdbgen</goal>
@@ -192,7 +216,14 @@
 					<plugin>
 					    <groupId>org.apache.cayenne.plugins</groupId>
 					    <artifactId>maven-cayenne-plugin</artifactId>
-					    <version>3.1RC1</version>
+					    <version>${cayenne.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>jtds</groupId>
+								<artifactId>jtds</artifactId>
+								<version>1.2</version>
+							</dependency>           
+						</dependencies>
 					
 					    <executions>
 					        <execution>
@@ -203,8 +234,8 @@
 					                <driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
 					                <droppk>yes</droppk>
 					                <droptables>yes</droptables>
-					                <username>yafra</username>
-					                <password>yafraadmin</password>
+					                <username>yafraadmin</username>
+					                <password>yafra</password>
 					            </configuration>
 					            <goals>
 					                <goal>cdbgen</goal>

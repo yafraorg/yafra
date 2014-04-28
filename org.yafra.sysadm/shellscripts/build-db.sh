@@ -109,7 +109,7 @@ fi
 cd -
 
 
-# create database TDB
+# create database TDB and YafraDB as part of setupdb command
 # this works fine on unix with perl
 if [ "$3" = "setupdb" ]; then
 	cd $SYSADM/databases/yafradb

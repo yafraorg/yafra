@@ -91,5 +91,5 @@ echo ... load demo data
 mysql $1 --user=tdbadmin --password=yafra -v -v <mysql_def_demo.sql >>/tmp/mysql_tdb_setup$i.log
 
 echo ... removing converted sql files
-#rm mysql_*
+rm mysql_*
 
