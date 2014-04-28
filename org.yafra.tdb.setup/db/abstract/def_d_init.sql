@@ -19,7 +19,7 @@ commit work;
 /*********************************************************/
 
 /* tdb database version */
-insert into tdb_version (DBVERSION, DBDATE) values (5, '11/26/2008');
+insert into tdb_version (DBVERSION, DBDATE) values (5, STR_TO_DATE('26-11-2008', '%d-%m-%Y'));
 
 /* DB interne Daten */
 insert into bezeichnung values (0, 1, 'INT-Maxima', 0);
@@ -90,9 +90,9 @@ insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 1, 'Multimedien Dok
 insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 25, 'Multimedia documents', 57);
 insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 1, 'Text zu multimedia Dokument', 58);
 insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 25, 'Text to multimedia document', 58);
-insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 1, 'INT-Tempor�rer Text', 70);
+insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 1, 'INT-Temporï¿½rer Text', 70);
 insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 25, 'INT-Temporary text', 70);
-insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 1, 'INT-Tempor�re Bezeichnung', 71);
+insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 1, 'INT-Temporï¿½re Bezeichnung', 71);
 insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 25, 'INT-Temporary description', 71);
 
 insert into mp_file (FILE_ID, FILE_TYP, CODE, LABEL_ID, FILENAME) values (-1, -1, '-', -1, '-');
@@ -104,9 +104,9 @@ insert into mp_file (FILE_ID, FILE_TYP, CODE, LABEL_ID, FILENAME) values (-1, -1
 /**********************************************/
 
 insert into waehrung values (-1, -1, -1, -1, '-');
-insert into bezeichnung values (-1, 1, 'keine W�hrung', 12);
+insert into bezeichnung values (-1, 1, 'keine Wï¿½hrung', 12);
 insert into bezeichnung values (-1, 25, 'no currency', 12);
-insert into bezeichnung values (0, 1, 'W�hrung', 12);
+insert into bezeichnung values (0, 1, 'Wï¿½hrung', 12);
 insert into bezeichnung values (0, 25, 'Curency', 12);
 insert into texte values (-1, 1, 1, 'n/a', 12);
 insert into texte values (-1, 25, 1, 'n/a', 12);
@@ -125,7 +125,7 @@ insert into bezeichnung values (0, 1, 'Ortschaft', 11);
 insert into bezeichnung values ( 0, 25, 'Place', 11);
 insert into texte values ( -1, 1, 1, 'n/a', 11);
 
-insert into bezeichnung values (0, 1, 'INT-Land-W�hrung', 13);
+insert into bezeichnung values (0, 1, 'INT-Land-Wï¿½hrung', 13);
 insert into bezeichnung values (0, 25, 'Country to currency', 13);
 
 insert into bezeichnung values (0, 1, 'INT-Land-Sprache', 14);
@@ -195,9 +195,9 @@ insert into texte values ( -1, 1, 1, 'n/a', 33);
 /**********************************************/
 
 insert into traeger_typ values(-1, -1, -1, -1, -1);
-insert into bezeichnung values (0, 1, 'Dienstleistungstr�gertyp', 15);
+insert into bezeichnung values (0, 1, 'Dienstleistungstrï¿½gertyp', 15);
 insert into bezeichnung values ( 0, 25, 'Carrier type', 15);
-insert into bezeichnung values(-1, 1, 'kein Tr�ger', 15);
+insert into bezeichnung values(-1, 1, 'kein Trï¿½ger', 15);
 insert into texte values( -1, 1, 1, 'n/a', 15);
 
 insert into kategorie values (-1, -1, -1, -1, 1, -1);
@@ -208,12 +208,12 @@ insert into texte values ( -1, 1, 1, 'n/a', 16);
 
 insert into dienst_traeger values(-1, '-', -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 insert into bezeichnung values(-1, 1, 'kein DLT', 17);
-insert into bezeichnung values (0, 1, 'Dienstleistungstr�ger', 17);
+insert into bezeichnung values (0, 1, 'Dienstleistungstrï¿½ger', 17);
 insert into bezeichnung values (0, 25, 'Carrier', 17);
 insert into texte values(-1, 1, 1, 'n/a', 17);
 
 insert into traeger_detail (DLT_ID, FIRMA) values (-1, -1);
-insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 1, 'Dienstleistungstr�gerdetail', 60);
+insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 1, 'Dienstleistungstrï¿½gerdetail', 60);
 insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 25, 'Carrier detail', 60);
 
 insert into angebots_typ values (-1, -1, -1);
@@ -365,7 +365,7 @@ insert into preis ( PRE_ID, APR, EPR, VPR, GLT, WHR_ID, KBST, KAR_ID, DLTT_ID, K
 insert into bezeichnung values (0, 1, 'Preis', 47);
 insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 25, 'Price', 47);
 
-insert into bezeichnung values (0, 1, 'INT-Kapazität', 54);
+insert into bezeichnung values (0, 1, 'INT-KapazitÃ¤t', 54);
 insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 25, 'Capacity', 54);
 
 insert into bezeichnung (BEZ_ID, S_ID, BEZ, TYP) values ( 0, 1, 'Reservation zu Gruppe', 62);

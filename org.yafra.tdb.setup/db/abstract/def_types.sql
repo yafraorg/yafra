@@ -85,7 +85,7 @@ insert into bezeichnung values (8, 25, 'Cruise', 18);
  
 delete from bezeichnung where TYP = 18 and S_ID =1 and BEZ_ID > 0;
 insert into bezeichnung values (1, 1, 'Uebernachtung', 18);
-insert into bezeichnung values (2, 1, 'Uebernachtung inkl. Fr�hst�ck', 18);
+insert into bezeichnung values (2, 1, 'Uebernachtung inkl. Frï¿½hstï¿½ck', 18);
 insert into bezeichnung values (3, 1, 'Uebernachtung 1/2 Pension', 18);
 insert into bezeichnung values (4, 1, 'Uebernachtung Voll Pension', 18);
 insert into bezeichnung values (5, 1, 'Flug', 18);

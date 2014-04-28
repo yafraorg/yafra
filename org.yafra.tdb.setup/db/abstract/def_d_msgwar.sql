@@ -21,9 +21,9 @@ insert into msg values (2, 500, 1, 3,
 'Ihre Supportstelle mit dieser Meldung benachritigen !');
 
 insert into msg values (2, 501, 1, 1,
-'Dieser Dienstleistungstr�ger wird noch von anderen Dienstleistungstr�gern');
+'Dieser Dienstleistungstrï¿½ger wird noch von anderen Dienstleistungstrï¿½gern');
 insert into msg values (2, 501, 1, 2,
-'ben�tigt. Wollen Sie sowohl diesen und auch die anderen l�schen ?');
+'benï¿½tigt. Wollen Sie sowohl diesen und auch die anderen lï¿½schen ?');
 
 insert into msg values (2, 502, 1, 1,
 'Wollen Sie die Bezeichnungen und Beschreibungen/Texte einer bestehenden');
@@ -31,10 +31,10 @@ insert into msg values (2, 502, 1, 2,
 'Sprache in die neue kopieren ?');
 
 insert into msg values (2, 503, 1, 1,
-'Wollen Sie die Kommissionss�tze unter dieser Kommission ebenfalls l�schen ?');
+'Wollen Sie die Kommissionssï¿½tze unter dieser Kommission ebenfalls lï¿½schen ?');
 
 insert into msg values (2, 504, 1, 1,
-'Wollen Sie die bestehenden Dienstleistungen �ndern ?');
+'Wollen Sie die bestehenden Dienstleistungen ï¿½ndern ?');
 
 insert into msg values (2, 505, 1, 1,
-'Wollen Sie Reisenden komplett l�schen ?');
+'Wollen Sie Reisenden komplett lï¿½schen ?');

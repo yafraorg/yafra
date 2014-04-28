@@ -12,7 +12,7 @@ commit work;
 insert into msg values (5, 0, 2, 1,
 'Dans le cas ou vous ne comprendriez pas ce message d''erreur,');
 insert into msg values (5, 0, 2, 2,
-' veuillez vour r�f�rer rapidement � votre support technique.');
+' veuillez vour rï¿½fï¿½rer rapidement ï¿½ votre support technique.');
 insert into msg values (5, 0, 2, 3,
 'Vous pouvez utiliser un formulaire d''erreur.');
 insert into msg values (5, 0, 2, 4,
@@ -22,19 +22,19 @@ commit work;
 insert into msg values (5, 1, 2, 1,
 'Erreur interne lors de la composition du texte d''erreur !');
 insert into msg values (5, 1, 2, 2,
-'Avertissez imm�diatement votre support technique !');
+'Avertissez immï¿½diatement votre support technique !');
 commit work;
 
 insert into msg values (5, 2, 2, 1,
-'Il n''a pas �t� trouv� d''information correspondante');
+'Il n''a pas ï¿½tï¿½ trouvï¿½ d''information correspondante');
 insert into msg values (5, 2, 2, 2,
 'au status %d dans la langue %d ');
 commit work;
 
 insert into msg values (5, 3, 2, 1,
-'Erreur systeme interne lors de l''allocation de m�moire !');
+'Erreur systeme interne lors de l''allocation de mï¿½moire !');
 insert into msg values (5, 3, 2, 2,
-'Avertissez imm�diatement votre support technique !');
+'Avertissez immï¿½diatement votre support technique !');
 commit work;
 
 insert into msg values (5, 4, 2, 1,

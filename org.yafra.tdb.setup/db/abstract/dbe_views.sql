@@ -265,7 +265,7 @@ and	a.s_id = b.s_id;
 /* kontingentierung                                                        */
 /***************************************************************************/
 
-/* kontingent uebersicht �ber zusammensetzung des kontingents  279 */
+/* kontingent uebersicht ï¿½ber zusammensetzung des kontingents  279 */
 drop view kon_view;
 create view kon_view (kont_id, bez, s_id, hostkont_id, kunden_id,
   opt_dat, ref, sai_id, textid) as
@@ -668,7 +668,7 @@ where	arr_dlg.dlg_id = dlg_dlg.dlg_id
 	and	a.s_id = b.s_id;
 
 
-/* kontingent uebersicht �ber zusammensetzung des kontingents */
+/* kontingent uebersicht ï¿½ber zusammensetzung des kontingents */
 drop view mpv_kon;
 create view mpv_kon (kont_id, bez, s_id, hostkont_id, kunden_id,
   opt_dat, ref, sai_id, textid) as
@@ -811,7 +811,7 @@ b.sta, b.ast, b.sai_id, b.k_id, b.history, b.textid
 from buchung b, mp_profil p
 where b.anw = p.mpid;
 
-drop view mpv_kontingent;
+/*drop view mpv_kontingent;
 create view mpv_kontingent (kont_id, hostkont_id, kontingent,
 hostkontingent, kat_id, kategory, kont_anz, kont_busy,
 host_anz, host_busy) as
@@ -829,7 +829,7 @@ where kontin.kont_id >0 and kontin.hostkont_id=hostk.hostkont_id
 and kd.kont_id=kontin.kont_id and hkd.hostkont_id=hostk.hostkont_id  
 and hkd.kat_id=hkkat.kat_id and hkkat.s_id=25  
 and hkd.kont_id=-1 and kd.kat_id=hkd.kat_id;
-
+*/
 /* error on mpv_reisender */
 /* drop view mpv_reisender; */
 
@@ -1613,7 +1613,7 @@ root.buchung buch
 ,root.mp2000_preis preis
 -- category
 ,root.mpv_kat kat
--- angebot, angebotstyp, �rte
+-- angebot, angebotstyp, ï¿½rte
 ,root.dienst_angebot dla, root.bezeichnung dlabez, root.mpv_angebot angebottyp
 , root.waehrung w
 ,root.ort vonort, root.bezeichnung vonbez, root.ort nachort, root.bezeichnung nachbez
@@ -1632,7 +1632,7 @@ and preis.r_sta =11000
 -- dienstliestung, saison
 and preis.dlg_id = dl1.dlg_id and dl1.bez_id = dllbez.bez_id and dllbez.typ=27
 and dl1.sai_id = saison.sai_id
--- angebot, angebotstyp, �rte
+-- angebot, angebotstyp, ï¿½rte
 and preis.dla_id=dla.dla_id and dlabez.bez_id=dla.bez_id and dlabez.typ=23 and dlabez.s_id=25
 and dla.art_id=angebottyp.art_id and angebottyp.s_id=25
 and dla.von =vonort.ort_id  and vonbez.bez_id =vonort.bez_id  and vonbez.typ=11  and vonbez.s_id=25

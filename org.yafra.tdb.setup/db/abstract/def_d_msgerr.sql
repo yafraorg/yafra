@@ -60,7 +60,7 @@ delete from msg where msg.msg_typ = 1 and msg.msg_id = 20 and msg.s_id = 1;
 insert into msg values (1, 20, 1, 1,
 'Informationen zum gewuenschten Objekt koennen nicht gelesen werden, da das');
 insert into msg values (1, 20, 1, 2,
-'Objekt nicht aktiviert ist. W�hlen Sie das gewuenschte Objekt zuerst aus');
+'Objekt nicht aktiviert ist. Wï¿½hlen Sie das gewuenschte Objekt zuerst aus');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 21 and msg.s_id = 1;
 insert into msg values (1, 21, 1, 1,
@@ -84,7 +84,7 @@ insert into msg values (1, 26, 1, 1,
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 28 and msg.s_id = 1;
 insert into msg values (1, 28, 1, 1,
-'F�r dieses Objekt ist keine Aktion/Auswahl/Grafik vorgesehen - beachten');
+'Fï¿½r dieses Objekt ist keine Aktion/Auswahl/Grafik vorgesehen - beachten');
 insert into msg values (1, 28, 1, 2,
 'Sie Ihre Unterlagen, dort ist vermerkt welches Objekt was kann');
 
@@ -98,7 +98,7 @@ delete from msg where msg.msg_typ = 1 and msg.msg_id = 30 and msg.s_id = 1;
 insert into msg values (1, 30, 1, 1,
 'Es wurde versucht eine ungueltige oder geschuetzte Bezeichnung zu');
 insert into msg values (1, 30, 1, 2,
-'l�schen. Vermutlich besteht ein Programmfehler.');
+'lï¿½schen. Vermutlich besteht ein Programmfehler.');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 35 and msg.s_id = 1;
 insert into msg values (1, 35, 1, 1,
@@ -126,7 +126,7 @@ insert into msg values (1, 48, 1, 1,
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 50 and msg.s_id = 1;
 insert into msg values (1, 50, 1, 1,
-'Die angegebene Dauer ist ung�ltig');
+'Die angegebene Dauer ist ungï¿½ltig');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 52 and msg.s_id = 1;
 insert into msg values (1, 52, 1, 1,
@@ -142,7 +142,7 @@ insert into msg values (1, 60, 1, 1,
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 63 and msg.s_id = 1;
 insert into msg values (1, 63, 1, 1,
-'Auf dem Angebot muss ein g�ltiger Tr�ger vergeben werden.');
+'Auf dem Angebot muss ein gï¿½ltiger Trï¿½ger vergeben werden.');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 64 and msg.s_id = 1;
 insert into msg values (1, 64, 1, 1,
@@ -150,9 +150,9 @@ insert into msg values (1, 64, 1, 1,
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 66 and msg.s_id = 1;
 insert into msg values (1, 66, 1, 1,
-'Sie m�ssen sowohl das von-Datum wie auch das bis-Datum eingeben. Beachten');
+'Sie mï¿½ssen sowohl das von-Datum wie auch das bis-Datum eingeben. Beachten');
 insert into msg values (1, 66, 1, 2,
-'Sie, dass das bis-Datum sp�ter ist als das von-Datum');
+'Sie, dass das bis-Datum spï¿½ter ist als das von-Datum');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 67 and msg.s_id = 1;
 insert into msg values (1, 67, 1, 1,
@@ -358,7 +358,7 @@ insert into msg values (1, 189, 1, 1,
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 192 and msg.s_id = 1;
 insert into msg values (1, 192, 1, 1,
-'Sie k�nnen eine Preis nur auf ein Dienstleistung oder ein Dienstleistungs-');
+'Sie kï¿½nnen eine Preis nur auf ein Dienstleistung oder ein Dienstleistungs-');
 insert into msg values (1, 192, 1, 2,
 'angebot definieren, aber nicht auf beide zur gleichen Zeit');
 
@@ -408,13 +408,13 @@ delete from msg where msg.msg_typ = 1 and msg.msg_id = 208 and msg.s_id = 1;
 insert into msg values (1, 208, 1, 1,
 'In dieser Reservation ist ein Konflikt entstanden und konnte demzufolge');
 insert into msg values (1, 208, 1, 2,
-'nicht abgespeichert werden. Pr�fen Sie Ihre bisherigen Eingaben anhand des');
+'nicht abgespeichert werden. Prï¿½fen Sie Ihre bisherigen Eingaben anhand des');
 insert into msg values (1, 208, 1, 3,
 'Info-Fensters.');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 232 and msg.s_id = 1;
 insert into msg values (1, 232, 1, 1,
-'Sie haben vergessen einen Mussparameter zu f�llen');
+'Sie haben vergessen einen Mussparameter zu fï¿½llen');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 244 and msg.s_id = 1;
 insert into msg values (1, 244, 1, 1,
@@ -553,7 +553,7 @@ insert into msg values (1, 289, 1, 2,
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 292 and msg.s_id = 1;
 insert into msg values (1, 292, 1, 1,
-'Es konnte keine Kategorie f�r diese Reservation gefunden werden');
+'Es konnte keine Kategorie fï¿½r diese Reservation gefunden werden');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 293 and msg.s_id = 1;
 insert into msg values (1, 293, 1, 1,
@@ -603,7 +603,7 @@ insert into msg values (1, 317, 1, 1,
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 318 and msg.s_id = 1;
 insert into msg values (1, 318, 1, 1,
-'Die Grafikdaten sind zu gross. Bitte einen Export durchf�hren.');
+'Die Grafikdaten sind zu gross. Bitte einen Export durchfï¿½hren.');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 319 and msg.s_id = 1;
 insert into msg values (1, 319, 1, 1,
@@ -611,47 +611,47 @@ insert into msg values (1, 319, 1, 1,
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 320 and msg.s_id = 1;
 insert into msg values (1, 320, 1, 1,
-'Aktion(en) konnte(n) nicht ausgef�hrt werden. Pr�fen Sie Ihre Eingaben.');
+'Aktion(en) konnte(n) nicht ausgefï¿½hrt werden. Prï¿½fen Sie Ihre Eingaben.');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 321 and msg.s_id = 1;
 insert into msg values (1, 321, 1, 1,
-'Angebotstyp kann nicht gel�scht werden, da er in der Angebotstabelle');
+'Angebotstyp kann nicht gelï¿½scht werden, da er in der Angebotstabelle');
 insert into msg values (1, 321, 1, 2,
-'noch ben�tigt wird. L�schen Sie den entsprechenden Eintrag zuerst.');
+'noch benï¿½tigt wird. Lï¿½schen Sie den entsprechenden Eintrag zuerst.');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 322 and msg.s_id = 1;
 insert into msg values (1, 322, 1, 1,
 'Es sind keine Reservationsdaten zu der aktuellen Buchung vorhanden.');
 insert into msg values (1, 322, 1, 2,
-'Pr�fen Sie die Buchung �ber die Informationsfunktion.');
+'Prï¿½fen Sie die Buchung ï¿½ber die Informationsfunktion.');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 323 and msg.s_id = 1;
 insert into msg values (1, 323, 1, 1,
 'Auf diese Dienstleistung kann nicht gebucht werden. Die Reservationsart');
 insert into msg values (1, 323, 1, 2,
-'dieser Dienstleistung l�sst dies nicht zu.');
+'dieser Dienstleistung lï¿½sst dies nicht zu.');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 324 and msg.s_id = 1;
 insert into msg values (1, 324, 1, 1,
-'Zu dieser Dienstleistung m�ssen Sie das von- und bis-Datum eingeben.');
+'Zu dieser Dienstleistung mï¿½ssen Sie das von- und bis-Datum eingeben.');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 325 and msg.s_id = 1;
 insert into msg values (1, 325, 1, 1,
-'Es ist kein Dienstleistungstr�ger mehr frei ! W�hlen Sie eine andere');
+'Es ist kein Dienstleistungstrï¿½ger mehr frei ! Wï¿½hlen Sie eine andere');
 insert into msg values (1, 325, 1, 2,
 'Dienstleistung oder ein anderes Datum !');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 326 and msg.s_id = 1;
 insert into msg values (1, 326, 1, 1,
-'Der ausgew�hlte Dienstleistungstr�ger hat nur Raum f�r %d Person(en).');
+'Der ausgewï¿½hlte Dienstleistungstrï¿½ger hat nur Raum fï¿½r %d Person(en).');
 insert into msg values (1, 326, 1, 2,
-'Es wurde aber versucht %d Person(en) auf diesen Tr�ger zu buchen.');
+'Es wurde aber versucht %d Person(en) auf diesen Trï¿½ger zu buchen.');
 insert into msg values (1, 326, 1, 3,
-'Buchen Sie einen anderen Tr�ger oder in eine andere Kategorie.');
+'Buchen Sie einen anderen Trï¿½ger oder in eine andere Kategorie.');
 
 delete from msg where msg.msg_typ = 1 and msg.msg_id = 327 and msg.s_id = 1;
 insert into msg values (1, 327, 1, 1,
-'Der ausgew�hlte Dienstleistungstr�ger ist besetzt durch die Buchung %d.');
+'Der ausgewï¿½hlte Dienstleistungstrï¿½ger ist besetzt durch die Buchung %d.');
 insert into msg values (1, 327, 1, 2,
 'In dieser Buchung wurden %d Person(en) darauf gebucht.');
 insert into msg values (1, 327, 1, 3,

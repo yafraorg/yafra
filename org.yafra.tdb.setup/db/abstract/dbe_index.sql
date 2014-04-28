@@ -40,7 +40,7 @@ drop index btyp_index from bezeichnung;
 drop index btypspr_index from bezeichnung;
 create clustering index bezspr_index on bezeichnung (S_ID);
 create unique index bezeich_index on bezeichnung (BEZ_ID, S_ID, TYP);
-create index bez_index on bezeichnung (BEZ);
+/*create index bez_index on bezeichnung (BEZ);*/
 create index bezid_index on bezeichnung (BEZ_ID);
 create index bezidtyp_index on bezeichnung (BEZ_ID, TYP);
 create index btyp_index on bezeichnung (TYP);

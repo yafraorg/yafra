@@ -49,8 +49,8 @@ insert into bezeichnung values (1, 25, 'Saison 2020', 9);
 
 delete from texte where TYP = 9 and S_ID = 1 and TEXTID > 0;
 delete from texte where TYP = 9 and S_ID = 25 and TEXTID > 0;
-insert into texte values ( 1, 1, 1, 'Saison f�r das Jahr 2020 - 1.1.2020 bis 31.12.2020', 9);
-insert into texte values ( 1, 1, 2, 'Dies ist eine Test Saison und f�r Demozwecke gedacht', 9);
+insert into texte values ( 1, 1, 1, 'Saison fï¿½r das Jahr 2020 - 1.1.2020 bis 31.12.2020', 9);
+insert into texte values ( 1, 1, 2, 'Dies ist eine Test Saison und fï¿½r Demozwecke gedacht', 9);
 insert into texte values ( 1, 25, 1, 'Season covering year 2020', 9);
 
 /* Persons (type 1=private, 2=company) */
@@ -105,13 +105,13 @@ values (8, '+4144112334', '', '', '', 'info@tdb.org', 'http://www.tdb.org/', 'CH
 insert into persadr (PERS_ID, ADR_TYP, ANS, ADR1, ADR2, ADR3, PLZ, ORT, KANT, LAND_ID, STA_ID, HAUPT_FLAG, RCH_FLAG, MAIL_FLAG, TEL, HANDY, FAX, TLX, EMAIL, WEB)
 values (8, 1, 'Company', 'Cruise street, 10', '5th floor', '', '83340', 'New York', 'NY', 1, 1, 1, 1, 1, '', '', '', '', 'info@tdb.org', '');
 
-insert into personen (PERS_ID, PERS_TYP, NAME, S_ID, STA_ID, TEXTID) values (9, 2, 'Reiseb�ro Paradis BER', 1, 1, -1);
+insert into personen (PERS_ID, PERS_TYP, NAME, S_ID, STA_ID, TEXTID) values (9, 2, 'Reisebï¿½ro Paradis BER', 1, 1, -1);
 insert into kunden (PERS_ID, TEL, HANDY, FAX, TLX, EMAIL, WEB, KONTO, LEITER, ATTR1, ATTR2, K_TYP_ID, WHR_ID)
 values (9, '+4144112334', '', '', '', 'info@tdb.org', 'http://www.tdb.org/', 'CH32 33 3232 2323', 3, 'Demo', '', 1, 32);
 insert into persadr (PERS_ID, ADR_TYP, ANS, ADR1, ADR2, ADR3, PLZ, ORT, KANT, LAND_ID, STA_ID, HAUPT_FLAG, RCH_FLAG, MAIL_FLAG, TEL, HANDY, FAX, TLX, EMAIL, WEB)
 values (9, 1, 'Company', 'Cruise street, 10', '5th floor', '', '83340', 'Berlin', 'DE', 1, 1, 1, 1, 1, '', '', '', '', 'info@tdb.org', '');
 
-insert into personen (PERS_ID, PERS_TYP, NAME, S_ID, STA_ID, TEXTID) values (10, 2, 'Reiseb�ro Paradis FRA', 1, 1, -1);
+insert into personen (PERS_ID, PERS_TYP, NAME, S_ID, STA_ID, TEXTID) values (10, 2, 'Reisebï¿½ro Paradis FRA', 1, 1, -1);
 insert into kunden (PERS_ID, TEL, HANDY, FAX, TLX, EMAIL, WEB, KONTO, LEITER, ATTR1, ATTR2, K_TYP_ID, WHR_ID)
 values (10, '+4144112334', '', '', '', 'info@tdb.org', 'http://www.tdb.org/', 'CH32 33 3232 2323', 3, 'Demo', '', 1, 32);
 insert into persadr (PERS_ID, ADR_TYP, ANS, ADR1, ADR2, ADR3, PLZ, ORT, KANT, LAND_ID, STA_ID, HAUPT_FLAG, RCH_FLAG, MAIL_FLAG, TEL, HANDY, FAX, TLX, EMAIL, WEB)
@@ -287,7 +287,7 @@ insert into programm (PRG_ID, CODE, BEZ_ID, TEXTID, SAI_ID)
 
 delete from bezeichnung where TYP = 29 and S_ID = 1 and BEZ_ID > 0;
 delete from bezeichnung where TYP = 29 and S_ID = 25 and BEZ_ID > 0;
-insert into bezeichnung values (1, 1, 'St�dte', 29);
+insert into bezeichnung values (1, 1, 'Stï¿½dte', 29);
 insert into bezeichnung values (1, 25, 'Cities', 29);
 insert into bezeichnung values (2, 1, 'Kreuzfahrten', 29);
 insert into bezeichnung values (2, 25, 'Cruises', 29);
@@ -301,7 +301,7 @@ insert into arrangement (ARR_ID, CODE, BEZ_ID, A_DAT, PRG_ID, TEXTID, SAI_ID) va
 
 delete from bezeichnung where TYP = 30 and S_ID = 1 and BEZ_ID > 0;
 delete from bezeichnung where TYP = 30 and S_ID = 25 and BEZ_ID > 0;
-insert into bezeichnung values (1, 1, 'Las Vegas 3 N�chte mit Flug', 30);
+insert into bezeichnung values (1, 1, 'Las Vegas 3 Nï¿½chte mit Flug', 30);
 insert into bezeichnung values (1, 25, 'Las Vegas 3 days with flight', 30);
 insert into bezeichnung values (2, 1, 'Kreuzfahrt im Mittelmeer und LV', 30);
 insert into bezeichnung values (2, 25, 'Cruise europe and LV', 30);

@@ -57,7 +57,7 @@ insert into msg values (3, 1015, 25, 1,
 'Gruppe:          ');
 
 insert into msg values (3, 1016, 25, 1,
-'    Kategorie           Tr�ger              Kontingent');
+'    Kategorie           Trï¿½ger              Kontingent');
 
 insert into msg values (3, 1017, 25, 1,
 'Ja');

@@ -10,27 +10,27 @@ delete from msg where msg.msg_typ = 3 and msg.s_id = 2;
 commit work;
 
 insert into msg values (3, 1000, 2, 1,
-'R�server un autre Service ?');
+'Rï¿½server un autre Service ?');
 commit work;
 
 insert into msg values (3, 1001, 2, 1,
-'R�server pour un autre voyager/client ?');
+'Rï¿½server pour un autre voyager/client ?');
 commit work;
 
 insert into msg values (3, 1002, 2, 1,
-'Les actions n�c�ssaires sont maintenant execut�es');
+'Les actions nï¿½cï¿½ssaires sont maintenant executï¿½es');
 commit work;
 
 insert into msg values (3, 1003, 2, 1,
-'Votre r�servation est prise en compte, la proc�dure est finie');
+'Votre rï¿½servation est prise en compte, la procï¿½dure est finie');
 commit work;
 
 insert into msg values (3, 1004, 2, 1,
-'Infos r�servation');
+'Infos rï¿½servation');
 commit work;
 
 insert into msg values (3, 1005, 2, 1,
-'R�servation:         ');
+'Rï¿½servation:         ');
 commit work;
 
 insert into msg values (3, 1006, 2, 1,
@@ -58,11 +58,11 @@ insert into msg values (3, 1011, 2, 1,
 commit work;
 
 insert into msg values (3, 1012, 2, 1,
-'Action %s lanc�e.');
+'Action %s lancï¿½e.');
 commit work;
 
 insert into msg values (3, 1013, 2, 1,
-'Veuillez v�rifier votre boite aux lettres !');
+'Veuillez vï¿½rifier votre boite aux lettres !');
 commit work;
 
 insert into msg values (3, 1014, 2, 1,

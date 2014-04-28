@@ -45,7 +45,7 @@ insert into bezeichnung (bez_id, s_id, bez, typ) values (90, 25, 'Cancelation', 
 insert into bezeichnung (bez_id, s_id, bez, typ) values (1, 1, 'Standard Lifecycle', 21);
 insert into bezeichnung (bez_id, s_id, bez, typ) values (10, 1, 'Eingabe', 21);
 insert into bezeichnung (bez_id, s_id, bez, typ) values (20, 1, 'Anfragen', 21);
-insert into bezeichnung (bez_id, s_id, bez, typ) values (30, 1, 'Best‰tigung', 21);
+insert into bezeichnung (bez_id, s_id, bez, typ) values (30, 1, 'Best√§tigung', 21);
 insert into bezeichnung (bez_id, s_id, bez, typ) values (40, 1, 'Offerte', 21);
 insert into bezeichnung (bez_id, s_id, bez, typ) values (50, 1, 'Bestellung', 21);
 insert into bezeichnung (bez_id, s_id, bez, typ) values (60, 1, 'Ticket', 21);

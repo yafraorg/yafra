@@ -14,7 +14,7 @@ insert into root.aktionstexte values (2, 1, 1, 'Total', 1011);
 commit work;
 insert into root.aktionstexte values (3, 1, 1, 'Kategorie', 1011); 
 commit work;
-insert into root.aktionstexte values (4, 1, 1, 'Kapazit�t', 1011); 
+insert into root.aktionstexte values (4, 1, 1, 'Kapazitï¿½t', 1011); 
 commit work;
 insert into root.aktionstexte values (5, 1, 1, 'lp -onb -oc -olandscape',1011); 
 commit work;

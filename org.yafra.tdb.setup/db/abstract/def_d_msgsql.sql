@@ -32,7 +32,7 @@ insert into msg values (4, 2301, 1, 2,
 insert into msg values (4, 2295, 1, 1,
 'Datenbankfehler - Es wurde versucht ein Eintrag zu modifizieren/loeschen');
 insert into msg values (4, 2295, 1, 2,
-'oder eingeben mit fehlerhaften Schl�sselbeziehungen');
+'oder eingeben mit fehlerhaften Schlï¿½sselbeziehungen');
 
 insert into msg values (4, 2211, 1, 1,
 'Datenbankfehler - Eines der Felder in der Datenbankoperation ist unbekannt');

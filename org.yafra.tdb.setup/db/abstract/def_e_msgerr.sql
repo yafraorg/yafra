@@ -51,7 +51,7 @@ insert into msg values (1, 18, 25, 3,
 insert into msg values (1, 20, 25, 1,
 'Informationen zum gewuenschten Objekt koennen nicht gelesen werden, da das');
 insert into msg values (1, 20, 25, 2,
-'Objekt nicht aktiviert ist. W�hlen Sie das gewuenschte Objekt zuerst aus');
+'Objekt nicht aktiviert ist. Wï¿½hlen Sie das gewuenschte Objekt zuerst aus');
 
 insert into msg values (1, 21, 25, 1,
 'Keine gueltige Sprache vorhanden oder erfasst');
@@ -70,7 +70,7 @@ insert into msg values (1, 26, 25, 1,
 'Keine gueltige Bezeichnung vorhanden oder erfasst');
 
 insert into msg values (1, 28, 25, 1,
-'F�r dieses Objekt ist keine Aktion/Auswahl/Grafik vorgesehen - beachten');
+'Fï¿½r dieses Objekt ist keine Aktion/Auswahl/Grafik vorgesehen - beachten');
 insert into msg values (1, 28, 25, 2,
 'Sie Ihre Unterlagen, dort ist vermerkt welches Objekt was kann');
 
@@ -82,7 +82,7 @@ insert into msg values (1, 29, 25, 2,
 insert into msg values (1, 30, 25, 1,
 'Es wurde versucht eine ungueltige oder geschuetzte Bezeichnung zu');
 insert into msg values (1, 30, 25, 2,
-'l�schen. Vermutlich besteht ein Programmfehler.');
+'lï¿½schen. Vermutlich besteht ein Programmfehler.');
 
 insert into msg values (1, 35, 25, 1,
 'Keine gueltige Kategorie vorhanden oder erfasst');
@@ -103,7 +103,7 @@ insert into msg values (1, 48, 25, 1,
 'Zu diesem Objekt ist keine Information vorhanden - aktivieren Sie ein Objekt');
 
 insert into msg values (1, 50, 25, 1,
-'Die angegebene Dauer ist ung�ltig');
+'Die angegebene Dauer ist ungï¿½ltig');
 
 insert into msg values (1, 52, 25, 1,
 'Kein gueltiger Kundentyp vorhanden oder erfasst');
@@ -115,15 +115,15 @@ insert into msg values (1, 60, 25, 1,
 'Kein gueltiger Reisender/Dienstleistungsnehmer vorhanden oder erfasst');
 
 insert into msg values (1, 63, 25, 1,
-'Auf dem Angebot muss ein g�ltiger Tr�ger vergeben werden.');
+'Auf dem Angebot muss ein gï¿½ltiger Trï¿½ger vergeben werden.');
 
 insert into msg values (1, 64, 25, 1,
 'Keine gueltige Saison vorhanden oder erfasst');
 
 insert into msg values (1, 66, 25, 1,
-'Sie m�ssen sowohl das von-Datum wie auch das bis-Datum eingeben. Beachten');
+'Sie mï¿½ssen sowohl das von-Datum wie auch das bis-Datum eingeben. Beachten');
 insert into msg values (1, 66, 25, 2,
-'Sie, dass das bis-Datum sp�ter ist als das von-Datum');
+'Sie, dass das bis-Datum spï¿½ter ist als das von-Datum');
 
 insert into msg values (1, 67, 25, 1,
 'Keine gueltige Waehrung vorhanden oder erfasst');
@@ -291,7 +291,7 @@ insert into msg values (1, 189, 25, 1,
 'Das Kontingent ist bereits ausgebucht. Soll trotzdem gebucht werden ?');
 
 insert into msg values (1, 192, 25, 1,
-'Sie k�nnen eine Preis nur auf ein Dienstleistung oder ein Dienstleistungs-');
+'Sie kï¿½nnen eine Preis nur auf ein Dienstleistung oder ein Dienstleistungs-');
 insert into msg values (1, 192, 25, 2,
 'angebot definieren, aber nicht auf beide zur gleichen Zeit');
 
@@ -332,12 +332,12 @@ insert into msg values (1, 206, 25, 1,
 insert into msg values (1, 208, 25, 1,
 'In dieser Reservation ist ein Konflikt entstanden und konnte demzufolge');
 insert into msg values (1, 208, 25, 2,
-'nicht abgespeichert werden. Pr�fen Sie Ihre bisherigen Eingaben anhand des');
+'nicht abgespeichert werden. Prï¿½fen Sie Ihre bisherigen Eingaben anhand des');
 insert into msg values (1, 208, 25, 3,
 'Info-Fensters.');
 
 insert into msg values (1, 232, 25, 1,
-'Sie haben vergessen einen Mussparameter zu f�llen');
+'Sie haben vergessen einen Mussparameter zu fï¿½llen');
 
 insert into msg values (1, 244, 25, 1,
 'Der aktuelle Aktionstyp kann nicht geloescht werden, weil noch Buchungen');
@@ -457,7 +457,7 @@ insert into msg values (1, 289, 25, 2,
 'Brechen Sie den Buchungsvorgang ab und beginnen Sie von neuem');
 
 insert into msg values (1, 292, 25, 1,
-'Es konnte keine Kategorie f�r diese Reservation gefunden werden');
+'Es konnte keine Kategorie fï¿½r diese Reservation gefunden werden');
 
 insert into msg values (1, 293, 25, 1,
 'Fehler beim kopieren des Arrangenments');
@@ -496,46 +496,46 @@ insert into msg values (1, 317, 25, 1,
 'Sie koennen diese Sprache nicht loeschen, weil Sie die Systemsprache ist');
 
 insert into msg values (1, 318, 25, 1,
-'Die Grafikdaten sind zu gross. Bitte einen Export durchf�hren.');
+'Die Grafikdaten sind zu gross. Bitte einen Export durchfï¿½hren.');
 
 insert into msg values (1, 319, 25, 1,
 'Es ist kein Verantwortilcher zum aktuellen Kollektiv/Gruppe definiert.');
 
 insert into msg values (1, 320, 25, 1,
-'Aktion(en) konnte(n) nicht ausgef�hrt werden. Pr�fen Sie Ihre Eingaben.');
+'Aktion(en) konnte(n) nicht ausgefï¿½hrt werden. Prï¿½fen Sie Ihre Eingaben.');
 
 insert into msg values (1, 321, 25, 1,
-'Angebotstyp kann nicht gel�scht werden, da er in der Angebotstabelle');
+'Angebotstyp kann nicht gelï¿½scht werden, da er in der Angebotstabelle');
 insert into msg values (1, 321, 25, 2,
-'noch ben�tigt wird. L�schen Sie den entsprechenden Eintrag zuerst.');
+'noch benï¿½tigt wird. Lï¿½schen Sie den entsprechenden Eintrag zuerst.');
 
 insert into msg values (1, 322, 25, 1,
 'Es sind keine Reservationsdaten zu der aktuellen Buchung vorhanden.');
 insert into msg values (1, 322, 25, 2,
-'Pr�fen Sie die Buchung �ber die Informationsfunktion.');
+'Prï¿½fen Sie die Buchung ï¿½ber die Informationsfunktion.');
 
 insert into msg values (1, 323, 25, 1,
 'Auf diese Dienstleistung kann nicht gebucht werden. Die Reservationsart');
 insert into msg values (1, 323, 25, 2,
-'dieser Dienstleistung l�sst dies nicht zu.');
+'dieser Dienstleistung lï¿½sst dies nicht zu.');
 
 insert into msg values (1, 324, 25, 1,
-'Zu dieser Dienstleistung m�ssen Sie das von- und bis-Datum eingeben.');
+'Zu dieser Dienstleistung mï¿½ssen Sie das von- und bis-Datum eingeben.');
 
 insert into msg values (1, 325, 25, 1,
-'Es ist kein Dienstleistungstr�ger mehr frei ! W�hlen Sie eine andere');
+'Es ist kein Dienstleistungstrï¿½ger mehr frei ! Wï¿½hlen Sie eine andere');
 insert into msg values (1, 325, 25, 2,
 'Dienstleistung oder ein anderes Datum !');
 
 insert into msg values (1, 326, 25, 1,
-'Der ausgew�hlte Dienstleistungstr�ger hat nur Raum f�r %d Person(en).');
+'Der ausgewï¿½hlte Dienstleistungstrï¿½ger hat nur Raum fï¿½r %d Person(en).');
 insert into msg values (1, 326, 25, 2,
-'Es wurde aber versucht %d Person(en) auf diesen Tr�ger zu buchen.');
+'Es wurde aber versucht %d Person(en) auf diesen Trï¿½ger zu buchen.');
 insert into msg values (1, 326, 25, 3,
-'Buchen Sie einen anderen Tr�ger oder in eine andere Kategorie.');
+'Buchen Sie einen anderen Trï¿½ger oder in eine andere Kategorie.');
 
 insert into msg values (1, 327, 25, 1,
-'Der ausgew�hlte Dienstleistungstr�ger ist besetzt durch die Buchung %d.');
+'Der ausgewï¿½hlte Dienstleistungstrï¿½ger ist besetzt durch die Buchung %d.');
 insert into msg values (1, 327, 25, 2,
 'In dieser Buchung wurden %d Person(en) darauf gebucht.');
 insert into msg values (1, 327, 25, 3,

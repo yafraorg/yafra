@@ -75,7 +75,7 @@ insert into msg values (6, 19, 1, 1,
 'Aktion zur Buchung %d wurde schon erfolgreich ausgefuehrt');
 
 insert into msg values (6, 20, 1, 1,
-'Aktion zur Buchung: %d kann beim Status: %s nicht ausgef�hrt werden');
+'Aktion zur Buchung: %d kann beim Status: %s nicht ausgefï¿½hrt werden');
 
 insert into msg values (6, 21, 1, 1,
 'Aktion zur Buchung %d ist unausfuehrbar');
@@ -87,10 +87,10 @@ insert into msg values (6, 23, 1, 1,
 'Die Aktion zur Buchung %d wurde auf den Status -fehlerhaft- gesetzt');
 
 insert into msg values (6, 24, 1, 1,
-'Die Aktion zur Buchung %d wurde auf den Status -unausf�hrbar- gesetzt');
+'Die Aktion zur Buchung %d wurde auf den Status -unausfï¿½hrbar- gesetzt');
 
 insert into msg values (6, 25, 1, 1,
-'Fehler in Best�tigung der Aktion der Buchung %d');
+'Fehler in Bestï¿½tigung der Aktion der Buchung %d');
 
 insert into msg values (6, 26, 1, 1,
 'In der Ausfertigung der Aktion liegt ein Datenbankfehler vor - Abbruch');

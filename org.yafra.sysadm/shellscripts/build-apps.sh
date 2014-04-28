@@ -102,10 +102,12 @@ fi
 
 
 #MONO/.NET / TDB
-cd $BASENODE/org.yafra.tdb.csharp/common
-make all
-cd $BASENODE/org.yafra.tdb.csharp/tdbadmin
-make all
+if [ "$PS_OS" != "ps_osx" ]; then
+	cd $BASENODE/org.yafra.tdb.csharp/common
+	make all
+	cd $BASENODE/org.yafra.tdb.csharp/tdbadmin
+	make all
+fi
 
 
 #copy python app to worknode
