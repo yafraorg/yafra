@@ -5,11 +5,11 @@
         GWT-Maven example POM without google.webtoolkit.home SET (GWT as deps)
     -->
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.totsp.gwt</groupId>
-    <artifactId>maven-gwt-sample-withouthome</artifactId>
+    <groupId>org.yafra.gwt.admin</groupId>
+    <artifactId>gwt-admin</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>maven-gwt-sample-withouthome</name>
+    <name>YAFRA GWT admin interface</name>
     
     <!-- include the GWT-Maven repo as plugin, and as standard -->
     <pluginRepositories>
@@ -171,7 +171,7 @@
                 <platform>windows</platform>
             </properties>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
                 <os>
                     <family>windows</family>
                 </os>
@@ -183,7 +183,7 @@
                 <platform>mac</platform>
             </properties>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
                 <os>
                     <family>mac</family>
                 </os>
