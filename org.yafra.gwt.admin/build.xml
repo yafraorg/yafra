@@ -34,14 +34,14 @@ under the License.
 	<property name="war.name" value="org.yafra.gwt.admin.war"/>
 	<property name="build.dir" location="build"/>
 	<property name="deploy.dir" value="${env.YAFRACLASSES}" />
-	<property name="YAFRACLASSES" value="${env.YAFRACLASSES}"/>
+	<property name="MAVENREPO" value="${env.MAVENREPO}"/>
 	<property name="ECLIPSE_HOME" value="/work/eclipse/eclipse-gwt"/>
 	<property name="debuglevel" value="source,lines,vars"/>
 	<property name="target" value="1.7"/>
 	<property name="source" value="1.7"/>
 
   <!-- Configure path to GWT SDK -->
-  <property name="gwt.sdk" location="/work/gwt-2.6.0" />
+  <property name="gwt.sdk" location="/work/eclipse/eclipse-jee/plugins/com.google.gwt.eclipse.sdkbundle_2.6.0/gwt-2.6.0" />
 
   <path id="project.class.path">
     <pathelement location="war/WEB-INF/classes"/>
@@ -55,17 +55,7 @@ under the License.
 	<mkdir dir="war/WEB-INF/lib" />
 	<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
 	<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet-deps.jar" />
-	 <copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/ashwood-2.0.jar"/>
-	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/commons-logging-1.1.1.jar"/>
-	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/vpp-2.2.1.jar"/>
-	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/org.yafra.server.core.jar"/>
-	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/org.yafra.utils.jar"/>
-	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/cayenne-server-3.0.2.jar"/>
-	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/log4j-1.2.17.jar"/>
-	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/mysql-connector-java-5.1.21-bin.jar"/>
-	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/commons-collections-3.2.1.jar"/>
-	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/org.yafra.server.directclient.jar"/>
-	<copy todir="war/WEB-INF/lib" file="${YAFRACLASSES}/org.yafra.server.coreclient.jar"/>
+	<copy todir="war/WEB-INF/lib" file="${MAVENREPO}/org/yafra/tests/serverdirectclient/1.0/serverdirectclient-1.0-jar-with-dependencies.jar"/>
 	<!-- Add any additional server libs that need to be copied -->
   </target>
 
@@ -118,73 +108,6 @@ under the License.
       <arg value="${gwt.module.name}"/>
     </java>
   </target>
-
-<!--
-Test targets suppressed because -junit argument was not specified when running webAppCreator.
-
-  <target name="javac.tests" depends="javac" description="Compiles test code">
-    <javac srcdir="test" includes="**" encoding="utf-8"
-      source="1.5" target="1.5" nowarn="true"
-      destdir="war/WEB-INF/classes"
-      debug="true" debuglevel="lines,vars,source">
-      <classpath location="path_to_the_junit_jar"/>
-      <classpath refid="project.class.path"/>
-    </javac>
-  </target>
-  
-  <target name="test.dev" depends="javac.tests" description="Run development mode tests">
-    <mkdir dir="reports/htmlunit.dev" />
-    <junit fork="yes" printsummary="yes" haltonfailure="yes">
-      <jvmarg line="-Xmx256m" />
-      <sysproperty key="gwt.args" value="-standardsMode -logLevel WARN" />
-      <sysproperty key="java.awt.headless" value="true" />
-      <classpath>
-        <pathelement location="src" />
-        <pathelement location="test" />
-        <path refid="project.class.path" />
-        <pathelement location="/work/gwt-2.4.0/validation-api-1.0.0.GA.jar" />
-        <pathelement location="/work/gwt-2.4.0/validation-api-1.0.0.GA-sources.jar" />
-        <pathelement location="path_to_the_junit_jar" />
-      </classpath>
-      <batchtest todir="reports/htmlunit.dev" >
-        <fileset dir="test" >
-          <include name="**/*Test.java" />
-        </fileset>
-      </batchtest>
-      <formatter type="plain" />
-      <formatter type="xml" />
-    </junit>
-  </target>
-
-  <target name="test.prod" depends="javac.tests" description="Run production mode tests">
-    <mkdir dir="reports/htmlunit.prod" />
-    <junit fork="yes" printsummary="yes" haltonfailure="yes">
-      <jvmarg line="-Xmx256m" />
-      <sysproperty key="gwt.args" value="-prod -standardsMode -logLevel WARN -standardsMode -out www-test" />
-      <sysproperty key="java.awt.headless" value="true" />
-      <classpath>
-        <pathelement location="src" />
-        <pathelement location="test" />
-        <path refid="project.class.path" />
-        <pathelement location="/work/gwt-2.4.0/validation-api-1.0.0.GA.jar" />
-        <pathelement location="/work/gwt-2.4.0/validation-api-1.0.0.GA-sources.jar" />
-        <pathelement location="path_to_the_junit_jar" />
-      </classpath>
-      <batchtest todir="reports/htmlunit.prod" >
-        <fileset dir="test" >
-          <include name="**/*Test.java" />
-        </fileset>
-      </batchtest>
-      <formatter type="plain" />
-      <formatter type="xml" />
-    </junit>
-  </target>
-
-  <target name="test" description="Run development and production mode tests">
-    <antcall target="test.dev" />
-    <antcall target="test.prod" />
-  </target>
--->
 
   <target name="hosted" depends="devmode" description="Run development mode (NOTE: the 'hosted' target is deprecated)" />
 

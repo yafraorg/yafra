@@ -39,6 +39,7 @@ export YAFRADOC=$WORKNODE/doc
 export YAFRAMAN=$WORKNODE/man
 export YAFRAEXE=$WORKNODE/bin
 export YAFRACLASSES=/work/classes
+export MAVENREPO=~/.m2/repository
 	    
 export PATH=$PATH:$YAFRABIN:$YAFRAEXE
 
