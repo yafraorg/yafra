@@ -112,7 +112,7 @@ fi
 
 #copy python app to worknode
 test -d $WORKNODE/apps/tdbpyadmin || mkdir $WORKNODE/apps/tdbpyadmin
-cp $BASENODE/org.yafra.tdb.admin-ui/main/* $WORKNODE/apps/tdbpyadmin/
+cp $BASENODE/org.yafra.tdb.admin-ui/* $WORKNODE/apps/tdbpyadmin/
 #copy perl db admin to worknode
 test -d $WORKNODE/apps/tdbdbadmin || mkdir $WORKNODE/apps/tdbdbadmin
 cp $BASENODE/org.yafra.tdb.setup/db/tdb*pl $WORKNODE/apps/tdbdbadmin
@@ -141,13 +141,7 @@ cd $JAVANODE/org.yafra.rcpbuild
 echo "TODO: use eclipse-rcp and export the product through IDE!"
 
 #test as jar exe
-cd $JAVANODE/org.yafra.tests.utils
-ant deploy
-cd $JAVANODE/org.yafra.tests.serverdirectclient
-ant deploy
 #cd $JAVANODE/org.yafra.tests.serverejb3
-#ant deploy
-#cd $JAVANODE/org.yafra.tests.wsclient
 #ant deploy
 
 #cp $YAFRACLASSES/org.yafra* $WORKNODE/classes/
