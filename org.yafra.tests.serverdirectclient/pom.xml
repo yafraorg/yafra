@@ -117,7 +117,7 @@
 					    <executions>
 					        <execution>
 					            <configuration>
-					                <map>${env.JAVANODE}/org.yafra.server.core/src/main/resources/cayenne-org_yafra.xml</map>
+					                <map>${env.JAVANODE}/org.yafra.server.core/src/main/resources/org.yafra.yafraMap.map.xml</map>
 					                <url>jdbc:derby://localhost:1527/yafra;user=yafra;create=true</url>
 					                <adapter>org.apache.cayenne.dba.derby.DerbyAdapter</adapter>
 					                <driver>org.apache.derby.jdbc.ClientDriver</driver>
@@ -154,7 +154,7 @@
 					    <executions>
 					        <execution>
 					            <configuration>
-					                <map>${env.JAVANODE}/org.yafra.server.core/src/main/resources/cayenne-org_yafra.xml</map>
+					                <map>${env.JAVANODE}/org.yafra.server.core/src/main/resources/org.yafra.yafraMap.map.xml</map>
 					                <url>jdbc:mysql://localhost/yafra</url>
 					                <adapter>org.apache.cayenne.dba.mysql.MySQLAdapter</adapter>
 					                <driver>com.mysql.jdbc.Driver</driver>
@@ -191,7 +191,7 @@
 					    <executions>
 					        <execution>
 					            <configuration>
-					                <map>${env.JAVANODE}/org.yafra.server.core/src/main/resources/cayenne-org_yafra.xml</map>
+					                <map>${env.JAVANODE}/org.yafra.server.core/src/main/resources/org.yafra.yafraMap.map.xml</map>
 					                <url>jdbc:derby://localhost:1527/yafra;user=yafra;create=true</url>
 					                <adapter>org.apache.cayenne.dba.oracle.OracleAdapter</adapter>
 					                <driver>org.apache.derby.jdbc.ClientDriver</driver>
@@ -228,7 +228,7 @@
 					    <executions>
 					        <execution>
 					            <configuration>
-					                <map>${env.JAVANODE}/org.yafra.server.core/src/main/resources/cayenne-org_yafra.xml</map>
+					                <map>${env.JAVANODE}/org.yafra.server.core/src/main/resources/org.yafra.yafraMap.map.xml</map>
 					                <url>jdbc:sqlserver://localhost:1433</url>
 					                <adapter>org.apache.cayenne.dba.sqlserver.SQLServerAdapter</adapter>
 					                <driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
