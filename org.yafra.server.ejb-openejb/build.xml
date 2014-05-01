@@ -278,19 +278,4 @@ under the License.
 		</jar>
 	</target>
 
-	<target name="install" depends="ejbear">
-		<deploy url="${manager.url}"
-			username="${manager.username}"
-			password="${manager.password}"
-			path="${app.path}"
-			war="${package.file}"/>
-	</target>
-
-	<target name="remove">
-		<undeploy url="${manager.url}"
-			username="${manager.username}"
-			password="${manager.password}"
-			path="${app.path}"/>
-	</target>
-
 </project>

@@ -23,13 +23,15 @@
 package org.yafra.server.ejb;
 
 import static javax.ejb.LockType.WRITE;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Lock;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
-import org.apache.cayenne.access.DataContext;
+import org.apache.cayenne.BaseContext;
+import org.apache.cayenne.ObjectContext;
 import org.yafra.server.ejbRemote.YafraConfigRemote;
 import org.yafra.utils.Logging;
 
@@ -41,7 +43,7 @@ import org.yafra.utils.Logging;
 @Lock(WRITE)
 @Startup
 public class YafraConfig implements YafraConfigRemote {
-	private DataContext yafracontext = null;
+	private ObjectContext yafracontext = null;
 	private Logging ejblog = null;
 	private static final String dev = "stdout";
 
@@ -51,7 +53,7 @@ public class YafraConfig implements YafraConfigRemote {
 	public void applicationStartup() {
 		ejblog = new Logging();
 		ejblog.setDebugFlag(true);
-		yafracontext = DataContext.createDataContext();
+		yafracontext = BaseContext.getThreadObjectContext();
 		ejblog.YafraDebug(
 				"\norg.yafra.ejb - EJB3 yafrasession init done - starting ...",
 				dev);
@@ -65,7 +67,7 @@ public class YafraConfig implements YafraConfigRemote {
 	}
 
 	@Override
-	public DataContext getContext() {
+	public ObjectContext getContext() {
 		return yafracontext;
 	}
 
