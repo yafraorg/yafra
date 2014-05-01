@@ -1,6 +1,8 @@
 yafra
 =====
 
+README First!
+
 yafra source code repository
 
 read more about yafra on:

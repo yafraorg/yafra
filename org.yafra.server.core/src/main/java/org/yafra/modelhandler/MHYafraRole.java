@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.apache.cayenne.CayenneRuntimeException;
 import org.apache.cayenne.DeleteDenyException;
+import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.access.DataContext;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.query.SelectQuery;
@@ -45,7 +46,7 @@ import org.yafra.utils.Logging;
  */
 public class MHYafraRole implements IYafraMHYafraRole
 	{
-	private DataContext dbcontext = null;
+	private ObjectContext dbcontext = null;
 	private Logging log = null;
 	
 	/**
@@ -57,7 +58,7 @@ public class MHYafraRole implements IYafraMHYafraRole
 	 *           a org.yafra.utils logging context which is already open/active
 	 * @since 1.0
 	 */
-	public MHYafraRole(DataContext ctx, Logging l)
+	public MHYafraRole(ObjectContext ctx, Logging l)
 		{
 		dbcontext = ctx;
 		log = l;
@@ -72,7 +73,7 @@ public class MHYafraRole implements IYafraMHYafraRole
 		YafraRole newybr = null;
 		try
 			{
-			newybr = (YafraRole) dbcontext.newObject(YafraRole.class);
+			newybr = (YafraRole) ((DataContext) dbcontext).newObject(YafraRole.class);
 			MYafraRoleTransform yrt = new MYafraRoleTransform();
 			yrt.to(myr, newybr);
 			dbcontext.commitChanges();
@@ -133,7 +134,7 @@ public class MHYafraRole implements IYafraMHYafraRole
 		log.logDebug(" - delete yafrarole from db with name: " + yr.getName());
 		try
 			{
-			dbcontext.deleteObject(yr);
+			dbcontext.deleteObjects(yr);
 			dbcontext.commitChanges();
 			}
 		catch (DeleteDenyException e)

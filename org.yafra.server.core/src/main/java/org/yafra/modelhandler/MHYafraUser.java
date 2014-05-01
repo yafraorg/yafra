@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.apache.cayenne.CayenneRuntimeException;
 import org.apache.cayenne.DeleteDenyException;
+import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.access.DataContext;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.query.SelectQuery;
@@ -49,7 +50,7 @@ import org.yafra.utils.Logging;
  */
 public class MHYafraUser implements IYafraMHYafraUser
 {
-	private DataContext dbcontext = null;
+	private ObjectContext dbcontext = null;
 	private Logging log = null;
 	
 	/**
@@ -61,7 +62,7 @@ public class MHYafraUser implements IYafraMHYafraUser
 	 *           a org.yafra.utils logging context which is already open/active
 	 * @since 1.0
 	 */
-	public MHYafraUser(DataContext ctx, Logging l)
+	public MHYafraUser(ObjectContext ctx, Logging l)
 		{
 		dbcontext = ctx;
 		log = l;
@@ -76,7 +77,7 @@ public class MHYafraUser implements IYafraMHYafraUser
 		YafraUser newyu = null;
 		try
 			{
-			newyu = (YafraUser) dbcontext.newObject(YafraUser.class);
+			newyu = (YafraUser) ((DataContext) dbcontext).newObject(YafraUser.class);
 			MYafraUserTransform yut = new MYafraUserTransform();
 			yut.to(myu, newyu);
 			dbcontext.commitChanges();
@@ -137,7 +138,7 @@ public class MHYafraUser implements IYafraMHYafraUser
 		log.logDebug(" - delete yafrauser with userid from db: " + u.getUserid());
 		try
 			{
-			dbcontext.deleteObject(u);
+			dbcontext.deleteObjects(u);
 			dbcontext.commitChanges();
 			}
 		catch (DeleteDenyException e)

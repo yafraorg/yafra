@@ -428,7 +428,7 @@ public class TestCoreServer
 			List<Person> plist = context.performQuery(select2);
 			Person p = (Person) plist.get(0);
 			sess.logMessage(" - delete person with name " + p.getName());
-			context.deleteObject(p);
+			context.deleteObjects(p);
 			context.commitChanges();
 			}
 		catch (DeleteDenyException e)
@@ -454,7 +454,7 @@ public class TestCoreServer
 			List<YafraUser> plist = context.performQuery(select2);
 			YafraUser p = (YafraUser) plist.get(0);
 			sess.logMessage(" - delete YafraUser with id " + p.getUserid());
-			context.deleteObject(p);
+			context.deleteObjects(p);
 			context.commitChanges();
 			}
 		catch (IndexOutOfBoundsException e)

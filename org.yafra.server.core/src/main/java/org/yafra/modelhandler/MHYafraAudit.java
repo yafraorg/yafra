@@ -24,9 +24,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.cayenne.Cayenne;
 import org.apache.cayenne.CayenneRuntimeException;
-import org.apache.cayenne.DataObjectUtils;
 import org.apache.cayenne.DeleteDenyException;
+import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.access.DataContext;
 import org.apache.cayenne.query.SelectQuery;
 import org.apache.cayenne.query.SortOrder;
@@ -46,7 +47,7 @@ import org.yafra.utils.Logging;
  * @since 1.0
  */
 public class MHYafraAudit implements IYafraMHYafraAudit {
-	private DataContext dbcontext = null;
+	private ObjectContext dbcontext = null;
 	private Logging log = null;
 
 	/**
@@ -58,7 +59,7 @@ public class MHYafraAudit implements IYafraMHYafraAudit {
 	 *            a org.yafra.utils logging context which is already open/active
 	 * @since 1.0
 	 */
-	public MHYafraAudit(DataContext ctx, Logging l) {
+	public MHYafraAudit(ObjectContext ctx, Logging l) {
 		dbcontext = ctx;
 		log = l;
 	}
@@ -70,7 +71,7 @@ public class MHYafraAudit implements IYafraMHYafraAudit {
 	public YafraAudit insertYafraAudit(MYafraAudit mya) {
 		YafraAudit newya = null;
 		try {
-			newya = (YafraAudit) dbcontext.newObject(YafraAudit.class);
+			newya = (YafraAudit) ((DataContext) dbcontext).newObject(YafraAudit.class);
 			MYafraAuditTransform myat = new MYafraAuditTransform();
 			myat.to(mya, newya);
 			dbcontext.commitChanges();
@@ -87,7 +88,7 @@ public class MHYafraAudit implements IYafraMHYafraAudit {
 	@Override
 	public void insertMYafraAudit(MYafraAudit mya) {
 		YafraAudit newya = insertYafraAudit(mya);
-		mya.setDbPK(DataObjectUtils.intPKForObject(newya));
+		mya.setDbPK(Cayenne.intPKForObject(newya));
 	}
 
 	/**
@@ -123,7 +124,7 @@ public class MHYafraAudit implements IYafraMHYafraAudit {
 	public void deleteYafraAudit(YafraAudit ya) {
 		log.logDebug(" - delete yafra audit with name from db: " + ya.getAudittext());
 		try {
-			dbcontext.deleteObject(ya);
+			dbcontext.deleteObjects(ya);
 			dbcontext.commitChanges();
 		} catch (DeleteDenyException e) {
 			log.logError("delete denied due to rule", e);
@@ -146,7 +147,7 @@ public class MHYafraAudit implements IYafraMHYafraAudit {
 	 */
 	@Override
 	public YafraAudit selectYafraAudit(Integer id) {
-		YafraAudit ya = DataObjectUtils.objectForPK(dbcontext, YafraAudit.class, id);
+		YafraAudit ya = Cayenne.objectForPK(dbcontext, YafraAudit.class, id);
 		log.logDebug(" - query audit log with pk id: " + Integer.toString(id));
 		return ya;
 	}
@@ -160,7 +161,7 @@ public class MHYafraAudit implements IYafraMHYafraAudit {
 		YafraAudit ya = this.selectYafraAudit(id);
 		MYafraAuditTransform myat = new MYafraAuditTransform();
 		mya = myat.from(ya);
-		mya.setDbPK(DataObjectUtils.intPKForObject(ya));
+		mya.setDbPK(Cayenne.intPKForObject(ya));
 		return mya;
 	}
 
@@ -190,7 +191,7 @@ public class MHYafraAudit implements IYafraMHYafraAudit {
 			MYafraAuditTransform myat = new MYafraAuditTransform();
 			MYafraAudit mya = null;
 			mya = myat.from(ya);
-			mya.setDbPK(DataObjectUtils.intPKForObject(ya));
+			mya.setDbPK(Cayenne.intPKForObject(ya));
 			mya_list.add(mya);
 		}
 		return mya_list;
@@ -219,7 +220,7 @@ public class MHYafraAudit implements IYafraMHYafraAudit {
 			MYafraAuditTransform myat = new MYafraAuditTransform();
 			MYafraAudit mya = null;
 			mya = myat.from(ya);
-			mya.setDbPK(DataObjectUtils.intPKForObject(ya));
+			mya.setDbPK(Cayenne.intPKForObject(ya));
 			mya_list.add(mya);
 		}
 		return mya_list;

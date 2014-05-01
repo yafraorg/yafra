@@ -25,6 +25,7 @@ import java.util.List;
 import org.apache.cayenne.CayenneRuntimeException;
 import org.apache.cayenne.DeleteDenyException;
 import org.apache.cayenne.ObjectContext;
+import org.apache.cayenne.access.DataContext;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.query.SelectQuery;
 import org.apache.cayenne.query.SortOrder;
@@ -69,7 +70,7 @@ public class MHPerson implements IYafraMHPerson {
 	public Person insertPerson(MPerson p) {
 		Person newp = null;
 		try {
-			newp = (Person) dbcontext.newObject(Person.class);
+			newp = (Person) ((DataContext) dbcontext).newObject(Person.class);
 			MPersonTransform pt = new MPersonTransform();
 			pt.to(p, newp);
 			dbcontext.commitChanges();
@@ -121,7 +122,7 @@ public class MHPerson implements IYafraMHPerson {
 	public void deletePerson(Person p) {
 		log.logDebug(" - delete person with name from db: " + p.getName());
 		try {
-			dbcontext.deleteObject(p);
+			dbcontext.deleteObjects(p);
 			dbcontext.commitChanges();
 		} catch (DeleteDenyException e) {
 			log.logError("delete denied due to rule", e);

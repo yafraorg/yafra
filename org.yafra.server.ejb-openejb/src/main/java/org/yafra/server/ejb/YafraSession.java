@@ -35,9 +35,8 @@ import javax.ejb.Remote;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 
-import org.apache.cayenne.access.DataContext;
+import org.apache.cayenne.ObjectContext;
 import org.yafra.model.MYafraUser;
-import org.yafra.server.ejb.model.MHIYafraUser;
 import org.yafra.server.ejbRemote.MHIYafraUserRemote;
 import org.yafra.server.ejbRemote.YafraConfigRemote;
 import org.yafra.server.ejbRemote.YafraSessionRemote;
@@ -54,7 +53,7 @@ public class YafraSession implements YafraSessionRemote
 	@EJB private YafraConfigRemote yafraglobals;	
 	@EJB private MHIYafraUserRemote mhyu;	
 
-	private DataContext yafracontext = null;
+	private ObjectContext yafracontext = null;
 	private Logging ejblog = null;
 	private Long sessionid = -1L;
 	

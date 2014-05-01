@@ -9,6 +9,7 @@
    <modules>
      <module>org.yafra.tests.serverdirectclient</module>
      <module>org.yafra.tests.utils</module>
+     <module>org.yafra.server.ejb-openejb</module>
      <module>org.yafra.server.jee</module>
      <module>org.yafra.server.core</module>
      <module>org.yafra.utils</module>

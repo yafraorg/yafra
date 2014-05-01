@@ -124,7 +124,7 @@ public class MHPersonLog implements IYafraMHPersonLog
 		{
 		log.logDebug(" - delete person with name from db: " + p.getEventDescription());
 		try {
-			dbcontext.deleteObject(p);
+			dbcontext.deleteObjects(p);
 			dbcontext.commitChanges();
 		} catch (DeleteDenyException e) {
 			log.logError("delete denied due to rule", e);

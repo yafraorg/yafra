@@ -28,7 +28,7 @@
  */
 package org.yafra.server.ejbRemote;
 
-import org.apache.cayenne.access.DataContext;
+import org.apache.cayenne.ObjectContext;
 import org.yafra.utils.Logging;
 
 /**
@@ -36,7 +36,7 @@ import org.yafra.utils.Logging;
  *
  */
 public interface YafraConfigRemote {
-	public DataContext getContext();
+	public ObjectContext getContext();
 	public Logging getLoggin();
 	public void logMessage(String message);
 }

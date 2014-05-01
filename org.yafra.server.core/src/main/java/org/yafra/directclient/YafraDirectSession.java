@@ -21,7 +21,6 @@ package org.yafra.directclient;
 import java.util.Random;
 
 import org.apache.cayenne.ObjectContext;
-import org.apache.cayenne.access.DataContext;
 import org.yafra.interfaces.IYafraSession;
 import org.yafra.utils.Logging;
 
