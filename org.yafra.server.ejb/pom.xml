@@ -19,7 +19,7 @@
 	<artifactId>ejb</artifactId>
 	<name>YAFRA java ejb server template</name>
 	<version>1.0</version>
-	<packaging>jar</packaging>
+	<packaging>ejb</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -89,42 +89,38 @@
 				</configuration>
 			</plugin>
 
-			<!-- Maven EJB Plugin - make it EJB aware -->
+			<!-- Maven assembly Plugin - make EJB server jar -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4</version>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<version>2.3</version>
 				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-						</manifest>
-					</archive>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id> <!-- this is used for inheritance merges -->
-						<phase>package</phase> <!-- bind to the packaging phase -->
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<!-- Maven TOMEE Plugin - deploy to OpenEJB -->
-			<plugin>
-				<groupId>org.apache.openejb.maven</groupId>
-				<artifactId>tomee-maven-plugin</artifactId>
-				<version>1.6.0.1</version>
-				<configuration>
-					<useOpenEJB>true</useOpenEJB>
+					<generateClient>false</generateClient>
+					<ejbVersion>3.1</ejbVersion>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
 				</configuration>
 			</plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    <configuration>
+                        <outputDirectory>target/classes</outputDirectory>
+                        <includeScope>runtime</includeScope>
+                        <excludeTransitive>false</excludeTransitive>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
 			<!-- Maven JAR Plugin - create client stubs -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
