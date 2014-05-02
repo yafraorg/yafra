@@ -38,6 +38,18 @@
 		</dependency>
 		<dependency>
 			<groupId>org.yafra.server</groupId>
+			<artifactId>core</artifactId>
+			<version>1.0</version>
+			<classifier>client</classifier>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.cayenne</groupId>
+					<artifactId>cayenne-server</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.yafra.server</groupId>
 			<artifactId>ejb</artifactId>
 			<version>1.0</version>
 			<classifier>client</classifier>

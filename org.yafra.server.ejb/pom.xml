@@ -104,23 +104,6 @@
                     </archive>
 				</configuration>
 			</plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                    <configuration>
-                        <outputDirectory>target/classes</outputDirectory>
-                        <includeScope>runtime</includeScope>
-                        <excludeTransitive>false</excludeTransitive>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
 			<!-- Maven JAR Plugin - create client stubs -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

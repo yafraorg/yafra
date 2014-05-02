@@ -26,55 +26,10 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.30</version>
-		</dependency>           
-		<!--
-		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc14</artifactId>
-			<version>10.2.0.4.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derbyclient</artifactId>
-			<version>10.10.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>jtds</groupId>
-			<artifactId>jtds</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
-			<version>2.12.0</version>
-		</dependency>
-		-->
-		<dependency>
-			<groupId>org.apache.openejb</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>6.0-2</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.yafra</groupId>
-			<artifactId>utils</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.yafra.server</groupId>
-			<artifactId>core</artifactId>
+			<artifactId>ejb</artifactId>
 			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>			
-			<scope>test</scope>
-		</dependency>
+		</dependency>           
 	</dependencies>
 
 	<build>
@@ -91,35 +46,7 @@
 			<plugin>
 				<artifactId>maven-ear-plugin</artifactId>
 				<version>2.9</version>
-				<configuration>
-					<modules>
-						<ejbModule>
-							<groupId>org.yafra.server</groupId>
-							<artifactId>ejb</artifactId>
- 							<!-- property configurations goes here -->
-						</ejbModule>
-					</modules>
-				</configuration>
 			</plugin>
-			<!-- Maven assembly Plugin - make EJB server jar
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                    <configuration>
-                        <outputDirectory>target/classes</outputDirectory>
-                        <includeScope>runtime</includeScope>
-                        <excludeTransitive>false</excludeTransitive>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
--->
 			<!-- Maven TOMEE Plugin - deploy to OpenEJB and disable standard deployment -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -138,29 +65,8 @@
 				</configuration>
 			</plugin>
 
-			<!-- Maven JAR Plugin - create client stubs -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-						<configuration>
-							<classifier>client</classifier>
-							<includes>
-								<include>org/yafra/server/ejbRemote/**</include>
-							</includes>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 
-		<finalName>org.yafra.server.ejb</finalName>
 	</build>
 
 </project>
