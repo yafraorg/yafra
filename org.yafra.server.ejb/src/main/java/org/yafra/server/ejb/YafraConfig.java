@@ -32,6 +32,7 @@ import javax.ejb.Startup;
 
 import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.ObjectContext;
+import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.yafra.server.ejbRemote.YafraConfigRemote;
 import org.yafra.utils.Logging;
 
@@ -53,7 +54,11 @@ public class YafraConfig implements YafraConfigRemote {
 	public void applicationStartup() {
 		ejblog = new Logging();
 		ejblog.setDebugFlag(true);
-		yafracontext = BaseContext.getThreadObjectContext();
+		// if you want to run the ejb within OpenEJB standalone, you need to start a cayenne server runtime
+		ServerRuntime cayenneRuntime = new ServerRuntime("cayenne-org_yafra.xml");
+		yafracontext = cayenneRuntime.getContext();
+		// if you publish your ejb's within TomEE / Geronimo, a cayenne context is give through a WAR project (like JEE)
+		//yafracontext = BaseContext.getThreadObjectContext();
 		ejblog.YafraDebug(
 				"\norg.yafra.ejb - EJB3 yafrasession init done - starting ...",
 				dev);

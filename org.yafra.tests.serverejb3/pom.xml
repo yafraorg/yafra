@@ -54,6 +54,7 @@
 			<version>1.0</version>
 			<classifier>client</classifier>
 			<exclusions>
+				<!-- exclude other JDBC drivers as need like oracle, mssql, derby etc -->
 				<exclusion>
 					<groupId>mysql</groupId>
 					<artifactId>mysql-connector-java</artifactId>
@@ -111,7 +112,6 @@
 			</plugin>
 		</plugins>
 
-		<finalName>org.yafra.tests.serverejb3</finalName>
 	</build>
 
 </project>

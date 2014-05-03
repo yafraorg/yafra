@@ -43,7 +43,7 @@ fi
 # settings
 #
 TIMESTAMP="$(date +%y%m%d)"
-TOMEE=/work/apache-tomee-webprofile-1.5.2
+TOMEE=$JAVANODE/org.yafra.server.ejb-ear/target/apache-tomee
 BINDIR=$YAFRAEXE
 APPDIR=$WORKNODE/apps
 echo "============================================================"
@@ -88,6 +88,7 @@ if [ "$DBSERVER" = "localhost" ]; then
 	sudo cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps
 	sudo cp $WORKNODE/classes/org.yafra.gwt.admin.war $TOMEE/webapps
 	sudo $SYSADM/shellscripts/server-tomee.sh start $TOMEE
+# TODO: maven - 1) call mvn tomee / tomcat 2) dont start tomee but copy ear 3rd party libs to tomee/lib and the ejb.jar to apps 3) start openejb standalone with tomee/bin/tomee.sh start
 fi
 
 
