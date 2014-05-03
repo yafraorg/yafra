@@ -46,6 +46,13 @@
 			<plugin>
 				<artifactId>maven-ear-plugin</artifactId>
 				<version>2.9</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+				</configuration> 
 			</plugin>
 			<!-- Maven TOMEE Plugin - deploy to OpenEJB and disable standard deployment -->
 			<plugin>
@@ -61,7 +68,15 @@
 				<artifactId>tomee-maven-plugin</artifactId>
 				<version>1.6.0.1</version>
 				<configuration>
-					<useOpenEJB>true</useOpenEJB>
+					<tomeeVersion>1.6.0.1</tomeeVersion>
+					<tomeeClassifier>webprofile</tomeeClassifier>
+					<removeDefaultWebapps>false</removeDefaultWebapps>
+					<synchronization>
+						<extensions>
+							<extension>.class</extension> <!-- if you want to update each time you build with mvn compile -->
+						</extensions>
+					</synchronization>
+					<reloadOnUpdate>true</reloadOnUpdate>
 				</configuration>
 			</plugin>
 

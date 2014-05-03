@@ -112,6 +112,10 @@ cd -
 # create database TDB and YafraDB as part of setupdb command
 # this works fine on unix with perl
 if [ "$3" = "setupdb" ]; then
+	cd $JAVANODE/org.yafra.utils
+	mvn install
+	cd $JAVANODE/org.yafra.server.core
+	mvn install
 	cd $SYSADM/databases/yafradb
 	./generate.sh $2 $SAPWD
 	if [ "$2" = "mysql" ]; then

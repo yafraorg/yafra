@@ -66,8 +66,9 @@ public class TestEJB
 		String servername = args[0];
 		// for the provider URL see as examples http://openejb.apache.org/clients.html
 		// openejb in tomee http://127.0.0.1:8080/tomee/ejb
-		// openejb standalone ejbd ejbd://localhost:4201
 		String ejbname = "http://" + servername + ":8080/tomee/ejb";
+		// openejb standalone ejbd ejbd://localhost:4201
+		//String ejbname = "ejbd://" + servername + ":4201";
 
 		// get login name from system
 		String username = null;
