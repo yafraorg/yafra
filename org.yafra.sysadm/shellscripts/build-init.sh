@@ -63,3 +63,10 @@ test -d $WORKNODE/apps || mkdir $WORKNODE/apps
 test -d $WORKNODE/yafra-dist || mkdir $WORKNODE/yafra-dist
 test -d $WORKNODE/eclipse-build || mkdir $WORKNODE/eclipse-build
 test -d $YAFRACLASSES || mkdir $YAFRACLASSES
+
+#
+# clean maven
+#
+cd $BASENODE
+mvn clean
+

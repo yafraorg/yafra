@@ -127,7 +127,7 @@ cp $BASENODE/org.yafra.tdb.setup/db/tdbdb.pm $WORKNODE/apps/tdbdbadmin
 
 # maven build - build all and run some extras afterwards
 cd $JAVANODE
-mvn clean install
+mvn install
 
 #gwt
 cd $JAVANODE/org.yafra.gwt.admin
