@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: yafra client
 Bundle-SymbolicName: org.yafra.rcp; singleton:=true
-Bundle-Version: 1.0.4.RC1
+Bundle-Version: 1.0
 Bundle-Activator: org.yafra.rcp.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
