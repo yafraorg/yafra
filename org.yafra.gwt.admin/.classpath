@@ -3,8 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/YafraCayenne"/>
-	<classpathentry exported="true" kind="var" path="YAFRACLASSES/org.yafra.server.directclient.jar"/>
-	<classpathentry exported="true" kind="var" path="YAFRACLASSES/org.yafra.server.coreclient.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/yafra/utils/1.0/utils-1.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/yafra/server/core/1.0/core-1.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/cayenne/cayenne-server/3.1RC1/cayenne-server-3.1RC1.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

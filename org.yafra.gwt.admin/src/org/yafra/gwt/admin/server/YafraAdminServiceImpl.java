@@ -4,8 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.cayenne.BaseContext;
+import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.access.DataContext;
-import org.apache.cayenne.conf.ServletUtil;
 import org.yafra.directclient.YafraDirectSession;
 import org.yafra.gwt.admin.client.YafraAdminService;
 import org.yafra.gwt.admin.shared.FieldVerifier;
@@ -43,7 +44,7 @@ public class YafraAdminServiceImpl extends RemoteServiceServlet implements Yafra
 		pwd = escapeHtml(pwd);
 		userAgent = escapeHtml(userAgent);
 
-		DataContext dbcontext = ServletUtil.getSessionContext(httpSession);
+		ObjectContext dbcontext = BaseContext.getThreadObjectContext();
 		YafraDirectSession sess = null;
 		Logging yafralog = null;
 		String dev = "stdout";
@@ -69,7 +70,7 @@ public class YafraAdminServiceImpl extends RemoteServiceServlet implements Yafra
 	public List<MYafraUser> getUserList(int location) throws IllegalArgumentException {
 		HttpSession httpSession;
 		httpSession = getThreadLocalRequest().getSession();
-		DataContext dbcontext = ServletUtil.getSessionContext(httpSession);
+		ObjectContext dbcontext = BaseContext.getThreadObjectContext();
 		YafraDirectSession sess = null;
 		Logging yafralog = null;
 		String dev = "stdout";

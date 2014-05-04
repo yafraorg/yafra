@@ -95,8 +95,10 @@ make all
 
 if [ "$PS_COMPTYPE" = "ps_unix" ]; then
 	if [ "$PS_OS" != "ps_cygwin" ]; then
-		cd $WORKNODE/libs
-		symlinks -c .
+		if [ "$PS_OS" != "ps_osx" ]; then
+			cd $WORKNODE/libs
+			symlinks -c .
+		fi
 	fi
 fi
 
@@ -126,8 +128,6 @@ cp $BASENODE/org.yafra.tdb.setup/db/tdbdb.pm $WORKNODE/apps/tdbdbadmin
 # maven build - build all and run some extras afterwards
 cd $JAVANODE
 mvn clean install
-cd $JAVANODE/org.yafra.server.ejb-openejb
-mvn ejb:ejb install
 
 #gwt
 cd $JAVANODE/org.yafra.gwt.admin
@@ -135,14 +135,9 @@ ant war
 
 #rcp
 cd $JAVANODE/org.yafra.rcpbuild
-./build-rcp.sh
+#./build-rcp.sh
 echo "TODO: use eclipse-rcp and export the product through IDE!"
 
-#test as jar exe
-#cd $JAVANODE/org.yafra.tests.serverejb3
-#ant deploy
-
-#cp $YAFRACLASSES/org.yafra* $WORKNODE/classes/
 
 #copy python yafra app to worknode
 test -d $WORKNODE/apps/yafrapadmin || mkdir $WORKNODE/apps/yafrapadmin
