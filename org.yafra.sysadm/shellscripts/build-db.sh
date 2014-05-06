@@ -68,7 +68,7 @@ cd $JAVANODE/org.yafra.tests.serverdirectclient
 if [ "$1" = "dev" ]; then
 	if [ "$2" = "mysql" ]; then
 		echo "using the mysql $DBSERVER database"
-		cp $YAFRACORE/src/main/resources/cayenne-org_yafra-localmysql.xml $YAFRACORE/$CAYCONFIG
+		#cp $YAFRACORE/src/main/resources/cayenne-org_yafra-localmysql.xml $YAFRACORE/$CAYCONFIG
 	fi
 	if [ "$2" = "derby" ]; then
 		echo "using the derby $DBSERVER database"

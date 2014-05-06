@@ -9,6 +9,8 @@ static char rcsid[]="$Header: /yafraorg/cvsroot/foundation/ansic/libs/pssercom/s
 #ifdef ps_unix
 
 /* Includes */
+#include <string.h>
+#include <unistd.h>
 #include <pssercom.h>
 #include <termios.h>
 #include <sys/types.h>
@@ -23,7 +25,11 @@ static char rcsid[]="$Header: /yafraorg/cvsroot/foundation/ansic/libs/pssercom/s
 int mdm_open(MODEM_DATA *mdm)
 {
 	int modem;
+#ifdef ps_osx
+	struct termios attr;
+#elif
 	struct termio attr;
+#endif
 	int fstat;
 
 	modem = open(mdm->port, O_RDWR|O_NONBLOCK);
@@ -40,19 +46,17 @@ int mdm_open(MODEM_DATA *mdm)
 /*	ioctl(modem, TCGETA, &old_attr); */
 	memset(&attr, 0, sizeof(attr));
 
-#if 0
-	/* Drop DTR */
-	attr.c_iflag = IGNBRK;
+// TODO migrate to tcsetattr instead of ioctl
+#ifdef ps_osx
+	/* Set raw mode on tty device 'modem' */
+	attr.c_iflag = IGNBRK|IGNPAR;
 	attr.c_oflag = 0;
-	attr.c_cflag = 0;
+	attr.c_cflag = mdm->baud|CS8|CREAD|CLOCAL|HUPCL;
 	attr.c_lflag = 0;
-	attr.c_line  = 0;
-	attr.c_cc[VMIN] = 10;
-	attr.c_cc[VTIME] = 1 ;
-	ioctl(modem, TCSETA, &attr);
-	sleep(1);
-#endif
-
+	attr.c_cc[VMIN] = 1;
+	attr.c_cc[VTIME] = 2;
+	ioctl(modem, TIOCSETAF, &attr);
+#elif
 	/* Set raw mode on tty device 'modem' */
 	attr.c_iflag = IGNBRK|IGNPAR;
 	attr.c_oflag = 0;
@@ -62,6 +66,7 @@ int mdm_open(MODEM_DATA *mdm)
 	attr.c_cc[VMIN] = 1;
 	attr.c_cc[VTIME] = 2;
 	ioctl(modem, TCSETAF, &attr);
+#endif
 	sleep(1);
 
 	return(modem);

@@ -51,7 +51,11 @@ int UtilExec(char *command, int code)
 
 	/*---let it execute by sh ----*/	
 #ifdef ps_unix
+#ifdef ps_osx
+	signal(SIGCHLD, SIG_IGN);
+#elif
 	signal(SIGCLD, SIG_IGN);
+#endif
 #endif
 	cret = PSSYSexecute(command); /* call to PSSSYLIB */
 

@@ -24,7 +24,7 @@
 #
 export YAFRAVER="1"
 export YAFRAREL="0"
-export YAFRAPATCH="B1"
+export YAFRAPATCH="1"
 
 #
 # setup general paths
@@ -40,7 +40,8 @@ export YAFRAMAN=$WORKNODE/man
 export YAFRAEXE=$WORKNODE/bin
 export YAFRACLASSES=/work/classes
 export MAVENREPO=~/.m2/repository
-	    
+export OPENSHIFT=/work/repos/openshift
+    
 export PATH=$PATH:$YAFRABIN:$YAFRAEXE
 
 

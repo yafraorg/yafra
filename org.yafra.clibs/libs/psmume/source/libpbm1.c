@@ -254,7 +254,9 @@ void pm_perror( reason )
 {
 #ifndef ps_linux
 #ifndef ps_cygwin
+#ifndef ps_osx
 	extern char* sys_errlist[];
+#endif
 #endif
 #endif
 	extern int errno;
