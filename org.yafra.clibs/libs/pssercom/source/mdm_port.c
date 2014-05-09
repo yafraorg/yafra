@@ -27,7 +27,7 @@ int mdm_open(MODEM_DATA *mdm)
 	int modem;
 #ifdef ps_osx
 	struct termios attr;
-#elif
+#else
 	struct termio attr;
 #endif
 	int fstat;
@@ -56,7 +56,7 @@ int mdm_open(MODEM_DATA *mdm)
 	attr.c_cc[VMIN] = 1;
 	attr.c_cc[VTIME] = 2;
 	ioctl(modem, TIOCSETAF, &attr);
-#elif
+#else
 	/* Set raw mode on tty device 'modem' */
 	attr.c_iflag = IGNBRK|IGNPAR;
 	attr.c_oflag = 0;

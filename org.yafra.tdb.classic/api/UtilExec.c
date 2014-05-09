@@ -53,7 +53,7 @@ int UtilExec(char *command, int code)
 #ifdef ps_unix
 #ifdef ps_osx
 	signal(SIGCHLD, SIG_IGN);
-#elif
+#else
 	signal(SIGCLD, SIG_IGN);
 #endif
 #endif
