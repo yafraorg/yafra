@@ -1,7 +1,7 @@
 /* drop any old database / users first */
 DROP DATABASE if exists yafra;
 drop user 'yafraadmin'@'localhost';
-drop user 'yafraadmin'@'127.0.0.1';
+#drop user 'yafraadmin'@'127.0.0.1';
 drop user 'yafraadmin'@'192.168.%.%';
 commit;
 
