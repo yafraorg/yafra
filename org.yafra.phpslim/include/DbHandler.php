@@ -261,13 +261,12 @@ class DbHandler {
      * Fetching all user tasks
      * @param String $user_id id of the user
      */
-    public function getAllUserTasks($user_id) {
-        $stmt = $this->conn->prepare("SELECT t.* FROM tasks t, user_tasks ut WHERE t.id = ut.task_id AND ut.user_id = ?");
-        $stmt->bind_param("i", $user_id);
+    public function getAllPersons() {
+        $stmt = $this->conn->prepare("SELECT p.* FROM Person p ORDER BY p.name");
         $stmt->execute();
-        $tasks = $stmt->get_result();
+        $persons = $stmt->get_result();
         $stmt->close();
-        return $tasks;
+        return $persons;
     }
 
     /**

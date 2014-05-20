@@ -170,13 +170,13 @@ $app->post('/login', function() use ($app) {
  * method GET
  * url /tasks          
  */
-$app->get('/tasks', 'authenticate', function() {
+$app->get('/tasks', function() {
             global $user_id;
             $response = array();
             $db = new DbHandler();
 
             // fetching all user tasks
-            $result = $db->getAllUserTasks($user_id);
+            $result = $db->getAllPersons();
 
             $response["error"] = false;
             $response["tasks"] = array();
@@ -185,9 +185,9 @@ $app->get('/tasks', 'authenticate', function() {
             while ($task = $result->fetch_assoc()) {
                 $tmp = array();
                 $tmp["id"] = $task["id"];
-                $tmp["task"] = $task["task"];
-                $tmp["status"] = $task["status"];
-                $tmp["createdAt"] = $task["created_at"];
+                $tmp["task"] = $task["name"];
+                $tmp["status"] = $task["country"];
+                $tmp["createdAt"] = $task["type"];
                 array_push($response["tasks"], $tmp);
             }
 
