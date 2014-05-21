@@ -23,7 +23,7 @@ Python administration tool
 @author: mwn
 '''
 
-import MySQLdb
+import pymysql
 import sys
 
 print("start")
@@ -31,7 +31,7 @@ if len(sys.argv) > 1:
 	server=sys.argv[1]
 else:
 	server="localhost"
-db=MySQLdb.connect(host=server,user="yafraadmin",passwd="yafra",db="yafra")
+db=pymysql.connect(server,"yafraadmin","yafra","yafra")
 print ("got connecton")
 
 
@@ -45,11 +45,10 @@ for row in results:
     ctry = row[1]
     name = row[2]
     # Now print fetched result
-    print "%s, %s %s" % \
-             (name, adr, ctry)
-
+    print ("%s, %s %s", name, adr, ctry)
+cursor.close()
 db.close()
-print sys.platform
+print ("system: ", sys.platform)
 
 print("stop")
 #raw_input()
