@@ -28,15 +28,14 @@ import sys
 
 print("start")
 if len(sys.argv) > 1:
-	server=sys.argv[1]
+    server = sys.argv[1]
 else:
-	server="localhost"
-db=pymysql.connect(server,"yafraadmin","yafra","yafra")
-print ("got connecton")
-
+    server = "localhost"
+db = pymysql.connect(host=server, user="yafraadmin", passwd="yafra", db="yafra")
+print("got connecton")
 
 cursor = db.cursor()
-sql="SELECT * from Person"
+sql = "SELECT * from Person"
 cursor.execute(sql)
 # Fetch all the rows in a list of lists.
 results = cursor.fetchall()
@@ -45,10 +44,10 @@ for row in results:
     ctry = row[1]
     name = row[2]
     # Now print fetched result
-    print ("%s, %s %s", name, adr, ctry)
+    print ("Name: {}, Address: {}, Country: {}\n".format(name, adr, ctry))
 cursor.close()
 db.close()
-print ("system: ", sys.platform)
+print("system: ", sys.platform)
 
 print("stop")
 #raw_input()

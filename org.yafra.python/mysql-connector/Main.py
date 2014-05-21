@@ -45,7 +45,7 @@ for row in results:
     ctry = row[1]
     name = row[2]
     # Now print fetched result
-    print ("%s, %s %s", name, adr, ctry)
+    print ("Name: {}, Address: {}, Country: {}\n".format(name, adr, ctry))
 cursor.close()
 db.close()
 print ("system: ", sys.platform)
