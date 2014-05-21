@@ -5,7 +5,7 @@
          id="product"
          point="org.eclipse.core.runtime.products">
       <product
-            name="org.yafra.rcp.adminmain"
+            name="Yafra RCP product"
             application="org.eclipse.e4.ui.workbench.swt.E4Application">
          <property
                name="applicationCSS"
@@ -14,6 +14,30 @@
          <property
                name="clearPersistedState"
                value="true">
+         </property>
+         <property
+               name="appName"
+               value="Yafra RCP product">
+         </property>
+         <property
+               name="aboutText"
+               value="Version 1.0.2&#x0A;https://github.com/yafraorg/yafra">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="rcpproduct"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.e4.ui.workbench.swt.E4Application"
+            name="Yafra RCP product">
+         <property
+               name="aboutText"
+               value="Version 1.0.2&#x0A;https://github.com/yafraorg/yafra">
+         </property>
+         <property
+               name="appName"
+               value="Yafra RCP product">
          </property>
       </product>
    </extension>
