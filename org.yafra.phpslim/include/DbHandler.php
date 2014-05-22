@@ -262,10 +262,14 @@ class DbHandler {
      * @param String $user_id id of the user
      */
     public function getAllPersons() {
-        $stmt = $this->conn->prepare("SELECT p.* FROM Person p ORDER BY p.name");
-        $stmt->execute();
-        $persons = $stmt->get_result();
-        $stmt->close();
+
+		$stmt = $this->conn->query('SELECT p.* FROM Person p ORDER BY p.name');
+		$persons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        //$stmt = $this->conn->prepare("SELECT p.* FROM Person p ORDER BY p.name");
+        //$stmt->execute();
+        //$persons = $stmt->get_result();
+        //$stmt->close();
         return $persons;
     }
 

@@ -182,7 +182,8 @@ $app->get('/tasks', function() {
             $response["tasks"] = array();
 
             // looping through result and preparing tasks array
-            while ($task = $result->fetch_assoc()) {
+            //while ($task = $result->fetch_assoc()) {
+            foreach ($result as $task) {
                 $tmp = array();
                 $tmp["id"] = $task["id"];
                 $tmp["task"] = $task["name"];
