@@ -15,5 +15,6 @@
      <module>org.yafra.tests.utils</module>
      <module>org.yafra.tests.serverdirectclient</module>
      <module>org.yafra.tests.serverejb3</module>
+     <module>org.yafra.rcpbuild</module>
    </modules>
 </project>
