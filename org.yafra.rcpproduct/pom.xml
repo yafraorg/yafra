@@ -7,15 +7,15 @@
 	<parent>
 		<relativePath>../org.yafra.rcpbuild/pom.xml</relativePath>
 		<groupId>org.yafra</groupId>
-		<artifactId>rcpbuild</artifactId>
-		<version>1.0</version>
+		<artifactId>parent</artifactId>
+		<version>1.0.0</version>
 	</parent>
+
+	<packaging>eclipse-repository</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
-	<packaging>eclipse-repository</packaging>
 
 	<build>
 		<plugins>
@@ -49,5 +49,5 @@
 		</plugins>
 	</build>
 	<artifactId>rcpproduct</artifactId>
-	<version>1.0</version>
+	<version>1.0.0</version>
 </project>

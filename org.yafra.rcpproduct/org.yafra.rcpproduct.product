@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Yafra RCP product" uid="org.yafra.rcpproduct.product" id="org.yafra.rcp.adminmain.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="Yafra RCP product" uid="org.yafra.rcpproduct.product" id="org.yafra.rcp.adminmain.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <text>
@@ -25,7 +25,6 @@ https://github.com/yafraorg/yafra
          <bmp/>
       </win>
    </launcher>
-
 
    <vm>
    </vm>
@@ -112,10 +111,10 @@ http://www.yafra.org/
 
    <features>
       <feature id="org.yafra.rcp.adminfeature" version="1.0.0"/>
-      <feature id="org.eclipse.rcp" version="4.3.2.v20140221-1700"/>
       <feature id="org.eclipse.emf.ecore"/>
       <feature id="org.eclipse.e4.rcp"/>
       <feature id="org.eclipse.emf.common"/>
+      <feature id="org.eclipse.rcp" version="4.3.2.v20140221-1700"/>
    </features>
 
 

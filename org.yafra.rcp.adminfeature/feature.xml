@@ -5,17 +5,39 @@
       version="1.0.0"
       provider-name="yafra.org">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description url="http://www.yafra.org/">
+      Yafra client based on Eclipse Rich Client Platform.
    </description>
 
-   <copyright url="http://www.example.com/copyright">
-      [Enter Copyright Description here.]
+   <copyright url="http://www.yafra.org/">
+      Copyright by Yafra.org
    </copyright>
 
-   <license url="http://www.example.com/license">
-      [Enter License Description here.]
+   <license url="http://www.apache.org/licenses/LICENSE-2.0">
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+
+http://www.yafra.org/
    </license>
+
+   <url>
+      <discovery label="Yafra Home Page" url="http://www.yafra.org/"/>
+      <discovery label="Apache Software" url="http://www.apache.org/"/>
+   </url>
 
    <requires>
       <import plugin="javax.inject" version="1.0.0" match="greaterOrEqual"/>

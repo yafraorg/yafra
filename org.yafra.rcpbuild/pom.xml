@@ -4,8 +4,8 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.yafra</groupId>
-	<artifactId>rcpbuild</artifactId>
-	<version>1.0</version>
+	<artifactId>parent</artifactId>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 	<properties>
 		<tycho.version>0.20.0</tycho.version>
@@ -15,8 +15,10 @@
 
 	<!-- the modules that shall be built together in one reactor -->
 	<modules>
-		<module>../org.yafra.rcp</module>
 		<module>../org.yafra.rcpproduct</module>
+		<module>../org.yafra.rcp.adminfeature</module>
+		<module>../org.yafra.rcp.adminmain</module>
+		<module>../org.yafra.rcp.model</module>
 	</modules>
 
 	<repositories>
