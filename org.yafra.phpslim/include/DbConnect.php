@@ -8,31 +8,32 @@
  */
 class DbConnect {
 
-    private $conn;
-
-    function __construct() {        
-    }
-
-    /**
-     * Establishing database connection
-     * @return database connection handler
-     */
-    function connect() {
-        include_once dirname(__FILE__) . '/Config.php';
-
-        // Connecting to mysql database
-        //$this->conn = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
-        $this->conn = new PDO('mysql:host=localhost;dbname=yafra;charset=utf8', DB_USERNAME, DB_PASSWORD);
-
-        // Check for database connection error
-        //if (mysqli_connect_errno()) {
-        //    echo "Failed to connect to MySQL: " . mysqli_connect_error();
-        //}
-
-        // returing connection resource
-        return $this->conn;
-    }
+	private $conn;
+	private $connstr;
+	
+	function __construct() {        
+		}
+	
+	/**
+	* Establishing database connection
+	* @return database connection handler
+	*/
+	function connect() {
+		include_once dirname(__FILE__) . '/Config.php';
+		
+		// Connecting to mysql database
+		try {
+			$connstr = printf("mysql:host=%s;dbname=%s;charset=utf8", DB_HOST, DB_USERNAME);
+			$this->conn = new PDO($connstr, DB_USERNAME, DB_PASSWORD);
+			}
+		catch (PDOException $exception)
+			{
+			echo "YAFRA error: database connection error: " . $exception->getMessage();
+			}
+		
+		// returing connection resource
+		return $this->conn;
+		}
 
 }
-
 ?>

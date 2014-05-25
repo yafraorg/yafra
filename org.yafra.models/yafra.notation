@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_mP-bkM4KEeOc8I-S38Zi7w" type="PapyrusUMLClassDiagram" name="Yafra" measurementUnit="Pixel">
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_mP-bkM4KEeOc8I-S38Zi7w" type="PapyrusUMLClassDiagram" name="Yafra" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_HD70gOQ-EeOsauK6Fp79aQ" type="2008">
+    <children xmi:type="notation:DecorationNode" xmi:id="_HEaVoOQ-EeOsauK6Fp79aQ" type="5029"/>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_HEenEOQ-EeOsauK6Fp79aQ" type="7017" collapsed="true">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_PCto8OQ-EeOsauK6Fp79aQ" source="PapyrusCSSForceValue">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PCuQAOQ-EeOsauK6Fp79aQ" key="collapsed" value="true"/>
+      </eAnnotations>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_HEenEeQ-EeOsauK6Fp79aQ"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_HEenEuQ-EeOsauK6Fp79aQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_HEenE-Q-EeOsauK6Fp79aQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HEenFOQ-EeOsauK6Fp79aQ"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_HEenFeQ-EeOsauK6Fp79aQ" type="7018">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_HEenFuQ-EeOsauK6Fp79aQ"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_HEenF-Q-EeOsauK6Fp79aQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_HEenGOQ-EeOsauK6Fp79aQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HEenGeQ-EeOsauK6Fp79aQ"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_HEenGuQ-EeOsauK6Fp79aQ" type="7019">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_HEenG-Q-EeOsauK6Fp79aQ"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_HEenHOQ-EeOsauK6Fp79aQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_HEenHeQ-EeOsauK6Fp79aQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HEenHuQ-EeOsauK6Fp79aQ"/>
+    </children>
+    <element xmi:type="uml:Class" href="yafra.uml#_HBfkgOQ-EeOsauK6Fp79aQ"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HD70geQ-EeOsauK6Fp79aQ" x="440" y="80"/>
+  </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_mP-bkc4KEeOc8I-S38Zi7w"/>
   <element xmi:type="uml:Model" href="yafra.uml#_mPpEYM4KEeOc8I-S38Zi7w"/>
 </notation:Diagram>

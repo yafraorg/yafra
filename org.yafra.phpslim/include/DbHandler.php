@@ -10,6 +10,7 @@
 class DbHandler {
 
     private $conn;
+    private $sql:
 
     function __construct() {
         require_once dirname(__FILE__) . '/DbConnect.php';
@@ -237,8 +238,9 @@ class DbHandler {
      * Fetching single task
      * @param String $task_id id of the task
      */
-    public function getTask($task_id, $user_id) {
-        $stmt = $this->conn->prepare("SELECT t.id, t.task, t.status, t.created_at from tasks t, user_tasks ut WHERE t.id = ? AND ut.task_id = t.id AND ut.user_id = ?");
+    public function getTask($personid) {
+    	$sql = "SELECT p.* FROM Person p WHERE p.pkPerson = $personid";
+        $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("ii", $task_id, $user_id);
         if ($stmt->execute()) {
             $res = array();
@@ -258,18 +260,42 @@ class DbHandler {
     }
 
     /**
-     * Fetching all user tasks
-     * @param String $user_id id of the user
+     * Fetching all persons
      */
     public function getAllPersons() {
+		try {
+			$stmt = $this->conn->query('SELECT p.* FROM Person p ORDER BY p.name');
+			$persons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			}
+		catch (PDOException $e) {
+			echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
+			}
 
-		$stmt = $this->conn->query('SELECT p.* FROM Person p ORDER BY p.name');
-		$persons = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+/*    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $sku = $row['sku'];
+        $title = $row['title'];
+        printf("Product: %s (%s) <br />", $title, $sku);
+*/
         //$stmt = $this->conn->prepare("SELECT p.* FROM Person p ORDER BY p.name");
         //$stmt->execute();
         //$persons = $stmt->get_result();
         //$stmt->close();
+        return $persons;
+    }
+
+    /**
+     * Fetching all logs for a specific person
+     * @param String $personid id of the person
+     */
+    public function getAllPersonLogs($personid) {
+		try {
+			$sql = "SELECT pl.* FROM PersonLog pl WHERE pl.fkPersonId = $personid ORDER BY pl.eventDate";
+			$stmt = $this->conn->query($sql);
+			$persons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			}
+		catch (PDOException $e) {
+			echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
+			}
         return $persons;
     }
 

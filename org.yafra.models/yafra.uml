@@ -3,4 +3,5 @@
   <packageImport xmi:type="uml:PackageImport" xmi:id="_mPpEYc4KEeOc8I-S38Zi7w">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_HBfkgOQ-EeOsauK6Fp79aQ" name="Person"/>
 </uml:Model>
