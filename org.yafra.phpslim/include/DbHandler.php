@@ -38,18 +38,19 @@ class DbHandler {
 			$api_key = $this->generateApiKey();
 			// insert query
 			try {
-				$count = $this->conn->exec("INSERT INTO Yafrausers(name, picturelink, pkYafraUser, userid) values($name, $picturelink, $pkkey, $userid)");
+				$count = $this->conn->exec("INSERT INTO Yafrausers(name, picturelink, pkYafraUser, userid) values($name, $picturelink, $pkkey, $email)");
+				// Check for successful insertion
+				if ($count == 1) {
+					// User successfully inserted
+					return USER_CREATED_SUCCESSFULLY;
+				} else {
+					// Failed to create user
+					return USER_CREATE_FAILED;
+					}
 				}
 			catch(PDOException $e)
 				{
 				echo $e->getMessage();
-				}
-			// Check for successful insertion
-			if ($count == 1) {
-				// User successfully inserted
-				return USER_CREATED_SUCCESSFULLY;
-			} else {
-				// Failed to create user
 				return USER_CREATE_FAILED;
 				}
 		} else {
@@ -68,11 +69,19 @@ class DbHandler {
 	*/
 	public function checkLogin($email, $password) {
 		// fetching user by email
+		$sql = ""
+		try {
+			$stmt = $this->conn->query('SELECT yu.* FROM yafrauser yu WHERE userid = $email');
+			$persons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			}
+		catch (PDOException $e) {
+			echo 'yafra error - checkLogin: ' . $e->getMessage();
+			}
+		return $persons;
+		
+		/*** close the database connection ***/
+		$dbh = null;
 		$stmt = $this->conn->prepare("SELECT password_hash FROM users WHERE email = ?");
-		$stmt->bind_param("s", $email);
-		$stmt->execute();
-		$stmt->bind_result($password_hash);
-		$stmt->store_result();
 	if ($stmt->num_rows > 0) {
 	// Found user with the email
 	// Now verify the password
@@ -113,7 +122,7 @@ class DbHandler {
 	* @param String $email User email id
 	*/
 	public function getUserByEmail($email) {
-	$stmt = $this->conn->prepare("SELECT name, email, api_key, status, created_at FROM users WHERE email = ?");
+	$stmt = $this->conn->prepare("SELECT yu.* FROM Yafrauser WHERE email = ?");
 	$stmt->bind_param("s", $email);
 	if ($stmt->execute()) {
 	// $user = $stmt->get_result()->fetch_assoc();
@@ -137,17 +146,20 @@ class DbHandler {
 	* @param String $user_id user id primary key in user table
 	*/
 	public function getApiKeyById($user_id) {
-	$stmt = $this->conn->prepare("SELECT api_key FROM users WHERE id = ?");
-	$stmt->bind_param("i", $user_id);
-	if ($stmt->execute()) {
-	// $api_key = $stmt->get_result()->fetch_assoc();
-	// TODO
-	$stmt->bind_result($api_key);
-	$stmt->close();
-	return $api_key;
-	} else {
-	return NULL;
-	}
+		/*
+		$stmt = $this->conn->prepare("SELECT api_key FROM users WHERE id = ?");
+		$stmt->bind_param("i", $user_id);
+		if ($stmt->execute()) {
+			// $api_key = $stmt->get_result()->fetch_assoc();
+			// TODO
+			$stmt->bind_result($api_key);
+			$stmt->close();
+			return $api_key;
+		} else {
+			return NULL;
+			}
+		*/
+		return "dsfjksakdljfkljsadfkljklsdjf";
 	}
 	
 	/**
@@ -155,19 +167,22 @@ class DbHandler {
 	* @param String $api_key user api key
 	*/
 	public function getUserId($api_key) {
-	$stmt = $this->conn->prepare("SELECT id FROM users WHERE api_key = ?");
-	$stmt->bind_param("s", $api_key);
-	if ($stmt->execute()) {
-	$stmt->bind_result($user_id);
-	$stmt->fetch();
-	// TODO
-	// $user_id = $stmt->get_result()->fetch_assoc();
-	$stmt->close();
-	return $user_id;
-	} else {
-	return NULL;
-	}
-	}
+		/*
+		$stmt = $this->conn->prepare("SELECT id FROM users WHERE api_key = ?");
+		$stmt->bind_param("s", $api_key);
+		if ($stmt->execute()) {
+			$stmt->bind_result($user_id);
+			$stmt->fetch();
+			// TODO
+			// $user_id = $stmt->get_result()->fetch_assoc();
+			$stmt->close();
+			return $user_id;
+		} else {
+			return NULL;
+			}
+		*/
+		return "mwn@yafra.org";
+		}
 	
 	/**
 	* Validating user api key
@@ -176,117 +191,116 @@ class DbHandler {
 	* @return boolean
 	*/
 	public function isValidApiKey($api_key) {
-	$stmt = $this->conn->prepare("SELECT id from users WHERE api_key = ?");
-	$stmt->bind_param("s", $api_key);
-	$stmt->execute();
-	$stmt->store_result();
-	$num_rows = $stmt->num_rows;
-	$stmt->close();
-	return $num_rows > 0;
-	}
+		/*
+		$stmt = $this->conn->prepare("SELECT id from users WHERE api_key = ?");
+		$stmt->bind_param("s", $api_key);
+		$stmt->execute();
+		$stmt->store_result();
+		$num_rows = $stmt->num_rows;
+		$stmt->close();
+		return $num_rows > 0;
+		*/
+		return 1;
+		}
 	
 	/**
 	* Generating random Unique MD5 String for user Api key
 	*/
 	private function generateApiKey() {
-	return md5(uniqid(rand(), true));
-	}
+		return md5(uniqid(rand(), true));
+		}
 	
-	/* ------------- `tasks` table method ------------------ */
+	/* ------------- `Person` table method ------------------ */
 	
 	/**
 	* Creating new task
 	* @param String $user_id user id to whom task belongs to
 	* @param String $task task text
 	*/
-	public function createTask($user_id, $task) {
-	$stmt = $this->conn->prepare("INSERT INTO tasks(task) VALUES(?)");
-	$stmt->bind_param("s", $task);
-	$result = $stmt->execute();
-	$stmt->close();
-	
-	if ($result) {
-	// task row created
-	// now assign the task to user
-	$new_task_id = $this->conn->insert_id;
-	$res = $this->createUserTask($user_id, $new_task_id);
-	if ($res) {
-	// task created successfully
-	return $new_task_id;
-	} else {
-	// task failed to create
-	return NULL;
-	}
-	} else {
-	// task failed to create
-	return NULL;
-	}
-	}
+	public function createPerson($user_id, $task) {
+		$stmt = $this->conn->prepare("INSERT INTO tasks(task) VALUES(?)");
+		$stmt->bind_param("s", $task);
+		$result = $stmt->execute();
+		$stmt->close();
+		
+		if ($result) {
+		// task row created
+		// now assign the task to user
+		$new_task_id = $this->conn->insert_id;
+		$res = $this->createUserTask($user_id, $new_task_id);
+		if ($res) {
+		// task created successfully
+		return $new_task_id;
+		} else {
+		// task failed to create
+		return NULL;
+		}
+		} else {
+		// task failed to create
+		return NULL;
+		}
+		/*
+		foreach ($dbh->query($sql) as $row)
+			{
+			print $row['animal_type'] .' - '. $row['animal_name'] . '<br />';
+			}
+		*/
+		}
 	
 	/**
 	* Fetching single task
 	* @param String $task_id id of the task
 	*/
-	public function getTask($personid) {
-	$sql = "SELECT p.* FROM Person p WHERE p.pkPerson = $personid";
-	$stmt = $this->conn->prepare($sql);
-	$stmt->bind_param("ii", $task_id, $user_id);
-	if ($stmt->execute()) {
-	$res = array();
-	$stmt->bind_result($id, $task, $status, $created_at);
-	// TODO
-	// $task = $stmt->get_result()->fetch_assoc();
-	$stmt->fetch();
-	$res["id"] = $id;
-	$res["task"] = $task;
-	$res["status"] = $status;
-	$res["created_at"] = $created_at;
-	$stmt->close();
-	return $res;
-	} else {
-	return NULL;
-	}
+	public function getPerson($personid) {
+		$sql = "SELECT p.* FROM Person p WHERE p.pkPerson = $personid";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ii", $task_id, $user_id);
+		if ($stmt->execute()) {
+		$res = array();
+		$stmt->bind_result($id, $task, $status, $created_at);
+		// TODO
+		// $task = $stmt->get_result()->fetch_assoc();
+		$stmt->fetch();
+		$res["id"] = $id;
+		$res["task"] = $task;
+		$res["status"] = $status;
+		$res["created_at"] = $created_at;
+		$stmt->close();
+		return $res;
+		} else {
+		return NULL;
+		}
 	}
 	
 	/**
 	* Fetching all persons
 	*/
 	public function getAllPersons() {
-	try {
-	$stmt = $this->conn->query('SELECT p.* FROM Person p ORDER BY p.name');
-	$persons = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	}
-	catch (PDOException $e) {
-	echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
-	}
-	
-	/*    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-	$sku = $row['sku'];
-	$title = $row['title'];
-	printf("Product: %s (%s) <br />", $title, $sku);
-	*/
-	//$stmt = $this->conn->prepare("SELECT p.* FROM Person p ORDER BY p.name");
-	//$stmt->execute();
-	//$persons = $stmt->get_result();
-	//$stmt->close();
-	return $persons;
-	}
+		try {
+			$stmt = $this->conn->query('SELECT p.* FROM Person p ORDER BY p.name');
+			$persons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			}
+		catch (PDOException $e) {
+			echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
+			}
+		return $persons;
+		}
 	
 	/**
 	* Fetching all logs for a specific person
 	* @param String $personid id of the person
 	*/
 	public function getAllPersonLogs($personid) {
-	try {
-	$sql = "SELECT pl.* FROM PersonLog pl WHERE pl.fkPersonId = $personid ORDER BY pl.eventDate";
-	$stmt = $this->conn->query($sql);
-	$persons = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	}
-	catch (PDOException $e) {
-	echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
-	}
-	return $persons;
-	}
+		try {
+			$sql = "SELECT pl.* FROM PersonLog pl WHERE pl.fkPersonId = $personid ORDER BY pl.eventDate";
+			$stmt = $this->conn->query($sql);
+			$persons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			}
+		catch (PDOException $e) {
+			echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
+			}
+		return $persons;
+		}
 	
 	/**
 	* Updating task
@@ -294,47 +308,28 @@ class DbHandler {
 	* @param String $task task text
 	* @param String $status task status
 	*/
-	public function updateTask($user_id, $task_id, $task, $status) {
-	$stmt = $this->conn->prepare("UPDATE tasks t, user_tasks ut set t.task = ?, t.status = ? WHERE t.id = ? AND t.id = ut.task_id AND ut.user_id = ?");
-	$stmt->bind_param("siii", $task, $status, $task_id, $user_id);
-	$stmt->execute();
-	$num_affected_rows = $stmt->affected_rows;
-	$stmt->close();
-	return $num_affected_rows > 0;
-	}
+	public function updatePerson($user_id, $task_id, $task, $status) {
+		$stmt = $this->conn->prepare("UPDATE tasks t, user_tasks ut set t.task = ?, t.status = ? WHERE t.id = ? AND t.id = ut.task_id AND ut.user_id = ?");
+		$stmt->bind_param("siii", $task, $status, $task_id, $user_id);
+		$stmt->execute();
+		$num_affected_rows = $stmt->affected_rows;
+		$stmt->close();
+		return $num_affected_rows > 0;
+		}
 	
 	/**
 	* Deleting a task
 	* @param String $task_id id of the task to delete
 	*/
-	public function deleteTask($user_id, $task_id) {
-	$stmt = $this->conn->prepare("DELETE t FROM tasks t, user_tasks ut WHERE t.id = ? AND ut.task_id = t.id AND ut.user_id = ?");
-	$stmt->bind_param("ii", $task_id, $user_id);
-	$stmt->execute();
-	$num_affected_rows = $stmt->affected_rows;
-	$stmt->close();
-	return $num_affected_rows > 0;
-	}
+	public function deletePerson($user_id, $task_id) {
+		$stmt = $this->conn->prepare("DELETE t FROM tasks t, user_tasks ut WHERE t.id = ? AND ut.task_id = t.id AND ut.user_id = ?");
+		$stmt->bind_param("ii", $task_id, $user_id);
+		$stmt->execute();
+		$num_affected_rows = $stmt->affected_rows;
+		$stmt->close();
+		return $num_affected_rows > 0;
+		}
 	
-	/* ------------- `user_tasks` table method ------------------ */
-	
-	/**
-	* Function to assign a task to user
-	* @param String $user_id id of the user
-	* @param String $task_id id of the task
-	*/
-	public function createUserTask($user_id, $task_id) {
-	$stmt = $this->conn->prepare("INSERT INTO user_tasks(user_id, task_id) values(?, ?)");
-	$stmt->bind_param("ii", $user_id, $task_id);
-	$result = $stmt->execute();
-	
-	if (false === $result) {
-	die('execute() failed: ' . htmlspecialchars($stmt->error));
-	}
-	$stmt->close();
-	return $result;
-	}
-
 }
 
 ?>

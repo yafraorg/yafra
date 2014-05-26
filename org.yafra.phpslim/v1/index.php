@@ -166,11 +166,11 @@ $app->post('/login', function() use ($app) {
  */
 
 /**
- * Listing all tasks of particual user
+ * Listing all persons
  * method GET
  * url /tasks          
  */
-$app->get('/tasks', function() {
+$app->get('/persons', function() {
             global $user_id;
             $response = array();
             $db = new DbHandler();
@@ -179,15 +179,15 @@ $app->get('/tasks', function() {
             $result = $db->getAllPersons();
 
             $response["error"] = false;
-            $response["tasks"] = array();
+            $response["persons"] = array();
 
             // looping through result and preparing tasks array
             //while ($task = $result->fetch_assoc()) {
             foreach ($result as $task) {
                 $tmp = array();
                 $tmp["id"] = $task["id"];
-                $tmp["task"] = $task["name"];
-                $tmp["status"] = $task["country"];
+                $tmp["name"] = $task["name"];
+                $tmp["country"] = $task["country"];
                 $tmp["createdAt"] = $task["type"];
                 array_push($response["tasks"], $tmp);
             }
