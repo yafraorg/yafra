@@ -41,7 +41,7 @@ engine = create_engine('mysql+pymysql://yafraadmin:yafra@webdev/yafra', echo=Tru
 Session = sessionmaker(bind=engine)
 session = Session()
 for instance in session.query(model.Person).order_by(model.Person.name):
-    print instance.name
+    print(instance.name)
 
 print("stop")
 #raw_input()
