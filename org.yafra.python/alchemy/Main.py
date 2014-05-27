@@ -19,35 +19,29 @@ under the License.
 
 Created on 02.06.2012
 Project yafra.org - org.yafra.padmin
-Python administration tool based on db-api
+Python administration tool based on SQLAlchemy
 @author: mwn
 '''
 
-import pymysql
 import sys
 
+import pymysql
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+import model
+
 print("start")
+
 if len(sys.argv) > 1:
     server = sys.argv[1]
 else:
     server = "localhost"
-db = pymysql.connect(host=server, user="yafraadmin", passwd="yafra", db="yafra")
-print("got connecton")
 
-cursor = db.cursor()
-sql = "SELECT * from Person"
-cursor.execute(sql)
-# Fetch all the rows in a list of lists.
-results = cursor.fetchall()
-for row in results:
-    adr = row[0]
-    ctry = row[1]
-    name = row[2]
-    # Now print fetched result
-    print ("Name: {}, Address: {}, Country: {}\n".format(name, adr, ctry))
-cursor.close()
-db.close()
-print("system: ", sys.platform)
+engine = create_engine('mysql+pymysql://yafraadmin:yafra@webdev/yafra', echo=True)
+Session = sessionmaker(bind=engine)
+session = Session()
+for instance in session.query(model.Person).order_by(model.Person.name):
+    print instance.name
 
 print("stop")
 #raw_input()
