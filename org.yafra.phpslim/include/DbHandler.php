@@ -27,34 +27,24 @@ class DbHandler {
 	* @param String $user_id user id to whom task belongs to
 	* @param String $task task text
 	*/
-	public function createPerson($user_id, $task) {
-		$stmt = $this->conn->prepare("INSERT INTO Person(task) VALUES(?)");
-		$stmt->bind_param("s", $task);
+	public function createPerson($address, $name, $firstname, $id, $country, $googleid, $type) {
+		$stmt = $this->conn->prepare("INSERT INTO Person (address, name, firstname, id, country, googleid, type, pkPerson)
+		 VALUES(:address, :name, :firstname, :id, :country, :googleid, :type, :pkPerson)");
+		$stmt->bindParam(":address", $address, PDO::PARAM_STR);
+		$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+		$stmt->bindParam(":firstname", $firstname, PDO::PARAM_STR);
+		$stmt->bindParam(":id", $id, PDO::PARAM_STR);
+		$stmt->bindParam(":country", $country, PDO::PARAM_STR);
+		$stmt->bindParam(":googleid", $$googleid, PDO::PARAM_STR);
+		$stmt->bindParam(":type", $type, PDO::PARAM_STR);
+		$stmt->bindParam(":pkPerson", rand(), PDO::PARAM_INT);
 		$result = $stmt->execute();
-		$stmt->close();
-		
-		if ($result) {
-		// task row created
-		// now assign the task to user
-		$new_task_id = $this->conn->insert_id;
-		$res = $this->createUserTask($user_id, $new_task_id);
-		if ($res) {
-		// task created successfully
-		return $new_task_id;
+		if ($del->rowCount() > 0) {
+			return 0;
 		} else {
-		// task failed to create
-		return NULL;
+			// task failed to create
+			return NULL;
 		}
-		} else {
-		// task failed to create
-		return NULL;
-		}
-		/*
-		foreach ($dbh->query($sql) as $row)
-			{
-			print $row['animal_type'] .' - '. $row['animal_name'] . '<br />';
-			}
-		*/
 		}
 	
 	/**

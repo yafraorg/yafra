@@ -51,116 +51,6 @@ function authenticate(\Slim\Route $route) {
     }
 }
 
-/**
- * ----------- METHODS WITHOUT AUTHENTICATION ---------------------------------
- */
-/**
- * User Registration
- * url - /register
- * method - POST
- * params - name, email, password
- */
-$app->post('/register', function() use ($app) {
-	// check for required params
-	//verifyRequiredParams(array('name', 'email', 'password'));
-	
-	$body = array();
-	$response = array();
-	
-	// reading post params
-	$body = json_decode($app->request->getBody());
-	
-	if (!isset($body->name))
-		{
-		errorHandler("name is missing", 400);
-		$app->stop();
-		}
-	if (!isset($body->email))
-		{
-		errorHandler("e-mail is missing", 400);
-		$app->stop();
-		}
-	if (!isset($body->password))
-		{
-		errorHandler("password is missing", 400);
-		$app->stop();
-		}
-	$name = $body->name;
-	$email = $body->email;
-	$password = $body->password;
-	
-	// validating email address
-	validateEmail($email);
-	
-	$db = new DbHandler();
-	$res = $db->createUser($name, $email, $password);
-	
-	if ($res == USER_CREATED_SUCCESSFULLY) {
-		$response["error"] = false;
-		$response["message"] = "You are successfully registered";
-	} else if ($res == USER_CREATE_FAILED) {
-		$response["error"] = true;
-		$response["message"] = "Oops! An error occurred while registereing - value name: $name email: $email pwd: $password";
-	} else if ($res == USER_ALREADY_EXISTED) {
-		$response["error"] = true;
-		$response["message"] = "Sorry, this email already existed";
-	}
-	// echo json response
-	echoRespnse(201, $response);
-});
-
-/**
- * User Login
- * url - /login
- * method - POST
- * params - email, password
- */
-$app->post('/login', function() use ($app) {
-	$body = array();
-	$response = array();
-	
-	// reading post params
-	$body = json_decode($app->request->getBody());
-	
-	// reading post params
-	if (!isset($body->email))
-		{
-		errorHandler("e-mail is missing", 400);
-		$app->stop();
-		}
-	if (!isset($body->password))
-		{
-		errorHandler("password is missing", 400);
-		$app->stop();
-		}
-	$email = $body->email;
-	$password = $body->password;
-	
-	$db = new DbHandler();
-	// check for correct email and password
-	if ($db->checkLogin($email, $password)) {
-		// get the user by email
-		$user = $db->getUserByEmail($email);
-	
-		if ($user != NULL) {
-			$response["error"] = false;
-			$response['name'] = $user['name'];
-			$response['email'] = $user['email'];
-			$response['apiKey'] = $user['api_key'];
-			$response['createdAt'] = $user['created_at'];
-		} else {
-			// unknown error occurred
-			$response['error'] = true;
-			$response['message'] = "An error occurred. Please try again";
-			}
-	} else {
-		// user credentials are wrong
-		$response['error'] = true;
-		$response['message'] = 'Login failed. Incorrect credentials';
-	}
-	echoRespnse(200, $response);
-});
-
 /*
  * ------------------------ METHODS WITH AUTHENTICATION ------------------------
  */
@@ -188,8 +78,8 @@ $app->get('/persons', function() {
                 $tmp["id"] = $task["id"];
                 $tmp["name"] = $task["name"];
                 $tmp["country"] = $task["country"];
-                $tmp["createdAt"] = $task["type"];
-                array_push($response["tasks"], $tmp);
+                $tmp["type"] = $task["type"];
+                array_push($response["persons"], $tmp);
             }
 
             echoRespnse(200, $response);
@@ -201,7 +91,7 @@ $app->get('/persons', function() {
  * url /tasks/:id
  * Will return 404 if the task doesn't belongs to user
  */
-$app->get('/tasks/:id', 'authenticate', function($task_id) {
+$app->get('/person/:id', function($task_id) {
             global $user_id;
             $response = array();
             $db = new DbHandler();
@@ -229,7 +119,7 @@ $app->get('/tasks/:id', 'authenticate', function($task_id) {
  * params - name
  * url - /tasks/
  */
-$app->post('/tasks', 'authenticate', function() use ($app) {
+$app->post('/persons', 'authenticate', function() use ($app) {
             // check for required params
             verifyRequiredParams(array('task'));
 
@@ -260,7 +150,7 @@ $app->post('/tasks', 'authenticate', function() use ($app) {
  * params task, status
  * url - /tasks/:id
  */
-$app->put('/tasks/:id', 'authenticate', function($task_id) use($app) {
+$app->put('/persons/:id', 'authenticate', function($task_id) use($app) {
             // check for required params
             verifyRequiredParams(array('task', 'status'));
 
@@ -290,7 +180,7 @@ $app->put('/tasks/:id', 'authenticate', function($task_id) use($app) {
  * method DELETE
  * url /tasks
  */
-$app->delete('/tasks/:id', 'authenticate', function($task_id) use($app) {
+$app->delete('/persons/:id', 'authenticate', function($task_id) use($app) {
             global $user_id;
 
             $db = new DbHandler();
