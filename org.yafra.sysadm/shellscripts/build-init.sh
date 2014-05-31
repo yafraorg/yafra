@@ -57,11 +57,8 @@ test -d $CMDSRVO || mkdir $CMDSRVO
 test -d $PSWHATO || mkdir $PSWHATO
 test -d $PSEDITO || mkdir $PSEDITO
 test -d $TESTSUITEO || mkdir $TESTSUITEO
-test -d $WORKNODE/classes || mkdir $WORKNODE/classes
-test -d $WORKNODE/java || mkdir $WORKNODE/java
 test -d $WORKNODE/apps || mkdir $WORKNODE/apps
 test -d $WORKNODE/yafra-dist || mkdir $WORKNODE/yafra-dist
-test -d $WORKNODE/eclipse-build || mkdir $WORKNODE/eclipse-build
 test -d $YAFRACLASSES || mkdir $YAFRACLASSES
 
 #

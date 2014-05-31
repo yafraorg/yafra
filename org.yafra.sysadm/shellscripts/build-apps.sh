@@ -140,7 +140,7 @@ echo "TODO: use eclipse-rcp and export the product through IDE!"
 
 
 #copy python yafra app to worknode
-test -d $WORKNODE/apps/yafrapadmin || mkdir $WORKNODE/apps/yafrapadmin
-cp $BASENODE/org.yafra.padmin/main/Main.py $WORKNODE/apps/yafrapadmin
+test -d $WORKNODE/apps/yafrapython || mkdir $WORKNODE/apps/yafrapython
+cp -R $BASENODE/org.yafra.python/* $WORKNODE/apps/yafrapython
 
 exit
