@@ -135,8 +135,7 @@ ant war
 
 #rcp
 cd $JAVANODE/org.yafra.rcpbuild
-#./build-rcp.sh
-echo "TODO: use eclipse-rcp and export the product through IDE!"
+./build-rcp.sh
 
 
 #copy python yafra app to worknode

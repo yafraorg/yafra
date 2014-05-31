@@ -20,23 +20,9 @@
 # Purpose:      build rcp client
 #------------------------------------------------------------------------
 
-TOMEEDIR=../../../../apache-tomee-webprofile-1.5.1/lib
-
 test -d $WORKNODE/apps/yafrarcp || mkdir $WORKNODE/apps/yafrarcp
 
 # copy run time libraries used by yafra rcp client
 # yafra jars
-cp $YAFRACLASSES/org.yafra.utils.jar $BASENODE/org.yafra.rcp/libs/
-cp $YAFRACLASSES/org.yafra.server.coreclient.jar $BASENODE/org.yafra.rcp/libs/
-cp $YAFRACLASSES/org.yafra.server.ejbstubs.jar $BASENODE/org.yafra.rcp/libs/
+cp $BASENODE/org.yafra.rcpproduct/target/products/*.zip $WORKNODE/apps/yafrarcp/
 
-# 3rd party jars
-cp $YAFRACLASSES/commons-logging-1.1.1.jar $BASENODE/org.yafra.rcp/libs/
-cp $YAFRACLASSES/log4j-1.2.17.jar $BASENODE/org.yafra.rcp/libs/
-cp $TOMEEDIR/javaee-api-6.0-4-tomcat.jar $BASENODE/org.yafra.rcp/libs/
-cp $TOMEEDIR/openejb-client-4.5.1.jar $BASENODE/org.yafra.rcp/libs/
-cp $TOMEEDIR/openejb-core-4.5.1.jar $BASENODE/org.yafra.rcp/libs/
-
-
-# call build and product creation
-#./makeproduct.sh
