@@ -94,8 +94,10 @@ http://www.yafra.org/
       <plugin id="org.eclipse.equinox.common"/>
       <plugin id="org.eclipse.equinox.ds"/>
       <plugin id="org.eclipse.equinox.event"/>
+      <plugin id="org.eclipse.equinox.p2.reconciler.dropins"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.simpleconfigurator"/>
       <plugin id="org.eclipse.equinox.util"/>
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.databinding"/>
@@ -116,6 +118,15 @@ http://www.yafra.org/
       <feature id="org.eclipse.emf.common"/>
       <feature id="org.eclipse.rcp" version="4.3.2.v20140221-1700"/>
    </features>
+
+	<configurations>
+		<plugin id="org.yafra.rcp.mainplugin" autoStart="false" startLevel="6" />
+		<plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="5" />
+		<plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
+		<plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+		<plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
+		<plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+	</configurations>
 
 
 </product>
