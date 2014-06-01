@@ -15,7 +15,7 @@
 #  limitations under the License.
 #-------------------------------------------------------------------------------
 #
-# Author:       Administrator
+# Author:       yafra
 #
 # Purpose:      build step 4: test build
 #

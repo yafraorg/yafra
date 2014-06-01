@@ -15,7 +15,7 @@
 #  limitations under the License.
 #-------------------------------------------------------------------------------
 #
-# Author:       Administrator
+# Author:       yafra
 #
 # Purpose:      build step 6: install build with db init
 #                    This script installs the yafra distribution
@@ -76,6 +76,28 @@ if [ "$yesno" = "no" ]; then
 	exit 1
 fi
 
+#
+# copy jar/war files
+#
+
+# yafra java core
+cd $BASENODE/org.yafra.server.core/target
+cp *.jar $APPDIR
+
+# yafra java J2EE wicket and cxf
+cd $BASENODE/org.yafra.server.jee/target
+cp *.war $APPDIR
+cd $BASENODE/org.yafra.server.jee
+#mvn tomcat7:exec-war
+
+# yafra java EJB3
+cd $BASENODE/org.yafra.server.ejb/target
+cp *client.jar $APPDIR
+cd $BASENODE/org.yafra.server.ejb-war/target
+cp *.war $APPDIR
+cd $BASENODE/org.yafra.server.ejb-war
+#mvn tomee:build
+#mvn tomee:start
 
 # database server
 DBSERVER="localhost"

@@ -128,6 +128,17 @@ cp $BASENODE/org.yafra.tdb.setup/db/tdbdb.pm $WORKNODE/apps/tdbdbadmin
 # maven build - build all and run some extras afterwards
 cd $JAVANODE
 mvn install
+# yafra java core
+cd $BASENODE/org.yafra.server.core/target
+cp *.jar $WORKNODE/apps
+# yafra java J2EE wicket and cxf
+cd $BASENODE/org.yafra.server.jee/target
+cp *.war $WORKNODE/apps
+# yafra java EJB3
+cd $BASENODE/org.yafra.server.ejb/target
+cp *client.jar $WORKNODE/apps
+cd $BASENODE/org.yafra.server.ejb-war/target
+cp *.war $WORKNODE/apps
 
 #gwt
 cd $JAVANODE/org.yafra.gwt.admin
@@ -141,5 +152,9 @@ cd $JAVANODE/org.yafra.rcpbuild
 #copy python yafra app to worknode
 test -d $WORKNODE/apps/yafrapython || mkdir $WORKNODE/apps/yafrapython
 cp -R $BASENODE/org.yafra.python/* $WORKNODE/apps/yafrapython
+
+#copy php yafra app to worknode
+test -d $WORKNODE/apps/yafraphp || mkdir $WORKNODE/apps/yafraphp
+cp -R $BASENODE/org.yafra.phpslim/* $WORKNODE/apps/yafraphp
 
 exit

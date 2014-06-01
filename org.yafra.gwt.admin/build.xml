@@ -33,7 +33,7 @@ under the License.
 	<property name="gwt.module.name" value="org.yafra.gwt.admin.AdminEntryPoint"/>
 	<property name="war.name" value="org.yafra.gwt.admin.war"/>
 	<property name="build.dir" location="build"/>
-	<property name="deploy.dir" value="${env.YAFRACLASSES}" />
+	<property name="deploy.dir" value="${env.WORKNODE}/apps" />
 	<property name="coresrc.dir" value="${env.JAVANODE}/org.yafra.server.core/src/main/java" />
 	<property name="MAVENREPO" value="${env.MAVENREPO}"/>
 	<property name="debuglevel" value="source,lines,vars"/>
@@ -56,7 +56,7 @@ under the License.
 	<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
 	<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet-deps.jar" />
 	<!-- Add any additional server libs that need to be copied -->
-	<copy todir="war/WEB-INF/lib" file="${MAVENREPO}/org/yafra/tests/serverdirectclient/1.0/serverdirectclient-1.0-jar-with-dependencies.jar"/>
+	<copy todir="war/WEB-INF/lib" file="${env.WORKNODE}/bin/serverdirectclient-1.0-jar-with-dependencies.jar"/>
   </target>
 
   <target name="javac" depends="libs" description="Compile java source to bytecode">

@@ -39,7 +39,6 @@ TIMESTAMP="$(date +%y%m%d)"
 echo "delete and create working directories"
 if [ -d $WORKNODE ]
 then
-	rm $YAFRACLASSES/org.yafra*
 	rm -rf $WORKNODE
 fi
 

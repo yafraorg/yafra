@@ -15,10 +15,10 @@
 #  limitations under the License.
 #-------------------------------------------------------------------------------
 #
-# Author:        yafra
+# Author:       yafra
 #
-# Purpose:      build step 5: publish release
-#                     uses YAFRACLASSES
+# Purpose:      build step 5: publish release, make release candidate
+#               ready for distribution
 #
 # Arguments: 1) database (mysql, mssql, oracle, derby)
 #-------------------------------------------------------------------------------
