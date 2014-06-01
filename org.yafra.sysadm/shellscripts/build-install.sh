@@ -42,7 +42,7 @@ echo "-> start yafra installation"
 #
 TIMESTAMP="$(date +%y%m%d)"
 LOGFILE=$WORKNODE/YAFRA-install-$TIMESTAMP.log
-TOMEE=/work/apache-tomee-webprofile-1.5.0
+TOMEE=/work/tomee
 DBSERVER=localhost
 DESTDIR=/usr/local
 if [ ! -d $DESTDIR ]

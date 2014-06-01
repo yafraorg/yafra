@@ -43,14 +43,15 @@ fi
 # settings
 #
 TIMESTAMP="$(date +%y%m%d)"
-TOMEE=$JAVANODE/org.yafra.server.ejb-ear/target/apache-tomee
 BINDIR=$YAFRAEXE
 APPDIR=$WORKNODE/apps
+WWWDIR=/var/www/html/yafra
+test -d $WWWDIR || mkdir $WWWDIR
 echo "============================================================"
 echo "-> start test build with basenode $BASENODE"
 echo "settings:" 
-echo "TOMEE: $TOMEE"
 echo "DBSERVER: $DBSERVER"
+echo "WWWDIR: $WWWDIR (used for php, perl and python flask)"
 echo "TIMESTAMP: $TIMESTAMP"
 echo "Version $YAFRAVER.$YAFRAREL"
 echo "============================================================"
@@ -67,7 +68,7 @@ fi
 echo "============================================================"
 echo " TEST CASE 1: Yafra db access with data operation and test data fill"
 echo "============================================================"
-java -classpath $YAFRACLASSES -jar $WORKNODE/classes/org.yafra.tests.serverdirectclient.jar
+java -jar $WORKNODE/bin/serverdirectclient-1.0-jar-with-dependencies.jar
 
 #
 # start servers first
@@ -82,12 +83,12 @@ if [ "$DBSERVER" = "localhost" ]; then
 	$BINDIR/mpdbi -daemon
 	$BINDIR/psserver -daemon
 	$BINDIR/mpnet -daemon
-	sudo $SYSADM/shellscripts/server-tomee.sh stop $TOMEE
-	sudo rm -rf $TOMEE/webapps/org.yafra*
-	sudo cp $WORKNODE/classes/org.yafra.wicket.war $TOMEE/webapps
-	sudo cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps
-	sudo cp $WORKNODE/classes/org.yafra.gwt.admin.war $TOMEE/webapps
-	sudo $SYSADM/shellscripts/server-tomee.sh start $TOMEE
+	#sudo $SYSADM/shellscripts/server-tomee.sh stop $TOMEE
+	#sudo rm -rf $TOMEE/webapps/org.yafra*
+	#sudo cp $WORKNODE/classes/org.yafra.wicket.war $TOMEE/webapps
+	#sudo cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps
+	#sudo cp $WORKNODE/classes/org.yafra.gwt.admin.war $TOMEE/webapps
+	#sudo $SYSADM/shellscripts/server-tomee.sh start $TOMEE
 # TODO: maven - 1) call mvn tomee / tomcat 2) dont start tomee but copy ear 3rd party libs to tomee/lib and the ejb.jar to apps 3) start openejb standalone with tomee/bin/tomee.sh start
 fi
 
@@ -95,25 +96,57 @@ fi
 #
 # test yafra components
 #
+#run java tests
 echo "============================================================"
-echo " TEST CASE 2: java utils, ejb, ws"
+echo " TEST CASE YAFRA 1: java utils, ejb, ws"
 echo "============================================================"
-java -classpath $YAFRACLASSES -jar $WORKNODE/classes/org.yafra.tests.utils.jar
-#java -jar $WORKNODE/classes/org.yafra.tests.serverejb3.jar
-#java -jar $WORKNODE/classes/org.yafra.tests.wsclient.jar
+java -jar $WORKNODE/bin/tests-utils-1.0-jar-with-dependencies.jar
+java -jar $WORKNODE/bin/tests-ejb3-1.0-jar-with-dependencies.jar $DBSERVER
 
 #run test server, utils, wsclient, rest, url getter of tomee installed apps
 echo "============================================================"
-echo " TEST CASE 3: yafra python test read data from db - reading db"
+echo " TEST CASE YAFRA 2: yafra python test read data from db - reading db"
 echo "============================================================"
-python $APPDIR/yafrapadmin/Main.py
+echo "python db-api case"
+python $APPDIR/yafrapython/db-api/Main.py
+echo "python sqlalchemy case"
+python $APPDIR/yafrapython/db-api/Main.py
+echo "python mysql-connector case"
+python $APPDIR/yafrapython/mysql-connector/Main.py
+#TODO install and produce link to python flask
+
+#run test server, utils, wsclient, rest, url getter of tomee installed apps
+echo "============================================================"
+echo " TEST CASE YAFRA 3: yafra php slimframework"
+echo "============================================================"
+cp -r $APPDIR/yafraphp/* $WWWDIR/
+cd $WWWDIR
+php /usr/local/bin/composer.phar install
+echo "php app installed at $WWWDIR"
+echo "use http://localhost/yafra/v1 to access the php app"
+
+echo "============================================================"
+echo " TEST CASE YAFRA 4: yafra perl catalyst"
+echo "============================================================"
+echo "TODO: to be created"
+
+echo "============================================================"
+echo " TEST CASE YAFRA 5: yafra ansi c common libraries test"
+echo "============================================================"
+$BINDIR/pschar
+$BINDIR/pslog
+$BINDIR/psdatetime -d 01.01.1013 -t 12.30
+$BINDIR/psdatetime -d 01.02.2013 -t 12.30
+$BINDIR/psdatetime -d 01.03.2113 -t 12.30
+$BINDIR/psdatetime -d 01.04.3013 -t 12.30
+$BINDIR/psclientcons $DBSERVER
 
 #
 # test tdb components
 #
 #get releases of binaries
 echo "============================================================"
-echo " TEST CASE 4: tdb - get information on binaries"
+echo " TEST CASE TDB 1: tdb - get information on binaries"
 echo "============================================================"
 ldd $BINDIR/mpdbi
 ldd $BINDIR/mpgui
@@ -123,25 +156,16 @@ $BINDIR/pswhat $BINDIR/mpdbi
 $BINDIR/pswhat $BINDIR/mpgui
 #start tests now
 echo "============================================================"
-echo " TEST CASE 5: ansi c common libraries test"
-echo "============================================================"
-$BINDIR/pschar
-$BINDIR/pslog
-$BINDIR/psdatetime -d 01.01.1013 -t 12.30
-$BINDIR/psdatetime -d 01.02.2013 -t 12.30
-$BINDIR/psdatetime -d 01.03.2113 -t 12.30
-$BINDIR/psdatetime -d 01.04.3013 -t 12.30
-$BINDIR/psclientcons $DBSERVER
-echo "============================================================"
-echo " TEST CASE 6: tdb classic test db access and structure - reading db"
+echo " TEST CASE TDB 2: tdb classic test db access and structure - reading db"
 echo "============================================================"
 $BINDIR/mpstruct
 $BINDIR/mptest -n $DBSERVER
 echo "============================================================"
-echo " TEST CASE 7: tdb .net/mono csharp test - reading db"
+echo " TEST CASE TDB 3: tdb .net/mono csharp test - reading db"
 echo "============================================================"
 mono $APPDIR/tdbmono/tdbtest.exe tdbadmin $DBSERVER MySQL
 echo "============================================================"
-echo " TEST CASE 8: tdb perl DBI test - reading db"
+echo " TEST CASE TDB 4: tdb perl DBI test - reading db"
 echo "============================================================"
 perl $APPDIR/tdbdbadmin/tdb-testdbi.pl tdbadmin $DBSERVER mysql
+

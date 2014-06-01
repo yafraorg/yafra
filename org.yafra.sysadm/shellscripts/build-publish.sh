@@ -36,22 +36,21 @@ fi
 # settings
 #
 TIMESTAMP="$(date +%y%m%d)"
-TDBINSTDIR=$WORKNODE/yafra-dist
-if [ ! -d $TDBINSTDIR ]
+INSTDIR=$WORKNODE/yafra-dist
+if [ ! -d $INSTDIR ]
 then
-	echo "error: main staging / publish directory not available: $WORKNODE/publish - create first !"
+	echo "error: main staging / publish directory not available: $INSTDIR - perform a full build first !"
 	exit
 fi
-BINDIR=$TDBINSTDIR/bin
-ETCDIR=$TDBINSTDIR/etc
-LIBSDIR=$TDBINSTDIR/lib
+BINDIR=$INSTDIR/bin
+ETCDIR=$INSTDIR/etc
+LIBSDIR=$INSTDIR/lib
 GUIINSTALL=$ETCDIR/tdb
-APPDIR=$TDBINSTDIR/apps
+APPDIR=$INSTDIR/apps
 DBDIR=$ETCDIR/yafradb
 TRAVELDBDIR=$ETCDIR/traveldb
-CLASSDIR=$TDBINSTDIR/classes
 TDBCONFIG=$TDBSETUP/config
-echo "-> start publish with worknode $WORKNODE"
+echo "-> start publish with worknode $WORKNODE and target install directory $INSTDIR"
 echo "TIMESTAMP: $TIMESTAMP"
 
 #
@@ -61,12 +60,11 @@ test -d $BINDIR || mkdir $BINDIR
 test -d $ETCDIR || mkdir $ETCDIR
 test -d $LIBSDIR || mkdir $LIBSDIR
 test -d $GUIINSTALL || mkdir $GUIINSTALL
-test -d $CLASSDIR || mkdir $CLASSDIR
 test -d $DBDIR || mkdir $DBDIR
 test -d $TRAVELDBDIR || mkdir $TRAVELDBDIR
 test -d $APPDIR || mkdir $APPDIR
 test -d $APPDIR/yafrarcp || mkdir $APPDIR/yafrarcp
-test -d $APPDIR/yafrapadmin || mkdir $APPDIR/yafrapadmin
+test -d $APPDIR/yafrapython || mkdir $APPDIR/yafrapython
 test -d $APPDIR/tdbmono || mkdir $APPDIR/tdbmono
 test -d $APPDIR/tdbdbadmin || mkdir $APPDIR/tdbdbadmin
 test -d $APPDIR/tdbpyadmin || mkdir $APPDIR/tdbpyadmin
@@ -76,9 +74,13 @@ test -d $APPDIR/tdbpyadmin || mkdir $APPDIR/tdbpyadmin
 #
 
 # system administration files
-cp $SYSADM/shellscripts/build-install.sh $TDBINSTDIR/install.sh
-cp $SYSADM/README-DISTRIBUTION.txt $TDBINSTDIR
+cp $SYSADM/shellscripts/build-install.sh $INSTDIR/install.sh
+cp $SYSADM/README-DISTRIBUTION.txt $INSTDIR
+cp $BASENODE/LICENSE $INSTDIR
+cp $BASENODE/NOTICE $INSTDIR
 cp $SYSADM/defaults/profile.sh $ETCDIR/yafra-profile.sh
+cp $SYSADM/shellscripts/server-tomcat.sh $BINDIR
+cp $SYSADM/shellscripts/server-tomee.sh $BINDIR
 cp $SYSADM/shellscripts/start-tomcat.sh $BINDIR
 cp $SYSADM/shellscripts/stop-servers.sh $BINDIR
 cp $SYSADM/defaults/scripts/yafra-prgkill.sh $BINDIR
@@ -110,13 +112,12 @@ cp $SYSADM/databases/yafradb/* $DBDIR/
 
 #
 # YAFRA JAVA parts
-cp $WORKNODE/classes/* $CLASSDIR
+cp $WORKNODE/apps/*.jar $LIBSDIR
+cp $WORKNODE/apps/*.war $APPDIR
 #python admin
-cp $WORKNODE/apps/yafrapadmin/* $APPDIR/yafrapadmin/
+cp -r $WORKNODE/apps/yafrapython/* $APPDIR/yafrapython/
 #rcp
-if [ -d $WORKNODE/eclipse-build/eclipse ]; then
-	cp -r $WORKNODE/eclipse-build/eclipse/* $APPDIR/yafrarcp/
-fi
+cp $WORKNODE/apps/yafrarcp/* $APPDIR/yafrarcp/
 
 # TDB parts
 cp $TDBCONFIG/linux/mpgui.pro $ETCDIR
@@ -154,12 +155,12 @@ cp $TDBCONFIG/license.txt $GUIINSTALL
 # set unix executable bit
 #
 chmod 755 $BINDIR/*
-chmod 755 $CLASSDIR/*tests*
 chmod 755 $APPDIR/tdbmono/*.exe
 chmod 755 $APPDIR/tdbdbadmin/*.pl
 chmod 755 $APPDIR/tdbpyadmin/main.py
-chmod 755 $APPDIR/yafrapadmin/Main.py
-chmod 755 $TDBINSTDIR/install.sh
+chmod 755 $APPDIR/yafrapython/alchemy/Main.py
+chmod 755 $APPDIR/yafrapython/db-api/Main.py
+chmod 755 $INSTDIR/install.sh
 
 #
 # tar release

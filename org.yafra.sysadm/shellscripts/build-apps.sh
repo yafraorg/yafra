@@ -41,9 +41,6 @@ echo "yafra java server core"
 YAFRACORE=$JAVANODE/org.yafra.server.core
 echo "YAFRACORE: $YAFRACORE"
 #
-echo "java classes for yafra project"
-echo "YAFRACLASSES: $YAFRACLASSES"
-#
 echo "OSAHRED: $OSHARED and ODEBUG: $ODEBUG"
 
 #
@@ -148,13 +145,30 @@ ant war
 cd $JAVANODE/org.yafra.rcpbuild
 ./build-rcp.sh
 
-
 #copy python yafra app to worknode
 test -d $WORKNODE/apps/yafrapython || mkdir $WORKNODE/apps/yafrapython
 cp -R $BASENODE/org.yafra.python/* $WORKNODE/apps/yafrapython
 
+#copy python yafra flask app to worknode
+test -d $WORKNODE/apps/yafrapythonflask || mkdir $WORKNODE/apps/yafrapythonflask
+cp -R $BASENODE/org.yafra.python.flask/* $WORKNODE/apps/yafrapythonflask
+
+#compile GAE python - org.yafra.gae.python
+echo "TODO: compile the google appengine python app"
+
+#copy nodejs yafra app
+test -d $WORKNODE/apps/yafranodejs || mkdir $WORKNODE/apps/yafranodejs
+cp -R $BASENODE/org.yafra.nodejs/* $WORKNODE/apps/yafranodejs
+
 #copy php yafra app to worknode
 test -d $WORKNODE/apps/yafraphp || mkdir $WORKNODE/apps/yafraphp
 cp -R $BASENODE/org.yafra.phpslim/* $WORKNODE/apps/yafraphp
+
+#copy perl catalyst yafra app to worknode
+test -d $WORKNODE/apps/yafraperl || mkdir $WORKNODE/apps/yafraperl
+cp -R $BASENODE/org.yafra.perl/* $WORKNODE/apps/yafraperl
+
+#compile mobile app
+echo "TODO: compile the mobile app"
 
 exit

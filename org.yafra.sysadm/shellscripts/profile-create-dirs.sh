@@ -45,7 +45,5 @@ test -d $CMDSRVO || mkdir $CMDSRVO
 test -d $PSWHATO || mkdir $PSWHATO
 test -d $PSEDITO || mkdir $PSEDITO
 test -d $TESTSUITEO || mkdir $TESTSUITEO
-test -d $WORKNODE/classes || mkdir $WORKNODE/classes
-test -d $WORKNODE/java || mkdir $WORKNODE/java
 test -d $WORKNODE/apps || mkdir $WORKNODE/apps
 
