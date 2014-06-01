@@ -1,5 +1,6 @@
-/*H************************************************************
- * header:    global include for the pssys library
+/*!************************************************************
+ * @file pssys.h
+ * @brief    global include for the pssys library
  *
  * copyright: yafra.org, Switzerland, 2002
  **************************************************************/
@@ -32,7 +33,7 @@ typedef struct
    char *buffer;                   /* memory allocation         */
    unsigned int alloclen;          /* memory allocation length  */
    unsigned int datalen;           /* effective data length     */
-} PSmemobj;
+} PSmemobj; //!< memory object
 #define PSMEMCHUNK    (int)4096      /*   4 kb increase       */
 #define PSMEMCHUNK30  (int)30720     /*  30 kb increase       */
 #define PSMEMCHUNK100 (int)1024000   /* 100 kb increase       */
@@ -128,7 +129,16 @@ typedef enum {PSPOSTMETHOD, PSGETMETHOD} PSreqmethod;
 
 /* prototypes */
 
-PS_DLLAPI void *PSSYSalloc(void *, unsigned int *, int, unsigned int, size_t);
+/*! @brief Memory allocation function
+ * @param a Memory pointer
+ * @param b length
+ * @param c test1
+ * @param d test2
+ * @param e test3
+ * @return Updated or new memory pointer
+ */
+PS_DLLAPI void *PSSYSalloc(void *a, unsigned int *b, int c, unsigned int d, size_t e);
+
 PS_DLLAPI void *PSSYSallocobj(PSmemobj *, int);
 
 PS_DLLAPI void  PSSYSfree(void *);

@@ -1,7 +1,6 @@
-/*D***********************************************************
- * copyright: Yafra.org, Switzerland, www.pisoag.com
- *
- * modul:     create debug and/or log messages
+/*************************************************************
+ * @file      log.c
+ * @brief     create debug and/or log messages
  *            use syslog facility if possible
  *
  * CVS tag:   $Name:  $
@@ -36,21 +35,19 @@ static char tagid[]="$Name:  $"; /* tagid is only once in the main() needed */
 #define DATETIME_LEN 20
 
 /************************************************************
- * create a debug message and write it to aDebugfile
- *
+ * @brief create a debug message and write it to aDebugfile
  * print a message on aDebugfile for debug reason. As default
  * there will be first the word "debug" printed. The aDebugfile
  * has to be a FILE descriptor which is already open ! (like stdout)
  * This function uses variable arguments like printf() !
  * The aMsg should be not longer than PS_MAXMSGLEN.
  *
- * returns     nothing
- *
- * library:    libpssys.a
- *
- * copyright:  Yafra.org, Switzerland, 1994
- *
- * author:     Administrator, 1994
+ * @return nothing
+ * @see libpssys.a
+ * @author Administrator, 1994
+ * @param aDebugfile debug file
+ * @param aPrgname program name identification
+ * @param aMsg message to log
  **************************************************************/
 PS_DLLAPI void PSSYSdebug(FILE *aDebugfile,  /* debug file */
                 char *aPrgname, /* programm name for identify */

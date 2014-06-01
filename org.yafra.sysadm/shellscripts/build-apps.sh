@@ -171,4 +171,9 @@ cp -R $BASENODE/org.yafra.perl/* $WORKNODE/apps/yafraperl
 #compile mobile app
 echo "TODO: compile the mobile app"
 
+# create doxygen documentation from source
+echo "running doxygen now"
+cd $BASENODE
+doxygen
+
 exit
