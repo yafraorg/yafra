@@ -91,7 +91,7 @@
 				<version>1.6.0.1</version>
 				<configuration>
 					<tomeeVersion>1.6.0.1</tomeeVersion>
-					<tomeeHttpPort>8081</tomeeHttpPort>
+					<tomeeHttpPort>8080</tomeeHttpPort>
 					<tomeeClassifier>webprofile</tomeeClassifier>
 					<removeDefaultWebapps>false</removeDefaultWebapps>
 					<synchronization>
