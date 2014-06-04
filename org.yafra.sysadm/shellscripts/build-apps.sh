@@ -131,6 +131,7 @@ cp *.jar $WORKNODE/apps
 # yafra java J2EE wicket and cxf
 cd $BASENODE/org.yafra.server.jee/target
 cp *.war $WORKNODE/apps
+cp *.jar $WORKNODE/bin
 # yafra java EJB3
 cd $BASENODE/org.yafra.server.ejb/target
 cp *client.jar $WORKNODE/apps

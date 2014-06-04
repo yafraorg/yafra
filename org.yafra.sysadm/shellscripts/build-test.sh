@@ -80,16 +80,17 @@ if [ "$DBSERVER" = "localhost" ]; then
 	sudo $YAFRABIN/yafra-prgkill.sh mpdbi
 	sudo $YAFRABIN/yafra-prgkill.sh mpnet
 	sudo $YAFRABIN/yafra-prgkill.sh psserver
+	cd $JAVANODE/org.yafra.server.ejb-war
+	mvn tomee:stop
+	cd -
+	$YAFRABIN/yafra-prgkill.sh jee-1.0-war-exec.jar
 	$BINDIR/mpdbi -daemon
 	$BINDIR/psserver -daemon
 	$BINDIR/mpnet -daemon
-	#sudo $SYSADM/shellscripts/server-tomee.sh stop $TOMEE
-	#sudo rm -rf $TOMEE/webapps/org.yafra*
-	#sudo cp $WORKNODE/classes/org.yafra.wicket.war $TOMEE/webapps
-	#sudo cp $WORKNODE/classes/org.yafra.server.jee.war $TOMEE/webapps
-	#sudo cp $WORKNODE/classes/org.yafra.gwt.admin.war $TOMEE/webapps
-	#sudo $SYSADM/shellscripts/server-tomee.sh start $TOMEE
-# TODO: maven - 1) call mvn tomee / tomcat 2) dont start tomee but copy ear 3rd party libs to tomee/lib and the ejb.jar to apps 3) start openejb standalone with tomee/bin/tomee.sh start
+	java -jar $BINDIR/jee-1.0-war-exec.jar -httpPort 8081 &
+	cd $JAVANODE/org.yafra.server.ejb-war
+	mvn tomee:start
+	cd -
 fi
 
 

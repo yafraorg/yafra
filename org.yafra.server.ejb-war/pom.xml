@@ -88,12 +88,12 @@
 			<plugin>
 				<groupId>org.apache.openejb.maven</groupId>
 				<artifactId>tomee-maven-plugin</artifactId>
-				<version>1.6.0.1</version>
+				<version>1.6.0.2</version>
 				<configuration>
-					<tomeeVersion>1.6.0.1</tomeeVersion>
+					<tomeeVersion>1.6.0.2</tomeeVersion>
 					<tomeeHttpPort>8080</tomeeHttpPort>
 					<tomeeClassifier>webprofile</tomeeClassifier>
-					<removeDefaultWebapps>false</removeDefaultWebapps>
+					<removeDefaultWebapps>true</removeDefaultWebapps>
 					<synchronization>
 						<extensions>
 							<extension>.class</extension> <!-- if you want to update each time you build with mvn compile -->
