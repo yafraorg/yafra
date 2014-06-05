@@ -157,9 +157,6 @@ cp etc/tdb/MPgui $X11APPDEF
 if [ "$DBSERVER" = "localhost" ]; then
 	perl bin/tdb-setup-services.pl
 	#war's
-	cp classes/org.yafra.wicket.war $TOMEE/webapps
-	cp classes/org.yafra.server.jee.war $TOMEE/webapps
-	cp classes/org.yafra.gwt.admin.war $TOMEE/webapps
 	#start servers now
 	$BINDIR/start-tomcat.sh
 	$BINDIR/mpdbi -daemon
