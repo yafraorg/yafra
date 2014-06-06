@@ -1,0 +1,38 @@
+{
+  "name": "Yafra-NodejsApp",
+  "version": "1.0.0",
+  "description": "Yafra Nodejs REST service with mongodb and mysql",
+  "keywords": [
+    "OpenShift",
+    "Node.js",
+    "application",
+    "restful",
+    "yafra",
+    "openshift"
+  ],
+  "author": {
+    "name": "Yafra Admin",
+    "email": "yafra@yafra.org",
+    "url": "http://www.yafra.org/"
+  },
+  "homepage": "http://www.yafra.org/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openshift/origin-server"
+  },
+
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+
+  "dependencies": {
+    "express": "*",
+    "mongoose": ">=3.8.8"
+  },
+  "devDependencies": {},
+  "bundleDependencies": [],
+
+  "private": true,
+  "main": "server.js"
+}

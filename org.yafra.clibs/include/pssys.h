@@ -1,13 +1,23 @@
-/*!************************************************************
+/*
+ *  Copyright 2002 yafra.org
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/*!
  * @file pssys.h
  * @brief    global include for the pssys library
- *
- * copyright: yafra.org, Switzerland, 2002
- **************************************************************/
-/*R
-  RCS Information:
-  $Header: /yafraorg/cvsroot/foundation/ansic/include/pssys.h,v 1.2 2002-11-17 14:41:31 mwn Exp $
-*/
+ */
 
 #ifndef _PSSYS_H
 #define _PSSYS_H
@@ -18,30 +28,30 @@
 #include <psshared.h>
 
 /* Message codes */
-#define PSOK           0 /* OK */
-#define PSERROR        1 /* error */
-#define PSWARNING      2 /* warning */
-#define PSALLOC       11 /* Allocationsfehler - zu wenig Speicher frei */
-#define PSOPEN        12 /* Dateioeffnungsfehler */
-#define PSREAD        13 /* Lese Fehler */
-#define PSWRITE       14 /* Schreib Fehler */
-#define PSNODATE      15 /* kein Datum */
+#define PSOK           0 /*!< message code OK */
+#define PSERROR        1 /*!< message code error */
+#define PSWARNING      2 /*!< message code warning */
+#define PSALLOC       11 /*!< message code memory error */
+#define PSOPEN        12 /*!< message code file open error */
+#define PSREAD        13 /*!< message code file read error */
+#define PSWRITE       14 /*!< message code file write error */
+#define PSNODATE      15 /*!< message code no date */
 
-/* memory management */
+/*! @brief memory management object */
 typedef struct
 {
-   char *buffer;                   /* memory allocation         */
-   unsigned int alloclen;          /* memory allocation length  */
-   unsigned int datalen;           /* effective data length     */
-} PSmemobj; //!< memory object
-#define PSMEMCHUNK    (int)4096      /*   4 kb increase       */
-#define PSMEMCHUNK30  (int)30720     /*  30 kb increase       */
-#define PSMEMCHUNK100 (int)1024000   /* 100 kb increase       */
+   char *buffer;                   /*!< memory allocation         */
+   unsigned int alloclen;          /*!< memory allocation length  */
+   unsigned int datalen;           /*!< effective data length     */
+} PSmemobj;
+#define PSMEMCHUNK    (int)4096      /*!< memory chunck 4 kb increase       */
+#define PSMEMCHUNK30  (int)30720     /*!<   30 kb increase       */
+#define PSMEMCHUNK100 (int)1024000   /*!<  100 kb increase       */
 
 /* state definition (true and false) */
 #ifndef TRUE
-#define  TRUE  1
-#define  FALSE 0
+#define  TRUE  1 /*!< true 1 */
+#define  FALSE 0 /*!< false 0 */
 #endif
 
 /* default language SPRACHE */
@@ -61,14 +71,14 @@ typedef struct
 #define PS_MAXMSGLEN 2048
 
 /* log types */
-#define _PSLOG_OPEN     1
-#define _PSLOG_CLOSE    2
-#define _PSLOG          3  /* general message */
-#define _PSLOG_EMERG    4  /* panic condition. reaction is immediately req. */
-#define _PSLOG_ERROR    5  /* error message */
-#define _PSLOG_WARNING  6  /* warning message */
-#define _PSLOG_INFO     7  /* info message */
-#define _PSLOG_DEBUG    8  /* debug message */
+#define _PSLOG_OPEN     1 /*!< log open */
+#define _PSLOG_CLOSE    2 /*!< log close */
+#define _PSLOG          3  /*!< log general message */
+#define _PSLOG_EMERG    4  /*!< log panic condition. reaction is immediately req. */
+#define _PSLOG_ERROR    5  /*!< log error message */
+#define _PSLOG_WARNING  6  /*!< log warning message */
+#define _PSLOG_INFO     7  /*!< log info message */
+#define _PSLOG_DEBUG    8  /*!< log debug message */
 
 /* date formats */
 #define PSSYS_DAT_UNDEF  -1
@@ -121,26 +131,30 @@ typedef struct
 #define BOOL_FALSE 0
 #define BOOL_TRUE 1
 #define WORDSIZE 16
+/*! @brief CGI object */
 typedef struct {
-	PSmemobj nameobj;
-	PSmemobj valobj;
+	PSmemobj nameobj; //!< name //
+	PSmemobj valobj; //!< value //
 } PSCGIentry;
 typedef enum {PSPOSTMETHOD, PSGETMETHOD} PSreqmethod;
 
 /* prototypes */
 
 /*! @brief Memory allocation function
- * @param a Memory pointer
- * @param b length
+ * @param voidptr Memory pointer
+ * @param intptr b length
  * @param c test1
  * @param d test2
  * @param e test3
  * @return Updated or new memory pointer
  */
-PS_DLLAPI void *PSSYSalloc(void *a, unsigned int *b, int c, unsigned int d, size_t e);
+PS_DLLAPI void *PSSYSalloc(void *, unsigned int *, int , unsigned int , size_t );
 
 PS_DLLAPI void *PSSYSallocobj(PSmemobj *, int);
 
+/*! @brief Free up memory
+ * @param pointer Memory pointer to be freed up
+ */
 PS_DLLAPI void  PSSYSfree(void *);
 PS_DLLAPI void  PSSYSfreeobj(PSmemobj *);
 PS_DLLAPI void  PSSYSfreearray(char **, int);

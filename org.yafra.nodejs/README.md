@@ -1,5 +1,3 @@
-# yafra
+The OpenShift `nodejs` cartridge documentation can be found at:
 
-## NodeJS Express
-
-A server implementation using NodeJS Express and Mongoose which can be deployed on a standard server setup or within OpenShift
+https://github.com/openshift/origin-server/tree/master/cartridges/openshift-origin-cartridge-nodejs/README.md

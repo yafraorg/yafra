@@ -1,6 +1,6 @@
 '''
 Created on Jul 5, 2012
-
+@brief pssys python client testcase
 @author: mwn
 '''
 import sys

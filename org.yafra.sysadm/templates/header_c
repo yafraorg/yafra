@@ -1,4 +1,4 @@
-/*D***********************************************************
+/*
  *  Copyright 2002 yafra.org
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,11 +12,14 @@
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
- *
- * modul:     API - utilities                           
- *
+ */
+
+/*!
+ * @file psshared.c
+ * @brief    implementation of xxx.h
  * @author:    xx
- **************************************************************/
+ */
+
 static char rcsid[]="yafra.org";
 static char tagid[]="yafra.org"; /* tagid is only once in the main() needed */
 

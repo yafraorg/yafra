@@ -17,9 +17,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 
-Created on 02.06.2012
-Project yafra.org - org.yafra.padmin
-Python administration tool
+@date June 2012
+@brief Python administration tool
 @author: mwn
 '''
 

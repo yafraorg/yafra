@@ -1,5 +1,3 @@
-# yafra
+The OpenShift `python` cartridge documentation can be found at:
 
-## Python FLASK
-
-A server implementation using Flask, SQLAlchemy which can be deployed on a standard server setup or within OpenShift
+https://github.com/openshift/origin-server/tree/master/cartridges/openshift-origin-cartridge-python/README.md
