@@ -1,5 +1,5 @@
 # coding: utf-8
-from main import db
+from app import db
 
 #t_AUTO_PK_SUPPORT = db.Table(
 #    'AUTO_PK_SUPPORT', db.metadata,
