@@ -6,8 +6,9 @@ __author__ = 'mwn'
 #mail = Mail()
 db = SQLAlchemy()
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://yafraadmin:yafra@webdev/yafra'
-app.config['SQLALCHEMY_ECHO'] = True
+app.config.from_object('config')
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://yafraadmin:yafra@webdev/yafra'
+#app.config['SQLALCHEMY_ECHO'] = True
 db.init_app(app)
 
 from app import viewPerson
