@@ -20,8 +20,8 @@
 'use strict';
 
 //	OpenShift sample Node application
-var restify = require('restify');
 var mongoose = require('mongoose');
+var express = require("express");
 var yafrarest = require('./yafrarest.js');
 
 /**

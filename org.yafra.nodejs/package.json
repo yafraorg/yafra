@@ -28,8 +28,10 @@
 
   "dependencies": {
     "express": "*",
-    "mongoose": ">=3.8.8"
-  },
+    "mongoose": ">=3.8.8",
+    "stylus":  "0.29.x",
+    "jade":    "0.27.x"
+    },
   "devDependencies": {},
   "bundleDependencies": [],
 
