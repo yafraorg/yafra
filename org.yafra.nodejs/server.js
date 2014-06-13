@@ -27,10 +27,11 @@ var yafrarest = require('./yafrarest.js');
 /**
  *	Define the sample application.
  */
-var SampleApp = function() {
+var YafraApp = function() {
 
 	//	Scope.
 	var self = this;
+    var app;
 
 
 	/*	================================================================  */
@@ -82,16 +83,6 @@ var SampleApp = function() {
 		});
 	};
 
-	/**
-	 *	Initialize the server (express) and create the routes and register
-	 *	the handlers.
-	 */
-	self.initializeServer = function() {
-		self.app = restify.createServer({
-			name : "myapp"
-			});
-	};
-
 
 	/**
 	 *	Initializes the sample application.
@@ -101,19 +92,23 @@ var SampleApp = function() {
 		self.setupTerminationHandlers();
 
 		// Create the express server and routes.
-		self.initializeServer();
+        self.app  = express();
 
-		self.app.use(restify.queryParser());
-		self.app.use(restify.bodyParser());
-		self.app.use(restify.CORS());
+        //This uses the Connect frameworks body parser to parse the body of the post request
+        /*self.app.configure(function () {
+            self.app.use(express.bodyParser());
+            self.app.use(express.methodOverride());
+            self.app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+        });
+*/
 
-		self.app.get(/.*/, restify.serveStatic({
-			'directory': 'static/',
-			'default': 'index.html'
-			}));
-		yafrarest.init();
-		self.app.get('/messages', yafrarest.restGetMsgs);
-	};
+        //define all the url mappings
+        yafrarest.init();
+        self.app.get('/yafra', yafrarest.showindex);
+        self.app.get('/', function(req, res){
+            res.send('Hello World');
+        });
+    };
 
 
 	/**
@@ -133,6 +128,6 @@ var SampleApp = function() {
 /**
  *	main():	 Main code.
  */
-var yafraapp = new SampleApp();
+var yafraapp = new YafraApp();
 yafraapp.initialize();
 yafraapp.start();
