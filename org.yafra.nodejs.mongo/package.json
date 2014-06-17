@@ -27,7 +27,7 @@
   },
 
   "dependencies": {
-    "mongoose": ">=3.8.8",
+    "mongoose": ">=3.8.8"
     },
   "devDependencies": {},
   "bundleDependencies": [],
