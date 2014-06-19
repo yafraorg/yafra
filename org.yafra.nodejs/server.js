@@ -51,6 +51,7 @@ var YafraApp = function() {
 			//	allows us to run/test the app locally.
 			console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
 			self.ipaddress = "127.0.0.1";
+            self.port = 8081;
 		};
 	};
 
@@ -88,11 +89,15 @@ var YafraApp = function() {
 	 *	Initializes the sample application.
 	 */
 	self.initialize = function() {
+        console.log('yafra - %s: Node server start.', Date(Date.now()) );
 		self.setupVariables();
+        console.log('yafra - setup var done' );
 		self.setupTerminationHandlers();
+        console.log('yafra - setup terminate handlers done' );
 
 		// Create the express server and routes.
         self.app  = express();
+        console.log('yafra - express init done' );
 
         //This uses the Connect frameworks body parser to parse the body of the post request
         /*self.app.configure(function () {
@@ -104,10 +109,13 @@ var YafraApp = function() {
 
         //define all the url mappings
         yafrarest.init();
+        console.log('yafra - yafrarest init done' );
         self.app.get('/yafra', yafrarest.showindex);
+        console.log('yafra - express /yafra get done' );
         self.app.get('/', function(req, res){
             res.send('Hello World');
         });
+        console.log('yafra - express / done' );
     };
 
 
@@ -116,6 +124,7 @@ var YafraApp = function() {
 	 */
 	self.start = function() {
 		//	Start the app on the specific interface (and port).
+        console.log('yafra - start' );
 		self.app.listen(self.port ,self.ipaddress, function(){
 			console.log('%s listening at %s ', self.app.name , self.app.url);
 			});

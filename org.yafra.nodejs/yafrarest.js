@@ -28,6 +28,7 @@ var Schema;
 
 // init function - opens the db
 var	init = function() {
+    console.log('yafra - yafrarest start init' );
 	var connectionstring = 'mongodb://' + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT;
 	db = mongoose.connect(connectionstring);
 	Schema = mongoose.Schema;
@@ -37,7 +38,7 @@ var	init = function() {
 		date: Date
 		});
 	// Use the schema to register a model with MongoDb
-	mongoose.model('Message', MessageSchema); 
+	mongoose.model('Message', MessageSchema);
 	return;
 	};
 exports.init = init;
