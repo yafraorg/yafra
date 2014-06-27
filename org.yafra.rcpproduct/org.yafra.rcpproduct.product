@@ -14,10 +14,12 @@ https://github.com/yafraorg/yafra
    </configIni>
 
    <launcherArgs>
-      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
    </launcherArgs>
 
    <windowImages/>
+
 
    <launcher>
       <solaris/>
@@ -26,7 +28,9 @@ https://github.com/yafraorg/yafra
       </win>
    </launcher>
 
+
    <vm>
+      <macos include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JRE-1.1</macos>
    </vm>
 
    <license>
@@ -116,17 +120,16 @@ http://www.yafra.org/
       <feature id="org.eclipse.emf.ecore"/>
       <feature id="org.eclipse.e4.rcp"/>
       <feature id="org.eclipse.emf.common"/>
-      <feature id="org.eclipse.rcp" version="4.3.2.v20140221-1700"/>
+      <feature id="org.eclipse.rcp"/>
    </features>
 
-	<configurations>
-		<plugin id="org.yafra.rcp.mainplugin" autoStart="false" startLevel="6" />
-		<plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="5" />
-		<plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
-		<plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
-		<plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
-		<plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
-	</configurations>
-
+   <configurations>
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+      <plugin id="org.yafra.rcp.mainplugin" autoStart="false" startLevel="6" />
+   </configurations>
 
 </product>

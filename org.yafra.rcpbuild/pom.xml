@@ -9,7 +9,7 @@
 	<packaging>pom</packaging>
 	<properties>
 		<tycho.version>0.20.0</tycho.version>
-		<kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>
+		<kepler-repo.url>http://download.eclipse.org/releases/luna</kepler-repo.url>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -23,7 +23,7 @@
 
 	<repositories>
 		<repository>
-			<id>kepler</id>
+			<id>luna</id>
 			<url>${kepler-repo.url}</url>
 			<layout>p2</layout>
 		</repository>
