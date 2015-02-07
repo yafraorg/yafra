@@ -1,5 +1,0 @@
-/NODEFAULTLIB:LIBCD
-d:/usr/exceed.nt/xdk/lib/xm.lib
-d:/usr/exceed.nt/xdk/lib/xt.lib
-d:/usr/exceed.nt/xdk/lib/xlibgui.lib
-d:/usr/exceed.nt/xdk/lib/xlib.lib

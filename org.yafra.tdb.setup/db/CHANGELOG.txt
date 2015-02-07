@@ -1,8 +1,0 @@
-
-org.tdb database setup - changelog
-
-version v05r60 nov 2008
-- added demo load script
-- changed charset and innodb support in mysql
-- updated several scripts
-

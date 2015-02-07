@@ -1,9 +1,0 @@
-/SUBSYSTEM:console
-g:/work/yafra-runtim/obj/tdb/tdbact.lib
-g:/work/yafra-runtim/obj/tdb/tdbdb.lib
-g:/work/yafra-runtim/obj/tdb/tdb.lib
-g:/work/libs/pssercom.lib
-"C:\Program Files\Microsoft SQL Server\80\Tools\DevTools\Lib\ntwdblib.lib"
-kernel32.lib
-odbc32.lib
-advapi32.lib

@@ -1,6 +1,0 @@
-/SUBSYSTEM:console
-d:\work\libs\pssys.lib
-d:\work\libs\psipc.lib
-nutc.lib
-wsock32.lib
-advapi32.lib

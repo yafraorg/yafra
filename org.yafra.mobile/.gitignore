@@ -1,4 +1,0 @@
-*.keystore
-*.sw*
-platforms/^.*
-plugins/
