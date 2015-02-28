@@ -4,40 +4,19 @@
    ==  in this case for the yafra distribution.                           ==
    =========================================================================
 
-This product includes software developed by
+This list is a common list of referenced software used by different yafra modules hosted on github.com/yafraorg.
+Each project can have its own NOTIC with specific references.
+
+The whole framework includes software developed by:
+
 The Apache Software Foundation projects (http://www.apache.org/).
-
-This product includes software developed by
 The Eclipse Project (http://www.eclipse.org/).
-
-This product includes software developed by
 The Mysql Project (http://www.mysql.org/).
-
-This product includes software developed by
 Java Software (http://www.java.com/).
-
-This product includes software developed by
-Simple Logging Facade for Java (SLF4J) (http://www.slf4j.org/)
-
-This product includes software developed by
 Drifty Ionic Framework (http://ionicframework.com/)
-
-This product includes software developed by
 Google (http://www.google.com/)
-
-This product includes software developed by
 GNU projects (http://www.gnu.org/)
-
-This product includes software developed by
-mono project (http://www.mono-project.com/)
-
-This product includes software developed by
-Bellcore, Andrew Lister, LessTif/Xbae team (http://xbae.sourceforge.net/)
-
-This product includes software developed by
 Twitter, Bootstrap (http://www.getbootstrap.com)
-
-This product includes software developed by
 jQuery project (http://jquery.com/)
 
 
