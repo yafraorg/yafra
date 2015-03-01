@@ -2,7 +2,7 @@
 'use strict';
 
   angular
-      .module('starterApp', ['ngMaterial', 'users'])
+      .module('yapkiApp', ['ngMaterial', 'users'])
       .config( function($mdThemingProvider, $mdIconProvider) {
 
       $mdIconProvider

@@ -10,11 +10,17 @@ export WWWDIR=/var/www/html
 export WORKNODE=/work/yafra-runtime
 test -d $WORKNODE/bin || mkdir -p $WORKNODE/bin
 
-echo "download latest build and make it available as nginx webapp"
+echo "setup client"
 cd $YAPKI
 git pull
-cp cgi/*.pl /usr/lib/cgi-bin/
 cd www
+npm update
+node_modules/.bin/bower update
 cp -r * $WWWDIR
+
+echo "setup server"
+cd $YAPKI
+cp cgi/*.pl /usr/lib/cgi-bin/
+sudo service apache2 start
 
 echo "done - running now YAPKI under nginx/perl/python with admin scripts under /usr/local/bin"
