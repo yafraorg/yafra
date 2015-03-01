@@ -30,17 +30,17 @@
 #-------------------------------------------------------------------------------
 
 #
-#Die Indexdatei besteht aus sechs Spalten, jeweils getrennt durch einen Tabulator (nicht durch Leerzeichen). Die Einträge in den einzelnen Spalten haben die folgende Bedeutung:
+#Die Indexdatei besteht aus sechs Spalten, jeweils getrennt durch einen Tabulator (nicht durch Leerzeichen). Die Eintrï¿½ge in den einzelnen Spalten haben die folgende Bedeutung:
 #
 #   1. Status des Zertifikats. Einer der Buchstaben R (revoked), E (expired) oder V (valid).
 #   2. Ablaufzeitpunkt des Zertifikats. Format ist YYMMDDHHMMSSZ in UTC-Zeit
-#   3. Ist in obiger Beispielzeile leer. Die Spalte kann aber ebenfalls einen Ablaufzeitpunkt YYMMDDHHMMSSZ in UTC-Zeit enthalten. Ist hier ein Zeitstempel eingetragen, entspricht er dem Widerrufszeitpunkt des Zertifikats. Dann muß in der ersten Spalte (statt V) ein R stehen. Für ein gültiges Zertifikat ist diese Spalte leer.
+#   3. Ist in obiger Beispielzeile leer. Die Spalte kann aber ebenfalls einen Ablaufzeitpunkt YYMMDDHHMMSSZ in UTC-Zeit enthalten. Ist hier ein Zeitstempel eingetragen, entspricht er dem Widerrufszeitpunkt des Zertifikats. Dann muï¿½ in der ersten Spalte (statt V) ein R stehen. Fï¿½r ein gï¿½ltiges Zertifikat ist diese Spalte leer.
 #   4. Hexadezimale Seriennummer des Zertifikats.
 #   5. Wo das Zertifikat zu finden ist. Wird derzeit immer mit "unknown" besetzt.
-#   6. Der Name des Zertifikatinhabers. Üblicherweise der Distinguished Name und die E-Mail-Adresse.
-#Grundsätzlich ist es möglich, über Veränderung der Indexdatei eine irrtümliche Zertifizierung "rückgängig" zu machen.
-#Das wird erreicht, indem die letzte Zeile gelöscht, und der Zähler in der Datei serial um Eins erniedrigt wird. Das gilt allerdings nur für
-#das zuletzt herausgegebene Zertifikat, und auch nur, wenn es noch nicht veröffentlicht wurde. Grundsätzlich ist für einen ernsthaften CA-Betrieb von solchen Veränderungen der Indexdatei abzuraten. Der bessere Weg wäre der Widerruf des betreffenden Zertifikats.
+#   6. Der Name des Zertifikatinhabers. ï¿½blicherweise der Distinguished Name und die E-Mail-Adresse.
+#Grundsï¿½tzlich ist es mï¿½glich, ï¿½ber Verï¿½nderung der Indexdatei eine irrtï¿½mliche Zertifizierung "rï¿½ckgï¿½ngig" zu machen.
+#Das wird erreicht, indem die letzte Zeile gelï¿½scht, und der Zï¿½hler in der Datei serial um Eins erniedrigt wird. Das gilt allerdings nur fï¿½r
+#das zuletzt herausgegebene Zertifikat, und auch nur, wenn es noch nicht verï¿½ffentlicht wurde. Grundsï¿½tzlich ist fï¿½r einen ernsthaften CA-Betrieb von solchen Verï¿½nderungen der Indexdatei abzuraten. Der bessere Weg wï¿½re der Widerruf des betreffenden Zertifikats.
 
 #pending: creation of crls, revoke, renew, expire, view details, view crl
 # plus request process update
@@ -64,7 +64,7 @@ use CGI;
 #
 
 # openssl locations
-my $openssl = 'c:/work/ssl';
+my $openssl = '/data/pki';
 my $pki = $openssl . '/CA_ROOT';
 my $pkicounter = $pki . '/serial';
 my $pkicerts = $pki . '/index.txt';
@@ -82,7 +82,7 @@ $fsel = $query->param('sel');
 my $output;
 if ($^O eq "MSWin32")
 	{
-	$output = "c:/CA_ROOT/www/systeminfo.txt";	# location for storage
+	$output = "/data/pki/CA_ROOT/www/systeminfo.txt";	# location for storage
 #	$output = "c:/pingout.txt";	# location for storage
 	}
 else
