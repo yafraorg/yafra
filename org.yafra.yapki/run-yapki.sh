@@ -34,4 +34,9 @@ cd $YAPKI
 cp cgi/*.pl /usr/lib/cgi-bin/
 sudo service apache2 start
 
+mkdir /work/ssl-rest
+cp $YAPKI/backend/* /work/ssl-rest
+cd /work/ssl-rest
+pip install -r requirements.txt
+
 echo "done - running now YAPKI under nginx/perl/python with admin scripts under /usr/local/bin"
