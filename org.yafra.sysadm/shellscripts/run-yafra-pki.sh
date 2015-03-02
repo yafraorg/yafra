@@ -1,6 +1,6 @@
-#docker run -d -p 8081:8081 --name yafrajava yafraorg/docker-yafrajava
-#docker run -t -p 8081:8081 --name yafrajava -i yafraorg/docker-yafrajava /bin/bash
+# run the yaframongo 
+docker run -d -p 27017:27017 --name yaframnongo yafraorg/docker-yafradb:mongodb
 
-#assuming yaframysql runs already
-#docker run -p 80:80 --rm --volumes-from yafraorg/docker-yafradb:dataonly --name yapki yafraorg/docker-yapki
-docker run -p 80:80 -t -i --rm --volumes-from yafradata --name yapki yafraorg/docker-yapki /bin/bash
+# run the pki with mongo and dataonly links/volumes
+#docker run -p 80:80  -p 8080:8080 -d --volumes-from yafraorg/docker-yafradb:dataonly --link yaframongo:db --name yapki yafraorg/docker-yapki
+docker run -p 80:80 -p 8080:8080 -t -i --rm --volumes-from yafradata --link yaframongo:db --name yapki yafraorg/docker-yapki /bin/bash
