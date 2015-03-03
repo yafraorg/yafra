@@ -1,9 +1,0 @@
-Flask==0.10
-#xlwt==0.7.5
-#reportlab==3.0
-#MarkupSafe==0.18
-#Werkzeug==0.9.4
-#Jinja2==2.7.2
-#Pillow==2.4.0
-pymongo==2.8
-Eve==0.5.2
