@@ -80,7 +80,7 @@ else
 	FDEBUG = -O -fno-strength-reduce
 	FLD = -emit-llvm -O
 endif
-FCC       = $(FDEBUG) $(FRELEASE)
+FCC       = -I/usr/include/malloc $(FDEBUG) $(FRELEASE)
 CMANFLAGS = -P "cc -E -C" -I$(PINC) -V -i$(INCLUDE) -o$(PMAN) -S$(MANSECTION)
 endif
 
