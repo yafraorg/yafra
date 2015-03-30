@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/yafraorg/yafra.png?label=ready&title=Ready)](https://waffle.io/yafraorg/yafra)
 # yafra
 
 ## README First!
