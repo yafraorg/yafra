@@ -1,0 +1,52 @@
+@startuml
+
+title <b>yafra</b> high level use case
+left to right direction
+
+User <<Human>>
+
+rectangle "front end" {
+User --> (Server generated HTML5)
+User --> (HTML5 AngularJS)
+User --> (Eclipse RCP)
+User --> (OSF/Motif)
+User --> (Mono .Net)
+User --> (PyGTK)
+User --> (PerlTk)
+}
+
+rectangle "back end" {
+(Server generated HTML5) --> (Python MongoDB server)
+(HTML5 AngularJS) --> (Python MongoDB server)
+(Eclipse RCP) --> (Python MongoDB server)
+
+(Server generated HTML5) --> (NodeJS Express MongoDB server)
+(Eclipse RCP) --> (NodeJS Express MongoDB server)
+(HTML5 AngularJS) --> (NodeJS Express MongoDB server)
+
+(Server generated HTML5) --> (Java Cayenne/CXF/Wicket/SQL server)
+(Eclipse RCP) --> (Java Cayenne/CXF/Wicket/SQL server)
+(HTML5 AngularJS) --> (Java Cayenne/CXF/Wicket/SQL server)
+
+(Server generated HTML5) --> (PHP Slim/DBO/SQL server)
+(Eclipse RCP) --> (PHP Slim/DBO/SQL server)
+(HTML5 AngularJS) --> (PHP Slim/DBO/SQL server)
+
+(OSF/Motif) --> (C/C++ server SQL database)
+(PyGTK) --> (C/C++ server SQL database)
+(PerlTk) --> (C/C++ server SQL database)
+(Mono .Net) --> (C/C++ server SQL database)
+}
+
+note left of User
+The yafra user using
+the different clients
+end note
+
+note right of (C/C++ server SQL database)
+Example based on top of a
+travel database use case
+end note
+
+
+@enduml
