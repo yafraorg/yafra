@@ -11,3 +11,5 @@ docker pull yafraorg/docker-yafradb:postgres
 docker pull yafraorg/docker-yafradb:mongodb
 docker pull yafraorg/docker-yafradb:dataonly
 docker pull yafraorg/docker-yapki
+docker pull yafraorg/docker-yafraepg
+docker pull yafraorg/docker-yafratv
