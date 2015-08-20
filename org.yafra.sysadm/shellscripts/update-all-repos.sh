@@ -1,37 +1,32 @@
 #!/bin/bash
-cd /work/repos
-cd openshift/jee
-echo .
-echo "openshift jee"
-git status
-git pull
-cd ../nodejs
-echo .
-echo "openshift nodejs"
-git status
-git pull
-cd ../python
-echo .
-echo "openshift python"
-git status
-git pull
-cd ../../git/YafraLocalGit
-echo .
-echo "yafra"
-git status
-git pull
-cd ../mcbsujet
-echo .
-echo "yafra - mcbsujet"
-git status
-git pull
-cd ../ionictests
-echo .
-echo "yafra - ionictests"
-git status
-git pull
-cd ../tire
-echo .
-echo "yafra - tire"
-git status
-git pull
+
+#
+# function update git (pull)
+#
+function updategit {
+	echo "Changing to $1 and update git"
+	cd "$1"
+	pwd
+	git status
+	git pull
+}
+
+#
+# main
+#
+updategit /work/repos/closedprojects
+updategit /work/repos/clubmanagement
+updategit /work/repos/docker-yafrabase
+updategit /work/repos/docker-yafratv
+updategit /work/repos/docker-yafraepg
+updategit /work/repos/yafra
+updategit /work/repos/yafra-database
+updategit /work/repos/yafra-java
+updategit /work/repos/yafra-mobile
+updategit /work/repos/yafra-nodejs
+updategit /work/repos/yafra-nodejsmean
+updategit /work/repos/yafra-php
+updategit /work/repos/yafra-python
+updategit /work/repos/yafra-tdb-c
+updategit /work/repos/yafra-tdb-csharp
+updategit /work/repos/yapki
