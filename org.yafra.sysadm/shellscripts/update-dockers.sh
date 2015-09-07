@@ -4,7 +4,6 @@ docker pull yafraorg/docker-yafraphp
 docker pull yafraorg/docker-yafrapython
 docker pull yafraorg/docker-yafrac
 docker pull yafraorg/docker-yafrajava
-docker pull yafraorg/docker-yafraperl
 docker pull yafraorg/docker-yafranet
 docker pull yafraorg/docker-yafradb:mysql
 docker pull yafraorg/docker-yafradb:postgres
@@ -13,3 +12,5 @@ docker pull yafraorg/docker-yafradb:dataonly
 docker pull yafraorg/docker-yapki
 docker pull yafraorg/docker-yafraepg
 docker pull yafraorg/docker-yafratv
+#docker pull shippable/minv2
+#docker pull shippableimages/ubuntu1404_nodejs
