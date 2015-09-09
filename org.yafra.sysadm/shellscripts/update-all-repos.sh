@@ -1,32 +1,46 @@
 #!/bin/bash
+export WORKDIR=/work/repos
 
 #
 # function update git (pull)
 #
 function updategit {
 	echo "Changing to $1 and update git"
-	cd "$1"
-	pwd
-	git status
-	git pull
+	if [ ! -d "$WORKDIR/$1" ]; then
+		# Control will enter here if $DIRECTORY doesn't exist.
+		echo "YAFRA - cloning $1"
+		git clone https://github.com/yafraorg/$1
+	else
+		cd "$WORKDIR/$1"
+		echo "YAFRA - pull $1"
+		pwd
+		git status
+		git pull
+	fi
 }
 
 #
 # main
 #
-updategit /work/repos/closedprojects
-updategit /work/repos/clubmanagement
-updategit /work/repos/docker-yafrabase
-updategit /work/repos/docker-yafratv
-updategit /work/repos/docker-yafraepg
-updategit /work/repos/yafra
-updategit /work/repos/yafra-database
-updategit /work/repos/yafra-java
-updategit /work/repos/yafra-mobile
-updategit /work/repos/yafra-nodejs
-updategit /work/repos/yafra-nodejsmean
-updategit /work/repos/yafra-php
-updategit /work/repos/yafra-python
-updategit /work/repos/yafra-tdb-c
-updategit /work/repos/yafra-tdb-csharp
-updategit /work/repos/yapki
+updategit closedprojects
+updategit clubmanagement
+updategit docker-yafrabase
+updategit docker-yafrac
+updategit docker-yafraepg
+updategit docker-yafrajava
+updategit docker-yafranodejs
+updategit docker-yafraphp
+updategit docker-yafratv
+updategit docker-yapki
+updategit ionictests
+updategit yafra
+updategit yafra-archive
+updategit yafra-database
+updategit yafra-java
+updategit yafra-mobile
+updategit yafra-nodejs
+updategit yafra-php
+updategit yafra-tdb-c
+updategit yafra-tdb-csharp
+updategit yafra-toroam
+updategit yapki
