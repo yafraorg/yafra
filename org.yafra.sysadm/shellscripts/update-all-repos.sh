@@ -17,6 +17,7 @@ function updategit {
 		git status
 		git pull
 	fi
+	cd $WORKDIR
 }
 
 #
