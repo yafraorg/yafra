@@ -46,9 +46,9 @@ export JDK_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home
 export JAVA_HOME=$JDK_HOME
 
 # ANDROID stuff
-export ADK_HOME=/work/android/android-sdk-macosx
+export ANDROID_HOME=/work/android/android-sdk-macosx
 
-#export PATH=$PATH:$ADK_HOME/tools:$ADK_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
 #
 # setup general yafra.org paths
