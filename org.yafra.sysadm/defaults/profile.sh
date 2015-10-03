@@ -19,22 +19,53 @@
 # Purpose:      Generic environment setup independend of system
 #-------------------------------------------------------------------------------
 
+
 #
-# setup general paths
+# GENERIC system environment
 #
-export BASENODE=/work/repos/git
+
+# some more ls aliases
+set -o vi
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# global umask rw rw r (002)
+#umask 002
+
+# display with ssh should be empty or set to :0.0
+#export DISPLAY=:0.0
+
+# set standard language only if you want the system default overwritten
+#export LANG=C.iso88591
+#export LC_ALL=C.iso88591
+#export LC_MESSAGES=C.iso88591
+
+# JAVA stuff
+export JDK_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home
+export JAVA_HOME=$JDK_HOME
+
+# ANDROID stuff
+export ADK_HOME=/work/android/android-sdk-macosx
+
+#export PATH=$PATH:$ADK_HOME/tools:$ADK_HOME/platform-tools
+
+#
+# setup general yafra.org paths
+#
+export BASENODE=/work/repos
 export JAVANODE=$BASENODE/yafra-java
 export TDBNODE=$BASENODE/yafra-tdb-c
 export YAFRADB=$BASENODE/yafra-database
 export WORKNODE=/work/yafra-runtime
 export SYSADM=$BASENODE/yafra/org.yafra.sysadm
-export YAFRATOOLS=$SYSADM/defaults
+export YAFRATOOLS=$SYSADM/defaults/shellscripts
 export YAFRABIN=$SYSADM/defaults/scripts
 export YAFRADOC=$WORKNODE/doc
 export YAFRAMAN=$WORKNODE/man
 export YAFRAEXE=$WORKNODE/bin
     
-export PATH=$PATH:$YAFRABIN:$YAFRAEXE
+export PATH=$PATH:$YAFRABIN:$YAFRAEXE:$YAFRATOOLS
 
 
 #
