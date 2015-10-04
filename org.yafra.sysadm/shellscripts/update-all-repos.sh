@@ -43,5 +43,6 @@ updategit yafra-nodejs
 updategit yafra-php
 updategit yafra-tdb-c
 updategit yafra-tdb-csharp
+updategit yafra-tdb-python
 updategit yafra-toroam
 updategit yapki
