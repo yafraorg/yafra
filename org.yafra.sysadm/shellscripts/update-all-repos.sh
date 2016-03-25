@@ -72,10 +72,12 @@ echo ==================================
 echo DONE with update
 echo ==================================
 
-git clone https://github.com/webernissle/sagetv
+echo git clone https://github.com/webernissle/sagetv
 
 echo do a rebase now:
 echo cd sagetv
+echo git status
+echo git pull
 echo git remote add upstream https://github.com/google/sagetv.git
 echo git fetch upstream
 echo git rebase upstream/master
