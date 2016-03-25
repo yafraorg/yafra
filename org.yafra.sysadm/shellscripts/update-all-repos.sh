@@ -25,7 +25,7 @@ function updategit {
 	if [ ! -d "$WORKDIR/$1" ]; then
 		# Control will enter here if $DIRECTORY doesn't exist.
 		echo "YAFRA - cloning $1"
-		git clone https://github.com/yafraorg/$1
+
 	else
 		cd "$WORKDIR/$1"
 		echo "YAFRA - pull $1"
@@ -41,6 +41,7 @@ function updategit {
 #
 updategit closedprojects
 updategit clubmanagement
+updategit pax
 updategit docker-yafrabase
 updategit docker-yafrac
 updategit docker-yafraepg
@@ -49,6 +50,9 @@ updategit docker-yafranodejs
 updategit docker-yafraphp
 updategit docker-yafratv
 updategit docker-yapki
+updategit docker-arm-yafradata
+updategit docker-arm-yafraproxy
+updategit docker-arm-yafradb
 updategit ionictests
 updategit yafra
 updategit yafra-archive
@@ -62,3 +66,19 @@ updategit yafra-tdb-csharp
 updategit yafra-tdb-python
 updategit yafra-toroam
 updategit yapki
+updategit yafra.wiki
+
+echo ==================================
+echo DONE with update
+echo ==================================
+
+git clone https://github.com/webernissle/sagetv
+
+echo do a rebase now:
+echo cd sagetv
+echo git remote add upstream https://github.com/google/sagetv.git
+echo git fetch upstream
+echo git rebase upstream/master
+echo git push origin master
+
+echo done
