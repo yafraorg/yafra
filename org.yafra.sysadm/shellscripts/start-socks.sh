@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-#-------------------------------------------------------------------------------
-#  Copyright 2002 yafra.org
+#
+#  Copyright 2016 yafra.org
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -13,11 +13,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-#-------------------------------------------------------------------------------
 #
-# Author:       Administrator
-#
-# Purpose:      find a text string in files including all sub directories
-#-------------------------------------------------------------------------------
-
-find . -exec grep -H -n 'searchtem' {} \;
+# start a socks server connecting to a local ssh server with a user as ARG 1
+sudo ssh -f -N -D 0.0.0.0:1080 $1@localhost 2>&1
