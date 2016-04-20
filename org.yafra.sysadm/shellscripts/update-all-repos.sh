@@ -50,7 +50,9 @@ updategit docker-yafranodejs
 updategit docker-yafraphp
 updategit docker-yafratv
 updategit docker-yapki
-updategit docker-arm-yafradata
+updategit docker-arm-yafrabase
+updategit docker-arm-yafranodejs
+updategit docker-arm-yapki
 updategit docker-arm-yafraproxy
 updategit docker-arm-yafradb
 updategit ionictests
