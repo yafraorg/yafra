@@ -25,6 +25,8 @@ function updategit {
 	if [ ! -d "$WORKDIR/$1" ]; then
 		# Control will enter here if $DIRECTORY doesn't exist.
 		echo "YAFRA - cloning $1"
+		cd $WORKDIR
+		git clone https://github.com/yafraorg/$1.git
 
 	else
 		cd "$WORKDIR/$1"
@@ -43,6 +45,7 @@ updategit closedprojects
 updategit clubmanagement
 updategit pax
 updategit docker-yafrabase
+updategit docker-yafradb
 updategit docker-yafrac
 updategit docker-yafraepg
 updategit docker-yafrajava
