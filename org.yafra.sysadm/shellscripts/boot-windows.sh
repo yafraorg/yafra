@@ -15,5 +15,5 @@
 #  limitations under the License.
 #
 # boot to other os on other partition
-sudo grub-reboot 4
+sudo grub-reboot 2
 sudo reboot
