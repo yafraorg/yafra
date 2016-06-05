@@ -1,4 +1,4 @@
-docker pull yafraorg/docker-yafrabase
+docker pull yafraorg/docker-yafrabase:1.0
 docker pull yafraorg/docker-yafranodejs
 docker pull yafraorg/docker-yafraphp
 docker pull yafraorg/docker-yafrapython

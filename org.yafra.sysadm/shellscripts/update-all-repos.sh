@@ -41,9 +41,6 @@ function updategit {
 #
 # main
 #
-updategit closedprojects
-updategit clubmanagement
-updategit pax
 updategit docker-yafrabase
 updategit docker-yafradb
 updategit docker-yafrac
@@ -72,20 +69,5 @@ updategit yafra-tdb-python
 updategit yafra-toroam
 updategit yapki
 updategit yafra.wiki
-
-echo ==================================
-echo DONE with update
-echo ==================================
-
-echo git clone https://github.com/webernissle/sagetv
-
-echo do a rebase now:
-echo cd sagetv
-echo git status
-echo git pull
-echo git remote add upstream https://github.com/google/sagetv.git
-echo git fetch upstream
-echo git rebase upstream/master
-echo git push origin master
 
 echo done
