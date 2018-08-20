@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #-------------------------------------------------------------------------------
 #  Copyright 2002 yafra.org
 #
@@ -15,12 +15,4 @@
 #  limitations under the License.
 #-------------------------------------------------------------------------------
 #
-# Author:       Administrator
-#
-# Purpose:      Environment setup for UNIX
-#-------------------------------------------------------------------------------
-#
-# revision tag:   $Name:  $
-# author:    $Author: xxx $
-# revision:  $Revision: 1.1 $
-#-------------------------------------------------------------------------------
+# YOUR TEXT DESCRIPTION HERE

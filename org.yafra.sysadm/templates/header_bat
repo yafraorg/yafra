@@ -14,13 +14,8 @@ REM #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 REM #  See the License for the specific language governing permissions and
 REM #  limitations under the License.
 REM #
-REM #	Project: My Project
-REM #	Description: 
+REM #	Description:
 REM #       This is a template for header to use in any bat file in software
 REM #
-REM #	Source Id: $Id: header_bat,v 1.1.1.1 2002-10-26 16:11:30 xy Exp $
-REM #	Created by: xx (xx@xy) on dd/MM/yyyy
-REM #	Last checkin done by $Author: xy $ on $Date: 2002-10-26 16:11:30 $ 
-REM #	Current revision $Revision: 1.1.1.1 $, tag $Name:  $
 REM #
 REM ###########################################################################
